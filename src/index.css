@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel:wght@400;500&family=Great+Vibes&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,31 +6,45 @@
 
 @layer base {
   :root {
-    /* Wedding palette — HSL */
+    /* ── Burgundy / Plum ── */
     --burg: 346 56% 23%;
     --burg-mid: 346 53% 31%;
     --burg-light: 346 38% 62%;
     --burg-pale: 346 42% 95%;
     --burg-tint: 346 38% 91%;
 
-    --chart: 68 72% 25%;
-    --chart-mid: 68 65% 33%;
-    --chart-light: 73 56% 47%;
-    --chart-pale: 72 52% 89%;
+    /* ── Chartreuse (bright yellow-green) ── */
+    --chartreuse: 68 88% 52%;
+    --chartreuse-mid: 68 72% 40%;
+    --chartreuse-dark: 68 65% 28%;
+    --chartreuse-pale: 68 60% 92%;
 
+    /* ── Olive Green ── */
+    --olive: 72 38% 38%;
+    --olive-light: 72 32% 52%;
+    --olive-dark: 72 40% 24%;
+
+    /* ── Moss Green ── */
+    --moss: 120 18% 30%;
+    --moss-light: 120 15% 42%;
+    --moss-dark: 120 20% 16%;
+
+    /* ── Gold ── */
     --gold: 36 35% 54%;
     --gold-light: 36 42% 65%;
     --gold-pale: 40 70% 94%;
 
+    /* ── Ink / Neutrals ── */
     --ink: 18 30% 9%;
     --ink-mid: 18 22% 19%;
     --ink-light: 18 14% 37%;
 
+    /* ── Backgrounds ── */
     --parchment: 33 30% 95%;
     --parchment-d: 33 22% 89%;
     --cream: 36 60% 98%;
 
-    /* Semantic mappings */
+    /* ── Semantic mappings ── */
     --background: 36 60% 98%;
     --foreground: 18 30% 9%;
     --card: 36 60% 98%;
@@ -39,11 +53,11 @@
     --popover-foreground: 18 30% 9%;
     --primary: 346 56% 23%;
     --primary-foreground: 40 70% 94%;
-    --secondary: 33 30% 95%;
+    --secondary: 68 60% 92%;
     --secondary-foreground: 18 30% 9%;
     --muted: 33 22% 89%;
     --muted-foreground: 18 14% 37%;
-    --accent: 36 35% 54%;
+    --accent: 68 88% 52%;
     --accent-foreground: 18 30% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -60,11 +74,6 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Custom tokens */
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'EB Garamond', Georgia, serif;
-    --font-kicker: 'Cinzel', serif;
   }
 }
 
@@ -74,7 +83,7 @@
   }
 
   body {
-    font-family: var(--font-body);
+    font-family: "EB Garamond", Georgia, serif;
     background: hsl(var(--cream));
     color: hsl(var(--ink));
     line-height: 1.75;
@@ -83,45 +92,118 @@
   }
 }
 
-/* Noise texture overlay */
+/* ── Noise texture overlay ── */
 .noise-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1000;
-  opacity: 0.035;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }
 
-/* Hero animations */
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(32px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50%       { opacity: 1;   transform: scaleY(1.1); }
-}
-
-/* Fade-up animation for scroll reveal */
+/* ── Scroll-reveal fade-up ── */
 .fade-up {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
 .fade-up:nth-child(2) { transition-delay: 0.08s; }
 .fade-up:nth-child(3) { transition-delay: 0.16s; }
 .fade-up:nth-child(4) { transition-delay: 0.24s; }
 .fade-up:nth-child(5) { transition-delay: 0.32s; }
 .fade-up:nth-child(6) { transition-delay: 0.40s; }
 .fade-up:nth-child(7) { transition-delay: 0.48s; }
+
+/* ── Hero animations ── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.1); }
+}
+
+/* ── Envelope flap animation ── */
+@keyframes flapOpen {
+  0%   { transform: perspective(700px) rotateX(0deg); }
+  100% { transform: perspective(700px) rotateX(-180deg); }
+}
+@keyframes flapClose {
+  0%   { transform: perspective(700px) rotateX(-180deg); }
+  100% { transform: perspective(700px) rotateX(0deg); }
+}
+@keyframes cardRise {
+  0%   { opacity: 0; transform: translateY(60px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(-80px) scale(1); }
+}
+@keyframes sceneExit {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.04); }
+}
+
+.envelope-flap-open {
+  animation: flapOpen 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.envelope-card-rise {
+  animation: cardRise 1s ease-out 0.6s forwards;
+}
+.scene-exit {
+  animation: sceneExit 0.6s ease-in forwards;
+}
+
+/* ── Page wrapper with top padding for nav ── */
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 4rem;
+  background: hsl(var(--cream));
+}
+
+/* ── Section heading style ── */
+.section-kicker {
+  font-family: "Cinzel", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: hsl(var(--chartreuse-dark));
+}
+
+/* ── Divider ornament ── */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--gold)), transparent);
+}
+
+/* ── Chat bubble ── */
+.chat-bubble-user {
+  background: hsl(var(--burg));
+  color: white;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+.chat-bubble-ai {
+  background: hsl(var(--parchment-d));
+  color: hsl(var(--ink));
+  border-radius: 1rem 1rem 1rem 0.25rem;
+}
