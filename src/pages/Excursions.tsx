@@ -1,274 +1,214 @@
 import { useEffect, useRef } from "react";
-import { ExternalLink } from "lucide-react";
 import AIChat from "@/components/wedding/AIChat";
+import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 
-const excursionDays = [
-  {
-    date: "Wednesday, May 21",
-    label: "Free Day (Non-Rehearsal Dinner Guests)",
-    note: "Perfect day to explore Lucca or take a day trip",
-  },
-  {
-    date: "Friday, May 23",
-    label: "Free Day — The Morning After",
-    note: "Enjoy a leisurely morning, then venture out",
-  },
-  {
-    date: "Saturday, May 24",
-    label: "Free Day / Departure Prep",
-    note: "Last full day — make it count!",
-  },
+const freeDays = [
+  { date: "Wednesday, May 21", note: "Free for guests not attending the Rehearsal Dinner" },
+  { date: "Friday, May 23",    note: "The morning after — take it slowly, then venture out" },
+  { date: "Saturday, May 24",  note: "Last full day in Tuscany — make it count" },
 ];
 
 const destinations = [
   {
     name: "Lucca",
-    distance: "Right here!",
-    emoji: "🏰",
+    distance: "You are already here",
     highlights: [
-      "Walk or cycle the ancient city walls (4km loop)",
-      "Visit the Guinigi Tower with rooftop oak trees",
-      "Explore Piazza dell'Anfiteatro (Roman amphitheatre)",
+      "Walk or cycle the ancient city walls — a 4km loop above the rooftops",
+      "Climb the Guinigi Tower with oak trees growing from its summit",
+      "Piazza dell'Anfiteatro — a Roman amphitheatre turned perfect oval piazza",
+      "Wine tasting at Lucchese wine bars",
       "Browse the daily market at Piazza San Michele",
-      "Wine tasting at local Lucchese wine bars",
     ],
-    tip: "Rent a bike — cycling the walls is one of the most iconic things you can do in Lucca.",
+    tip: "Rent a bicycle. Cycling the walls at dusk is something you will never forget.",
   },
   {
     name: "Pisa",
-    distance: "30 min by car / train",
-    emoji: "🗼",
+    distance: "30 minutes by car or train",
     highlights: [
-      "The Leaning Tower of Pisa (book in advance!)",
-      "Piazza dei Miracoli — cathedral, baptistery & tower",
-      "Lungarno riverside walk",
-      "Lunch at a local trattoria near the market",
+      "The Leaning Tower — book entry tickets in advance at opapisa.it",
+      "Piazza dei Miracoli — cathedral, baptistery, and tower together",
+      "Lungarno riverside walk and aperitivo",
     ],
-    tip: "Arrive early — the tower gets crowded by 10 AM. Book tower entry online at opapisa.it.",
+    tip: "Arrive early. The tower is crowded by 10 AM. Book well in advance.",
   },
   {
     name: "Florence",
-    distance: "75 min by car / 1.5 hrs by train",
-    emoji: "🎨",
+    distance: "75 minutes by car, 1.5 hours by train",
     highlights: [
-      "Uffizi Gallery (Botticelli, da Vinci, Michelangelo)",
-      "Ponte Vecchio & Oltrarno neighbourhood",
-      "Accademia Gallery — see Michelangelo's David",
-      "Piazzale Michelangelo at sunset",
-      "Mercato Centrale for incredible food",
+      "Uffizi Gallery — Botticelli, da Vinci, Michelangelo",
+      "Accademia Gallery — Michelangelo's David",
+      "Ponte Vecchio and the Oltrarno neighbourhood",
+      "Piazzale Michelangelo at golden hour",
+      "Mercato Centrale for lunch",
     ],
-    tip: "Pre-book all museum tickets — the Uffizi and Accademia sell out weeks in advance.",
-  },
-  {
-    name: "Cinque Terre",
-    distance: "2 hrs by car",
-    emoji: "🌊",
-    highlights: [
-      "Hike the Sentiero Azzurro coastal trail",
-      "Visit all five villages: Riomaggiore, Manarola, Corniglia, Vernazza, Monterosso",
-      "Fresh seafood and limoncello with a view",
-      "Boat tour between the villages",
-    ],
-    tip: "Buy a Cinque Terre card for the train and trails. Start early to avoid the afternoon crowds.",
-  },
-  {
-    name: "Siena",
-    distance: "1.5 hrs by car",
-    emoji: "🏙️",
-    highlights: [
-      "Piazza del Campo — one of Italy's greatest squares",
-      "Siena Cathedral (Duomo di Siena)",
-      "Torre del Mangia — climb for city views",
-      "Explore the medieval contrade (neighbourhoods)",
-    ],
-    tip: "Siena is hilly — wear comfortable shoes. It's less crowded than Florence and absolutely stunning.",
+    tip: "Pre-book all museums. The Uffizi and Accademia sell out weeks in advance.",
   },
   {
     name: "Chianti Wine Country",
-    distance: "1 hr by car",
-    emoji: "🍷",
+    distance: "1 hour by car",
     highlights: [
-      "Wine tasting at Chianti Classico estates",
-      "Drive the Via Chiantigiana scenic route",
-      "Visit Greve in Chianti's main square",
-      "Truffle hunting tours (seasonal)",
+      "Private tastings at Chianti Classico estates",
+      "Drive the Via Chiantigiana — one of Italy's great scenic roads",
+      "Visit the hilltop village of Greve in Chianti",
     ],
-    tip: "Book a guided wine tour so everyone can enjoy without worrying about driving. Many estates offer private tours.",
+    tip: "Book a guided wine tour so everyone can enjoy without worrying about driving.",
+  },
+  {
+    name: "Cinque Terre",
+    distance: "2 hours by car",
+    highlights: [
+      "Hike between the five coastal villages",
+      "Fresh seafood and limoncello with a view",
+      "Boat tours between Riomaggiore, Vernazza, and Monterosso",
+    ],
+    tip: "Buy a Cinque Terre card for the train and trails. Start before 9 AM.",
+  },
+  {
+    name: "Siena",
+    distance: "1.5 hours by car",
+    highlights: [
+      "Piazza del Campo — one of the great medieval squares of Europe",
+      "Siena Cathedral, among the finest Gothic churches in Italy",
+      "Torre del Mangia — climb for sweeping views",
+    ],
+    tip: "Siena is hillier than it looks. Wear comfortable shoes.",
   },
 ];
 
-const bookingResources = [
-  { label: "Viator Tours", url: "https://www.viator.com", desc: "Group & private tours across Tuscany" },
-  { label: "GetYourGuide", url: "https://www.getyourguide.com", desc: "Instantly bookable activities" },
-  { label: "Airbnb Experiences", url: "https://www.airbnb.com/experiences", desc: "Local cooking classes, wine tours" },
-  { label: "Uffizi Tickets", url: "https://www.uffizi.it/en/tickets", desc: "Florence — book far in advance" },
-  { label: "Tower of Pisa", url: "https://www.opapisa.it", desc: "Official Pisa ticket booking" },
-  { label: "Trenitalia", url: "https://www.trenitalia.com", desc: "Train travel across Tuscany" },
-];
-
 export default function Excursions() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
+    const obs = new IntersectionObserver(
+      (e) => e.forEach((en) => en.isIntersecting && en.target.classList.add("visible")),
       { threshold: 0.1 }
     );
-    sectionRef.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    ref.current?.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <div className="page-wrapper" ref={sectionRef}>
+    <div className="page-wrapper" ref={ref}>
       {/* Hero */}
-      <section
-        className="relative flex flex-col items-center justify-center text-center py-24 px-6"
-        style={{
-          background: "linear-gradient(160deg, hsl(120,18%,16%) 0%, hsl(68,65%,18%) 100%)",
-        }}
-      >
-        <p className="section-kicker mb-4">Beyond the Wedding</p>
-        <h1 className="font-display text-5xl sm:text-6xl italic text-white mb-4">
+      <header className="pt-28 pb-20 text-center px-6">
+        <p className="kicker mb-5">Beyond the Wedding</p>
+        <h1
+          className="font-display italic text-burg leading-none mb-8"
+          style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
+        >
           Excursions
         </h1>
-        <div className="ornament-divider my-4">
-          <span className="text-gold text-xs">◆</span>
-        </div>
-        <p className="font-body text-base italic text-white/65 max-w-lg mt-4">
-          Make the most of your time in Tuscany
-        </p>
-      </section>
+        <span className="rule" />
+      </header>
+
+      {/* Hero photo */}
+      <div className="px-6 md:px-16 mb-24 reveal">
+        <PhotoPlaceholder aspect="wide" caption="Tuscany" />
+      </div>
 
       {/* Free days */}
-      <section className="py-12 px-6" style={{ background: "hsl(var(--parchment))" }}>
+      <section className="py-16 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8 fade-up">
-            <p className="section-kicker mb-2">Your Free Days</p>
-            <h2 className="font-display text-2xl italic text-burg">
+          <div className="reveal mb-10">
+            <p className="kicker mb-4">Your Free Days</p>
+            <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
               Days to Explore
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {excursionDays.map((day, i) => (
-              <div
-                key={i}
-                className="fade-up bg-white border border-parchment-d p-5 rounded-sm shadow-sm"
-              >
-                <p className="section-kicker mb-1">{day.date}</p>
-                <p className="font-body text-sm text-burg font-medium mb-1">{day.label}</p>
-                <p className="font-body text-xs text-ink-light italic">{day.note}</p>
+          <div className="space-y-0 reveal">
+            {freeDays.map((d, i) => (
+              <div key={i}>
+                <div className="rule-full mb-4" />
+                <div className="grid md:grid-cols-2 gap-2 mb-4">
+                  <p className="kicker">{d.date}</p>
+                  <p className="font-body text-sm italic text-stone">{d.note}</p>
+                </div>
               </div>
             ))}
+            <div className="rule-full" />
           </div>
         </div>
       </section>
 
-      {/* Destinations grid */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <div className="text-center mb-12 fade-up">
-          <p className="section-kicker mb-2">Where to Go</p>
-          <h2 className="font-display text-3xl italic text-burg">
+      {/* Destinations */}
+      <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
+        <div className="reveal mb-10">
+          <p className="kicker mb-4">Where to Go</p>
+          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
             Destinations Near Lucca
           </h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-0 reveal">
           {destinations.map((dest, i) => (
-            <div
-              key={i}
-              className="fade-up bg-white border border-parchment-d rounded-sm shadow-sm overflow-hidden"
-            >
-              {/* Header */}
-              <div
-                className="px-5 py-4 flex items-center gap-3"
-                style={{ background: "hsl(var(--moss-dark))" }}
-              >
-                <span className="text-2xl">{dest.emoji}</span>
+            <div key={i}>
+              <div className="rule-full mb-6" />
+              <div className="grid md:grid-cols-3 gap-6 mb-6">
                 <div>
-                  <p className="font-kicker text-sm tracking-wide text-white">{dest.name}</p>
-                  <p className="font-body text-xs text-chartreuse/80">{dest.distance}</p>
+                  <p className="font-display italic text-burg text-2xl mb-1" style={{ fontWeight: 300 }}>
+                    {dest.name}
+                  </p>
+                  <p className="font-body text-xs text-stone">{dest.distance}</p>
                 </div>
-              </div>
-
-              {/* Highlights */}
-              <div className="p-5">
-                <ul className="flex flex-col gap-2 mb-4">
+                <ul className="space-y-2 md:col-span-2">
                   {dest.highlights.map((h, j) => (
-                    <li key={j} className="flex items-start gap-2 font-body text-xs text-ink-mid">
-                      <span className="text-chartreuse-dark mt-0.5">✦</span>
+                    <li key={j} className="font-body text-sm text-ink-mid leading-relaxed flex gap-3">
+                      <span className="text-stone-light flex-shrink-0 mt-0.5">—</span>
                       {h}
                     </li>
                   ))}
+                  <li className="pt-2">
+                    <p className="font-body text-xs italic text-stone leading-relaxed">{dest.tip}</p>
+                  </li>
                 </ul>
-                <div
-                  className="p-3 rounded-sm border-l-2 border-chartreuse"
-                  style={{ background: "hsl(var(--chartreuse-pale))" }}
-                >
-                  <p className="font-body text-xs italic text-ink-mid">
-                    💡 {dest.tip}
-                  </p>
-                </div>
               </div>
             </div>
           ))}
+          <div className="rule-full" />
         </div>
       </section>
 
-      {/* AI Excursions Assistant */}
-      <section className="py-16 px-6 max-w-3xl mx-auto">
-        <div className="text-center mb-8 fade-up">
-          <p className="section-kicker mb-2">Plan Your Days</p>
-          <h2 className="font-display text-3xl italic text-burg mb-3">
-            Activity Planner
-          </h2>
-          <p className="font-body text-sm text-ink-light italic">
-            Ask me to build a custom itinerary, find the best restaurants, book tours, or suggest
-            activities for any day of your trip.
-          </p>
-        </div>
-        <div className="fade-up">
-          <AIChat
-            title="Excursion Planner"
-            subtitle="Tuscany activities, restaurants & day trips"
-            systemContext="You are a knowledgeable Tuscany travel concierge helping guests attending McKenna and Jordan Bradley's wedding in Lucca, Italy (May 22, 2027). Guests have free days on May 21, 23, and 24. Help them plan day trips to Pisa (30 min away), Florence (75 min), Siena (1.5 hrs), Cinque Terre (2 hrs), Chianti wine country (1 hr), and local Lucca activities. Suggest specific restaurants, tours, booking links (Viator, GetYourGuide), and practical tips. Be enthusiastic, specific, and helpful. Include estimated prices when relevant."
-            placeholder="e.g. Build me a full day itinerary in Florence…"
-            suggestions={[
-              "Best day trip from Lucca?",
-              "Plan a full day in Florence",
-              "Wine tours near Lucca",
-              "Best restaurants in Lucca",
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* Booking resources */}
-      <section
-        className="py-14 px-6"
-        style={{ background: "hsl(var(--burg))" }}
-      >
-        <div className="max-w-4xl mx-auto">
-          <p className="font-kicker text-[0.6rem] tracking-[0.3em] uppercase text-chartreuse text-center mb-6">
-            Book Your Experiences
-          </p>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {bookingResources.map((r) => (
-              <a
-                key={r.label}
-                href={r.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 bg-white/10 border border-white/20 p-4 rounded-sm hover:bg-white/20 transition-colors group"
-              >
-                <div className="flex-1">
-                  <p className="font-kicker text-xs tracking-wide text-chartreuse group-hover:text-white transition-colors mb-0.5">
-                    {r.label}
-                  </p>
-                  <p className="font-body text-xs text-white/60">{r.desc}</p>
-                </div>
-                <ExternalLink size={12} className="text-white/40 flex-shrink-0 mt-0.5" />
-              </a>
-            ))}
+      {/* AI planner */}
+      <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
+        <div className="max-w-2xl mx-auto">
+          <div className="reveal mb-8">
+            <p className="kicker mb-4">Plan Your Days</p>
+            <h2 className="font-display italic text-burg mb-2" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+              Activity Planner
+            </h2>
+            <p className="font-body text-sm italic text-stone">
+              Ask for a custom itinerary, restaurant recommendations, or help booking activities anywhere in Tuscany.
+            </p>
           </div>
+          <div className="reveal">
+            <AIChat
+              title="Excursion Planner"
+              subtitle="Tuscany activities, restaurants & day trips"
+              systemContext="You are a Tuscany travel concierge helping guests at McKenna and Jordan Bradley's wedding in Lucca, Italy (May 22, 2027). Free days are May 21, 23, and 24. Help plan day trips to Pisa (30 min), Florence (75 min), Siena (1.5 hrs), Cinque Terre (2 hrs), Chianti (1 hr), and local Lucca activities. Suggest specific restaurants, tours, booking links via Viator and GetYourGuide, and practical tips. Include estimated prices when helpful."
+              placeholder="e.g. Build me a full day itinerary in Florence…"
+              suggestions={["Best day trip from Lucca?","Plan a day in Florence","Wine tours near Lucca","Best restaurants in Lucca"]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Booking links */}
+      <section className="py-14 px-6" style={{ background: "hsl(var(--burg))" }}>
+        <div className="max-w-3xl mx-auto flex flex-wrap gap-4 justify-center">
+          {[
+            { label: "Viator", url: "https://www.viator.com" },
+            { label: "GetYourGuide", url: "https://www.getyourguide.com" },
+            { label: "Uffizi Tickets", url: "https://www.uffizi.it/en/tickets" },
+            { label: "Pisa Tower", url: "https://www.opapisa.it" },
+            { label: "Trenitalia", url: "https://www.trenitalia.com" },
+          ].map((l) => (
+            <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
+              className="kicker px-5 py-2.5 transition-all"
+              style={{ border: "1px solid rgba(250,248,242,0.2)", color: "rgba(250,248,242,0.6)" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "hsl(var(--chart-mid))")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(250,248,242,0.6)")}
+            >
+              {l.label}
+            </a>
+          ))}
         </div>
       </section>
     </div>

@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/wedding/Navbar";
+import ScrollToTop from "@/components/wedding/ScrollToTop";
 import Landing from "./pages/Landing";
 import OurStory from "./pages/OurStory";
 import Accommodations from "./pages/Accommodations";
@@ -25,6 +26,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="noise-overlay" />
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />

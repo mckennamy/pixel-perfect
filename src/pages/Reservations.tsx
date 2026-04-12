@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus, Trash2, CheckCircle } from "lucide-react";
 
 const guestSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -32,9 +31,14 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const inputClass =
+  "w-full font-body text-sm bg-white px-3 py-3 focus:outline-none placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
+const inputWrap = "border border-[hsl(var(--border))] focus-within:border-[hsl(var(--burg-mid))] transition-colors";
+const errorClass = "font-body text-xs mt-1" + " text-red-600";
+
 export default function Reservations() {
   const [submitted, setSubmitted] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -53,16 +57,15 @@ export default function Reservations() {
   const accommodationPref = watch("accommodationPreference");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
+    const obs = new IntersectionObserver(
+      (e) => e.forEach((en) => en.isIntersecting && en.target.classList.add("visible")),
       { threshold: 0.1 }
     );
-    sectionRef.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    ref.current?.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   const onSubmit = async (data: FormData) => {
-    // Save to localStorage and show confirmation
     const reservations = JSON.parse(localStorage.getItem("wedding_reservations") || "[]");
     const entry = {
       id: Date.now().toString(),
@@ -74,128 +77,110 @@ export default function Reservations() {
     reservations.push(entry);
     localStorage.setItem("wedding_reservations", JSON.stringify(reservations));
     setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   if (submitted) {
     return (
       <div className="page-wrapper flex items-center justify-center min-h-screen px-6">
-        <div className="text-center max-w-lg animate-invitation-reveal">
-          <div className="w-16 h-16 rounded-full bg-chartreuse/20 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={32} className="text-chartreuse-dark" />
-          </div>
-          <p className="section-kicker mb-3">You're Officially Invited</p>
-          <h1 className="font-display text-4xl italic text-burg mb-4">
-            Reservation Received!
+        <div className="text-center max-w-lg">
+          <p className="kicker mb-8">Reservation Received</p>
+          <h1
+            className="font-display italic text-burg leading-none mb-8"
+            style={{ fontSize: "clamp(3rem, 8vw, 5rem)", fontWeight: 300 }}
+          >
+            We'll See You<br />in Lucca
           </h1>
-          <div className="ornament-divider my-6 mx-auto" style={{ maxWidth: 240 }}>
-            <span className="text-gold text-xs">◆</span>
-          </div>
-          <p className="font-body text-base text-ink-mid leading-relaxed mb-6">
-            Thank you so much for reserving your spot at our wedding in Lucca.
-            We'll be in touch shortly with payment details and confirmation.
+          <span className="rule mb-10 block" />
+          <p className="font-body text-base text-ink-mid leading-relaxed mb-8">
+            Thank you for securing your place at our wedding in Lucca, Tuscany.
+            We will be in touch within 48 hours with payment details and confirmation.
           </p>
-          <p className="font-kicker text-[0.6rem] tracking-[0.3em] uppercase text-chartreuse-dark">
-            — Becoming Bradley, May 22, 2027 —
-          </p>
+          <p className="kicker">Becoming Bradley · May 22, 2027</p>
         </div>
       </div>
     );
   }
 
-  const inputClass =
-    "w-full font-body text-sm bg-white border border-parchment-d rounded-sm px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-burg/40 placeholder:text-ink-light/50";
-  const labelClass = "block font-kicker text-[0.58rem] tracking-widest uppercase text-ink-mid mb-1.5";
-  const errorClass = "font-body text-xs text-red-600 mt-1";
-
   return (
-    <div className="page-wrapper" ref={sectionRef}>
+    <div className="page-wrapper" ref={ref}>
       {/* Hero */}
-      <section
-        className="relative flex flex-col items-center justify-center text-center py-24 px-6"
-        style={{
-          background: "linear-gradient(160deg, hsl(346,56%,18%) 0%, hsl(346,56%,10%) 100%)",
-        }}
-      >
-        <p className="section-kicker mb-4">Secure Your Spot</p>
-        <h1 className="font-display text-5xl sm:text-6xl italic text-white mb-4">
+      <header className="pt-28 pb-20 text-center px-6">
+        <p className="kicker mb-5">Secure Your Place</p>
+        <h1
+          className="font-display italic text-burg leading-none mb-8"
+          style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
+        >
           Reservations
         </h1>
-        <div className="ornament-divider my-4">
-          <span className="text-gold text-xs">◆</span>
-        </div>
-        <p className="font-body text-base italic text-white/65 max-w-lg mt-4">
-          Complete the form below to officially reserve your place at our wedding
-        </p>
-      </section>
+        <span className="rule" />
+      </header>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto px-6 py-16">
-        {/* ── Section 1: Contact ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">01 — Your Details</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
-          </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto px-6 pb-24">
+
+        {/* ── 01: Your Details ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">01 — Your Details</p>
+          <div className="rule-full mb-8" />
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="sm:col-span-2">
-              <label className={labelClass}>Your Full Name *</label>
-              <input {...register("primaryName")} placeholder="McKenna Myers" className={inputClass} />
+              <p className="kicker mb-2">Your Full Name</p>
+              <div className={inputWrap}>
+                <input {...register("primaryName")} placeholder="McKenna Myers" className={inputClass} />
+              </div>
               {errors.primaryName && <p className={errorClass}>{errors.primaryName.message}</p>}
             </div>
             <div>
-              <label className={labelClass}>Email Address *</label>
-              <input {...register("email")} type="email" placeholder="you@email.com" className={inputClass} />
+              <p className="kicker mb-2">Email Address</p>
+              <div className={inputWrap}>
+                <input {...register("email")} type="email" placeholder="you@email.com" className={inputClass} />
+              </div>
               {errors.email && <p className={errorClass}>{errors.email.message}</p>}
             </div>
             <div>
-              <label className={labelClass}>Phone Number *</label>
-              <input {...register("phone")} placeholder="+1 (317) 555-0100" className={inputClass} />
+              <p className="kicker mb-2">Phone Number</p>
+              <div className={inputWrap}>
+                <input {...register("phone")} placeholder="+1 (317) 555-0100" className={inputClass} />
+              </div>
               {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
             </div>
           </div>
         </div>
 
-        {/* ── Section 2: Party members ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">02 — Your Party</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
-          </div>
-          <div className="flex flex-col gap-4">
+        {/* ── 02: Your Party ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">02 — Your Party</p>
+          <div className="rule-full mb-8" />
+          <div className="space-y-4">
             {fields.map((field, i) => (
-              <div key={field.id} className="bg-parchment/40 border border-parchment-d p-4 rounded-sm">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="font-kicker text-[0.55rem] tracking-widest uppercase text-ink-light">
-                    Guest {i + 1}
-                  </p>
+              <div key={field.id} style={{ background: "hsl(var(--parchment))", border: "1px solid hsl(var(--border))" }} className="p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="kicker">Guest {i + 1}</p>
                   {i > 0 && (
                     <button
                       type="button"
                       onClick={() => remove(i)}
-                      className="text-ink-light hover:text-red-500 transition-colors"
+                      className="font-body text-xs text-[hsl(var(--stone))] hover:text-red-500 transition-colors"
                     >
-                      <Trash2 size={14} />
+                      Remove
                     </button>
                   )}
                 </div>
-                <div className="grid sm:grid-cols-2 gap-3">
+                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass}>Full Name *</label>
-                    <input
-                      {...register(`guests.${i}.fullName`)}
-                      placeholder="Full legal name"
-                      className={inputClass}
-                    />
+                    <p className="kicker mb-2">Full Name</p>
+                    <div className={inputWrap}>
+                      <input {...register(`guests.${i}.fullName`)} placeholder="Full legal name" className={inputClass} />
+                    </div>
                     {errors.guests?.[i]?.fullName && (
                       <p className={errorClass}>{errors.guests[i]?.fullName?.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className={labelClass}>Dietary Restrictions</label>
-                    <input
-                      {...register(`guests.${i}.dietaryRestrictions`)}
-                      placeholder="Vegetarian, gluten-free, etc."
-                      className={inputClass}
-                    />
+                    <p className="kicker mb-2">Dietary Restrictions</p>
+                    <div className={inputWrap}>
+                      <input {...register(`guests.${i}.dietaryRestrictions`)} placeholder="Vegetarian, gluten-free…" className={inputClass} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -203,45 +188,48 @@ export default function Reservations() {
             <button
               type="button"
               onClick={() => append({ fullName: "", dietaryRestrictions: "" })}
-              className="flex items-center gap-2 font-kicker text-[0.58rem] tracking-widest uppercase text-chartreuse-dark border border-chartreuse-dark/40 px-4 py-2.5 hover:bg-chartreuse-dark hover:text-white transition-colors w-full justify-center"
+              className="w-full kicker py-3 transition-colors"
+              style={{ border: "1px solid hsl(var(--border))", color: "hsl(var(--chart-mid))" }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = "hsl(var(--chart))")}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = "hsl(var(--border))")}
             >
-              <Plus size={12} /> Add Guest
+              + Add Guest
             </button>
           </div>
         </div>
 
-        {/* ── Section 3: Payment ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">03 — Payment</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
-          </div>
-          <div className="flex flex-col gap-3">
+        {/* ── 03: Payment ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">03 — Payment</p>
+          <div className="rule-full mb-8" />
+          <div className="space-y-3">
             {[
               {
                 value: "deposit_50",
                 label: "Option 1 — 50% Deposit Now",
-                sub: "Remaining 50% due 90 days before the wedding (by February 22, 2027)",
+                sub: "Remaining 50% due by February 22, 2027 (90 days before the wedding)",
               },
               {
                 value: "full_payment",
-                label: "Option 2 — Pay in Full Now",
-                sub: "One-time full payment. No further balance due.",
+                label: "Option 2 — Pay in Full",
+                sub: "One complete payment. No further balance due.",
               },
             ].map((opt) => (
               <label
                 key={opt.value}
-                className="flex items-start gap-4 bg-white border border-parchment-d p-4 rounded-sm cursor-pointer hover:border-burg/40 transition-colors"
+                className="flex items-start gap-4 p-5 cursor-pointer transition-colors"
+                style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}
               >
                 <input
                   type="radio"
                   value={opt.value}
                   {...register("paymentOption")}
-                  className="mt-1 accent-burg"
+                  className="mt-1 accent-[hsl(var(--burg))]"
+                  style={{ accentColor: "hsl(var(--burg))" }}
                 />
                 <div>
-                  <p className="font-body text-sm text-ink font-medium">{opt.label}</p>
-                  <p className="font-body text-xs text-ink-light">{opt.sub}</p>
+                  <p className="font-body text-sm text-[hsl(var(--ink))]">{opt.label}</p>
+                  <p className="font-body text-xs italic text-[hsl(var(--stone))]">{opt.sub}</p>
                 </div>
               </label>
             ))}
@@ -249,31 +237,31 @@ export default function Reservations() {
           {errors.paymentOption && <p className={errorClass}>{errors.paymentOption.message}</p>}
         </div>
 
-        {/* ── Section 4: Accommodations ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">04 — Accommodation</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
-          </div>
-          <div className="flex flex-col gap-3 mb-4">
+        {/* ── 04: Accommodation ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">04 — Accommodation</p>
+          <div className="rule-full mb-8" />
+          <div className="space-y-3 mb-6">
             {[
               { value: "on_site_villa_grabau", label: "On-Site — Villa Grabau", sub: "Stay at the wedding venue itself" },
-              { value: "on_site_la_rancera", label: "On-Site — La Rancera", sub: "Charming Tuscan farmhouse, bridal party adjacent" },
-              { value: "off_site", label: "Off-Site", sub: "I'll arrange my own accommodation" },
+              { value: "on_site_la_rancera",   label: "On-Site — La Rancera",   sub: "Charming Tuscan farmhouse adjacent to the bridal party" },
+              { value: "off_site",             label: "Off-Site",               sub: "I will arrange my own accommodation" },
             ].map((opt) => (
               <label
                 key={opt.value}
-                className="flex items-start gap-4 bg-white border border-parchment-d p-4 rounded-sm cursor-pointer hover:border-burg/40 transition-colors"
+                className="flex items-start gap-4 p-5 cursor-pointer transition-colors"
+                style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}
               >
                 <input
                   type="radio"
                   value={opt.value}
                   {...register("accommodationPreference")}
-                  className="mt-1 accent-burg"
+                  className="mt-1"
+                  style={{ accentColor: "hsl(var(--burg))" }}
                 />
                 <div>
-                  <p className="font-body text-sm text-ink font-medium">{opt.label}</p>
-                  <p className="font-body text-xs text-ink-light">{opt.sub}</p>
+                  <p className="font-body text-sm text-[hsl(var(--ink))]">{opt.label}</p>
+                  <p className="font-body text-xs italic text-[hsl(var(--stone))]">{opt.sub}</p>
                 </div>
               </label>
             ))}
@@ -282,23 +270,18 @@ export default function Reservations() {
             <p className={errorClass}>{errors.accommodationPreference.message}</p>
           )}
 
-          {/* Linen service (only for on-site) */}
           {(accommodationPref === "on_site_villa_grabau" || accommodationPref === "on_site_la_rancera") && (
-            <div className="mt-4">
-              <label className={labelClass}>Daily Linen &amp; Towel Change Service?</label>
-              <p className="font-body text-xs text-ink-light mb-3">
-                Available for an additional charge per night
-              </p>
-              <div className="flex gap-4">
-                {["yes", "no"].map((v) => (
-                  <label key={v} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      value={v}
-                      {...register("linenService")}
-                      className="accent-burg"
-                    />
-                    <span className="font-body text-sm text-ink capitalize">{v === "yes" ? "Yes, please" : "No, thank you"}</span>
+            <div className="mt-6 p-5" style={{ border: "1px solid hsl(var(--border))" }}>
+              <p className="kicker mb-1">Daily Linen & Towel Service</p>
+              <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-4">Available for an additional charge per night</p>
+              <div className="flex gap-6">
+                {[
+                  { value: "yes", label: "Yes, please" },
+                  { value: "no",  label: "No, thank you" },
+                ].map((v) => (
+                  <label key={v.value} className="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" value={v.value} {...register("linenService")} style={{ accentColor: "hsl(var(--burg))" }} />
+                    <span className="font-body text-sm text-[hsl(var(--ink))]">{v.label}</span>
                   </label>
                 ))}
               </div>
@@ -306,77 +289,96 @@ export default function Reservations() {
           )}
         </div>
 
-        {/* ── Section 5: Flights ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">05 — Flight Info</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
-          </div>
-          <p className="font-body text-xs italic text-ink-light mb-5">
+        {/* ── 05: Flights ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">05 — Flight Information</p>
+          <div className="rule-full mb-2" />
+          <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-8">
             Optional — helps us coordinate arrivals and any group transfers.
           </p>
-          <div className="grid sm:grid-cols-2 gap-4 mb-5">
-            <p className="font-kicker text-[0.55rem] tracking-widest uppercase text-ink-light sm:col-span-2">
-              Arrival
-            </p>
-            <div>
-              <label className={labelClass}>Arrival Date</label>
-              <input type="date" {...register("flightArrivalDate")} className={inputClass} />
-            </div>
-            <div>
-              <label className={labelClass}>Flight Number</label>
-              <input {...register("flightArrivalNumber")} placeholder="e.g. KL1234" className={inputClass} />
-            </div>
-            <div className="sm:col-span-2">
-              <label className={labelClass}>Flying From</label>
-              <input {...register("flightArrivalFrom")} placeholder="e.g. Indianapolis (IND)" className={inputClass} />
+
+          <div className="mb-8">
+            <p className="kicker mb-4">Arrival</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <p className="kicker mb-2">Date</p>
+                <div className={inputWrap}>
+                  <input type="date" {...register("flightArrivalDate")} className={inputClass} />
+                </div>
+              </div>
+              <div>
+                <p className="kicker mb-2">Flight Number</p>
+                <div className={inputWrap}>
+                  <input {...register("flightArrivalNumber")} placeholder="e.g. KL1234" className={inputClass} />
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <p className="kicker mb-2">Flying From</p>
+                <div className={inputWrap}>
+                  <input {...register("flightArrivalFrom")} placeholder="e.g. Indianapolis (IND)" className={inputClass} />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <p className="font-kicker text-[0.55rem] tracking-widest uppercase text-ink-light sm:col-span-2">
-              Departure
-            </p>
-            <div>
-              <label className={labelClass}>Departure Date</label>
-              <input type="date" {...register("flightDepartureDate")} className={inputClass} />
-            </div>
-            <div>
-              <label className={labelClass}>Flight Number</label>
-              <input {...register("flightDepartureNumber")} placeholder="e.g. AF1823" className={inputClass} />
-            </div>
-            <div className="sm:col-span-2">
-              <label className={labelClass}>Flying To</label>
-              <input {...register("flightDepartureTo")} placeholder="e.g. Indianapolis (IND)" className={inputClass} />
+
+          <div>
+            <p className="kicker mb-4">Departure</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <p className="kicker mb-2">Date</p>
+                <div className={inputWrap}>
+                  <input type="date" {...register("flightDepartureDate")} className={inputClass} />
+                </div>
+              </div>
+              <div>
+                <p className="kicker mb-2">Flight Number</p>
+                <div className={inputWrap}>
+                  <input {...register("flightDepartureNumber")} placeholder="e.g. AF1823" className={inputClass} />
+                </div>
+              </div>
+              <div className="sm:col-span-2">
+                <p className="kicker mb-2">Flying To</p>
+                <div className={inputWrap}>
+                  <input {...register("flightDepartureTo")} placeholder="e.g. Indianapolis (IND)" className={inputClass} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ── Section 6: Notes ── */}
-        <div className="fade-up mb-10">
-          <div className="flex items-center gap-4 mb-6">
-            <p className="section-kicker whitespace-nowrap">06 — Anything Else?</p>
-            <div className="flex-1 h-px" style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }} />
+        {/* ── 06: Notes ── */}
+        <div className="reveal mb-14">
+          <p className="kicker mb-2">06 — Anything Else?</p>
+          <div className="rule-full mb-8" />
+          <p className="kicker mb-2">Notes or Special Requests</p>
+          <div className={inputWrap}>
+            <textarea
+              {...register("notes")}
+              rows={4}
+              placeholder="Accessibility needs, questions, anything we should know…"
+              className={inputClass + " resize-none"}
+            />
           </div>
-          <label className={labelClass}>Notes or Special Requests</label>
-          <textarea
-            {...register("notes")}
-            rows={4}
-            placeholder="Accessibility needs, questions, anything we should know…"
-            className={inputClass + " resize-none"}
-          />
         </div>
 
         {/* Submit */}
-        <div className="fade-up text-center">
+        <div className="reveal text-center">
+          <div className="rule-full mb-10" />
           <button
             type="submit"
             disabled={isSubmitting}
-            className="font-kicker text-[0.6rem] tracking-[0.3em] uppercase px-12 py-4 bg-burg text-white hover:bg-burg-mid disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="kicker inline-block px-14 py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "hsl(var(--burg))",
+              color: "hsl(var(--cream))",
+            }}
+            onMouseEnter={e => !isSubmitting && ((e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--burg-mid))")}
+            onMouseLeave={e => !isSubmitting && ((e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--burg))")}
           >
-            {isSubmitting ? "Submitting…" : "Submit My Reservation"}
+            {isSubmitting ? "Submitting…" : "Submit Reservation"}
           </button>
-          <p className="font-body text-xs italic text-ink-light mt-4">
-            We'll be in touch within 48 hours with payment details and confirmation.
+          <p className="font-body text-xs italic text-[hsl(var(--stone))] mt-6">
+            We will be in touch within 48 hours with payment details and confirmation.
           </p>
         </div>
       </form>

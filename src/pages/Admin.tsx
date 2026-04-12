@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Lock, Download, CheckCircle, XCircle, Clock, Trash2 } from "lucide-react";
 
 const ADMIN_PASSWORD = "bradley2027";
 
@@ -24,6 +23,9 @@ interface Reservation {
   paid: string;
   paymentStatus?: "unpaid" | "deposit_paid" | "fully_paid";
 }
+
+const inputClass =
+  "w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-2.5 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
 
 export default function Admin() {
   const [authed, setAuthed] = useState(false);
@@ -123,29 +125,31 @@ export default function Admin() {
     return (
       <div className="page-wrapper flex items-center justify-center min-h-screen px-6">
         <div className="w-full max-w-sm">
-          <div className="text-center mb-8">
-            <div className="w-12 h-12 rounded-full bg-burg/10 flex items-center justify-center mx-auto mb-4">
-              <Lock size={20} className="text-burg" />
-            </div>
-            <p className="section-kicker mb-1">Admin Access</p>
-            <h1 className="font-display text-3xl italic text-burg">Becoming Bradley</h1>
+          <div className="text-center mb-10">
+            <p className="kicker mb-4">Admin Access</p>
+            <h1
+              className="font-display italic text-burg"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            >
+              Becoming Bradley
+            </h1>
+            <span className="rule mt-6 block" />
           </div>
-          <div className="bg-white border border-parchment-d p-6 rounded-sm shadow-sm">
-            <label className="block font-kicker text-[0.58rem] tracking-widest uppercase text-ink-mid mb-2">
-              Password
-            </label>
+          <div className="p-8" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}>
+            <p className="kicker mb-3">Password</p>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && login()}
               placeholder="Enter admin password"
-              className="w-full font-body text-sm bg-parchment/40 border border-parchment-d rounded-sm px-3 py-2.5 mb-3 focus:outline-none focus:ring-1 focus:ring-burg/40"
+              className={inputClass + " mb-3"}
             />
-            {error && <p className="font-body text-xs text-red-600 mb-3">{error}</p>}
+            {error && <p className="font-body text-xs text-red-600 mb-4">{error}</p>}
             <button
               onClick={login}
-              className="w-full font-kicker text-[0.6rem] tracking-[0.3em] uppercase py-3 bg-burg text-white hover:bg-burg-mid transition-colors"
+              className="w-full kicker py-3 transition-colors"
+              style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
             >
               Sign In
             </button>
@@ -157,139 +161,177 @@ export default function Admin() {
 
   // ── Admin dashboard ──
   return (
-    <div className="page-wrapper px-6 py-8">
+    <div className="page-wrapper px-6 py-10">
       <div className="max-w-7xl mx-auto">
+
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+        <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
-            <p className="section-kicker mb-1">Admin Dashboard</p>
-            <h1 className="font-display text-3xl italic text-burg">Becoming Bradley</h1>
+            <p className="kicker mb-3">Admin Dashboard</p>
+            <h1 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+              Becoming Bradley
+            </h1>
           </div>
           <div className="flex gap-3">
             <button
               onClick={exportCSV}
-              className="flex items-center gap-2 font-kicker text-[0.58rem] tracking-widest uppercase border border-chartreuse-dark text-chartreuse-dark px-4 py-2 hover:bg-chartreuse-dark hover:text-white transition-colors"
+              className="kicker px-5 py-2.5 transition-colors"
+              style={{ border: "1px solid hsl(var(--chart))", color: "hsl(var(--chart-mid))" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--chart))"; (e.currentTarget as HTMLButtonElement).style.color = "white"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "hsl(var(--chart-mid))"; }}
             >
-              <Download size={12} /> Export CSV
+              Export CSV
             </button>
             <button
               onClick={() => { sessionStorage.removeItem("admin_authed"); setAuthed(false); }}
-              className="font-kicker text-[0.58rem] tracking-widest uppercase border border-parchment-d text-ink-light px-4 py-2 hover:border-burg/40 transition-colors"
+              className="kicker px-5 py-2.5 transition-colors"
+              style={{ border: "1px solid hsl(var(--border))", color: "hsl(var(--stone))" }}
+              onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "hsl(var(--burg-light))"}
+              onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "hsl(var(--border))"}
             >
               Sign Out
             </button>
           </div>
         </div>
 
+        <div className="rule-full mb-8" />
+
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-px mb-10" style={{ background: "hsl(var(--border))" }}>
           {[
-            { label: "Total RSVPs", value: stats.total, color: "text-burg" },
-            { label: "Total Guests", value: stats.guests, color: "text-moss" },
-            { label: "Fully Paid", value: stats.fullyPaid, color: "text-green-600" },
-            { label: "Deposit Paid", value: stats.depositPaid, color: "text-chartreuse-dark" },
-            { label: "Unpaid", value: stats.unpaid, color: "text-red-500" },
+            { label: "Total RSVPs",   value: stats.total,       color: "hsl(var(--burg))" },
+            { label: "Total Guests",  value: stats.guests,      color: "hsl(var(--moss))" },
+            { label: "Fully Paid",    value: stats.fullyPaid,   color: "#16a34a" },
+            { label: "Deposit Paid",  value: stats.depositPaid, color: "hsl(var(--chart-mid))" },
+            { label: "Unpaid",        value: stats.unpaid,      color: "#dc2626" },
           ].map((s) => (
-            <div key={s.label} className="bg-white border border-parchment-d p-4 rounded-sm text-center shadow-sm">
-              <p className={`font-display text-3xl italic ${s.color}`}>{s.value}</p>
-              <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mt-1">{s.label}</p>
+            <div key={s.label} className="text-center py-8 px-4" style={{ background: "hsl(var(--cream))" }}>
+              <p className="font-display italic leading-none mb-2" style={{ fontSize: "2.5rem", fontWeight: 300, color: s.color }}>
+                {s.value}
+              </p>
+              <p className="kicker">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Filter tabs */}
-        <div className="flex gap-2 mb-6 flex-wrap">
+        <div className="flex gap-2 mb-8 flex-wrap">
           {(["all", "unpaid", "deposit_paid", "fully_paid"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`font-kicker text-[0.55rem] tracking-widest uppercase px-4 py-2 border transition-colors ${
-                filter === f
-                  ? "bg-burg text-white border-burg"
-                  : "border-parchment-d text-ink-light hover:border-burg/40"
-              }`}
+              className="kicker px-5 py-2 transition-colors"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                background: filter === f ? "hsl(var(--burg))" : "transparent",
+                color: filter === f ? "hsl(var(--cream))" : "hsl(var(--stone))",
+                borderColor: filter === f ? "hsl(var(--burg))" : "hsl(var(--border))",
+              }}
             >
-              {f.replace("_", " ")}
+              {f.replace(/_/g, " ")}
             </button>
           ))}
         </div>
 
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Reservation list */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-px" style={{ background: "hsl(var(--border))" }}>
             {filtered.length === 0 ? (
-              <div className="bg-white border border-parchment-d p-8 rounded-sm text-center">
-                <p className="font-body text-sm italic text-ink-light">No reservations yet.</p>
+              <div className="p-10 text-center" style={{ background: "hsl(var(--cream))" }}>
+                <p className="font-body text-sm italic text-[hsl(var(--stone))]">No reservations yet.</p>
               </div>
             ) : (
-              <div className="flex flex-col gap-2">
-                {filtered.map((r) => {
-                  const ps = r.paymentStatus || "unpaid";
-                  const statusIcon =
-                    ps === "fully_paid" ? <CheckCircle size={12} className="text-green-600" /> :
-                    ps === "deposit_paid" ? <Clock size={12} className="text-chartreuse-dark" /> :
-                    <XCircle size={12} className="text-red-400" />;
-
-                  return (
-                    <button
-                      key={r.id}
-                      onClick={() => setSelected(r)}
-                      className={`w-full text-left bg-white border p-4 rounded-sm shadow-sm transition-colors ${selected?.id === r.id ? "border-burg" : "border-parchment-d hover:border-burg/40"}`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="font-body text-sm text-ink font-medium">{r.primaryName}</p>
-                          <p className="font-body text-xs text-ink-light">{r.email}</p>
-                          <p className="font-body text-xs text-ink-light mt-1">
-                            {r.guests.length} guest{r.guests.length !== 1 ? "s" : ""} ·{" "}
-                            {r.accommodationPreference.replace(/_/g, " ")}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-1.5 flex-shrink-0">
-                          {statusIcon}
-                        </div>
+              filtered.map((r) => {
+                const ps = r.paymentStatus || "unpaid";
+                const statusColor =
+                  ps === "fully_paid"   ? "#16a34a" :
+                  ps === "deposit_paid" ? "hsl(var(--chart-mid))" :
+                                          "#dc2626";
+                return (
+                  <button
+                    key={r.id}
+                    onClick={() => setSelected(r)}
+                    className="w-full text-left p-5 transition-colors"
+                    style={{
+                      background: selected?.id === r.id ? "hsl(var(--burg-pale))" : "hsl(var(--cream))",
+                    }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-body text-sm text-[hsl(var(--ink))]">{r.primaryName}</p>
+                        <p className="font-body text-xs text-[hsl(var(--stone))]">{r.email}</p>
+                        <p className="font-body text-xs text-[hsl(var(--stone))] mt-1">
+                          {r.guests.length} guest{r.guests.length !== 1 ? "s" : ""}
+                          {" · "}{r.accommodationPreference.replace(/_/g, " ")}
+                        </p>
                       </div>
-                    </button>
-                  );
-                })}
-              </div>
+                      <span
+                        className="kicker flex-shrink-0 mt-0.5"
+                        style={{ color: statusColor, fontSize: "0.5rem" }}
+                      >
+                        {ps.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })
             )}
           </div>
 
           {/* Detail panel */}
           <div className="lg:col-span-3">
             {selected ? (
-              <div className="bg-white border border-parchment-d rounded-sm shadow-sm p-6">
-                <div className="flex items-start justify-between mb-6">
+              <div className="p-8" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--cream))" }}>
+                <div className="flex items-start justify-between mb-8">
                   <div>
-                    <p className="section-kicker mb-1">Reservation Detail</p>
-                    <h2 className="font-display text-2xl italic text-burg">{selected.primaryName}</h2>
-                    <p className="font-body text-xs text-ink-light">
+                    <p className="kicker mb-2">Reservation Detail</p>
+                    <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}>
+                      {selected.primaryName}
+                    </h2>
+                    <p className="font-body text-xs text-[hsl(var(--stone))] mt-1">
                       Submitted {new Date(selected.submittedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                     </p>
                   </div>
-                  <button onClick={() => deleteReservation(selected.id)} className="text-ink-light hover:text-red-500 transition-colors p-1">
-                    <Trash2 size={16} />
+                  <button
+                    onClick={() => deleteReservation(selected.id)}
+                    className="font-body text-xs text-[hsl(var(--stone))] hover:text-red-600 transition-colors"
+                  >
+                    Remove
                   </button>
                 </div>
 
+                <div className="rule-full mb-6" />
+
                 {/* Contact */}
-                <div className="grid sm:grid-cols-2 gap-3 mb-5 text-sm">
-                  <div><p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-0.5">Email</p><p className="font-body text-ink">{selected.email}</p></div>
-                  <div><p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-0.5">Phone</p><p className="font-body text-ink">{selected.phone}</p></div>
-                  <div><p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-0.5">Accommodation</p><p className="font-body text-ink capitalize">{selected.accommodationPreference.replace(/_/g, " ")}</p></div>
-                  <div><p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-0.5">Linen Service</p><p className="font-body text-ink capitalize">{selected.linenService || "N/A"}</p></div>
+                <div className="grid sm:grid-cols-2 gap-5 mb-6">
+                  {[
+                    { label: "Email",         value: selected.email },
+                    { label: "Phone",         value: selected.phone },
+                    { label: "Accommodation", value: selected.accommodationPreference.replace(/_/g, " ") },
+                    { label: "Linen Service", value: selected.linenService || "N/A" },
+                  ].map((item) => (
+                    <div key={item.label}>
+                      <p className="kicker mb-1">{item.label}</p>
+                      <p className="font-body text-sm text-[hsl(var(--ink))] capitalize">{item.value}</p>
+                    </div>
+                  ))}
                 </div>
 
+                <div className="rule-full mb-6" />
+
                 {/* Guests */}
-                <div className="mb-5">
-                  <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-2">Party ({selected.guests.length})</p>
-                  <div className="flex flex-col gap-1">
+                <div className="mb-6">
+                  <p className="kicker mb-3">Party ({selected.guests.length})</p>
+                  <div className="space-y-1">
                     {selected.guests.map((g, i) => (
-                      <div key={i} className="flex items-center gap-2 font-body text-sm text-ink">
-                        <span className="text-chartreuse-dark text-xs">✦</span>
-                        {g.fullName}
-                        {g.dietaryRestrictions && <span className="text-xs text-ink-light italic">— {g.dietaryRestrictions}</span>}
+                      <div key={i} className="flex items-start gap-3 font-body text-sm text-[hsl(var(--ink))]">
+                        <span className="text-[hsl(var(--stone-light))] flex-shrink-0 mt-0.5">—</span>
+                        <span>
+                          {g.fullName}
+                          {g.dietaryRestrictions && (
+                            <span className="text-xs italic text-[hsl(var(--stone))]"> · {g.dietaryRestrictions}</span>
+                          )}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -297,53 +339,71 @@ export default function Admin() {
 
                 {/* Flights */}
                 {(selected.flightArrivalDate || selected.flightDepartureDate) && (
-                  <div className="mb-5 grid sm:grid-cols-2 gap-3">
-                    <div>
-                      <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-1">Arrival</p>
-                      <p className="font-body text-xs text-ink">{selected.flightArrivalDate} · {selected.flightArrivalNumber}</p>
-                      <p className="font-body text-xs text-ink-light">From: {selected.flightArrivalFrom}</p>
+                  <>
+                    <div className="rule-full mb-6" />
+                    <div className="grid sm:grid-cols-2 gap-5 mb-6">
+                      <div>
+                        <p className="kicker mb-1">Arrival</p>
+                        <p className="font-body text-xs text-[hsl(var(--ink))]">
+                          {selected.flightArrivalDate} · {selected.flightArrivalNumber}
+                        </p>
+                        <p className="font-body text-xs italic text-[hsl(var(--stone))]">From: {selected.flightArrivalFrom}</p>
+                      </div>
+                      <div>
+                        <p className="kicker mb-1">Departure</p>
+                        <p className="font-body text-xs text-[hsl(var(--ink))]">
+                          {selected.flightDepartureDate} · {selected.flightDepartureNumber}
+                        </p>
+                        <p className="font-body text-xs italic text-[hsl(var(--stone))]">To: {selected.flightDepartureTo}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-1">Departure</p>
-                      <p className="font-body text-xs text-ink">{selected.flightDepartureDate} · {selected.flightDepartureNumber}</p>
-                      <p className="font-body text-xs text-ink-light">To: {selected.flightDepartureTo}</p>
-                    </div>
-                  </div>
+                  </>
                 )}
 
                 {/* Notes */}
                 {selected.notes && (
-                  <div className="mb-5 p-3 bg-parchment/40 rounded-sm border border-parchment-d">
-                    <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-1">Notes</p>
-                    <p className="font-body text-sm text-ink-mid italic">{selected.notes}</p>
-                  </div>
+                  <>
+                    <div className="rule-full mb-6" />
+                    <div className="mb-6 p-4" style={{ background: "hsl(var(--parchment))", borderLeft: "2px solid hsl(var(--gold))" }}>
+                      <p className="kicker mb-1">Notes</p>
+                      <p className="font-body text-sm italic text-[hsl(var(--ink-mid))]">{selected.notes}</p>
+                    </div>
+                  </>
                 )}
+
+                <div className="rule-full mb-6" />
 
                 {/* Payment status */}
                 <div>
-                  <p className="font-kicker text-[0.5rem] tracking-widest uppercase text-ink-light mb-2">Payment Status</p>
+                  <p className="kicker mb-3">Payment Status</p>
                   <div className="flex gap-2 flex-wrap">
-                    {(["unpaid", "deposit_paid", "fully_paid"] as const).map((ps) => (
-                      <button
-                        key={ps}
-                        onClick={() => updatePaymentStatus(selected.id, ps)}
-                        className={`font-kicker text-[0.55rem] tracking-widest uppercase px-3 py-1.5 border transition-colors ${
-                          (selected.paymentStatus || "unpaid") === ps
-                            ? ps === "fully_paid" ? "bg-green-600 text-white border-green-600"
-                              : ps === "deposit_paid" ? "bg-chartreuse-dark text-white border-chartreuse-dark"
-                              : "bg-red-500 text-white border-red-500"
-                            : "border-parchment-d text-ink-light hover:border-burg/40"
-                        }`}
-                      >
-                        {ps.replace("_", " ")}
-                      </button>
-                    ))}
+                    {(["unpaid", "deposit_paid", "fully_paid"] as const).map((ps) => {
+                      const isActive = (selected.paymentStatus || "unpaid") === ps;
+                      const activeColor =
+                        ps === "fully_paid"   ? "#16a34a" :
+                        ps === "deposit_paid" ? "hsl(var(--chart))" :
+                                                "#dc2626";
+                      return (
+                        <button
+                          key={ps}
+                          onClick={() => updatePaymentStatus(selected.id, ps)}
+                          className="kicker px-4 py-2 transition-colors"
+                          style={{
+                            border: `1px solid ${isActive ? activeColor : "hsl(var(--border))"}`,
+                            background: isActive ? activeColor : "transparent",
+                            color: isActive ? "white" : "hsl(var(--stone))",
+                          }}
+                        >
+                          {ps.replace(/_/g, " ")}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="bg-parchment/40 border border-parchment-d rounded-sm p-8 text-center">
-                <p className="font-body text-sm italic text-ink-light">
+              <div className="p-10 text-center" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}>
+                <p className="font-body text-sm italic text-[hsl(var(--stone))]">
                   Select a reservation to view details.
                 </p>
               </div>
