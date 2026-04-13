@@ -102,7 +102,7 @@ export default function Excursions() {
 
       {/* Hero photo */}
       <div className="px-6 md:px-16 mb-24 reveal">
-        <PhotoPlaceholder aspect="wide" caption="Tuscany" />
+        <PhotoPlaceholder id="excursions-hero" aspect="wide" caption="Tuscany" />
       </div>
 
       {/* Free days */}

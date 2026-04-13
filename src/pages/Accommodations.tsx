@@ -102,7 +102,7 @@ export default function Accommodations() {
               </div>
             </div>
 
-            <PhotoPlaceholder aspect={v.photoAspect} />
+            <PhotoPlaceholder id={`accommodations-${v.name.toLowerCase().replace(/\s+/g, "-")}`} aspect={v.photoAspect} />
 
             <div className="mt-8 grid md:grid-cols-2 gap-8">
               <p className="font-body text-base text-ink-mid leading-relaxed">

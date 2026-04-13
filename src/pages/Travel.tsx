@@ -95,7 +95,7 @@ export default function Travel() {
 
       {/* Hero photo */}
       <div className="px-6 md:px-16 mb-24 reveal">
-        <PhotoPlaceholder aspect="wide" caption="Lucca, Tuscany" />
+        <PhotoPlaceholder id="travel-hero" aspect="wide" caption="Lucca, Tuscany" />
       </div>
 
       {/* Calendar */}

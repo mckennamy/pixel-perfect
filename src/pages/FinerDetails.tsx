@@ -60,7 +60,7 @@ export default function FinerDetails() {
 
       {/* Hero photo */}
       <div className="px-6 md:px-16 mb-24 reveal">
-        <PhotoPlaceholder aspect="wide" caption="Villa Grabau" />
+        <PhotoPlaceholder id="finer-details-hero" aspect="wide" caption="Villa Grabau" />
       </div>
 
       {/* Dress Code */}
@@ -153,7 +153,7 @@ export default function FinerDetails() {
           <div className="rule-full" />
         </div>
         <div className="mt-12 reveal">
-          <PhotoPlaceholder aspect="video" caption="Floral design inspiration" />
+          <PhotoPlaceholder id="finer-details-florals" aspect="video" caption="Floral design inspiration" />
         </div>
       </section>
 
