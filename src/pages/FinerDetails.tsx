@@ -221,13 +221,14 @@ export default function FinerDetails() {
       <section className="py-20 px-6 text-center" style={{ background: "hsl(var(--moss))" }}>
         <div className="max-w-2xl mx-auto reveal">
           <span className="rule mb-10 block" style={{ background: "hsl(var(--gold) / 0.4)" }} />
-          <p className="kicker mb-6" style={{ color: "hsl(var(--chart-mid) / 0.7)" }}>Our Theme</p>
-          <p
+          <EditableText id="finer-theme-kicker" tag="p" className="kicker mb-6" style={{ color: "hsl(var(--chart-mid) / 0.7)" }} defaultContent="Our Theme" />
+          <EditableText
+            id="finer-theme-heading"
+            tag="p"
             className="font-display italic text-white leading-snug mb-6"
             style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 300 }}
-          >
-            Old World Romance.<br />Modern Love.
-          </p>
+            defaultContent="Old World Romance. Modern Love."
+          />
           <EditableText
             id="theme-body"
             tag="p"
@@ -241,9 +242,9 @@ export default function FinerDetails() {
       {/* Week events */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">The Week</p>
+          <EditableText id="finer-schedule-kicker" tag="p" className="kicker mb-4" defaultContent="The Week" />
           <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            Event Schedule
+            <EditableText id="finer-schedule-h2" tag="span" defaultContent="Event Schedule" />
           </h2>
         </div>
         <div className="space-y-6 reveal">
@@ -252,12 +253,12 @@ export default function FinerDetails() {
               <div className="rule-full mb-4" />
               <div className="grid md:grid-cols-3 gap-2">
                 <div>
-                  <p className="kicker text-stone mb-1">{ev.date}</p>
-                  <p className="font-body text-xs text-stone">{ev.time} · {ev.location}</p>
+                  <EditableText id={`finer-event-${i}-date`} tag="p" className="kicker text-stone mb-1" defaultContent={ev.date} />
+                  <EditableText id={`finer-event-${i}-meta`} tag="p" className="font-body text-xs text-stone" defaultContent={`${ev.time} · ${ev.location}`} />
                 </div>
                 <div className="md:col-span-2">
-                  <p className="font-display italic text-burg text-xl mb-1">{ev.event}</p>
-                  <p className="font-body text-sm italic text-stone">{ev.note}</p>
+                  <EditableText id={`finer-event-${i}-name`} tag="p" className="font-display italic text-burg text-xl mb-1" defaultContent={ev.event} />
+                  <EditableText id={`finer-event-${i}-note`} tag="p" className="font-body text-sm italic text-stone" defaultContent={ev.note} />
                 </div>
               </div>
             </div>
@@ -270,18 +271,18 @@ export default function FinerDetails() {
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-10">
-            <p className="kicker mb-4">May 22, 2027</p>
+            <EditableText id="finer-weddingday-kicker" tag="p" className="kicker mb-4" defaultContent="May 22, 2027" />
             <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Wedding Day
+              <EditableText id="finer-weddingday-h2" tag="span" defaultContent="Wedding Day" />
             </h2>
           </div>
           <div className="space-y-5 reveal">
             {weddingTimeline.map((item, i) => (
               <div key={i} className="grid grid-cols-[5rem_1fr] gap-6 items-start">
-                <p className="kicker text-stone text-right">{item.time}</p>
+                <EditableText id={`finer-timeline-${i}-time`} tag="p" className="kicker text-stone text-right" defaultContent={item.time} />
                 <div className="border-t border-stone/20 pt-3">
-                  <p className="font-body text-base text-ink">{item.event}</p>
-                  <p className="font-body text-xs italic text-stone">{item.location}</p>
+                  <EditableText id={`finer-timeline-${i}-event`} tag="p" className="font-body text-base text-ink" defaultContent={item.event} />
+                  <EditableText id={`finer-timeline-${i}-location`} tag="p" className="font-body text-xs italic text-stone" defaultContent={item.location} />
                 </div>
               </div>
             ))}
