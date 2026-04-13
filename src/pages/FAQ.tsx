@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import EditableText from "@/components/wedding/EditableText";
 
 const faqs = [
   {
@@ -44,7 +45,7 @@ const faqs = [
   },
 ];
 
-function FAQItem({ q, a }: { q: string; a: string }) {
+function FAQItem({ id, q, a }: { id: string; q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b" style={{ borderColor: "hsl(var(--border))" }}>
@@ -52,9 +53,12 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-start justify-between gap-6 py-5 text-left group"
       >
-        <span className="font-body text-base text-ink group-hover:text-burg transition-colors">
-          {q}
-        </span>
+        <EditableText
+          id={`${id}-question`}
+          tag="span"
+          className="font-body text-base text-ink group-hover:text-burg transition-colors"
+          defaultContent={q}
+        />
         <span
           className="flex-shrink-0 font-display text-xl text-stone-light transition-transform duration-300"
           style={{ transform: open ? "rotate(45deg)" : "none", lineHeight: 1 }}
@@ -64,7 +68,12 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       </button>
       {open && (
         <div className="pb-6 pr-10">
-          <p className="font-body text-sm text-ink-mid leading-relaxed">{a}</p>
+          <EditableText
+            id={`${id}-answer`}
+            tag="p"
+            className="font-body text-sm text-ink-mid leading-relaxed"
+            defaultContent={a}
+          />
         </div>
       )}
     </div>
@@ -97,21 +106,29 @@ export default function FAQ() {
       </header>
 
       <div className="max-w-2xl mx-auto px-6 md:px-10 pb-24">
-        {faqs.map((section, i) => (
-          <section key={i} className="mb-16 reveal">
-            <p className="kicker mb-6">{section.category}</p>
-            <div style={{ borderTop: "1px solid hsl(var(--border))" }}>
-              {section.items.map((item, j) => (
-                <FAQItem key={j} q={item.q} a={item.a} />
-              ))}
-            </div>
-          </section>
-        ))}
+        {faqs.map((section, i) => {
+          const slug = section.category.toLowerCase().replace(/\s+/g, "-");
+          return (
+            <section key={i} className="mb-16 reveal">
+              <p className="kicker mb-6">{section.category}</p>
+              <div style={{ borderTop: "1px solid hsl(var(--border))" }}>
+                {section.items.map((item, j) => (
+                  <FAQItem key={j} id={`faq-${slug}-${j + 1}`} q={item.q} a={item.a} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
 
         {/* Contact */}
         <div className="reveal mt-8 pt-10" style={{ borderTop: "1px solid hsl(var(--border))" }}>
           <p className="kicker mb-4">Still Have Questions?</p>
-          <p className="font-display italic text-burg text-2xl mb-4">We are always happy to help.</p>
+          <EditableText
+            id="faq-contact-tagline"
+            tag="p"
+            className="font-display italic text-burg text-2xl mb-4"
+            defaultContent="We are always happy to help."
+          />
           <a
             href="mailto:hello@becomingbradley.com"
             className="font-body text-sm text-burg border-b border-burg/40 hover:border-burg transition-colors pb-0.5"

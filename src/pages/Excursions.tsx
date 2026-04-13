@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import AIChat from "@/components/wedding/AIChat";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
+import EditableText from "@/components/wedding/EditableText";
 
 const freeDays = [
   { date: "Wednesday, May 21", note: "Free for guests not attending the Rehearsal Dinner" },
@@ -120,7 +121,12 @@ export default function Excursions() {
                 <div className="rule-full mb-4" />
                 <div className="grid md:grid-cols-2 gap-2 mb-4">
                   <p className="kicker">{d.date}</p>
-                  <p className="font-body text-sm italic text-stone">{d.note}</p>
+                  <EditableText
+                    id={`excursions-freeday-note-${i + 1}`}
+                    tag="p"
+                    className="font-body text-sm italic text-stone"
+                    defaultContent={d.note}
+                  />
                 </div>
               </div>
             ))}
@@ -156,7 +162,12 @@ export default function Excursions() {
                     </li>
                   ))}
                   <li className="pt-2">
-                    <p className="font-body text-xs italic text-stone leading-relaxed">{dest.tip}</p>
+                    <EditableText
+                      id={`excursions-tip-${dest.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      tag="p"
+                      className="font-body text-xs italic text-stone leading-relaxed"
+                      defaultContent={dest.tip}
+                    />
                   </li>
                 </ul>
               </div>
@@ -174,9 +185,12 @@ export default function Excursions() {
             <h2 className="font-display italic text-burg mb-2" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
               Activity Planner
             </h2>
-            <p className="font-body text-sm italic text-stone">
-              Ask for a custom itinerary, restaurant recommendations, or help booking activities anywhere in Tuscany.
-            </p>
+            <EditableText
+              id="excursions-planner-desc"
+              tag="p"
+              className="font-body text-sm italic text-stone"
+              defaultContent="Ask for a custom itinerary, restaurant recommendations, or help booking activities anywhere in Tuscany."
+            />
           </div>
           <div className="reveal">
             <AIChat

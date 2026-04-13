@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import AIChat from "@/components/wedding/AIChat";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
+import EditableText from "@/components/wedding/EditableText";
 
 const calendarDays = [
   { date: "19", day: "Mon", desc: "Arrive in Lucca",           type: "travel" },
@@ -172,7 +173,12 @@ export default function Travel() {
                   </div>
                 </div>
                 <div className="py-4 px-5" style={{ background: "hsl(var(--chart-pale))", borderLeft: "2px solid hsl(var(--chart))" }}>
-                  <p className="font-body text-sm italic text-ink-mid leading-relaxed">{f.tip}</p>
+                  <EditableText
+                    id={`travel-flight-tip-${i}`}
+                    tag="p"
+                    className="font-body text-sm italic text-ink-mid leading-relaxed"
+                    defaultContent={f.tip}
+                  />
                 </div>
               </div>
             </div>
@@ -210,7 +216,12 @@ export default function Travel() {
                     <p className="font-body text-sm text-ink mb-0.5">{g.duration}</p>
                     <p className="font-body text-sm text-stone">{g.cost}</p>
                   </div>
-                  <p className="font-body text-sm text-ink-mid leading-relaxed">{g.note}</p>
+                  <EditableText
+                    id={`travel-ground-note-${i}`}
+                    tag="p"
+                    className="font-body text-sm text-ink-mid leading-relaxed"
+                    defaultContent={g.note}
+                  />
                 </div>
               </div>
             ))}
@@ -226,9 +237,12 @@ export default function Travel() {
           <h2 className="font-display italic text-burg mb-2" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
             Travel Assistant
           </h2>
-          <p className="font-body text-sm italic text-stone">
-            Ask anything about flights, transfers, trains, or getting to Lucca.
-          </p>
+          <EditableText
+            id="travel-assistant-desc"
+            tag="p"
+            className="font-body text-sm italic text-stone"
+            defaultContent="Ask anything about flights, transfers, trains, or getting to Lucca."
+          />
         </div>
         <div className="reveal">
           <AIChat

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import EditableText from "@/components/wedding/EditableText";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
@@ -76,7 +77,7 @@ export default function EnvelopeLanding() {
                   marginBottom: "0.25rem",
                 }}
               >
-                The honour of your presence
+                <EditableText id="invite-honour" tag="span" defaultContent="The honour of your presence" />
               </p>
               <p
                 style={{
@@ -88,15 +89,16 @@ export default function EnvelopeLanding() {
                   marginBottom: "2.5rem",
                 }}
               >
-                is requested at the marriage of
+                <EditableText id="invite-requested" tag="span" defaultContent="is requested at the marriage of" />
               </p>
 
-              <p
+              <EditableText
+                id="invite-bride"
+                tag="p"
                 className="font-display italic text-burg"
                 style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
-              >
-                McKenna Myers
-              </p>
+                defaultContent="McKenna Myers"
+              />
               <p
                 style={{
                   fontFamily: "Cinzel, serif",
@@ -109,12 +111,13 @@ export default function EnvelopeLanding() {
               >
                 and
               </p>
-              <p
+              <EditableText
+                id="invite-groom"
+                tag="p"
                 className="font-display italic text-burg"
                 style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
-              >
-                Jordan Bradley
-              </p>
+                defaultContent="Jordan Bradley"
+              />
 
               <div className="mx-auto my-8" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
 
@@ -128,7 +131,7 @@ export default function EnvelopeLanding() {
                   marginBottom: "0.25rem",
                 }}
               >
-                Thursday, the Twenty-Second of May
+                <EditableText id="invite-date-line1" tag="span" defaultContent="Thursday, the Twenty-Second of May" />
               </p>
               <p
                 style={{
@@ -140,21 +143,39 @@ export default function EnvelopeLanding() {
                   marginBottom: "2rem",
                 }}
               >
-                Two Thousand and Twenty-Seven
+                <EditableText id="invite-date-line2" tag="span" defaultContent="Two Thousand and Twenty-Seven" />
               </p>
 
-              <p className="font-display italic" style={{ fontSize: "1.4rem", fontWeight: 400, color: "hsl(var(--ink-mid))" }}>
-                at six o'clock in the evening
-              </p>
-              <p className="font-body text-xs italic" style={{ color: "hsl(var(--stone))", letterSpacing: "0.06em", marginTop: "0.25rem", marginBottom: "2rem" }}>
-                Dinner and dancing to follow
-              </p>
+              <EditableText
+                id="invite-time"
+                tag="p"
+                className="font-display italic"
+                style={{ fontSize: "1.4rem", fontWeight: 400, color: "hsl(var(--ink-mid))" }}
+                defaultContent="at six o'clock in the evening"
+              />
+              <EditableText
+                id="invite-sub"
+                tag="p"
+                className="font-body text-xs italic"
+                style={{ color: "hsl(var(--stone))", letterSpacing: "0.06em", marginTop: "0.25rem", marginBottom: "2rem" }}
+                defaultContent="Dinner and dancing to follow"
+              />
 
               <div className="mx-auto my-2" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
-              <p className="font-display italic text-burg mt-6" style={{ fontSize: "1.7rem", fontWeight: 400 }}>Villa Grabau</p>
-              <p className="kicker mt-2 mb-10" style={{ color: "hsl(var(--stone))" }}>
-                Lucca · Tuscany · Italy
-              </p>
+              <EditableText
+                id="invite-venue"
+                tag="p"
+                className="font-display italic text-burg mt-6"
+                style={{ fontSize: "1.7rem", fontWeight: 400 }}
+                defaultContent="Villa Grabau"
+              />
+              <EditableText
+                id="invite-location"
+                tag="p"
+                className="kicker mt-2 mb-10"
+                style={{ color: "hsl(var(--stone))" }}
+                defaultContent="Lucca · Tuscany · Italy"
+              />
 
               {/* Bottom rule */}
               <div className="flex items-center gap-4 mb-10">
@@ -200,15 +221,20 @@ export default function EnvelopeLanding() {
           pointerEvents: isOpening ? "none" : "auto",
         }}
       >
-        <p
+        <EditableText
+          id="envelope-title"
+          tag="p"
           className="font-script"
           style={{ fontSize: "clamp(1.8rem, 5vw, 2.5rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
-        >
-          Becoming Bradley
-        </p>
-        <p className="kicker mt-3" style={{ color: "rgba(250,248,242,0.3)" }}>
-          May 22, 2027 · Lucca, Italy
-        </p>
+          defaultContent="Becoming Bradley"
+        />
+        <EditableText
+          id="envelope-date-kicker"
+          tag="p"
+          className="kicker mt-3"
+          style={{ color: "rgba(250,248,242,0.3)" }}
+          defaultContent="May 22, 2027 · Lucca, Italy"
+        />
       </div>
 
       {/* The Envelope */}
@@ -348,12 +374,13 @@ export default function EnvelopeLanding() {
           pointerEvents: isOpening ? "none" : "auto",
         }}
       >
-        <p
+        <EditableText
+          id="envelope-invite-prompt"
+          tag="p"
           className="font-body italic mb-5"
           style={{ color: "rgba(250,248,242,0.32)", fontSize: "0.875rem" }}
-        >
-          You have been cordially invited
-        </p>
+          defaultContent="You have been cordially invited"
+        />
         <button
           onClick={() => setStage("opening")}
           className="kicker transition-all"

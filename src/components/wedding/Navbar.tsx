@@ -39,22 +39,51 @@ export default function Navbar() {
           borderBottom: "1px solid rgba(255,255,255,0.05)",
         }}
       >
-        {/* Logo */}
+        {/* Logo — chartreuse on dark green */}
         <Link
           to="/"
           style={{
-            fontFamily: "Cinzel, serif",
-            fontSize: "0.56rem",
-            letterSpacing: "0.4em",
-            textTransform: "uppercase",
-            color: "hsl(var(--chart-mid))",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
             textDecoration: "none",
             transition: "opacity 0.2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "0.65")}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "0.72")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
         >
-          Becoming Bradley
+          {/* Chartreuse accent dot */}
+          <div
+            style={{
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              background: "hsl(68, 72%, 52%)",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "Cinzel, serif",
+              fontSize: "0.56rem",
+              letterSpacing: "0.42em",
+              textTransform: "uppercase",
+              color: "hsl(68, 72%, 52%)",
+            }}
+          >
+            Becoming
+          </span>
+          <span
+            style={{
+              fontFamily: "Cinzel, serif",
+              fontSize: "0.56rem",
+              letterSpacing: "0.42em",
+              textTransform: "uppercase",
+              color: "hsl(138, 30%, 38%)",
+            }}
+          >
+            Bradley
+          </span>
         </Link>
 
         {/* Menu trigger — elegant bordered square with morphing lines */}
@@ -112,26 +141,40 @@ export default function Navbar() {
           overflow: "hidden",
         }}
       >
-        {/* Giant ghost script watermark */}
+        {/* Giant ghost script watermark — two-line "Becoming Bradley" */}
         <div
           aria-hidden
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -48%)",
+            transform: "translate(-50%, -50%)",
             pointerEvents: "none",
             userSelect: "none",
-            lineHeight: 1,
+            textAlign: "center",
           }}
         >
           <span
             style={{
               fontFamily: "Great Vibes, cursive",
-              fontSize: "clamp(8rem, 36vw, 26rem)",
-              color: "rgba(184,154,106,0.055)",
+              fontSize: "clamp(5rem, 22vw, 17rem)",
+              color: "rgba(184,154,106,0.048)",
               display: "block",
               whiteSpace: "nowrap",
+              lineHeight: 1.05,
+            }}
+          >
+            Becoming
+          </span>
+          <span
+            style={{
+              fontFamily: "Great Vibes, cursive",
+              fontSize: "clamp(5rem, 22vw, 17rem)",
+              color: "rgba(184,154,106,0.048)",
+              display: "block",
+              whiteSpace: "nowrap",
+              lineHeight: 1.05,
+              marginTop: "-0.1em",
             }}
           >
             Bradley

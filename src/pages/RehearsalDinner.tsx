@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import EditableText from "@/components/wedding/EditableText";
 
 // Add invited email addresses here — editable directly in Lovable
 const INVITED_EMAILS: string[] = [
@@ -76,9 +77,12 @@ export default function RehearsalDinner() {
             <span className="rule mt-6 block" />
           </div>
 
-          <p className="font-body text-sm italic text-[hsl(var(--stone))] text-center mb-8">
-            This page is reserved for invited guests. Enter the email address on your invitation to continue.
-          </p>
+          <EditableText
+            id="rehearsal-gate-desc"
+            tag="p"
+            className="font-body text-sm italic text-[hsl(var(--stone))] text-center mb-8"
+            defaultContent="This page is reserved for invited guests. Enter the email address on your invitation to continue."
+          />
 
           <div className="p-8" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}>
             <p className="kicker mb-3">Your Email Address</p>
@@ -102,9 +106,12 @@ export default function RehearsalDinner() {
             </button>
           </div>
 
-          <p className="font-body text-xs italic text-[hsl(var(--stone))] text-center mt-6">
-            Questions? Reach out to McKenna directly.
-          </p>
+          <EditableText
+            id="rehearsal-gate-footer"
+            tag="p"
+            className="font-body text-xs italic text-[hsl(var(--stone))] text-center mt-6"
+            defaultContent="Questions? Reach out to McKenna directly."
+          />
         </div>
       </div>
     );
@@ -152,7 +159,12 @@ export default function RehearsalDinner() {
           <div className="rule-full mb-4" />
           <div className="grid md:grid-cols-3 gap-2 mb-4">
             <p className="kicker">Note</p>
-            <p className="font-body text-sm italic text-[hsl(var(--stone))] leading-relaxed md:col-span-2">{details.notes}</p>
+            <EditableText
+              id="rehearsal-details-notes"
+              tag="p"
+              className="font-body text-sm italic text-[hsl(var(--stone))] leading-relaxed md:col-span-2"
+              defaultContent={details.notes}
+            />
           </div>
           <div className="rule-full" />
         </div>
@@ -184,16 +196,20 @@ export default function RehearsalDinner() {
       <section className="py-20 px-6 text-center" style={{ background: "hsl(var(--moss))" }}>
         <div className="max-w-xl mx-auto reveal">
           <span className="rule mb-10 block" style={{ background: "hsl(var(--gold) / 0.4)" }} />
-          <p
+          <EditableText
+            id="rehearsal-closing-quote"
+            tag="p"
             className="font-display italic text-white leading-snug mb-6"
             style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 300 }}
-          >
-            We are so grateful<br />to have you by our side.
-          </p>
-          <p className="font-body text-sm leading-relaxed mb-8" style={{ color: "rgba(250,248,242,0.6)" }}>
-            This evening is for the people who have held us, shaped us, and walked beside us to this moment.
-            We cannot wait to share it with you.
-          </p>
+            defaultContent="We are so grateful to have you by our side."
+          />
+          <EditableText
+            id="rehearsal-closing-body"
+            tag="p"
+            className="font-body text-sm leading-relaxed mb-8"
+            style={{ color: "rgba(250,248,242,0.6)" }}
+            defaultContent="This evening is for the people who have held us, shaped us, and walked beside us to this moment. We cannot wait to share it with you."
+          />
           <p className="kicker" style={{ color: "rgba(250,248,242,0.45)" }}>
             McKenna &amp; Jordan
           </p>

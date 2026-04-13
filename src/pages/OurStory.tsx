@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
+import VideoPlaceholder from "@/components/wedding/VideoPlaceholder";
 import EditableText from "@/components/wedding/EditableText";
 
 const chapters = [
@@ -73,9 +74,9 @@ export default function OurStory() {
         <span className="rule" />
       </header>
 
-      {/* Hero photo — click to upload */}
+      {/* Hero — video player (YouTube, Vimeo, or direct upload) */}
       <div className="px-6 md:px-16 mb-24 reveal">
-        <PhotoPlaceholder id="story-hero" aspect="wide" caption="McKenna & Jordan" />
+        <VideoPlaceholder id="story-hero" caption="McKenna & Jordan" />
       </div>
 
       {/* Chapters */}
