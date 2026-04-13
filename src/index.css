@@ -99,9 +99,10 @@
 }
 
 /* ── Page wrapper ── */
+:root { --calendar-height: 0px; }
 .page-wrapper {
   min-height: 100vh;
-  padding-top: 4rem;
+  padding-top: calc(4rem + var(--calendar-height));
 }
 
 /* ── Typography ── */

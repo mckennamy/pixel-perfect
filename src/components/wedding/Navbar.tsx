@@ -1,125 +1,265 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const navLinks = [
-  { href: "/our-story",     label: "Our Story" },
-  { href: "/accommodations",label: "Accommodations" },
-  { href: "/travel",        label: "Travel" },
-  { href: "/finer-details", label: "Finer Details" },
-  { href: "/excursions",    label: "Excursions" },
-  { href: "/faq",           label: "FAQ" },
-  { href: "/reservations",  label: "Reserve" },
+const navItems = [
+  { href: "/our-story",     label: "Our Story",       desc: "The beginning of us" },
+  { href: "/accommodations",label: "Accommodations",  desc: "Where you will stay in Tuscany" },
+  { href: "/travel",        label: "Travel",          desc: "Getting to Villa Grabau" },
+  { href: "/finer-details", label: "Finer Details",   desc: "What to wear and expect" },
+  { href: "/excursions",    label: "Excursions",      desc: "Explore Tuscany together" },
+  { href: "/faq",           label: "FAQ",             desc: "Every question answered" },
+  { href: "/reservations",  label: "Reservations",    desc: "Secure your place with us" },
 ];
+
+const BG = `radial-gradient(ellipse at 50% 60%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
   const { pathname } = useLocation();
 
   if (pathname === "/") return null;
 
+  const close = () => setOpen(false);
+
   return (
     <>
+      {/* ── Navbar bar ── */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 border-b"
         style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0,
+          height: 64,
+          zIndex: 50,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 2.5rem",
           background: "hsl(var(--moss))",
-          borderColor: "rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="font-kicker text-[0.58rem] tracking-[0.38em] uppercase transition-opacity hover:opacity-70"
-            style={{ color: "hsl(var(--chart-mid))" }}
-          >
-            Becoming Bradley
-          </Link>
+        {/* Logo */}
+        <Link
+          to="/"
+          style={{
+            fontFamily: "Cinzel, serif",
+            fontSize: "0.56rem",
+            letterSpacing: "0.4em",
+            textTransform: "uppercase",
+            color: "hsl(var(--chart-mid))",
+            textDecoration: "none",
+            transition: "opacity 0.2s",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "0.65")}
+          onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+        >
+          Becoming Bradley
+        </Link>
 
-          {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((l) => (
-              <Link
-                key={l.href}
-                to={l.href}
-                className="font-kicker text-[0.55rem] tracking-[0.28em] uppercase transition-colors"
-                style={{
-                  color: pathname === l.href
-                    ? "hsl(var(--chart-mid))"
-                    : "rgba(250,248,242,0.55)",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = "hsl(var(--chart-mid))")}
-                onMouseLeave={e => {
-                  e.currentTarget.style.color = pathname === l.href
-                    ? "hsl(var(--chart-mid))"
-                    : "rgba(250,248,242,0.55)";
-                }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Hamburger */}
-          <button
-            className="md:hidden flex flex-col gap-1.5 p-1"
-            onClick={() => setOpen(!open)}
-            aria-label="Menu"
-          >
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: "rgba(250,248,242,0.6)",
-                transform: open ? "translateY(5px) rotate(45deg)" : "none",
-              }}
-            />
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: "rgba(250,248,242,0.6)",
-                opacity: open ? 0 : 1,
-              }}
-            />
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: "rgba(250,248,242,0.6)",
-                transform: open ? "translateY(-5px) rotate(-45deg)" : "none",
-              }}
-            />
-          </button>
-        </div>
+        {/* Menu trigger — elegant bordered square with morphing lines */}
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          style={{
+            width: 40,
+            height: 40,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 7,
+            background: "transparent",
+            border: `1px solid ${open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.2)"}`,
+            cursor: "pointer",
+            flexShrink: 0,
+            transition: "border-color 0.35s",
+          }}
+        >
+          <span
+            style={{
+              display: "block",
+              width: 14,
+              height: 1,
+              background: open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.7)",
+              transform: open ? "translateY(4px) rotate(45deg)" : "none",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          />
+          <span
+            style={{
+              display: "block",
+              width: 14,
+              height: 1,
+              background: open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.7)",
+              transform: open ? "translateY(-4px) rotate(-45deg)" : "none",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+          />
+        </button>
       </nav>
 
-      {/* Mobile drawer */}
-      {open && (
+      {/* ── Full-screen overlay ── */}
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 40,
+          background: BG,
+          transform: open ? "translateY(0)" : "translateY(100%)",
+          transition: "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+          pointerEvents: open ? "auto" : "none",
+          overflow: "hidden",
+        }}
+      >
+        {/* Giant ghost script watermark */}
         <div
-          className="fixed inset-0 z-40 flex"
-          onClick={() => setOpen(false)}
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -48%)",
+            pointerEvents: "none",
+            userSelect: "none",
+            lineHeight: 1,
+          }}
         >
-          <div
-            className="ml-auto w-72 h-full pt-20 px-10 flex flex-col gap-7"
-            style={{ background: "hsl(var(--moss))" }}
-            onClick={e => e.stopPropagation()}
+          <span
+            style={{
+              fontFamily: "Great Vibes, cursive",
+              fontSize: "clamp(8rem, 36vw, 26rem)",
+              color: "rgba(184,154,106,0.055)",
+              display: "block",
+              whiteSpace: "nowrap",
+            }}
           >
-            {navLinks.map((l) => (
+            Bradley
+          </span>
+        </div>
+
+        {/* Nav content */}
+        <div
+          style={{
+            position: "relative",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "5rem clamp(1.5rem, 10vw, 6rem)",
+            paddingTop: "5.5rem",
+          }}
+        >
+          {navItems.map((item, i) => {
+            const isActive  = pathname === item.href;
+            const isHovered = hovered === item.href;
+
+            return (
               <Link
-                key={l.href}
-                to={l.href}
-                onClick={() => setOpen(false)}
-                className="font-kicker text-[0.6rem] tracking-[0.32em] uppercase transition-colors"
+                key={item.href}
+                to={item.href}
+                onClick={close}
+                onMouseEnter={() => setHovered(item.href)}
+                onMouseLeave={() => setHovered(null)}
                 style={{
-                  color: pathname === l.href
-                    ? "hsl(var(--chart-mid))"
-                    : "rgba(250,248,242,0.55)",
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: "clamp(1rem, 3vw, 2.5rem)",
+                  padding: "clamp(0.6rem, 1.2vh, 1rem) 0",
+                  borderBottom: "1px solid rgba(250,248,242,0.07)",
+                  textDecoration: "none",
+                  opacity: open ? 1 : 0,
+                  transform: open
+                    ? `translateX(${isHovered ? 14 : 0}px)`
+                    : "translateX(-24px)",
+                  transition: [
+                    `opacity 0.55s ease ${0.32 + i * 0.055}s`,
+                    `transform 0.55s cubic-bezier(0.16,1,0.3,1) ${0.32 + i * 0.055}s`,
+                  ].join(", "),
                 }}
               >
-                {l.label}
+                {/* Number */}
+                <span
+                  style={{
+                    fontFamily: "Cinzel, serif",
+                    fontSize: "0.52rem",
+                    letterSpacing: "0.35em",
+                    textTransform: "uppercase",
+                    color: isActive || isHovered
+                      ? "rgba(138,158,20,0.7)"
+                      : "rgba(250,248,242,0.2)",
+                    width: "2rem",
+                    flexShrink: 0,
+                    transition: "color 0.2s",
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                {/* Link name */}
+                <span
+                  style={{
+                    fontFamily: "Cormorant Garamond, Georgia, serif",
+                    fontStyle: "italic",
+                    fontWeight: 300,
+                    fontSize: "clamp(1.7rem, 4.5vw, 3rem)",
+                    lineHeight: 1.05,
+                    color: isActive
+                      ? "hsl(var(--chart-mid))"
+                      : isHovered
+                      ? "hsl(var(--chart-mid))"
+                      : "rgba(250,248,242,0.9)",
+                    transition: "color 0.2s",
+                  }}
+                >
+                  {item.label}
+                </span>
+
+                {/* Description — hidden on small screens */}
+                <span
+                  style={{
+                    fontFamily: "EB Garamond, Georgia, serif",
+                    fontStyle: "italic",
+                    fontSize: "0.85rem",
+                    color: isHovered
+                      ? "rgba(250,248,242,0.45)"
+                      : "rgba(250,248,242,0.2)",
+                    marginLeft: "auto",
+                    transition: "color 0.2s",
+                    display: "none",
+                  }}
+                  className="md:block"
+                >
+                  {item.desc}
+                </span>
               </Link>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      )}
+
+        {/* Footer signature */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "1.75rem",
+            width: "100%",
+            textAlign: "center",
+            pointerEvents: "none",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "Cinzel, serif",
+              fontSize: "0.48rem",
+              letterSpacing: "0.38em",
+              textTransform: "uppercase",
+              color: "rgba(250,248,242,0.18)",
+            }}
+          >
+            Becoming Bradley &nbsp;·&nbsp; May 22, 2027 &nbsp;·&nbsp; Villa Grabau, Lucca
+          </p>
+        </div>
+      </div>
     </>
   );
 }

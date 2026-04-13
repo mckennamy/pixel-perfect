@@ -3,15 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
-const weekSchedule = [
-  { date: "Mon · May 19", event: "Arrive in Lucca" },
-  { date: "Tue · May 20", event: "Welcome Party · 7 PM" },
-  { date: "Wed · May 21", event: "Rehearsal Dinner" },
-  { date: "Thu · May 22", event: "Ceremony & Reception · 4 PM" },
-  { date: "Fri · May 23", event: "Free Day" },
-  { date: "Sat · May 24", event: "Depart" },
-];
-
 // Background used for both stages — deep burgundy radial spotlight
 const BG = `radial-gradient(ellipse at 50% 42%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
 
@@ -75,82 +66,95 @@ export default function EnvelopeLanding() {
 
               <p className="kicker mb-10">Becoming Bradley</p>
 
-              <p className="font-body text-xs mb-1" style={{ letterSpacing: "0.16em", textTransform: "uppercase", color: "hsl(var(--stone))" }}>
+              <p
+                style={{
+                  fontFamily: "Cinzel, serif",
+                  fontSize: "0.58rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "hsl(var(--stone))",
+                  marginBottom: "0.25rem",
+                }}
+              >
                 The honour of your presence
               </p>
-              <p className="font-body text-xs mb-10" style={{ letterSpacing: "0.16em", textTransform: "uppercase", color: "hsl(var(--stone))" }}>
+              <p
+                style={{
+                  fontFamily: "Cinzel, serif",
+                  fontSize: "0.58rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "hsl(var(--stone))",
+                  marginBottom: "2.5rem",
+                }}
+              >
                 is requested at the marriage of
               </p>
 
               <p
                 className="font-display italic text-burg"
-                style={{ fontSize: "clamp(1.8rem, 7vw, 2.6rem)", fontWeight: 300, lineHeight: 1.1 }}
+                style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
               >
                 McKenna Myers
               </p>
-              <p className="font-body text-xs my-4" style={{ letterSpacing: "0.3em", textTransform: "uppercase", color: "hsl(var(--stone))" }}>
+              <p
+                style={{
+                  fontFamily: "Cinzel, serif",
+                  fontSize: "0.55rem",
+                  letterSpacing: "0.35em",
+                  textTransform: "uppercase",
+                  color: "hsl(var(--stone))",
+                  margin: "1rem 0",
+                }}
+              >
                 and
               </p>
               <p
                 className="font-display italic text-burg"
-                style={{ fontSize: "clamp(1.8rem, 7vw, 2.6rem)", fontWeight: 300, lineHeight: 1.1 }}
+                style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
               >
                 Jordan Bradley
               </p>
 
               <div className="mx-auto my-8" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
 
-              <p className="kicker mb-1" style={{ color: "hsl(var(--ink-mid))" }}>
+              <p
+                style={{
+                  fontFamily: "Cinzel, serif",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "hsl(var(--ink-mid))",
+                  marginBottom: "0.25rem",
+                }}
+              >
                 Thursday, the Twenty-Second of May
               </p>
-              <p className="kicker mb-8" style={{ color: "hsl(var(--ink-mid))" }}>
+              <p
+                style={{
+                  fontFamily: "Cinzel, serif",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "hsl(var(--ink-mid))",
+                  marginBottom: "2rem",
+                }}
+              >
                 Two Thousand and Twenty-Seven
               </p>
 
-              <p className="font-display italic" style={{ fontSize: "1.3rem", fontWeight: 300, color: "hsl(var(--ink-mid))" }}>
+              <p className="font-display italic" style={{ fontSize: "1.4rem", fontWeight: 400, color: "hsl(var(--ink-mid))" }}>
                 at six o'clock in the evening
               </p>
-
-              <div className="mx-auto my-6" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
-
-              <p className="font-display italic text-burg" style={{ fontSize: "1.6rem", fontWeight: 300 }}>
-                Villa Grabau
+              <p className="font-body text-xs italic" style={{ color: "hsl(var(--stone))", letterSpacing: "0.06em", marginTop: "0.25rem", marginBottom: "2rem" }}>
+                Dinner and dancing to follow
               </p>
+
+              <div className="mx-auto my-2" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
+              <p className="font-display italic text-burg mt-6" style={{ fontSize: "1.7rem", fontWeight: 400 }}>Villa Grabau</p>
               <p className="kicker mt-2 mb-10" style={{ color: "hsl(var(--stone))" }}>
                 Lucca · Tuscany · Italy
               </p>
-
-              {/* The Week — event schedule */}
-              <div
-                style={{
-                  borderTop: "1px solid rgba(184,154,106,0.25)",
-                  paddingTop: "1.75rem",
-                  marginBottom: "2rem",
-                  textAlign: "left",
-                }}
-              >
-                <p className="kicker text-center mb-5">The Week</p>
-                {weekSchedule.map((item, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                      gap: "1rem",
-                      padding: "0.45rem 0",
-                      borderBottom: "1px solid rgba(184,154,106,0.13)",
-                    }}
-                  >
-                    <span className="kicker flex-shrink-0" style={{ color: "hsl(var(--stone-light))", fontSize: "0.52rem" }}>
-                      {item.date}
-                    </span>
-                    <span className="font-body text-right" style={{ fontSize: "0.78rem", color: "hsl(var(--ink-mid))" }}>
-                      {item.event}
-                    </span>
-                  </div>
-                ))}
-              </div>
 
               {/* Bottom rule */}
               <div className="flex items-center gap-4 mb-10">

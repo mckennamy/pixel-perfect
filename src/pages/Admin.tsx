@@ -34,13 +34,23 @@ export default function Admin() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [selected, setSelected] = useState<Reservation | null>(null);
   const [filter, setFilter] = useState<"all" | "unpaid" | "deposit_paid" | "fully_paid">("all");
+  const [newCount, setNewCount] = useState(0);
 
   useEffect(() => {
+    // Show badge on login page too
+    const n = parseInt(localStorage.getItem("admin_new_count") || "0", 10);
+    setNewCount(n);
     if (sessionStorage.getItem("admin_authed") === "yes") {
       setAuthed(true);
       loadReservations();
+      clearBadge();
     }
   }, []);
+
+  const clearBadge = () => {
+    localStorage.setItem("admin_new_count", "0");
+    setNewCount(0);
+  };
 
   const loadReservations = () => {
     const data = JSON.parse(localStorage.getItem("wedding_reservations") || "[]");
@@ -52,6 +62,7 @@ export default function Admin() {
       sessionStorage.setItem("admin_authed", "yes");
       setAuthed(true);
       loadReservations();
+      clearBadge();
     } else {
       setError("Incorrect password. Try again.");
     }
@@ -133,6 +144,14 @@ export default function Admin() {
             >
               Becoming Bradley
             </h1>
+            {newCount > 0 && (
+              <p
+                className="kicker mt-3"
+                style={{ color: "#dc2626", fontSize: "0.52rem" }}
+              >
+                {newCount} new reservation{newCount !== 1 ? "s" : ""} awaiting review
+              </p>
+            )}
             <span className="rule mt-6 block" />
           </div>
           <div className="p-8" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}>
@@ -168,9 +187,25 @@ export default function Admin() {
         <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
             <p className="kicker mb-3">Admin Dashboard</p>
-            <h1 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Becoming Bradley
-            </h1>
+            <div className="flex items-center gap-4">
+              <h1 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+                Becoming Bradley
+              </h1>
+              {newCount > 0 && (
+                <span
+                  className="kicker flex-shrink-0"
+                  style={{
+                    background: "#dc2626",
+                    color: "white",
+                    padding: "0.2rem 0.6rem",
+                    fontSize: "0.52rem",
+                    borderRadius: 2,
+                  }}
+                >
+                  {newCount} new
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex gap-3">
             <button

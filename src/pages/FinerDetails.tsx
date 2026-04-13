@@ -1,36 +1,37 @@
 import { useEffect, useRef } from "react";
+import EditableText from "@/components/wedding/EditableText";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 
 const weddingColors = [
-  { name: "Deep Burgundy", hex: "#3D0D14", note: "Primary — our richest tone" },
-  { name: "Moss Green",    hex: "#1A2A1E", note: "Dark and verdant" },
-  { name: "Chartreuse",    hex: "#8A9E14", note: "Used sparingly as an accent" },
-  { name: "Warm Cream",    hex: "#FAF8F2", note: "Linens, stationery, and soft tones" },
-  { name: "Antique Gold",  hex: "#B89A6A", note: "Ornamental details throughout" },
+  { name: "Deep Burgundy",  hex: "#3D0D14", textColor: "rgba(250,248,242,0.8)", note: "Primary — our richest tone"        },
+  { name: "Moss Green",     hex: "#1A2A1E", textColor: "rgba(250,248,242,0.8)", note: "Deep and verdant"                  },
+  { name: "Chartreuse",     hex: "#8A9E14", textColor: "rgba(10,14,10,0.7)",    note: "Sparingly as an accent"            },
+  { name: "Warm Cream",     hex: "#FAF8F2", textColor: "rgba(60,40,30,0.55)",   note: "Linens, stationery, soft tones"    },
+  { name: "Antique Gold",   hex: "#B89A6A", textColor: "rgba(10,8,5,0.65)",     note: "Ornamental details throughout"     },
 ];
 
 const flowers = [
-  { name: "Anthuriums",    note: "Bold, sculptural blooms in deep burgundy and oxblood" },
-  { name: "Calla Lilies",  note: "Elegant and architectural in ivory and cream" },
-  { name: "Moss",          note: "Lush texture throughout every arrangement and tablescape" },
+  { name: "Anthuriums",   note: "Bold, sculptural blooms in deep burgundy and oxblood" },
+  { name: "Calla Lilies", note: "Elegant and architectural in ivory and cream" },
+  { name: "Moss",         note: "Lush texture throughout every arrangement and tablescape" },
 ];
 
 const weddingTimeline = [
-  { time: "4:00 PM", event: "Guests Arrive",               location: "Villa Grabau Gardens" },
-  { time: "4:30 PM", event: "Cocktail Hour Begins",         location: "Garden Terrace" },
-  { time: "5:30 PM", event: "Ceremony",                     location: "Garden Lawn" },
-  { time: "6:15 PM", event: "Champagne & Passed Bites",    location: "Terrace" },
-  { time: "7:30 PM", event: "Dinner",                       location: "Grand Hall" },
-  { time: "9:00 PM", event: "First Dance & Toasts",         location: "Grand Hall" },
-  { time: "9:30 PM", event: "Dancing",                      location: "Grand Hall" },
-  { time: "12:00 AM", event: "Last Dance",                  location: "Grand Hall" },
-  { time: "12:30 AM", event: "Late Bites & Send-Off",       location: "Courtyard" },
+  { time: "4:00 PM",  event: "Guests Arrive",            location: "Villa Grabau Gardens" },
+  { time: "4:30 PM",  event: "Cocktail Hour Begins",      location: "Garden Terrace"       },
+  { time: "5:30 PM",  event: "Ceremony",                  location: "Garden Lawn"          },
+  { time: "6:15 PM",  event: "Champagne & Passed Bites", location: "Terrace"              },
+  { time: "7:30 PM",  event: "Dinner",                    location: "Grand Hall"           },
+  { time: "9:00 PM",  event: "First Dance & Toasts",      location: "Grand Hall"           },
+  { time: "9:30 PM",  event: "Dancing",                   location: "Grand Hall"           },
+  { time: "12:00 AM", event: "Last Dance",                location: "Grand Hall"           },
+  { time: "12:30 AM", event: "Late Bites & Send-Off",     location: "Courtyard"            },
 ];
 
 const weekEvents = [
-  { date: "May 20 · Tuesday",   event: "Welcome Party",              time: "7:00 PM", location: "La Rancera",    note: "Cocktail attire. An evening to gather and celebrate." },
-  { date: "May 21 · Wednesday", event: "Rehearsal Dinner",           time: "7:30 PM", location: "Invitation Only",note: "Invited guests will receive a separate communication." },
-  { date: "May 22 · Thursday",  event: "Wedding Ceremony & Reception",time: "4:00 PM", location: "Villa Grabau", note: "Garden Party Formal attire." },
+  { date: "May 20 · Tuesday",    event: "Welcome Party",               time: "7:00 PM",  location: "L'Arancera",    note: "Cocktail attire. An evening to gather and celebrate." },
+  { date: "May 21 · Wednesday",  event: "Rehearsal Dinner",            time: "7:30 PM",  location: "Invitation Only",note: "Invited guests will receive a separate communication." },
+  { date: "May 22 · Thursday",   event: "Wedding Ceremony & Reception",time: "4:00 PM",  location: "Villa Grabau",  note: "Garden Party Formal attire." },
 ];
 
 export default function FinerDetails() {
@@ -78,37 +79,42 @@ export default function FinerDetails() {
             <p className="kicker text-stone pb-2 md:pb-0">The Occasion</p>
             <div className="md:col-span-2">
               <p className="font-display italic text-burg text-2xl mb-2">Garden Party Formal</p>
-              <p className="font-body text-sm text-ink-mid leading-relaxed">
-                Elevated and romantic. We are celebrating in one of the most beautiful places on earth —
-                dress as though the setting deserves it.
-              </p>
+              <EditableText
+                id="dress-occasion-body"
+                tag="p"
+                className="font-body text-sm text-ink-mid leading-relaxed"
+                defaultContent="Elevated and romantic. We are celebrating in one of the most beautiful places on earth — dress as though the setting deserves it."
+              />
             </div>
           </div>
           <div className="rule-full" />
           <div className="grid md:grid-cols-3 gap-1">
             <p className="kicker text-stone pb-2 md:pb-0">For Her</p>
-            <p className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2">
-              Floor-length gowns, elegant midi dresses, or dressy jumpsuits. Rich jewel tones,
-              earth tones, and neutrals are all beautiful. Please avoid white and ivory, which are
-              reserved for the bride.
-            </p>
+            <EditableText
+              id="dress-her"
+              tag="p"
+              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
+              defaultContent="Floor-length gowns, elegant midi dresses, or dressy jumpsuits. Rich jewel tones, earth tones, and neutrals are all beautiful. Please avoid white and ivory, which are reserved for the bride."
+            />
           </div>
           <div className="rule-full" />
           <div className="grid md:grid-cols-3 gap-1">
             <p className="kicker text-stone pb-2 md:pb-0">For Him</p>
-            <p className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2">
-              Suits or sport coats with dress trousers. A tie is encouraged but not required.
-              Given the warm Italian May evenings, linen is entirely welcome.
-            </p>
+            <EditableText
+              id="dress-him"
+              tag="p"
+              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
+              defaultContent="Suits or sport coats with dress trousers. A tie is encouraged but not required. Given the warm Italian May evenings, linen is entirely welcome."
+            />
           </div>
           <div className="rule-full" />
         </div>
       </section>
 
-      {/* Colour palette */}
+      {/* ── Colour palette — elevated swatch card ── */}
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-3xl mx-auto">
-          <div className="reveal mb-12">
+          <div className="reveal mb-14">
             <p className="kicker mb-4">Our Palette</p>
             <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
               Wedding Colours
@@ -117,17 +123,71 @@ export default function FinerDetails() {
               We'd love to see you incorporate these into your look.
             </p>
           </div>
-          <div className="grid grid-cols-5 gap-4 reveal">
-            {weddingColors.map((c, i) => (
-              <div key={i} className="flex flex-col items-center gap-3 text-center">
+
+          {/* Swatch strips — flush, tall, designer-card aesthetic */}
+          <div className="reveal overflow-hidden" style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.12), 0 1px 0 rgba(0,0,0,0.06)" }}>
+            <div style={{ display: "flex", height: "clamp(220px, 30vw, 320px)" }}>
+              {weddingColors.map((c, i) => (
                 <div
-                  className="w-14 h-14 md:w-16 md:h-16"
-                  style={{ background: c.hex, border: "1px solid hsl(var(--border))" }}
-                />
-                <p className="kicker text-ink-mid" style={{ fontSize: "0.52rem" }}>{c.name}</p>
-                <p className="font-body text-[0.65rem] text-stone leading-tight hidden md:block">{c.note}</p>
-              </div>
-            ))}
+                  key={i}
+                  style={{
+                    flex: 1,
+                    background: c.hex,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    padding: "clamp(0.75rem, 2vw, 1.25rem)",
+                    position: "relative",
+                    overflow: "hidden",
+                    borderRight: i < weddingColors.length - 1 ? "1px solid rgba(0,0,0,0.08)" : "none",
+                  }}
+                >
+                  {/* subtle inner vignette on each swatch */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.18) 100%)", pointerEvents: "none" }} />
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    <p
+                      style={{
+                        fontFamily: "Cinzel, serif",
+                        fontSize: "clamp(0.38rem, 0.9vw, 0.52rem)",
+                        letterSpacing: "0.28em",
+                        textTransform: "uppercase",
+                        color: c.textColor,
+                        lineHeight: 1.4,
+                        marginBottom: "0.2rem",
+                      }}
+                    >
+                      {c.name}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "EB Garamond, serif",
+                        fontStyle: "italic",
+                        fontSize: "clamp(0.55rem, 1.1vw, 0.72rem)",
+                        color: c.textColor,
+                        opacity: 0.7,
+                        lineHeight: 1.3,
+                        display: "none",
+                      }}
+                      className="md:block"
+                    >
+                      {c.note}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "Cinzel, serif",
+                        fontSize: "clamp(0.35rem, 0.7vw, 0.46rem)",
+                        letterSpacing: "0.15em",
+                        color: c.textColor,
+                        opacity: 0.45,
+                        marginTop: "0.35rem",
+                      }}
+                    >
+                      {c.hex}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -168,10 +228,13 @@ export default function FinerDetails() {
           >
             Old World Romance.<br />Modern Love.
           </p>
-          <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(250,248,242,0.6)" }}>
-            Ancient stone walls draped in moss, candlelit tables heavy with anthuriums,
-            and golden Tuscan light pouring over everything. Timeless, lush, and deeply personal.
-          </p>
+          <EditableText
+            id="theme-body"
+            tag="p"
+            className="font-body text-sm leading-relaxed"
+            style={{ color: "rgba(250,248,242,0.6)" }}
+            defaultContent="Ancient stone walls draped in moss, candlelit tables heavy with anthuriums, and golden Tuscan light pouring over everything. Timeless, lush, and deeply personal."
+          />
         </div>
       </section>
 

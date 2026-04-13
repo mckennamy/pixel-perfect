@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, Loader2 } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -38,13 +37,11 @@ export default function AIChat({
     setLoading(true);
 
     try {
-      // Build conversation history
       const history = [...messages, userMessage].map((m) => ({
         role: m.role,
         content: m.content,
       }));
 
-      // This calls the AI gateway. Connect Supabase or set VITE_AI_FUNCTION_URL.
       const aiUrl =
         import.meta.env.VITE_AI_FUNCTION_URL ||
         "https://your-project.supabase.co/functions/v1/wedding-ai";
@@ -57,7 +54,6 @@ export default function AIChat({
 
       if (!res.ok) throw new Error(`Status ${res.status}`);
 
-      // Handle streaming or JSON response
       const contentType = res.headers.get("content-type") || "";
       let assistantText = "";
 
@@ -80,10 +76,7 @@ export default function AIChat({
               assistantText += delta;
               setMessages((prev) => {
                 const updated = [...prev];
-                updated[updated.length - 1] = {
-                  role: "assistant",
-                  content: assistantText,
-                };
+                updated[updated.length - 1] = { role: "assistant", content: assistantText };
                 return updated;
               });
             } catch {
@@ -97,10 +90,7 @@ export default function AIChat({
           data.choices?.[0]?.message?.content ||
           data.message ||
           "I'm sorry, I couldn't generate a response.";
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: assistantText },
-        ]);
+        setMessages((prev) => [...prev, { role: "assistant", content: assistantText }]);
       }
     } catch {
       setMessages((prev) => [
@@ -108,7 +98,7 @@ export default function AIChat({
         {
           role: "assistant",
           content:
-            "I'm not fully set up yet — connect the AI backend in Lovable to activate me! In the meantime, feel free to browse the curated resources on this page.",
+            "I'm not fully set up yet. To activate me, add your VITE_AI_FUNCTION_URL to the project environment. In the meantime, feel free to browse the resources on this page.",
         },
       ]);
     } finally {
@@ -117,34 +107,112 @@ export default function AIChat({
   };
 
   return (
-    <div className="bg-white border border-parchment-d rounded-sm shadow-sm overflow-hidden">
+    <div style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--cream))", overflow: "hidden" }}>
       {/* Header */}
-      <div className="bg-moss-dark px-5 py-4 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-chartreuse/20 flex items-center justify-center">
-          <Bot size={16} className="text-chartreuse" />
+      <div
+        style={{
+          background: "hsl(var(--moss))",
+          padding: "1rem 1.25rem",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        {/* Icon — simple monogram circle */}
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            border: "1px solid rgba(138,158,20,0.35)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "Cinzel, serif",
+              fontSize: "0.55rem",
+              letterSpacing: "0.1em",
+              color: "hsl(var(--chart-mid))",
+            }}
+          >
+            AI
+          </span>
         </div>
         <div>
-          <p className="font-kicker text-xs tracking-widest text-chartreuse uppercase">
+          <p
+            style={{
+              fontFamily: "Cinzel, serif",
+              fontSize: "0.52rem",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "hsl(var(--chart-mid))",
+              lineHeight: 1.3,
+            }}
+          >
             {title}
           </p>
-          <p className="font-body text-xs text-white/60">{subtitle}</p>
+          <p
+            style={{
+              fontFamily: "EB Garamond, serif",
+              fontStyle: "italic",
+              fontSize: "0.78rem",
+              color: "rgba(250,248,242,0.45)",
+              lineHeight: 1.2,
+            }}
+          >
+            {subtitle}
+          </p>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="h-72 overflow-y-auto p-4 flex flex-col gap-3 bg-parchment/30">
+      <div
+        style={{
+          height: 288,
+          overflowY: "auto",
+          padding: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          background: "hsl(var(--parchment))",
+        }}
+      >
         {messages.length === 0 && (
-          <div className="flex-1 flex flex-col items-center justify-center gap-4 text-center py-4">
-            <p className="font-body text-sm text-ink-light italic">
-              Ask me anything — I'm here to help!
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem", textAlign: "center", padding: "1rem 0" }}>
+            <p style={{ fontFamily: "EB Garamond, serif", fontStyle: "italic", fontSize: "0.875rem", color: "hsl(var(--stone))" }}>
+              Ask me anything — I'm here to help.
             </p>
             {suggestions.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center">
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center" }}>
                 {suggestions.map((s) => (
                   <button
                     key={s}
                     onClick={() => sendMessage(s)}
-                    className="text-xs font-body border border-burg/30 text-burg px-3 py-1.5 rounded-sm hover:bg-burg hover:text-white transition-colors"
+                    style={{
+                      fontFamily: "Cinzel, serif",
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      border: "1px solid hsl(var(--burg) / 0.3)",
+                      color: "hsl(var(--burg))",
+                      padding: "0.4rem 0.8rem",
+                      background: "transparent",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--burg))";
+                      (e.currentTarget as HTMLButtonElement).style.color = "hsl(var(--cream))";
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                      (e.currentTarget as HTMLButtonElement).style.color = "hsl(var(--burg))";
+                    }}
                   >
                     {s}
                   </button>
@@ -157,12 +225,20 @@ export default function AIChat({
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            style={{
+              display: "flex",
+              justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+            }}
           >
             <div
-              className={`max-w-[80%] px-4 py-2.5 text-sm font-body leading-relaxed ${
-                msg.role === "user" ? "chat-bubble-user" : "chat-bubble-ai"
-              }`}
+              className={msg.role === "user" ? "chat-user" : "chat-ai"}
+              style={{
+                maxWidth: "80%",
+                padding: "0.6rem 1rem",
+                fontSize: "0.875rem",
+                fontFamily: "EB Garamond, serif",
+                lineHeight: 1.6,
+              }}
             >
               {msg.content}
             </div>
@@ -170,10 +246,20 @@ export default function AIChat({
         ))}
 
         {loading && (
-          <div className="flex justify-start">
-            <div className="chat-bubble-ai px-4 py-2.5 flex items-center gap-2">
-              <Loader2 size={14} className="animate-spin text-ink-light" />
-              <span className="text-xs text-ink-light font-body italic">
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+            <div
+              className="chat-ai"
+              style={{ padding: "0.6rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}
+            >
+              <span
+                style={{
+                  fontFamily: "EB Garamond, serif",
+                  fontStyle: "italic",
+                  fontSize: "0.8rem",
+                  color: "hsl(var(--stone))",
+                  animation: "pulse 1.4s ease-in-out infinite",
+                }}
+              >
                 Thinking…
               </span>
             </div>
@@ -183,21 +269,55 @@ export default function AIChat({
       </div>
 
       {/* Input */}
-      <div className="border-t border-parchment-d p-3 flex gap-2 bg-white">
+      <div
+        style={{
+          borderTop: "1px solid hsl(var(--border))",
+          padding: "0.75rem",
+          display: "flex",
+          gap: "0.5rem",
+          background: "hsl(var(--cream))",
+        }}
+      >
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
           placeholder={placeholder}
-          className="flex-1 text-sm font-body bg-parchment/50 border border-parchment-d rounded-sm px-3 py-2 focus:outline-none focus:ring-1 focus:ring-burg/40 placeholder:text-ink-light/60"
+          style={{
+            flex: 1,
+            fontFamily: "EB Garamond, serif",
+            fontSize: "0.875rem",
+            background: "hsl(var(--parchment))",
+            border: "1px solid hsl(var(--border))",
+            padding: "0.5rem 0.75rem",
+            outline: "none",
+            color: "hsl(var(--ink))",
+          }}
+          onFocus={e => (e.currentTarget.style.borderColor = "hsl(var(--burg-mid))")}
+          onBlur={e => (e.currentTarget.style.borderColor = "hsl(var(--border))")}
         />
         <button
           onClick={() => sendMessage(input)}
           disabled={!input.trim() || loading}
-          className="w-9 h-9 flex items-center justify-center bg-burg text-white rounded-sm hover:bg-burg-mid disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          style={{
+            width: 38,
+            height: 38,
+            flexShrink: 0,
+            background: "hsl(var(--burg))",
+            color: "hsl(var(--cream))",
+            border: "none",
+            cursor: !input.trim() || loading ? "not-allowed" : "pointer",
+            opacity: !input.trim() || loading ? 0.4 : 1,
+            transition: "opacity 0.2s",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "Cinzel, serif",
+            fontSize: "0.7rem",
+          }}
         >
-          <Send size={14} />
+          →
         </button>
       </div>
     </div>

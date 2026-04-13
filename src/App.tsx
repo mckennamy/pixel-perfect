@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/wedding/Navbar";
 import ScrollToTop from "@/components/wedding/ScrollToTop";
+import WeekCalendar from "@/components/wedding/WeekCalendar";
 import Landing from "./pages/Landing";
 import OurStory from "./pages/OurStory";
 import Accommodations from "./pages/Accommodations";
@@ -28,6 +29,7 @@ const App = () => (
         <div className="noise-overlay" />
         <ScrollToTop />
         <Navbar />
+        <WeekCalendar />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/our-story" element={<OurStory />} />

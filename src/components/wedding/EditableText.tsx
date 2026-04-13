@@ -1,9 +1,10 @@
 import { useLayoutEffect, useRef } from "react";
 
 /**
- * EditableText — click any instance to edit text inline.
- * Changes are saved to localStorage by `id` and persist across page loads.
- * A subtle dashed outline appears on hover/focus to indicate editability.
+ * EditableText — click any instance to edit inline.
+ * - Enter creates a new line in body text; blurs in headings.
+ * - Content (including line-breaks) saved to localStorage by `id`.
+ * - Subtle chartreuse dashed outline on hover/focus shows editability.
  */
 interface EditableTextProps {
   id: string;
@@ -12,6 +13,8 @@ interface EditableTextProps {
   className?: string;
   style?: React.CSSProperties;
 }
+
+const HEADING_TAGS = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 export default function EditableText({
   id,
@@ -23,12 +26,17 @@ export default function EditableText({
   const ref = useRef<HTMLElement>(null);
   const key = `bb_text_${id}`;
 
-  // Set content before first paint (no flash of default content)
+  // Set content before browser paints — no flash of stale/empty content
   useLayoutEffect(() => {
     if (!ref.current) return;
     const saved = localStorage.getItem(key);
-    if (saved !== null) ref.current.textContent = saved;
-  }, [key]);
+    if (saved !== null) {
+      ref.current.innerHTML = saved;
+    } else {
+      // textContent is safe for initial default (no HTML injection risk)
+      ref.current.textContent = defaultContent;
+    }
+  }, [key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const Tag = tag as any;
 
@@ -41,20 +49,21 @@ export default function EditableText({
       style={style}
       onBlur={(e: React.FocusEvent<HTMLElement>) => {
         try {
-          localStorage.setItem(key, e.currentTarget.textContent || "");
+          // Save innerHTML so <br> line-breaks survive reload
+          localStorage.setItem(key, e.currentTarget.innerHTML);
         } catch {
-          // localStorage quota exceeded — silently ignore
+          // localStorage quota exceeded — silently continue
         }
       }}
       onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-        // Prevent Enter from inserting newlines in single-line contexts
-        if (e.key === "Enter" && tag !== "div") {
+        // Blur on Enter in headings; allow natural newline in body/div/span
+        if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
           e.preventDefault();
           (e.currentTarget as HTMLElement).blur();
         }
       }}
-    >
-      {defaultContent}
-    </Tag>
+    />
+    // No children — content is set imperatively in useLayoutEffect
+    // This prevents React from overwriting user edits on re-render
   );
 }

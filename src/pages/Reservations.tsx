@@ -20,6 +20,8 @@ const schema = z.object({
     errorMap: () => ({ message: "Please select an accommodation preference" }),
   }),
   linenService: z.enum(["yes", "no"]).optional(),
+  linenFrequency: z.enum(["every_day", "select_days"]).optional(),
+  linenDays: z.array(z.string()).optional(),
   flightArrivalDate: z.string().optional(),
   flightArrivalNumber: z.string().optional(),
   flightArrivalFrom: z.string().optional(),
@@ -55,6 +57,8 @@ export default function Reservations() {
 
   const { fields, append, remove } = useFieldArray({ control, name: "guests" });
   const accommodationPref = watch("accommodationPreference");
+  const linenService = watch("linenService");
+  const linenFrequency = watch("linenFrequency");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -76,8 +80,11 @@ export default function Reservations() {
     };
     reservations.push(entry);
     localStorage.setItem("wedding_reservations", JSON.stringify(reservations));
+    // Increment notification badge for admin
+    const current = parseInt(localStorage.getItem("admin_new_count") || "0", 10);
+    localStorage.setItem("admin_new_count", String(current + 1));
     setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo(0, 0);
   };
 
   if (submitted) {
@@ -272,9 +279,11 @@ export default function Reservations() {
 
           {(accommodationPref === "on_site_villa_grabau" || accommodationPref === "on_site_la_rancera") && (
             <div className="mt-6 p-5" style={{ border: "1px solid hsl(var(--border))" }}>
-              <p className="kicker mb-1">Daily Linen & Towel Service</p>
-              <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-4">Available for an additional charge per night</p>
-              <div className="flex gap-6">
+              <p className="kicker mb-1">Linen & Towel Service</p>
+              <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-4">
+                Available for an additional charge — select your preferred frequency
+              </p>
+              <div className="flex gap-6 mb-4">
                 {[
                   { value: "yes", label: "Yes, please" },
                   { value: "no",  label: "No, thank you" },
@@ -285,6 +294,54 @@ export default function Reservations() {
                   </label>
                 ))}
               </div>
+
+              {linenService === "yes" && (
+                <div className="mt-2 pt-4" style={{ borderTop: "1px solid hsl(var(--border))" }}>
+                  <p className="kicker mb-3">How Often?</p>
+                  <div className="flex gap-6 mb-4">
+                    {[
+                      { value: "every_day",    label: "Every day" },
+                      { value: "select_days",  label: "Select specific days" },
+                    ].map((v) => (
+                      <label key={v.value} className="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" value={v.value} {...register("linenFrequency")} style={{ accentColor: "hsl(var(--burg))" }} />
+                        <span className="font-body text-sm text-[hsl(var(--ink))]">{v.label}</span>
+                      </label>
+                    ))}
+                  </div>
+
+                  {linenFrequency === "select_days" && (
+                    <div className="mt-2">
+                      <p className="kicker mb-3" style={{ fontSize: "0.48rem" }}>Select days (May 19–25)</p>
+                      <div className="flex flex-wrap gap-3">
+                        {[
+                          { value: "mon", label: "Mon · 19" },
+                          { value: "tue", label: "Tue · 20" },
+                          { value: "wed", label: "Wed · 21" },
+                          { value: "thu", label: "Thu · 22" },
+                          { value: "fri", label: "Fri · 23" },
+                          { value: "sat", label: "Sat · 24" },
+                          { value: "sun", label: "Sun · 25" },
+                        ].map((d) => (
+                          <label
+                            key={d.value}
+                            className="flex items-center gap-2 cursor-pointer px-3 py-2 transition-colors"
+                            style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}
+                          >
+                            <input
+                              type="checkbox"
+                              value={d.value}
+                              {...register("linenDays")}
+                              style={{ accentColor: "hsl(var(--burg))" }}
+                            />
+                            <span className="kicker" style={{ fontSize: "0.5rem" }}>{d.label}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
