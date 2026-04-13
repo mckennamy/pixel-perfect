@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import EditableText from "@/components/wedding/EditableText";
 
 const guestSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -91,19 +92,32 @@ export default function Reservations() {
     return (
       <div className="page-wrapper flex items-center justify-center min-h-screen px-6">
         <div className="text-center max-w-lg">
-          <p className="kicker mb-8">Reservation Received</p>
-          <h1
+          <EditableText
+            id="res-thankyou-kicker"
+            defaultContent="Reservation Received"
+            tag="p"
+            className="kicker mb-8"
+          />
+          <EditableText
+            id="res-thankyou-heading"
+            defaultContent="We'll See You in Lucca"
+            tag="h1"
             className="font-display italic text-burg leading-none mb-8"
             style={{ fontSize: "clamp(3rem, 8vw, 5rem)", fontWeight: 300 }}
-          >
-            We'll See You<br />in Lucca
-          </h1>
+          />
           <span className="rule mb-10 block" />
-          <p className="font-body text-base text-ink-mid leading-relaxed mb-8">
-            Thank you for securing your place at our wedding in Lucca, Tuscany.
-            We will be in touch within 48 hours with payment details and confirmation.
-          </p>
-          <p className="kicker">Becoming Bradley · May 22, 2027</p>
+          <EditableText
+            id="res-thankyou-body"
+            defaultContent="Thank you for securing your place at our wedding in Lucca, Tuscany. We will be in touch within 48 hours with payment details and confirmation."
+            tag="p"
+            className="font-body text-base text-ink-mid leading-relaxed mb-8"
+          />
+          <EditableText
+            id="res-thankyou-date"
+            defaultContent="Becoming Bradley · May 22, 2027"
+            tag="p"
+            className="kicker"
+          />
         </div>
       </div>
     );
@@ -113,13 +127,19 @@ export default function Reservations() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Secure Your Place</p>
-        <h1
+        <EditableText
+          id="res-hero-kicker"
+          defaultContent="Secure Your Place"
+          tag="p"
+          className="kicker mb-5"
+        />
+        <EditableText
+          id="res-hero-h1"
+          defaultContent="Reservations"
+          tag="h1"
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
-        >
-          Reservations
-        </h1>
+        />
         <span className="rule" />
       </header>
 
@@ -127,7 +147,7 @@ export default function Reservations() {
 
         {/* ── 01: Your Details ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">01 — Your Details</p>
+          <EditableText id="res-section-01" defaultContent="01 — Your Details" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="sm:col-span-2">
@@ -156,7 +176,7 @@ export default function Reservations() {
 
         {/* ── 02: Your Party ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">02 — Your Party</p>
+          <EditableText id="res-section-02" defaultContent="02 — Your Party" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
           <div className="space-y-4">
             {fields.map((field, i) => (
@@ -207,7 +227,7 @@ export default function Reservations() {
 
         {/* ── 03: Payment ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">03 — Payment</p>
+          <EditableText id="res-section-03" defaultContent="03 — Payment" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
           <div className="space-y-3">
             {[
@@ -246,7 +266,7 @@ export default function Reservations() {
 
         {/* ── 04: Accommodation ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">04 — Accommodation</p>
+          <EditableText id="res-section-04" defaultContent="04 — Accommodation" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
           <div className="space-y-3 mb-6">
             {[
@@ -348,7 +368,7 @@ export default function Reservations() {
 
         {/* ── 05: Flights ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">05 — Flight Information</p>
+          <EditableText id="res-section-05" defaultContent="05 — Flight Information" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-2" />
           <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-8">
             Optional — helps us coordinate arrivals and any group transfers.
@@ -405,7 +425,7 @@ export default function Reservations() {
 
         {/* ── 06: Notes ── */}
         <div className="reveal mb-14">
-          <p className="kicker mb-2">06 — Anything Else?</p>
+          <EditableText id="res-section-06" defaultContent="06 — Anything Else?" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
           <p className="kicker mb-2">Notes or Special Requests</p>
           <div className={inputWrap}>
@@ -434,9 +454,12 @@ export default function Reservations() {
           >
             {isSubmitting ? "Submitting…" : "Submit Reservation"}
           </button>
-          <p className="font-body text-xs italic text-[hsl(var(--stone))] mt-6">
-            We will be in touch within 48 hours with payment details and confirmation.
-          </p>
+          <EditableText
+            id="res-submit-note"
+            defaultContent="We will be in touch within 48 hours with payment details and confirmation."
+            tag="p"
+            className="font-body text-xs italic text-[hsl(var(--stone))] mt-6"
+          />
         </div>
       </form>
     </div>

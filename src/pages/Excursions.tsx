@@ -91,13 +91,19 @@ export default function Excursions() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Beyond the Wedding</p>
-        <h1
+        <EditableText
+          id="excursions-hero-kicker"
+          defaultContent="Beyond the Wedding"
+          tag="p"
+          className="kicker mb-5"
+        />
+        <EditableText
+          id="excursions-hero-h1"
+          defaultContent="Excursions"
+          tag="h1"
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
-        >
-          Excursions
-        </h1>
+        />
         <span className="rule" />
       </header>
 
@@ -110,17 +116,31 @@ export default function Excursions() {
       <section className="py-16 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-4xl mx-auto">
           <div className="reveal mb-10">
-            <p className="kicker mb-4">Your Free Days</p>
-            <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Days to Explore
-            </h2>
+            <EditableText
+              id="excursions-freedays-kicker"
+              defaultContent="Your Free Days"
+              tag="p"
+              className="kicker mb-4"
+            />
+            <EditableText
+              id="excursions-freedays-h2"
+              defaultContent="Days to Explore"
+              tag="h2"
+              className="font-display italic text-burg"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            />
           </div>
           <div className="space-y-0 reveal">
             {freeDays.map((d, i) => (
               <div key={i}>
                 <div className="rule-full mb-4" />
                 <div className="grid md:grid-cols-2 gap-2 mb-4">
-                  <p className="kicker">{d.date}</p>
+                  <EditableText
+                    id={`excursions-freeday-date-${i}`}
+                    tag="p"
+                    className="kicker"
+                    defaultContent={d.date}
+                  />
                   <EditableText
                     id={`excursions-freeday-note-${i + 1}`}
                     tag="p"
@@ -138,10 +158,19 @@ export default function Excursions() {
       {/* Destinations */}
       <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">Where to Go</p>
-          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            Destinations Near Lucca
-          </h2>
+          <EditableText
+            id="excursions-destinations-kicker"
+            defaultContent="Where to Go"
+            tag="p"
+            className="kicker mb-4"
+          />
+          <EditableText
+            id="excursions-destinations-h2"
+            defaultContent="Destinations Near Lucca"
+            tag="h2"
+            className="font-display italic text-burg"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+          />
         </div>
         <div className="space-y-0 reveal">
           {destinations.map((dest, i) => (
@@ -149,16 +178,29 @@ export default function Excursions() {
               <div className="rule-full mb-6" />
               <div className="grid md:grid-cols-3 gap-6 mb-6">
                 <div>
-                  <p className="font-display italic text-burg text-2xl mb-1" style={{ fontWeight: 300 }}>
-                    {dest.name}
-                  </p>
-                  <p className="font-body text-xs text-stone">{dest.distance}</p>
+                  <EditableText
+                    id={`excursions-dest-${i}-name`}
+                    defaultContent={dest.name}
+                    tag="p"
+                    className="font-display italic text-burg text-2xl mb-1"
+                    style={{ fontWeight: 300 }}
+                  />
+                  <EditableText
+                    id={`excursions-dest-${i}-distance`}
+                    defaultContent={dest.distance}
+                    tag="p"
+                    className="font-body text-xs text-stone"
+                  />
                 </div>
                 <ul className="space-y-2 md:col-span-2">
                   {dest.highlights.map((h, j) => (
                     <li key={j} className="font-body text-sm text-ink-mid leading-relaxed flex gap-3">
                       <span className="text-stone-light flex-shrink-0 mt-0.5">—</span>
-                      {h}
+                      <EditableText
+                        id={`excursions-dest-${i}-highlight-${j}`}
+                        defaultContent={h}
+                        tag="span"
+                      />
                     </li>
                   ))}
                   <li className="pt-2">
@@ -181,10 +223,19 @@ export default function Excursions() {
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-2xl mx-auto">
           <div className="reveal mb-8">
-            <p className="kicker mb-4">Plan Your Days</p>
-            <h2 className="font-display italic text-burg mb-2" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Activity Planner
-            </h2>
+            <EditableText
+              id="excursions-planner-kicker"
+              defaultContent="Plan Your Days"
+              tag="p"
+              className="kicker mb-4"
+            />
+            <EditableText
+              id="excursions-planner-h2"
+              defaultContent="Activity Planner"
+              tag="h2"
+              className="font-display italic text-burg mb-2"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            />
             <EditableText
               id="excursions-planner-desc"
               tag="p"

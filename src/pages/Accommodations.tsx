@@ -74,12 +74,12 @@ export default function Accommodations() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Where You'll Stay</p>
+        <EditableText id="accom-hero-kicker" tag="p" className="kicker mb-5" defaultContent="Where You'll Stay" />
         <h1
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3rem, 8vw, 6rem)", fontWeight: 300 }}
         >
-          Accommodations
+          <EditableText id="accom-hero-h1" tag="span" defaultContent="Accommodations" />
         </h1>
         <span className="rule" />
       </header>
@@ -97,12 +97,12 @@ export default function Accommodations() {
       {/* ── The Villas ── */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 mb-24">
         <div className="reveal mb-14">
-          <p className="kicker mb-4">On the Estate</p>
+          <EditableText id="accom-villas-kicker" tag="p" className="kicker mb-4" defaultContent="On the Estate" />
           <h2
             className="font-display italic text-burg"
             style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", fontWeight: 300 }}
           >
-            The Villas
+            <EditableText id="accom-villas-h2" tag="span" defaultContent="The Villas" />
           </h2>
         </div>
 
@@ -124,12 +124,13 @@ export default function Accommodations() {
                   background: v.bridal ? "hsl(var(--burg))" : "hsl(var(--parchment))",
                 }}
               >
-                <p
+                <EditableText
+                  id={`accom-villa-${v.id}-tag`}
+                  tag="p"
                   className="kicker"
                   style={{ color: v.bridal ? "hsl(var(--gold-light))" : "hsl(var(--stone))" }}
-                >
-                  {v.tag}
-                </p>
+                  defaultContent={v.tag}
+                />
                 {/* Stats */}
                 <div className="flex items-center gap-3">
                   {[
@@ -160,14 +161,15 @@ export default function Accommodations() {
                   className="font-display italic text-burg mb-1"
                   style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", fontWeight: 300 }}
                 >
-                  {v.name}
+                  <EditableText id={`accom-villa-${v.id}-name`} tag="span" defaultContent={v.name} />
                 </h3>
-                <p
+                <EditableText
+                  id={`accom-villa-${v.id}-meta`}
+                  tag="p"
                   className="kicker mb-4"
                   style={{ color: "hsl(var(--stone-light))", fontSize: "0.5rem" }}
-                >
-                  {v.pool} · {v.sqm} m²
-                </p>
+                  defaultContent={`${v.pool} · ${v.sqm} m²`}
+                />
 
                 <EditableText
                   id={`villa-${v.id}-desc`}
@@ -183,7 +185,12 @@ export default function Accommodations() {
                         className="flex-shrink-0 mt-1.5"
                         style={{ width: 16, height: 1, background: "hsl(var(--gold))" }}
                       />
-                      <span className="font-body text-xs text-ink-mid">{f}</span>
+                      <EditableText
+                        id={`accom-villa-${v.id}-feature-${i}`}
+                        tag="span"
+                        className="font-body text-xs text-ink-mid"
+                        defaultContent={f}
+                      />
                     </li>
                   ))}
                 </ul>
@@ -198,12 +205,12 @@ export default function Accommodations() {
         <div className="max-w-4xl mx-auto">
           <div className="reveal mb-14">
             <span className="rule block mb-10" style={{ background: "hsl(var(--gold) / 0.45)" }} />
-            <p className="kicker mb-4" style={{ color: "hsl(var(--gold-light) / 0.7)" }}>Cost Breakdown</p>
+            <EditableText id="accom-pricing-kicker" tag="p" className="kicker mb-4" style={{ color: "hsl(var(--gold-light) / 0.7)" }} defaultContent="Cost Breakdown" />
             <h2
               className="font-display italic text-white"
               style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
             >
-              Pricing
+              <EditableText id="accom-pricing-h2" tag="span" defaultContent="Pricing" />
             </h2>
           </div>
 
@@ -213,7 +220,7 @@ export default function Accommodations() {
               className="p-8"
               style={{ border: "1px solid rgba(250,248,242,0.1)", background: "rgba(255,255,255,0.04)" }}
             >
-              <p className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }}>Per-Guest Rate</p>
+              <EditableText id="accom-rate-kicker" tag="p" className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }} defaultContent="Per-Guest Rate" />
               <p
                 className="font-display italic text-white leading-none mb-1"
                 style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 300 }}
@@ -221,9 +228,7 @@ export default function Accommodations() {
                 $460
                 <span className="font-body not-italic text-sm ml-2" style={{ color: "rgba(250,248,242,0.5)" }}>USD</span>
               </p>
-              <p className="font-body text-xs italic mb-6" style={{ color: "rgba(250,248,242,0.45)" }}>
-                €385 per guest · all-inclusive accommodation for the week
-              </p>
+              <EditableText id="accom-rate-subtext" tag="p" className="font-body text-xs italic mb-6" style={{ color: "rgba(250,248,242,0.45)" }} defaultContent="€385 per guest · all-inclusive accommodation for the week" />
               <div className="space-y-3">
                 {[
                   "Arrival Monday, May 19",
@@ -233,7 +238,13 @@ export default function Accommodations() {
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="flex-shrink-0 mt-2" style={{ width: 12, height: 1, background: "hsl(var(--gold))" }} />
-                    <p className="font-body text-xs" style={{ color: "rgba(250,248,242,0.6)" }}>{item}</p>
+                    <EditableText
+                      id={`accom-rate-bullet-${i}`}
+                      tag="p"
+                      className="font-body text-xs"
+                      style={{ color: "rgba(250,248,242,0.6)" }}
+                      defaultContent={item}
+                    />
                   </div>
                 ))}
               </div>
@@ -246,13 +257,21 @@ export default function Accommodations() {
                 className="p-8"
                 style={{ border: "1px solid rgba(250,248,242,0.1)", background: "rgba(255,255,255,0.04)" }}
               >
-                <p className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }}>Payment</p>
-                <p className="font-body text-sm mb-3" style={{ color: "rgba(250,248,242,0.75)" }}>
-                  All payments are in <strong style={{ color: "white" }}>USD via Venmo</strong>. After submitting your reservation, you will receive payment instructions directly from McKenna.
-                </p>
-                <p className="font-body text-xs italic" style={{ color: "rgba(250,248,242,0.4)" }}>
-                  A 50% deposit secures your place; the remaining balance is due February 22, 2027.
-                </p>
+                <EditableText id="accom-payment-kicker" tag="p" className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }} defaultContent="Payment" />
+                <EditableText
+                  id="accom-payment-body"
+                  tag="p"
+                  className="font-body text-sm mb-3"
+                  style={{ color: "rgba(250,248,242,0.75)" }}
+                  defaultContent="All payments are in USD via Venmo. After submitting your reservation, you will receive payment instructions directly from McKenna."
+                />
+                <EditableText
+                  id="accom-payment-note"
+                  tag="p"
+                  className="font-body text-xs italic"
+                  style={{ color: "rgba(250,248,242,0.4)" }}
+                  defaultContent="A 50% deposit secures your place; the remaining balance is due February 22, 2027."
+                />
               </div>
 
               {/* Linen service */}
@@ -260,14 +279,21 @@ export default function Accommodations() {
                 className="p-8"
                 style={{ border: "1px solid rgba(250,248,242,0.1)", background: "rgba(255,255,255,0.04)" }}
               >
-                <p className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }}>Linen & Towel Service</p>
-                <p className="font-body text-sm mb-2" style={{ color: "rgba(250,248,242,0.75)" }}>
-                  Daily linen and towel changes are available for an additional per-night charge.
-                  Select your preference — every day or specific days — on the reservation form.
-                </p>
-                <p className="font-body text-xs italic" style={{ color: "rgba(250,248,242,0.4)" }}>
-                  Service is available to all on-site guests.
-                </p>
+                <EditableText id="accom-linen-kicker" tag="p" className="kicker mb-3" style={{ color: "hsl(var(--gold-light) / 0.7)" }} defaultContent="Linen & Towel Service" />
+                <EditableText
+                  id="accom-linen-body"
+                  tag="p"
+                  className="font-body text-sm mb-2"
+                  style={{ color: "rgba(250,248,242,0.75)" }}
+                  defaultContent="Daily linen and towel changes are available for an additional per-night charge. Select your preference — every day or specific days — on the reservation form."
+                />
+                <EditableText
+                  id="accom-linen-note"
+                  tag="p"
+                  className="font-body text-xs italic"
+                  style={{ color: "rgba(250,248,242,0.4)" }}
+                  defaultContent="Service is available to all on-site guests."
+                />
               </div>
 
               {/* L'Arancera note */}
@@ -277,10 +303,14 @@ export default function Accommodations() {
               >
                 <div className="flex-shrink-0 w-px self-stretch" style={{ background: "hsl(var(--gold))" }} />
                 <div>
-                  <p className="kicker mb-2" style={{ color: "hsl(var(--gold-light))" }}>L'Arancera</p>
-                  <p className="font-body text-xs" style={{ color: "rgba(250,248,242,0.55)" }}>
-                    L'Arancera is reserved exclusively for the bridal party, groom's party, and their designated plus ones. It is not available for general guest booking.
-                  </p>
+                  <EditableText id="accom-arancera-note-kicker" tag="p" className="kicker mb-2" style={{ color: "hsl(var(--gold-light))" }} defaultContent="L'Arancera" />
+                  <EditableText
+                    id="accom-arancera-note-body"
+                    tag="p"
+                    className="font-body text-xs"
+                    style={{ color: "rgba(250,248,242,0.55)" }}
+                    defaultContent="L'Arancera is reserved exclusively for the bridal party, groom's party, and their designated plus ones. It is not available for general guest booking."
+                  />
                 </div>
               </div>
             </div>
@@ -291,19 +321,19 @@ export default function Accommodations() {
       {/* ── Villa Grabau & L'Arancera links ── */}
       <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">The Estate</p>
+          <EditableText id="accom-estate-kicker" tag="p" className="kicker mb-4" defaultContent="The Estate" />
           <h2
             className="font-display italic text-burg"
             style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", fontWeight: 300 }}
           >
-            Villa Grabau
+            <EditableText id="accom-estate-h2" tag="span" defaultContent="Villa Grabau" />
           </h2>
         </div>
         <div className="grid md:grid-cols-2 gap-8 reveal">
           <div>
             <PhotoPlaceholder id="villa-grabau-hero" aspect="video" caption="Villa Grabau" />
             <div className="mt-4 flex items-center justify-between">
-              <p className="font-display italic text-burg" style={{ fontSize: "1.4rem" }}>Villa Grabau</p>
+              <EditableText id="accom-villagrabau-card-name" tag="p" className="font-display italic text-burg" style={{ fontSize: "1.4rem" }} defaultContent="Villa Grabau" />
               <a
                 href="https://www.villagrabau.it/en/"
                 target="_blank"
@@ -324,7 +354,7 @@ export default function Accommodations() {
           <div>
             <PhotoPlaceholder id="larancera-hero" aspect="video" caption="L'Arancera" />
             <div className="mt-4 flex items-center justify-between">
-              <p className="font-display italic text-burg" style={{ fontSize: "1.4rem" }}>L'Arancera</p>
+              <EditableText id="accom-larancera-card-name" tag="p" className="font-display italic text-burg" style={{ fontSize: "1.4rem" }} defaultContent="L'Arancera" />
               <a
                 href="https://www.aranceravillagrabau.it/"
                 target="_blank"
@@ -349,10 +379,13 @@ export default function Accommodations() {
       <section className="py-20 px-6 text-center" style={{ background: "hsl(var(--moss))" }}>
         <div className="max-w-md mx-auto">
           <span className="rule mb-10 block" style={{ background: "hsl(var(--gold) / 0.4)" }} />
-          <p className="font-display italic text-white leading-snug mb-8"
-            style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}>
-            Spaces are limited.<br />Reserve before they're gone.
-          </p>
+          <EditableText
+            id="accom-cta-quote"
+            tag="p"
+            className="font-display italic text-white leading-snug mb-8"
+            style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 300 }}
+            defaultContent="Spaces are limited. Reserve before they're gone."
+          />
           <Link
             to="/reservations"
             className="kicker inline-block px-10 py-3 transition-all duration-300"

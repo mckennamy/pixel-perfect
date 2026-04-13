@@ -95,13 +95,19 @@ export default function FAQ() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Questions Answered</p>
-        <h1
+        <EditableText
+          id="faq-hero-kicker"
+          defaultContent="Questions Answered"
+          tag="p"
+          className="kicker mb-5"
+        />
+        <EditableText
+          id="faq-hero-h1"
+          defaultContent="FAQ"
+          tag="h1"
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
-        >
-          FAQ
-        </h1>
+        />
         <span className="rule" />
       </header>
 
@@ -110,7 +116,12 @@ export default function FAQ() {
           const slug = section.category.toLowerCase().replace(/\s+/g, "-");
           return (
             <section key={i} className="mb-16 reveal">
-              <p className="kicker mb-6">{section.category}</p>
+              <EditableText
+                id={`faq-category-${slug}`}
+                defaultContent={section.category}
+                tag="p"
+                className="kicker mb-6"
+              />
               <div style={{ borderTop: "1px solid hsl(var(--border))" }}>
                 {section.items.map((item, j) => (
                   <FAQItem key={j} id={`faq-${slug}-${j + 1}`} q={item.q} a={item.a} />
@@ -122,7 +133,12 @@ export default function FAQ() {
 
         {/* Contact */}
         <div className="reveal mt-8 pt-10" style={{ borderTop: "1px solid hsl(var(--border))" }}>
-          <p className="kicker mb-4">Still Have Questions?</p>
+          <EditableText
+            id="faq-contact-kicker"
+            defaultContent="Still Have Questions?"
+            tag="p"
+            className="kicker mb-4"
+          />
           <EditableText
             id="faq-contact-tagline"
             tag="p"

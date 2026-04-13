@@ -64,13 +64,19 @@ export default function OurStory() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">McKenna &amp; Jordan</p>
-        <h1
+        <EditableText
+          id="story-hero-kicker"
+          defaultContent="McKenna & Jordan"
+          tag="p"
+          className="kicker mb-5"
+        />
+        <EditableText
+          id="story-hero-h1"
+          defaultContent="Our Story"
+          tag="h1"
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
-        >
-          Our Story
-        </h1>
+        />
         <span className="rule" />
       </header>
 
@@ -127,9 +133,13 @@ export default function OurStory() {
               fontWeight: 300,
             }}
           />
-          <p className="kicker" style={{ color: "rgba(138,158,20,0.8)" }}>
-            Becoming Bradley · May 22, 2027
-          </p>
+          <EditableText
+            id="story-closing-kicker"
+            defaultContent="Becoming Bradley · May 22, 2027"
+            tag="p"
+            className="kicker"
+            style={{ color: "rgba(138,158,20,0.8)" }}
+          />
         </div>
       </section>
 
@@ -137,7 +147,12 @@ export default function OurStory() {
       <section className="py-24 px-6 text-center" style={{ background: "hsl(var(--cream))" }}>
         <div className="max-w-2xl mx-auto">
           <span className="rule mb-10 block" />
-          <p className="kicker mb-8">Continue Exploring</p>
+          <EditableText
+            id="story-explore-kicker"
+            defaultContent="Continue Exploring"
+            tag="p"
+            className="kicker mb-8"
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
             {exploreLinks.map((l) => (
               <Link

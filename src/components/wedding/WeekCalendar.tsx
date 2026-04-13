@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import EditableText from "@/components/wedding/EditableText";
 
 const CALENDAR_H = 68;
 
@@ -366,7 +367,10 @@ export default function WeekCalendar() {
               </p>
 
               {/* Heading */}
-              <p
+              <EditableText
+                id={`cal-${selDay.date}-heading`}
+                tag="p"
+                defaultContent={selDetail.heading}
                 style={{
                   fontFamily: "Cormorant Garamond, Georgia, serif",
                   fontStyle: "italic",
@@ -376,13 +380,14 @@ export default function WeekCalendar() {
                   opacity: 0.85,
                   marginBottom: selDetail.time ? "0.5rem" : "1.25rem",
                 }}
-              >
-                {selDetail.heading}
-              </p>
+              />
 
               {/* Time + attire */}
               {selDetail.time && (
-                <p
+                <EditableText
+                  id={`cal-${selDay.date}-time`}
+                  tag="p"
+                  defaultContent={selDetail.time}
                   style={{
                     fontFamily: "Cinzel, serif",
                     fontSize: "0.55rem",
@@ -391,12 +396,13 @@ export default function WeekCalendar() {
                     color: selStyle.accent,
                     marginBottom: "0.2rem",
                   }}
-                >
-                  {selDetail.time}
-                </p>
+                />
               )}
               {selDetail.attire && (
-                <p
+                <EditableText
+                  id={`cal-${selDay.date}-attire`}
+                  tag="p"
+                  defaultContent={`Attire: ${selDetail.attire}`}
                   style={{
                     fontFamily: "EB Garamond, serif",
                     fontStyle: "italic",
@@ -405,16 +411,17 @@ export default function WeekCalendar() {
                     opacity: 0.55,
                     marginBottom: "1.25rem",
                   }}
-                >
-                  Attire: {selDetail.attire}
-                </p>
+                />
               )}
 
               {/* Rule */}
               <div style={{ width: 36, height: 1, background: selStyle.accent, opacity: 0.45, marginBottom: "1.25rem" }} />
 
               {/* Description */}
-              <p
+              <EditableText
+                id={`cal-${selDay.date}-desc`}
+                tag="p"
+                defaultContent={selDetail.description}
                 style={{
                   fontFamily: "EB Garamond, serif",
                   fontSize: "1.05rem",
@@ -423,9 +430,7 @@ export default function WeekCalendar() {
                   opacity: 0.8,
                   marginBottom: "2rem",
                 }}
-              >
-                {selDetail.description}
-              </p>
+              />
 
               {/* Activities */}
               <div>
@@ -441,7 +446,10 @@ export default function WeekCalendar() {
                       paddingBottom: "0.9rem",
                     }}
                   >
-                    <p
+                    <EditableText
+                      id={`cal-${selDay.date}-act-${i}-title`}
+                      tag="p"
+                      defaultContent={a.title}
                       style={{
                         fontFamily: "Cinzel, serif",
                         fontSize: "0.5rem",
@@ -450,10 +458,11 @@ export default function WeekCalendar() {
                         color: selStyle.accent,
                         lineHeight: 1.5,
                       }}
-                    >
-                      {a.title}
-                    </p>
-                    <p
+                    />
+                    <EditableText
+                      id={`cal-${selDay.date}-act-${i}-note`}
+                      tag="p"
+                      defaultContent={a.note}
                       style={{
                         fontFamily: "EB Garamond, serif",
                         fontStyle: "italic",
@@ -462,9 +471,7 @@ export default function WeekCalendar() {
                         opacity: 0.65,
                         lineHeight: 1.6,
                       }}
-                    >
-                      {a.note}
-                    </p>
+                    />
                   </div>
                 ))}
                 <div style={{ borderTop: `1px solid ${selStyle.accent}28` }} />

@@ -49,12 +49,12 @@ export default function FinerDetails() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Everything You Need to Know</p>
+        <EditableText id="finer-hero-kicker" tag="p" className="kicker mb-5" defaultContent="Everything You Need to Know" />
         <h1
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3rem, 8vw, 6rem)", fontWeight: 300 }}
         >
-          Finer Details
+          <EditableText id="finer-hero-h1" tag="span" defaultContent="Finer Details" />
         </h1>
         <span className="rule" />
       </header>
@@ -67,18 +67,18 @@ export default function FinerDetails() {
       {/* Dress Code */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 mb-24">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">What to Wear</p>
+          <EditableText id="finer-dresscode-kicker" tag="p" className="kicker mb-4" defaultContent="What to Wear" />
           <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            Dress Code
+            <EditableText id="finer-dresscode-h2" tag="span" defaultContent="Dress Code" />
           </h2>
         </div>
 
         <div className="space-y-6 reveal">
           <div className="rule-full" />
           <div className="grid md:grid-cols-3 gap-1">
-            <p className="kicker text-stone pb-2 md:pb-0">The Occasion</p>
+            <EditableText id="finer-occasion-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="The Occasion" />
             <div className="md:col-span-2">
-              <p className="font-display italic text-burg text-2xl mb-2">Garden Party Formal</p>
+              <EditableText id="finer-occasion-heading" tag="p" className="font-display italic text-burg text-2xl mb-2" defaultContent="Garden Party Formal" />
               <EditableText
                 id="dress-occasion-body"
                 tag="p"
@@ -89,7 +89,7 @@ export default function FinerDetails() {
           </div>
           <div className="rule-full" />
           <div className="grid md:grid-cols-3 gap-1">
-            <p className="kicker text-stone pb-2 md:pb-0">For Her</p>
+            <EditableText id="finer-her-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Her" />
             <EditableText
               id="dress-her"
               tag="p"
@@ -99,7 +99,7 @@ export default function FinerDetails() {
           </div>
           <div className="rule-full" />
           <div className="grid md:grid-cols-3 gap-1">
-            <p className="kicker text-stone pb-2 md:pb-0">For Him</p>
+            <EditableText id="finer-him-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Him" />
             <EditableText
               id="dress-him"
               tag="p"
@@ -115,13 +115,11 @@ export default function FinerDetails() {
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-14">
-            <p className="kicker mb-4">Our Palette</p>
+            <EditableText id="finer-palette-kicker" tag="p" className="kicker mb-4" defaultContent="Our Palette" />
             <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Wedding Colours
+              <EditableText id="finer-palette-h2" tag="span" defaultContent="Wedding Colours" />
             </h2>
-            <p className="font-body text-sm italic text-stone mt-2">
-              We'd love to see you incorporate these into your look.
-            </p>
+            <EditableText id="finer-palette-encourage" tag="p" className="font-body text-sm italic text-stone mt-2" defaultContent="We'd love to see you incorporate these into your look." />
           </div>
 
           {/* Swatch strips — flush, tall, designer-card aesthetic */}
@@ -145,7 +143,9 @@ export default function FinerDetails() {
                   {/* subtle inner vignette on each swatch */}
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.18) 100%)", pointerEvents: "none" }} />
                   <div style={{ position: "relative", zIndex: 1 }}>
-                    <p
+                    <EditableText
+                      id={`finer-color-${i}-name`}
+                      tag="p"
                       style={{
                         fontFamily: "Cinzel, serif",
                         fontSize: "clamp(0.38rem, 0.9vw, 0.52rem)",
@@ -155,10 +155,11 @@ export default function FinerDetails() {
                         lineHeight: 1.4,
                         marginBottom: "0.2rem",
                       }}
-                    >
-                      {c.name}
-                    </p>
-                    <p
+                      defaultContent={c.name}
+                    />
+                    <EditableText
+                      id={`finer-color-${i}-note`}
+                      tag="p"
                       style={{
                         fontFamily: "EB Garamond, serif",
                         fontStyle: "italic",
@@ -169,9 +170,8 @@ export default function FinerDetails() {
                         display: "none",
                       }}
                       className="md:block"
-                    >
-                      {c.note}
-                    </p>
+                      defaultContent={c.note}
+                    />
                     <p
                       style={{
                         fontFamily: "Cinzel, serif",
@@ -195,9 +195,9 @@ export default function FinerDetails() {
       {/* Florals */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">Our Flowers</p>
+          <EditableText id="finer-florals-kicker" tag="p" className="kicker mb-4" defaultContent="Our Flowers" />
           <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            Floral Design
+            <EditableText id="finer-florals-h2" tag="span" defaultContent="Floral Design" />
           </h2>
         </div>
         <div className="space-y-6 reveal">
@@ -205,8 +205,8 @@ export default function FinerDetails() {
             <div key={i}>
               <div className="rule-full mb-4" />
               <div className="grid md:grid-cols-3 gap-1">
-                <p className="kicker text-stone pb-2 md:pb-0">{f.name}</p>
-                <p className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2">{f.note}</p>
+                <EditableText id={`finer-flower-${i}-name`} tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent={f.name} />
+                <EditableText id={`finer-flower-${i}-note`} tag="p" className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2" defaultContent={f.note} />
               </div>
             </div>
           ))}

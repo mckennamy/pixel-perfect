@@ -35,58 +35,49 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 2.5rem",
-          background: "hsl(var(--moss))",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          background: "hsl(68, 40%, 93%)",   /* chartreuse-pale — Friday's free-day colour */
+          borderBottom: "1px solid hsl(68, 28%, 82%)",
         }}
       >
-        {/* Logo — chartreuse on dark green */}
+        {/* Logo — burgundy on chartreuse-pale */}
         <Link
           to="/"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.6rem",
+            gap: "0.5rem",
             textDecoration: "none",
             transition: "opacity 0.2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "0.72")}
+          onMouseEnter={e => (e.currentTarget.style.opacity = "0.65")}
           onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
         >
-          {/* Chartreuse accent dot */}
-          <div
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: "50%",
-              background: "hsl(68, 72%, 52%)",
-              flexShrink: 0,
-            }}
-          />
           <span
             style={{
               fontFamily: "Cinzel, serif",
               fontSize: "0.56rem",
               letterSpacing: "0.42em",
               textTransform: "uppercase",
-              color: "hsl(68, 72%, 52%)",
+              color: "hsl(var(--burg))",
             }}
           >
             Becoming
           </span>
+          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "hsl(var(--burg-mid))", opacity: 0.4 }} />
           <span
             style={{
               fontFamily: "Cinzel, serif",
               fontSize: "0.56rem",
               letterSpacing: "0.42em",
               textTransform: "uppercase",
-              color: "hsl(138, 30%, 38%)",
+              color: "hsl(var(--burg))",
             }}
           >
             Bradley
           </span>
         </Link>
 
-        {/* Menu trigger — elegant bordered square with morphing lines */}
+        {/* Menu trigger — burgundy lines on pale green */}
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -99,7 +90,7 @@ export default function Navbar() {
             justifyContent: "center",
             gap: 7,
             background: "transparent",
-            border: `1px solid ${open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.2)"}`,
+            border: `1px solid ${open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.3)"}`,
             cursor: "pointer",
             flexShrink: 0,
             transition: "border-color 0.35s",
@@ -110,7 +101,7 @@ export default function Navbar() {
               display: "block",
               width: 14,
               height: 1,
-              background: open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.7)",
+              background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.65)",
               transform: open ? "translateY(4px) rotate(45deg)" : "none",
               transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
@@ -120,7 +111,7 @@ export default function Navbar() {
               display: "block",
               width: 14,
               height: 1,
-              background: open ? "hsl(var(--chart-mid))" : "rgba(250,248,242,0.7)",
+              background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.65)",
               transform: open ? "translateY(-4px) rotate(-45deg)" : "none",
               transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
