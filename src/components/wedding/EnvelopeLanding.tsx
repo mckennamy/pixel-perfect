@@ -72,10 +72,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "hsl(var(--stone))",
-                  marginBottom: "0.25rem",
-                }}
+                  textTransform: "lowercase",
               >
                 <EditableText id="invite-honour" tag="span" defaultContent="The honour of your presence" />
               </p>
@@ -84,10 +81,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "hsl(var(--stone))",
-                  marginBottom: "2.5rem",
-                }}
+                  textTransform: "lowercase",
               >
                 <EditableText id="invite-requested" tag="span" defaultContent="is requested at the marriage of" />
               </p>
@@ -104,10 +98,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.55rem",
                   letterSpacing: "0.35em",
-                  textTransform: "uppercase",
-                  color: "hsl(var(--stone))",
-                  margin: "1rem 0",
-                }}
+                  textTransform: "lowercase",
               >
                 and
               </p>
@@ -126,9 +117,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "hsl(var(--ink-mid))",
-                  marginBottom: "0.25rem",
+                  textTransform: "lowercase",
                 }}
               >
                 <EditableText id="invite-date-line1" tag="span" defaultContent="Thursday, the Twenty-Second of May" />
@@ -138,9 +127,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "hsl(var(--ink-mid))",
-                  marginBottom: "2rem",
+                  textTransform: "lowercase",
                 }}
               >
                 <EditableText id="invite-date-line2" tag="span" defaultContent="Two Thousand and Twenty-Seven" />
