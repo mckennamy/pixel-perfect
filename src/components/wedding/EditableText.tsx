@@ -26,6 +26,16 @@ const btnStyle: React.CSSProperties = {
   transition: "background 0.12s",
 };
 
+const CASE_CYCLE: Array<"none" | "uppercase" | "lowercase" | "capitalize"> = [
+  "none", "uppercase", "lowercase", "capitalize",
+];
+const CASE_LABELS: Record<string, string> = {
+  none: "Aa",
+  uppercase: "AA",
+  lowercase: "aa",
+  capitalize: "Ab",
+};
+
 export default function EditableText({
   id,
   defaultContent,
@@ -36,14 +46,15 @@ export default function EditableText({
   const ref = useRef<HTMLElement>(null);
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
+  const caseKey = `bb_case_${id}`;
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const [textCase, setTextCase] = useState<string>("none");
 
-  // ── Restore content + font size ──
+  // ── Restore content + font size + case ──
   useLayoutEffect(() => {
     if (!ref.current) return;
-    // Show default immediately, then load from cloud
     const cached = localStorage.getItem(textKey);
     if (cached !== null) {
       ref.current.innerHTML = cached;
@@ -52,19 +63,26 @@ export default function EditableText({
     }
     const cachedSize = localStorage.getItem(sizeKey);
     if (cachedSize) ref.current.style.fontSize = cachedSize;
+    const cachedCase = localStorage.getItem(caseKey);
+    if (cachedCase) {
+      ref.current.style.textTransform = cachedCase;
+      setTextCase(cachedCase);
+    }
 
     // Load from cloud (async)
     loadEdit(textKey).then((saved) => {
-      if (saved !== null && ref.current) {
-        ref.current.innerHTML = saved;
-      }
+      if (saved !== null && ref.current) ref.current.innerHTML = saved;
     });
     loadEdit(sizeKey).then((savedSize) => {
-      if (savedSize && ref.current) {
-        ref.current.style.fontSize = savedSize;
+      if (savedSize && ref.current) ref.current.style.fontSize = savedSize;
+    });
+    loadEdit(caseKey).then((savedCase) => {
+      if (savedCase && ref.current) {
+        ref.current.style.textTransform = savedCase;
+        setTextCase(savedCase);
       }
     });
-  }, [textKey, sizeKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [textKey, sizeKey, caseKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Keep toolbar aligned on scroll / resize ──
   const reposition = useCallback(() => {
@@ -72,7 +90,7 @@ export default function EditableText({
     const r = ref.current.getBoundingClientRect();
     setTbPos({
       top: Math.max(4, r.top - 38),
-      left: Math.max(4, Math.min(r.left, window.innerWidth - 220)),
+      left: Math.max(4, Math.min(r.left, window.innerWidth - 260)),
     });
   }, []);
 
@@ -117,6 +135,16 @@ export default function EditableText({
     removeEdit(sizeKey);
   };
 
+  const cycleCase = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!ref.current) return;
+    const idx = CASE_CYCLE.indexOf(textCase as any);
+    const next = CASE_CYCLE[(idx + 1) % CASE_CYCLE.length];
+    ref.current.style.textTransform = next;
+    setTextCase(next);
+    saveEdit(caseKey, next);
+  };
+
   const Tag = tag as any;
 
   const toolbar = focused && createPortal(
@@ -138,6 +166,7 @@ export default function EditableText({
       }}
       onMouseDown={e => e.preventDefault()}
     >
+      {/* Font size */}
       <button style={btnStyle} title="Smaller text"
         onMouseDown={e => resizeFont(e, -2)}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
@@ -153,7 +182,11 @@ export default function EditableText({
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >↺</button>
+
+      {/* Divider */}
       <div style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", margin: "0 2px" }} />
+
+      {/* Format */}
       <button style={{ ...btnStyle, fontFamily: "Georgia, serif", fontWeight: 700 }} title="Bold"
         onMouseDown={e => exec(e, "bold")}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
@@ -169,6 +202,18 @@ export default function EditableText({
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >U</button>
+
+      {/* Divider */}
+      <div style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", margin: "0 2px" }} />
+
+      {/* Case toggle */}
+      <button
+        style={{ ...btnStyle, fontFamily: "Georgia, serif", opacity: textCase === "none" ? 0.5 : 1 }}
+        title={`Text case: ${textCase} — click to cycle`}
+        onMouseDown={e => cycleCase(e)}
+        onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
+        onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+      >{CASE_LABELS[textCase] || "Aa"}</button>
     </div>,
     document.body
   );

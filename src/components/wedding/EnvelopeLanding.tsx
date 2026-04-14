@@ -47,6 +47,7 @@ export default function EnvelopeLanding() {
           >
             {/* The invitation card */}
             <div
+              className="lowercase-override"
               style={{
                 background: "#FAF8F2",
                 border: "1px solid rgba(184,154,106,0.28)",
@@ -65,7 +66,7 @@ export default function EnvelopeLanding() {
                 <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
               </div>
 
-              <p className="kicker mb-10" style={{ textTransform: "lowercase" }}>becoming bradley</p>
+              <p className="kicker lowercase-override mb-10">becoming bradley</p>
 
               <p
                 style={{
@@ -172,7 +173,7 @@ export default function EnvelopeLanding() {
               <EditableText
                 id="invite-location"
                 tag="p"
-                className="kicker mt-2 mb-10"
+                className="kicker lowercase-override mt-2 mb-10"
                 style={{ color: "hsl(var(--stone))", textTransform: "lowercase" }}
                 defaultContent="Lucca · Tuscany · Italy"
               />
