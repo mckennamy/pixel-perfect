@@ -65,7 +65,7 @@ export default function EnvelopeLanding() {
                 <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
               </div>
 
-              <p className="kicker mb-10" style={{ textTransform: "lowercase" }}>Becoming Bradley</p>
+              <p className="kicker mb-10" style={{ textTransform: "lowercase" }}>becoming bradley</p>
 
               <p
                 style={{
