@@ -98,7 +98,7 @@ export default function EditableText({
     try { localStorage.removeItem(sizeKey); } catch {}
   };
 
-  const Tag = tag as keyof JSX.IntrinsicElements;
+  const Tag = tag as any;
 
   const toolbar = focused && createPortal(
     <div
