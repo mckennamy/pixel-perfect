@@ -123,7 +123,8 @@
   color: hsl(var(--stone));
 }
 
-.lowercase-override {
+.lowercase-override,
+.lowercase-override * {
   text-transform: lowercase !important;
 }
 
