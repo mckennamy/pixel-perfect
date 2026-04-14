@@ -73,6 +73,9 @@ export default function EnvelopeLanding() {
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
                   textTransform: "lowercase",
+                  color: "hsl(var(--stone))",
+                  marginBottom: "0.25rem",
+                }}
               >
                 <EditableText id="invite-honour" tag="span" defaultContent="The honour of your presence" />
               </p>
@@ -82,6 +85,9 @@ export default function EnvelopeLanding() {
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
                   textTransform: "lowercase",
+                  color: "hsl(var(--stone))",
+                  marginBottom: "2.5rem",
+                }}
               >
                 <EditableText id="invite-requested" tag="span" defaultContent="is requested at the marriage of" />
               </p>
@@ -99,6 +105,9 @@ export default function EnvelopeLanding() {
                   fontSize: "0.55rem",
                   letterSpacing: "0.35em",
                   textTransform: "lowercase",
+                  color: "hsl(var(--stone))",
+                  margin: "1rem 0",
+                }}
               >
                 and
               </p>
