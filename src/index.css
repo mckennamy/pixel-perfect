@@ -123,11 +123,6 @@
   color: hsl(var(--stone));
 }
 
-.lowercase-override,
-.lowercase-override * {
-  text-transform: lowercase !important;
-}
-
 /* ── Thin rule ── */
 .rule {
   width: 3rem;

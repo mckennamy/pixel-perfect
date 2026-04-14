@@ -47,7 +47,6 @@ export default function EnvelopeLanding() {
           >
             {/* The invitation card */}
             <div
-              className="lowercase-override"
               style={{
                 background: "#FAF8F2",
                 border: "1px solid rgba(184,154,106,0.28)",
@@ -66,14 +65,14 @@ export default function EnvelopeLanding() {
                 <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
               </div>
 
-              <p className="kicker lowercase-override mb-10">becoming bradley</p>
+              <p className="kicker mb-10">Becoming Bradley</p>
 
               <p
                 style={{
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "lowercase",
+                  textTransform: "uppercase",
                   color: "hsl(var(--stone))",
                   marginBottom: "0.25rem",
                 }}
@@ -85,7 +84,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "lowercase",
+                  textTransform: "uppercase",
                   color: "hsl(var(--stone))",
                   marginBottom: "2.5rem",
                 }}
@@ -105,7 +104,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.55rem",
                   letterSpacing: "0.35em",
-                  textTransform: "lowercase",
+                  textTransform: "uppercase",
                   color: "hsl(var(--stone))",
                   margin: "1rem 0",
                 }}
@@ -127,7 +126,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "lowercase",
+                  textTransform: "uppercase",
                   color: "hsl(var(--ink-mid))",
                   marginBottom: "0.25rem",
                 }}
@@ -139,7 +138,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "lowercase",
+                  textTransform: "uppercase",
                   color: "hsl(var(--ink-mid))",
                   marginBottom: "2rem",
                 }}
@@ -173,8 +172,8 @@ export default function EnvelopeLanding() {
               <EditableText
                 id="invite-location"
                 tag="p"
-                className="kicker lowercase-override mt-2 mb-10"
-                style={{ color: "hsl(var(--stone))", textTransform: "lowercase" }}
+                className="kicker mt-2 mb-10"
+                style={{ color: "hsl(var(--stone))" }}
                 defaultContent="Lucca · Tuscany · Italy"
               />
 
