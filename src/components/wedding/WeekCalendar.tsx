@@ -22,13 +22,13 @@ interface DayDetail {
 }
 
 const days: DayInfo[] = [
-  { date: 19, day: "Mon", event: "Arrive",           type: "travel"  },
-  { date: 20, day: "Tue", event: "Welcome Party",    type: "event"   },
-  { date: 21, day: "Wed", event: "Rehearsal Dinner", type: "private" },
-  { date: 22, day: "Thu", event: "Ceremony · 4 PM",  type: "wedding" },
-  { date: 23, day: "Fri", event: "Free Day",         type: "free"    },
-  { date: 24, day: "Sat", event: "Depart",           type: "travel"  },
-  { date: 25, day: "Sun", event: "Depart",           type: "travel"  },
+  { date: 19, day: "Wed", event: "Arrive",           type: "travel"  },
+  { date: 20, day: "Thu", event: "Welcome Party",    type: "event"   },
+  { date: 21, day: "Fri", event: "Rehearsal Dinner", type: "private" },
+  { date: 22, day: "Sat", event: "Ceremony · 4 PM",  type: "wedding" },
+  { date: 23, day: "Sun", event: "Free Day",         type: "free"    },
+  { date: 24, day: "Mon", event: "Depart",           type: "travel"  },
+  { date: 25, day: "Tue", event: "Depart",           type: "travel"  },
 ];
 
 const details: Record<number, DayDetail> = {
@@ -149,12 +149,24 @@ const typeStyles: Record<DayType, { bg: string; text: string; accent: string; bo
   },
 };
 
-const EXCLUDED = new Set(["/", "/our-story"]);
+const EXCLUDED = new Set(["/"]);
 
 export default function WeekCalendar() {
   const { pathname } = useLocation();
   const show = !EXCLUDED.has(pathname);
   const [selected, setSelected] = useState<number | null>(null);
+  const [navOpen, setNavOpen] = useState(false);
+
+  useEffect(() => {
+    const on  = () => setNavOpen(true);
+    const off = () => setNavOpen(false);
+    document.addEventListener("bb:nav:open",  on  as EventListener);
+    document.addEventListener("bb:nav:close", off as EventListener);
+    return () => {
+      document.removeEventListener("bb:nav:open",  on  as EventListener);
+      document.removeEventListener("bb:nav:close", off as EventListener);
+    };
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -174,7 +186,7 @@ export default function WeekCalendar() {
     return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
-  if (!show) return null;
+  if (!show || navOpen) return null;
 
   const selDay    = selected != null ? days.find(d => d.date === selected) ?? null : null;
   const selDetail = selected != null ? details[selected] ?? null : null;
