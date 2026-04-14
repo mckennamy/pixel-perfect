@@ -1,27 +1,22 @@
 import { useRef, useState, useEffect } from "react";
+import { loadEdit, saveEdit } from "@/lib/siteEdits";
 
-/**
- * PhotoPlaceholder — when an `id` prop is provided, the slot becomes
- * click-to-upload. Images are compressed via Canvas and saved to localStorage.
- * Hover to see the upload prompt; click to open the file picker.
- */
 interface PhotoPlaceholderProps {
-  id?: string;          // enables upload + localStorage persistence
+  id?: string;
   aspect?: "video" | "square" | "portrait" | "wide" | "banner";
-  src?: string;         // static fallback (optional)
+  src?: string;
   alt?: string;
   caption?: string;
 }
 
 const aspectMap: Record<string, string> = {
-  video:    "aspect-video",
-  square:   "aspect-square",
+  video: "aspect-video",
+  square: "aspect-square",
   portrait: "aspect-[3/4]",
-  wide:     "aspect-[21/9]",
-  banner:   "aspect-[4/1]",
+  wide: "aspect-[21/9]",
+  banner: "aspect-[4/1]",
 };
 
-/** Resize + compress an image file to a JPEG data URL (max 1400px wide). */
 function compressImage(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -32,7 +27,7 @@ function compressImage(file: File): Promise<string> {
         let { width, height } = img;
         if (width > MAX || height > MAX) {
           if (width >= height) { height = Math.round(height * MAX / width); width = MAX; }
-          else                 { width = Math.round(width * MAX / height); height = MAX; }
+          else { width = Math.round(width * MAX / height); height = MAX; }
         }
         const canvas = document.createElement("canvas");
         canvas.width = width;
@@ -63,10 +58,14 @@ export default function PhotoPlaceholder({
   const storageKey = id ? `bb_photo_${id}` : null;
 
   useEffect(() => {
-    if (storageKey) {
-      const saved = localStorage.getItem(storageKey);
+    if (!storageKey) return;
+    // Fast cache from localStorage
+    const cached = localStorage.getItem(storageKey);
+    if (cached) setSrc(cached);
+    // Then load from cloud
+    loadEdit(storageKey).then((saved) => {
       if (saved) setSrc(saved);
-    }
+    });
   }, [storageKey]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,23 +75,17 @@ export default function PhotoPlaceholder({
     try {
       const dataUrl = await compressImage(file);
       setSrc(dataUrl);
-      if (storageKey) {
-        try { localStorage.setItem(storageKey, dataUrl); } catch {
-          // Quota exceeded — photo shows in session but won't persist
-        }
-      }
+      if (storageKey) saveEdit(storageKey, dataUrl);
     } catch {
-      // Compression failed — fall back to raw FileReader
       const reader = new FileReader();
       reader.onload = (ev) => {
         const raw = ev.target?.result as string;
         setSrc(raw);
-        if (storageKey) { try { localStorage.setItem(storageKey, raw); } catch {} }
+        if (storageKey) saveEdit(storageKey, raw);
       };
       reader.readAsDataURL(file);
     } finally {
       setLoading(false);
-      // Reset input so the same file can be re-selected
       if (fileRef.current) fileRef.current.value = "";
     }
   };
@@ -109,11 +102,7 @@ export default function PhotoPlaceholder({
         onMouseLeave={() => isEditable && setHovering(false)}
         onClick={() => isEditable && !loading && fileRef.current?.click()}
       >
-        {activeSrc && (
-          <img src={activeSrc} alt={alt} />
-        )}
-
-        {/* Upload / change overlay */}
+        {activeSrc && <img src={activeSrc} alt={alt} />}
         {isEditable && (hovering || loading) && (
           <div
             style={{
@@ -139,7 +128,6 @@ export default function PhotoPlaceholder({
             )}
           </div>
         )}
-
         {isEditable && (
           <input
             ref={fileRef}
@@ -150,7 +138,6 @@ export default function PhotoPlaceholder({
           />
         )}
       </div>
-
       {caption && (
         <figcaption className="mt-3 text-center font-body text-xs italic" style={{ color: "hsl(var(--stone-light))" }}>
           {caption}

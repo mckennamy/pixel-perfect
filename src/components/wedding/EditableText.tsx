@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { loadEdit, saveEdit, removeEdit } from "@/lib/siteEdits";
 
 interface EditableTextProps {
   id: string;
@@ -34,19 +35,35 @@ export default function EditableText({
 }: EditableTextProps) {
   const ref = useRef<HTMLElement>(null);
   const textKey = `bb_text_${id}`;
-  const sizeKey  = `bb_fs_${id}`;
+  const sizeKey = `bb_fs_${id}`;
 
   const [focused, setFocused] = useState(false);
-  const [tbPos, setTbPos]     = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
 
-  // ── Restore content + font size before first paint ──
+  // ── Restore content + font size ──
   useLayoutEffect(() => {
     if (!ref.current) return;
-    const saved = localStorage.getItem(textKey);
-    ref.current.innerHTML = saved !== null ? saved : "";
-    if (saved === null) ref.current.textContent = defaultContent;
-    const savedSize = localStorage.getItem(sizeKey);
-    if (savedSize) ref.current.style.fontSize = savedSize;
+    // Show default immediately, then load from cloud
+    const cached = localStorage.getItem(textKey);
+    if (cached !== null) {
+      ref.current.innerHTML = cached;
+    } else {
+      ref.current.textContent = defaultContent;
+    }
+    const cachedSize = localStorage.getItem(sizeKey);
+    if (cachedSize) ref.current.style.fontSize = cachedSize;
+
+    // Load from cloud (async)
+    loadEdit(textKey).then((saved) => {
+      if (saved !== null && ref.current) {
+        ref.current.innerHTML = saved;
+      }
+    });
+    loadEdit(sizeKey).then((savedSize) => {
+      if (savedSize && ref.current) {
+        ref.current.style.fontSize = savedSize;
+      }
+    });
   }, [textKey, sizeKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Keep toolbar aligned on scroll / resize ──
@@ -54,7 +71,7 @@ export default function EditableText({
     if (!ref.current) return;
     const r = ref.current.getBoundingClientRect();
     setTbPos({
-      top:  Math.max(4, r.top - 38),
+      top: Math.max(4, r.top - 38),
       left: Math.max(4, Math.min(r.left, window.innerWidth - 220)),
     });
   }, []);
@@ -62,8 +79,8 @@ export default function EditableText({
   useEffect(() => {
     if (!focused) return;
     reposition();
-    window.addEventListener("scroll",  reposition, true);
-    window.addEventListener("resize",  reposition);
+    window.addEventListener("scroll", reposition, true);
+    window.addEventListener("resize", reposition);
     return () => {
       window.removeEventListener("scroll", reposition, true);
       window.removeEventListener("resize", reposition);
@@ -71,16 +88,18 @@ export default function EditableText({
   }, [focused, reposition]);
 
   const save = () => {
-    try { localStorage.setItem(textKey, ref.current?.innerHTML ?? ""); } catch {}
+    const html = ref.current?.innerHTML ?? "";
+    saveEdit(textKey, html);
   };
 
   const resizeFont = (e: React.MouseEvent, delta: number) => {
     e.preventDefault();
     if (!ref.current) return;
-    const cur  = parseFloat(window.getComputedStyle(ref.current).fontSize) || 16;
+    const cur = parseFloat(window.getComputedStyle(ref.current).fontSize) || 16;
     const next = Math.max(8, Math.min(128, cur + delta));
-    ref.current.style.fontSize = `${next}px`;
-    try { localStorage.setItem(sizeKey, `${next}px`); } catch {}
+    const val = `${next}px`;
+    ref.current.style.fontSize = val;
+    saveEdit(sizeKey, val);
     reposition();
   };
 
@@ -95,32 +114,30 @@ export default function EditableText({
     e.preventDefault();
     if (!ref.current) return;
     ref.current.style.fontSize = "";
-    try { localStorage.removeItem(sizeKey); } catch {}
+    removeEdit(sizeKey);
   };
 
-  const Tag = tag as keyof JSX.IntrinsicElements;
+  const Tag = tag as any;
 
   const toolbar = focused && createPortal(
     <div
       style={{
-        position:   "fixed",
-        top:        tbPos.top,
-        left:       tbPos.left,
-        zIndex:     9999,
-        display:    "flex",
+        position: "fixed",
+        top: tbPos.top,
+        left: tbPos.left,
+        zIndex: 9999,
+        display: "flex",
         alignItems: "center",
         background: "hsl(138, 26%, 11%)",
-        border:     "1px solid rgba(255,255,255,0.1)",
-        boxShadow:  "0 4px 18px rgba(0,0,0,0.55)",
+        border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 4px 18px rgba(0,0,0,0.55)",
         borderRadius: 3,
-        padding:    "2px 3px",
-        gap:        1,
+        padding: "2px 3px",
+        gap: 1,
         userSelect: "none",
       }}
-      // Prevent toolbar clicks from blurring the editable element
       onMouseDown={e => e.preventDefault()}
     >
-      {/* Font size */}
       <button style={btnStyle} title="Smaller text"
         onMouseDown={e => resizeFont(e, -2)}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
@@ -136,11 +153,7 @@ export default function EditableText({
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >↺</button>
-
-      {/* Divider */}
       <div style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", margin: "0 2px" }} />
-
-      {/* Format */}
       <button style={{ ...btnStyle, fontFamily: "Georgia, serif", fontWeight: 700 }} title="Bold"
         onMouseDown={e => exec(e, "bold")}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
@@ -164,7 +177,6 @@ export default function EditableText({
     <>
       {toolbar}
       <Tag
-        // @ts-ignore — ref type varies per tag
         ref={ref}
         contentEditable
         suppressContentEditableWarning
@@ -172,7 +184,7 @@ export default function EditableText({
         style={style}
         onFocus={() => { setFocused(true); reposition(); }}
         onBlur={() => { setFocused(false); save(); }}
-        onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+        onKeyDown={(e: any) => {
           if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
             e.preventDefault();
             (e.currentTarget as HTMLElement).blur();
