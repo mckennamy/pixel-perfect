@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
@@ -17,6 +17,10 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.dispatchEvent(new CustomEvent(open ? "bb:nav:open" : "bb:nav:close"));
+  }, [open]);
 
   if (pathname === "/") return null;
 

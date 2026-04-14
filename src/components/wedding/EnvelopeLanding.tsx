@@ -65,14 +65,14 @@ export default function EnvelopeLanding() {
                 <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
               </div>
 
-              <p className="kicker mb-10">Becoming Bradley</p>
+              <p className="kicker mb-10" style={{ textTransform: "none" }}>Becoming Bradley</p>
 
               <p
                 style={{
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "uppercase",
+                  textTransform: "none",
                   color: "hsl(var(--stone))",
                   marginBottom: "0.25rem",
                 }}
@@ -84,7 +84,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.58rem",
                   letterSpacing: "0.18em",
-                  textTransform: "uppercase",
+                  textTransform: "none",
                   color: "hsl(var(--stone))",
                   marginBottom: "2.5rem",
                 }}
@@ -104,7 +104,7 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.55rem",
                   letterSpacing: "0.35em",
-                  textTransform: "uppercase",
+                  textTransform: "none",
                   color: "hsl(var(--stone))",
                   margin: "1rem 0",
                 }}
@@ -126,19 +126,19 @@ export default function EnvelopeLanding() {
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "uppercase",
+                  textTransform: "none",
                   color: "hsl(var(--ink-mid))",
                   marginBottom: "0.25rem",
                 }}
               >
-                <EditableText id="invite-date-line1" tag="span" defaultContent="Thursday, the Twenty-Second of May" />
+                <EditableText id="invite-date-line1" tag="span" defaultContent="Saturday, the Twenty-Second of May" />
               </p>
               <p
                 style={{
                   fontFamily: "Cinzel, serif",
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
-                  textTransform: "uppercase",
+                  textTransform: "none",
                   color: "hsl(var(--ink-mid))",
                   marginBottom: "2rem",
                 }}
@@ -173,7 +173,7 @@ export default function EnvelopeLanding() {
                 id="invite-location"
                 tag="p"
                 className="kicker mt-2 mb-10"
-                style={{ color: "hsl(var(--stone))" }}
+                style={{ color: "hsl(var(--stone))", textTransform: "none" }}
                 defaultContent="Lucca · Tuscany · Italy"
               />
 
