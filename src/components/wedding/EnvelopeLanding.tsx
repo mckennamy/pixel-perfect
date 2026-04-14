@@ -127,6 +127,8 @@ export default function EnvelopeLanding() {
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
                   textTransform: "lowercase",
+                  color: "hsl(var(--ink-mid))",
+                  marginBottom: "0.25rem",
                 }}
               >
                 <EditableText id="invite-date-line1" tag="span" defaultContent="Thursday, the Twenty-Second of May" />
@@ -137,6 +139,8 @@ export default function EnvelopeLanding() {
                   fontSize: "0.6rem",
                   letterSpacing: "0.22em",
                   textTransform: "lowercase",
+                  color: "hsl(var(--ink-mid))",
+                  marginBottom: "2rem",
                 }}
               >
                 <EditableText id="invite-date-line2" tag="span" defaultContent="Two Thousand and Twenty-Seven" />
