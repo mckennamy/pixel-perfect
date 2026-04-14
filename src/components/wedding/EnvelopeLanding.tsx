@@ -173,7 +173,7 @@ export default function EnvelopeLanding() {
                 id="invite-location"
                 tag="p"
                 className="kicker mt-2 mb-10"
-                style={{ color: "hsl(var(--stone))" }}
+                style={{ color: "hsl(var(--stone))", textTransform: "lowercase" }}
                 defaultContent="Lucca · Tuscany · Italy"
               />
 
