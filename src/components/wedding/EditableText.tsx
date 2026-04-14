@@ -172,7 +172,7 @@ export default function EditableText({
         style={style}
         onFocus={() => { setFocused(true); reposition(); }}
         onBlur={() => { setFocused(false); save(); }}
-        onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+        onKeyDown={(e: any) => {
           if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
             e.preventDefault();
             (e.currentTarget as HTMLElement).blur();
