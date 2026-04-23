@@ -217,9 +217,9 @@ export default function EnvelopeLanding() {
       <div
         className="text-center mb-12 transition-all duration-700"
         style={{
-          opacity: isOpening || isPressing ? 0 : 1,
-          transform: isOpening || isPressing ? "translateY(-10px)" : "none",
-          pointerEvents: isOpening || isPressing ? "none" : "auto",
+          opacity: isOpening ? 0 : 1,
+          transform: isOpening ? "translateY(-10px)" : "none",
+          pointerEvents: isOpening ? "none" : "auto",
         }}
       >
         <EditableText
