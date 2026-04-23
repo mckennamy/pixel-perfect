@@ -223,23 +223,23 @@ export default function EnvelopeLanding() {
       <div
         className="text-center mb-12 transition-all duration-700"
         style={{
-          opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(-10px)" : "none",
-          pointerEvents: isOpening ? "none" : "auto",
+          opacity: isOpening || isPressing ? 0 : 1,
+          transform: isOpening || isPressing ? "translateY(-10px)" : "none",
+          pointerEvents: isOpening || isPressing ? "none" : "auto",
         }}
       >
         <EditableText
           id="envelope-title"
           tag="p"
           className="font-script"
-          style={{ fontSize: "clamp(1.8rem, 5vw, 2.5rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
+          style={{ fontSize: "clamp(2.6rem, 7vw, 3.75rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
           defaultContent="Becoming Bradley"
         />
         <EditableText
           id="envelope-date-kicker"
           tag="p"
-          className="kicker mt-3"
-          style={{ color: "rgba(250,248,242,0.3)" }}
+          className="kicker mt-4"
+          style={{ color: "rgba(250,248,242,0.4)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           defaultContent="May 22, 2027 · Lucca, Italy"
         />
       </div>
