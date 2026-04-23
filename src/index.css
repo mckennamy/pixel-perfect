@@ -244,37 +244,27 @@
   animation: invitationIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ── Wax seal break + flap peel ── */
-@keyframes sealPress {
-  0%   { transform: scale(1)    rotate(0deg); }
-  40%  { transform: scale(0.93) rotate(-2deg); }
-  100% { transform: scale(0.96) rotate(-1deg); }
+/* ── Flap rip-up: peel from bottom, lift the seal with it ── */
+@keyframes flapRipUp {
+  0%   { transform: perspective(1100px) rotateX(0deg)   translateY(0);    }
+  18%  { transform: perspective(1100px) rotateX(-6deg)  translateY(-2px); }
+  55%  { transform: perspective(1100px) rotateX(-95deg) translateY(-10px);}
+  100% { transform: perspective(1100px) rotateX(-172deg) translateY(-14px);}
 }
-@keyframes sealCrack {
-  0%   { opacity: 0; }
-  20%  { opacity: 1; }
-  100% { opacity: 1; }
-}
-@keyframes sealLeftFall {
-  0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(-60px, 120px) rotate(-55deg); opacity: 0; }
-}
-@keyframes sealRightFall {
-  0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(60px, 130px) rotate(48deg); opacity: 0; }
-}
-@keyframes flapPeel {
-  0%   { transform: perspective(900px) rotateX(0deg);   opacity: 1; }
-  15%  { transform: perspective(900px) rotateX(-8deg);  opacity: 1; }
-  60%  { transform: perspective(900px) rotateX(-110deg); opacity: 0.9; }
-  100% { transform: perspective(900px) rotateX(-178deg); opacity: 0; }
-}
-
-.seal-pressing { animation: sealPress 0.35s ease-out forwards; }
-.seal-half-left  { animation: sealLeftFall  1.0s cubic-bezier(0.45, 0, 0.6, 1) 0.25s forwards; }
-.seal-half-right { animation: sealRightFall 1.0s cubic-bezier(0.45, 0, 0.6, 1) 0.25s forwards; }
-.flap-peeling {
-  animation: flapPeel 1.6s cubic-bezier(0.34, 1.1, 0.5, 1) 0.55s forwards;
+.flap-rip {
+  animation: flapRipUp 1.4s cubic-bezier(0.4, 0.05, 0.25, 1) forwards;
   transform-origin: top center;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* The sliding invitation that emerges from the envelope after the flap rips up */
+@keyframes invitationSlideUp {
+  0%   { transform: translateY(20%) scale(0.97); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateY(-92%) scale(1);    opacity: 1; }
+}
+.invitation-sliding {
+  animation: invitationSlideUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
 }
