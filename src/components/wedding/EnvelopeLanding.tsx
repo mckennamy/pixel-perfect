@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
+import villaPhoto from "@/assets/villa-grabau-photo.png";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
@@ -41,7 +42,7 @@ export default function EnvelopeLanding() {
           <div
             className="invitation-entering w-full"
             style={{
-              maxWidth: 460,
+              maxWidth: 480,
               opacity: stage === "exit" ? 0 : 1,
               transition: "opacity 0.7s ease",
             }}
@@ -53,137 +54,133 @@ export default function EnvelopeLanding() {
                 border: "1px solid rgba(184,154,106,0.28)",
                 boxShadow:
                   "0 8px 32px rgba(0,0,0,0.4), 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(184,154,106,0.08)",
-                padding: "3rem 2.5rem",
+                padding: "1.75rem 2.25rem 3rem",
                 textAlign: "center",
               }}
             >
-              {/* Monogram rule */}
-              <div className="flex items-center gap-4 mb-10">
-                <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
-                <span className="font-script" style={{ fontSize: "1.75rem", color: "hsl(var(--gold))", lineHeight: 1 }}>
-                  B
-                </span>
-                <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
-              </div>
-
-              <p className="kicker mb-10" style={{ textTransform: "none" }}>Becoming Bradley</p>
-
-              <p
+              {/* Villa photo with torn-paper edges */}
+              <img
+                src={villaPhoto}
+                alt="Villa Grabau, Lucca, Italy"
                 style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "none",
-                  color: "hsl(var(--stone))",
-                  marginBottom: "0.25rem",
+                  display: "block",
+                  width: "calc(100% + 1rem)",
+                  marginLeft: "-0.5rem",
+                  marginRight: "-0.5rem",
+                  marginBottom: "1.75rem",
+                  height: "auto",
                 }}
-              >
-                <EditableText id="invite-honour" tag="span" defaultContent="The honour of your presence" />
-              </p>
-              <p
+              />
+
+              <EditableText
+                id="invite-together"
+                tag="p"
+                className="font-body"
                 style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.18em",
-                  textTransform: "none",
-                  color: "hsl(var(--stone))",
-                  marginBottom: "2.5rem",
+                  fontSize: "1.05rem",
+                  color: "hsl(var(--ink-mid))",
+                  fontStyle: "normal",
+                  marginBottom: "1.25rem",
+                  letterSpacing: "0.01em",
                 }}
-              >
-                <EditableText id="invite-requested" tag="span" defaultContent="is requested at the marriage of" />
-              </p>
+                defaultContent="Together with their families"
+              />
 
               <EditableText
                 id="invite-bride"
                 tag="p"
-                className="font-display italic text-burg"
-                style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
-                defaultContent="McKenna Myers"
+                className="font-script"
+                style={{
+                  fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
+                  fontWeight: 400,
+                  lineHeight: 1.1,
+                  color: "hsl(var(--moss))",
+                }}
+                defaultContent="McKenna Danielle Myers"
               />
               <p
+                className="font-script"
                 style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.55rem",
-                  letterSpacing: "0.35em",
-                  textTransform: "none",
-                  color: "hsl(var(--stone))",
-                  margin: "1rem 0",
+                  fontSize: "clamp(1.6rem, 6vw, 2rem)",
+                  color: "hsl(var(--moss))",
+                  margin: "0.1rem 0",
+                  lineHeight: 1.1,
                 }}
               >
-                and
+                &amp;
               </p>
               <EditableText
                 id="invite-groom"
                 tag="p"
-                className="font-display italic text-burg"
-                style={{ fontSize: "clamp(2rem, 8vw, 3rem)", fontWeight: 400, lineHeight: 1.1 }}
-                defaultContent="Jordan Bradley"
+                className="font-script"
+                style={{
+                  fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
+                  fontWeight: 400,
+                  lineHeight: 1.1,
+                  color: "hsl(var(--moss))",
+                  marginBottom: "1.5rem",
+                }}
+                defaultContent="Jordan Christopher Bradley"
               />
 
-              <div className="mx-auto my-8" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
+              <EditableText
+                id="invite-request-line1"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                defaultContent="request the pleasure of your company"
+              />
+              <EditableText
+                id="invite-request-line2"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "1.25rem" }}
+                defaultContent="at their wedding celebration"
+              />
 
-              <p
-                style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.22em",
-                  textTransform: "none",
-                  color: "hsl(var(--ink-mid))",
-                  marginBottom: "0.25rem",
-                }}
-              >
-                <EditableText id="invite-date-line1" tag="span" defaultContent="Saturday, the Twenty-Second of May" />
-              </p>
-              <p
-                style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.22em",
-                  textTransform: "none",
-                  color: "hsl(var(--ink-mid))",
-                  marginBottom: "2rem",
-                }}
-              >
-                <EditableText id="invite-date-line2" tag="span" defaultContent="Two Thousand and Twenty-Seven" />
-              </p>
-
+              <EditableText
+                id="invite-on"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.4rem" }}
+                defaultContent="on"
+              />
+              <EditableText
+                id="invite-date-line1"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                defaultContent="Saturday, the twenty-second of May"
+              />
+              <EditableText
+                id="invite-date-line2"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                defaultContent="two thousand twenty-seven"
+              />
               <EditableText
                 id="invite-time"
                 tag="p"
-                className="font-display italic"
-                style={{ fontSize: "1.4rem", fontWeight: 400, color: "hsl(var(--ink-mid))" }}
-                defaultContent="at six o'clock in the evening"
-              />
-              <EditableText
-                id="invite-sub"
-                tag="p"
-                className="font-body text-xs italic"
-                style={{ color: "hsl(var(--stone))", letterSpacing: "0.06em", marginTop: "0.25rem", marginBottom: "2rem" }}
-                defaultContent="Dinner and dancing to follow"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "0.75rem" }}
+                defaultContent="at four o'clock in the afternoon"
               />
 
-              <div className="mx-auto my-2" style={{ width: 40, height: 1, background: "rgba(184,154,106,0.5)" }} />
+              <EditableText
+                id="invite-at"
+                tag="p"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.4rem" }}
+                defaultContent="at"
+              />
               <EditableText
                 id="invite-venue"
                 tag="p"
-                className="font-display italic text-burg mt-6"
-                style={{ fontSize: "1.7rem", fontWeight: 400 }}
-                defaultContent="Villa Grabau"
+                className="font-body"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "2rem" }}
+                defaultContent="Villa Grabau in Lucca, Italy"
               />
-              <EditableText
-                id="invite-location"
-                tag="p"
-                className="kicker mt-2 mb-10"
-                style={{ color: "hsl(var(--stone))", textTransform: "none" }}
-                defaultContent="Lucca · Tuscany · Italy"
-              />
-
-              {/* Bottom rule */}
-              <div className="flex items-center gap-4 mb-10">
-                <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
-                <div className="w-1 h-1 rounded-full" style={{ background: "hsl(var(--gold))" }} />
-                <div className="flex-1 h-px" style={{ background: "rgba(184,154,106,0.35)" }} />
-              </div>
 
               <button
                 onClick={handleEnter}
