@@ -250,11 +250,10 @@ export default function EnvelopeLanding() {
           width: "min(520px, calc(100vw - 48px))",
           aspectRatio: "520 / 330",
           position: "relative",
-          cursor: stage === "idle" ? "pointer" : "default",
+          cursor: "default",
           boxShadow:
             "0 2px 8px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.6), 0 50px 90px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,170,110,0.12)",
         }}
-        onClick={() => stage === "idle" && setStage("opening")}
       >
         {/* SVG envelope body — crisp geometry, no CSS border tricks */}
         <svg
