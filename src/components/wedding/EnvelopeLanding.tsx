@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 
-type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
+type Stage = "idle" | "pressing" | "opening" | "risen" | "invitation" | "exit";
 
 // Background used for both stages — deep burgundy radial spotlight
 const BG = `radial-gradient(ellipse at 50% 42%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
@@ -12,8 +12,13 @@ export default function EnvelopeLanding() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (stage === "pressing") {
+      // brief seal-press before the wax cracks and flap peels
+      const t = setTimeout(() => setStage("opening"), 320);
+      return () => clearTimeout(t);
+    }
     if (stage === "opening") {
-      const t = setTimeout(() => setStage("risen"), 1800);
+      const t = setTimeout(() => setStage("risen"), 2100);
       return () => clearTimeout(t);
     }
     if (stage === "risen") {
@@ -27,7 +32,9 @@ export default function EnvelopeLanding() {
     setTimeout(() => navigate("/our-story"), 750);
   };
 
+  const isPressing = stage === "pressing";
   const isOpening = stage === "opening" || stage === "risen";
+  const sealBroken = isOpening; // seal halves animate after pressing
 
   // ── Invitation Card ──────────────────────────────────────────────
   if (stage === "invitation" || stage === "exit") {
