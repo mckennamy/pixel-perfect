@@ -371,9 +371,9 @@ export default function EnvelopeLanding() {
       <div
         className="mt-12 text-center transition-all duration-700"
         style={{
-          opacity: isOpening || isPressing ? 0 : 1,
-          transform: isOpening || isPressing ? "translateY(10px)" : "none",
-          pointerEvents: isOpening || isPressing ? "none" : "auto",
+          opacity: isOpening ? 0 : 1,
+          transform: isOpening ? "translateY(10px)" : "none",
+          pointerEvents: isOpening ? "none" : "auto",
         }}
       >
         <EditableText
@@ -384,13 +384,13 @@ export default function EnvelopeLanding() {
           defaultContent="You have been cordially invited"
         />
         <button
-          onClick={() => setStage("pressing")}
+          onClick={() => setStage("opening")}
           className="kicker transition-all"
           style={{ color: "rgba(184,154,106,0.85)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,1)")}
           onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.85)")}
         >
-          Break the Seal
+          Click to Open
         </button>
       </div>
     </div>
