@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 
-type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
+type Stage = "idle" | "pressing" | "opening" | "risen" | "invitation" | "exit";
 
 // Background used for both stages — deep burgundy radial spotlight
 const BG = `radial-gradient(ellipse at 50% 42%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
@@ -12,8 +12,13 @@ export default function EnvelopeLanding() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (stage === "pressing") {
+      // brief seal-press before the wax cracks and flap peels
+      const t = setTimeout(() => setStage("opening"), 320);
+      return () => clearTimeout(t);
+    }
     if (stage === "opening") {
-      const t = setTimeout(() => setStage("risen"), 1800);
+      const t = setTimeout(() => setStage("risen"), 2100);
       return () => clearTimeout(t);
     }
     if (stage === "risen") {
@@ -27,7 +32,9 @@ export default function EnvelopeLanding() {
     setTimeout(() => navigate("/our-story"), 750);
   };
 
+  const isPressing = stage === "pressing";
   const isOpening = stage === "opening" || stage === "risen";
+  const sealBroken = isOpening; // seal halves animate after pressing
 
   // ── Invitation Card ──────────────────────────────────────────────
   if (stage === "invitation" || stage === "exit") {
@@ -216,23 +223,23 @@ export default function EnvelopeLanding() {
       <div
         className="text-center mb-12 transition-all duration-700"
         style={{
-          opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(-10px)" : "none",
-          pointerEvents: isOpening ? "none" : "auto",
+          opacity: isOpening || isPressing ? 0 : 1,
+          transform: isOpening || isPressing ? "translateY(-10px)" : "none",
+          pointerEvents: isOpening || isPressing ? "none" : "auto",
         }}
       >
         <EditableText
           id="envelope-title"
           tag="p"
           className="font-script"
-          style={{ fontSize: "clamp(1.8rem, 5vw, 2.5rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
+          style={{ fontSize: "clamp(2.6rem, 7vw, 3.75rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
           defaultContent="Becoming Bradley"
         />
         <EditableText
           id="envelope-date-kicker"
           tag="p"
-          className="kicker mt-3"
-          style={{ color: "rgba(250,248,242,0.3)" }}
+          className="kicker mt-4"
+          style={{ color: "rgba(250,248,242,0.4)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           defaultContent="May 22, 2027 · Lucca, Italy"
         />
       </div>
@@ -243,11 +250,10 @@ export default function EnvelopeLanding() {
           width: "min(520px, calc(100vw - 48px))",
           aspectRatio: "520 / 330",
           position: "relative",
-          cursor: stage === "idle" ? "pointer" : "default",
+          cursor: "default",
           boxShadow:
             "0 2px 8px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.6), 0 50px 90px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,170,110,0.12)",
         }}
-        onClick={() => stage === "idle" && setStage("opening")}
       >
         {/* SVG envelope body — crisp geometry, no CSS border tricks */}
         <svg
@@ -317,7 +323,7 @@ export default function EnvelopeLanding() {
 
         {/* Envelope flap — clip-path triangle, crisp edges, animated open */}
         <div
-          className={isOpening ? "flap-opening" : ""}
+          className={isOpening ? "flap-peeling" : ""}
           style={{
             position: "absolute",
             top: 0,
@@ -331,64 +337,130 @@ export default function EnvelopeLanding() {
           }}
         />
 
-        {/* Wax seal — sits on envelope body below fold line */}
-        <div
+        {/* Wax seal — clickable; splits into two halves that fall away */}
+        <button
+          type="button"
+          aria-label="Break the seal and open the invitation"
+          onClick={() => stage === "idle" && setStage("pressing")}
+          disabled={stage !== "idle"}
           style={{
             position: "absolute",
-            top: "calc(60% - 34px)",
-            left: "calc(50% - 34px)",
-            width: 68,
-            height: 68,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle at 38% 32%, hsl(350,50%,32%) 0%, hsl(350,70%,18%) 50%, hsl(350,72%,13%) 100%)",
-            boxShadow:
-              "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
-            border: "1.5px solid rgba(184,154,106,0.48)",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            top: "calc(60% - 38px)",
+            left: "calc(50% - 38px)",
+            width: 76,
+            height: 76,
+            padding: 0,
+            background: "transparent",
+            border: "none",
+            cursor: stage === "idle" ? "pointer" : "default",
+            zIndex: 25,
           }}
         >
-          <span
-            className="font-script"
+          {/* Left half */}
+          <div
+            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-left" : ""}`}
             style={{
-              fontSize: 34,
-              color: "hsl(var(--gold-light))",
-              lineHeight: 1,
-              textShadow: "0 1px 4px rgba(0,0,0,0.35)",
+              position: "absolute",
+              inset: 0,
+              width: "50%",
+              height: "100%",
+              borderTopLeftRadius: "100% 100%",
+              borderBottomLeftRadius: "100% 100%",
+              background:
+                "radial-gradient(circle at 75% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+              boxShadow:
+                "inset -2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
+              borderLeft: "1.5px solid rgba(184,154,106,0.48)",
+              borderTop: "1.5px solid rgba(184,154,106,0.48)",
+              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
+              transformOrigin: "right center",
             }}
-          >
-            B
-          </span>
-        </div>
+          />
+          {/* Right half */}
+          <div
+            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-right" : ""}`}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "50%",
+              width: "50%",
+              height: "100%",
+              borderTopRightRadius: "100% 100%",
+              borderBottomRightRadius: "100% 100%",
+              background:
+                "radial-gradient(circle at 25% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+              boxShadow:
+                "inset 2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
+              borderRight: "1.5px solid rgba(184,154,106,0.48)",
+              borderTop: "1.5px solid rgba(184,154,106,0.48)",
+              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
+              transformOrigin: "left center",
+            }}
+          />
+          {/* Crack line down the middle (only visible during break) */}
+          {(isPressing || sealBroken) && (
+            <div
+              style={{
+                position: "absolute",
+                top: "8%",
+                left: "calc(50% - 0.5px)",
+                width: 1,
+                height: "84%",
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.7) 70%, transparent)",
+                zIndex: 2,
+                pointerEvents: "none",
+              }}
+            />
+          )}
+          {/* Monogram B — hidden once seal breaks */}
+          {!sealBroken && (
+            <span
+              className={`font-script ${isPressing ? "seal-pressing" : ""}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 38,
+                color: "hsl(var(--gold-light))",
+                lineHeight: 1,
+                textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                pointerEvents: "none",
+                zIndex: 3,
+              }}
+            >
+              B
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Prompt below envelope */}
       <div
         className="mt-12 text-center transition-all duration-700"
         style={{
-          opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(10px)" : "none",
-          pointerEvents: isOpening ? "none" : "auto",
+          opacity: isOpening || isPressing ? 0 : 1,
+          transform: isOpening || isPressing ? "translateY(10px)" : "none",
+          pointerEvents: isOpening || isPressing ? "none" : "auto",
         }}
       >
         <EditableText
           id="envelope-invite-prompt"
           tag="p"
           className="font-body italic mb-5"
-          style={{ color: "rgba(250,248,242,0.32)", fontSize: "0.875rem" }}
+          style={{ color: "rgba(250,248,242,0.45)", fontSize: "1.15rem" }}
           defaultContent="You have been cordially invited"
         />
         <button
-          onClick={() => setStage("opening")}
+          onClick={() => setStage("pressing")}
           className="kicker transition-all"
-          style={{ color: "rgba(184,154,106,0.72)" }}
+          style={{ color: "rgba(184,154,106,0.85)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,1)")}
-          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.72)")}
+          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.85)")}
         >
-          Open Invitation
+          Break the Seal
         </button>
       </div>
     </div>
