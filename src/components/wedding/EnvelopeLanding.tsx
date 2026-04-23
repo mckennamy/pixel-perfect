@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
+import villaPhoto from "@/assets/villa-grabau-photo.png";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
