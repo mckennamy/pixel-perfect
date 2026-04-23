@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import villaPhoto from "@/assets/villa-grabau-photo.png";
+import tuscanDawn from "@/assets/tuscan-dawn.jpg";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
-// Background used for both stages — deep burgundy radial spotlight
-const BG = `radial-gradient(ellipse at 50% 42%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
-
 export default function EnvelopeLanding() {
   const [stage, setStage] = useState<Stage>("idle");
+  const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
     if (stage === "opening") {
-      // flap finishes ripping up, then card slides into view
       const t = setTimeout(() => setStage("risen"), 1900);
       return () => clearTimeout(t);
     }
@@ -47,18 +50,16 @@ export default function EnvelopeLanding() {
               transition: "opacity 0.7s ease",
             }}
           >
-            {/* The invitation card */}
             <div
               style={{
                 background: "#FAF8F2",
                 border: "1px solid rgba(184,154,106,0.28)",
                 boxShadow:
-                  "0 8px 32px rgba(0,0,0,0.4), 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(184,154,106,0.08)",
+                  "0 8px 32px rgba(0,0,0,0.12), 0 40px 100px rgba(0,0,0,0.18), 0 0 0 1px rgba(184,154,106,0.08)",
                 padding: "1.75rem 2.25rem 3rem",
                 textAlign: "center",
               }}
             >
-              {/* Villa photo with torn-paper edges */}
               <img
                 src={villaPhoto}
                 alt="Villa Grabau, Lucca, Italy"
@@ -67,7 +68,7 @@ export default function EnvelopeLanding() {
                   width: "calc(100% + 1rem)",
                   marginLeft: "-0.5rem",
                   marginRight: "-0.5rem",
-                  marginBottom: "1.75rem",
+                  marginBottom: "2rem",
                   height: "auto",
                 }}
               />
@@ -79,8 +80,7 @@ export default function EnvelopeLanding() {
                 style={{
                   fontSize: "1.05rem",
                   color: "hsl(var(--ink-mid))",
-                  fontStyle: "normal",
-                  marginBottom: "1.25rem",
+                  marginBottom: "1.5rem",
                   letterSpacing: "0.01em",
                 }}
                 defaultContent="Together with their families"
@@ -103,7 +103,7 @@ export default function EnvelopeLanding() {
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2rem)",
                   color: "hsl(var(--moss))",
-                  margin: "0.1rem 0",
+                  margin: "0.25rem 0",
                   lineHeight: 1.1,
                 }}
               >
@@ -118,7 +118,7 @@ export default function EnvelopeLanding() {
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: "hsl(var(--moss))",
-                  marginBottom: "1.5rem",
+                  marginBottom: "2rem",
                 }}
                 defaultContent="Jordan Christopher Bradley"
               />
@@ -127,43 +127,44 @@ export default function EnvelopeLanding() {
                 id="invite-request-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6 }}
                 defaultContent="request the pleasure of your company"
               />
               <EditableText
                 id="invite-request-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "1.25rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6, marginBottom: "2rem" }}
                 defaultContent="at their wedding celebration"
               />
 
+              {/* Date / Time block — generous internal rhythm */}
               <EditableText
                 id="invite-on"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.4rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
                 defaultContent="on"
               />
               <EditableText
                 id="invite-date-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5 }}
                 defaultContent="Saturday, the twenty-second of May"
               />
               <EditableText
                 id="invite-date-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5 }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5, marginBottom: "1.25rem" }}
                 defaultContent="two thousand twenty-seven"
               />
               <EditableText
                 id="invite-time"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "0.75rem" }}
+                className="font-body italic"
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "2rem" }}
                 defaultContent="at four o'clock in the afternoon"
               />
 
@@ -171,14 +172,14 @@ export default function EnvelopeLanding() {
                 id="invite-at"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.4rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
                 defaultContent="at"
               />
               <EditableText
                 id="invite-venue"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "2rem" }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", marginBottom: "2.5rem" }}
                 defaultContent="Villa Grabau in Lucca, Italy"
               />
 
@@ -204,192 +205,330 @@ export default function EnvelopeLanding() {
     );
   }
 
-  // ── Envelope Scene ───────────────────────────────────────────────
+  // ── Cinematic Tuscan Landing ─────────────────────────────────────
   return (
-    <div
-      className="fixed inset-0 flex flex-col items-center justify-center z-50 px-6"
-      style={{ background: BG }}
-    >
-      {/* Kicker / branding above envelope */}
+    <div className="fixed inset-0 z-50 overflow-hidden">
+      {/* Layer 1: Hero photograph with slow Ken Burns drift */}
       <div
-        className="text-center mb-12 transition-all duration-700"
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${tuscanDawn})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 60%",
+          transform: mounted ? "scale(1.08) translateY(-1%)" : "scale(1.18) translateY(0)",
+          transition: "transform 18s ease-out",
+        }}
+      />
+
+      {/* Layer 2: Atmospheric vignette + warmth wash */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 0%, rgba(20,8,12,0.35) 55%, rgba(20,8,12,0.78) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(40,15,20,0.45) 0%, rgba(40,15,20,0) 30%, rgba(40,15,20,0) 65%, rgba(20,8,12,0.7) 100%)",
+        }}
+      />
+
+      {/* Layer 3: Film grain */}
+      <div
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
+        style={{
+          opacity: 0.18,
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: "256px",
+        }}
+      />
+
+      {/* Layer 4: Content */}
+      <div
+        className="relative z-10 flex flex-col items-center justify-center h-full px-6"
         style={{
           opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(-10px)" : "none",
+          transition: "opacity 0.9s ease",
           pointerEvents: isOpening ? "none" : "auto",
         }}
       >
-        <EditableText
-          id="envelope-title"
-          tag="p"
-          className="font-script"
-          style={{ fontSize: "clamp(2.6rem, 7vw, 3.75rem)", color: "rgba(184,154,106,0.82)", lineHeight: 1 }}
-          defaultContent="Becoming Bradley"
-        />
-        <EditableText
-          id="envelope-date-kicker"
-          tag="p"
-          className="kicker mt-4"
-          style={{ color: "rgba(250,248,242,0.4)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
-          defaultContent="May 22, 2027 · Lucca, Italy"
-        />
-      </div>
-
-      {/* The Envelope */}
-      <div
-        style={{
-          width: "min(520px, calc(100vw - 48px))",
-          aspectRatio: "520 / 330",
-          position: "relative",
-          cursor: stage === "idle" ? "pointer" : "default",
-          boxShadow:
-            "0 2px 8px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.6), 0 50px 90px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,170,110,0.12)",
-        }}
-        onClick={() => stage === "idle" && setStage("opening")}
-      >
-        {/* SVG envelope body — crisp geometry, no CSS border tricks */}
-        <svg
-          viewBox="0 0 520 330"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
-        >
-          <defs>
-            <linearGradient id="envBody" x1="0.2" y1="0" x2="0.8" y2="1">
-              <stop offset="0%"   stopColor="#FDFBF6" />
-              <stop offset="55%"  stopColor="#FAF8F2" />
-              <stop offset="100%" stopColor="#F3EDE3" />
-            </linearGradient>
-          </defs>
-          {/* Body */}
-          <rect x="0" y="0" width="520" height="330" fill="url(#envBody)" />
-          {/* Left fold shadow */}
-          <polygon points="0,0 260,185 0,330"    fill="rgba(0,0,0,0.032)" />
-          {/* Right fold shadow */}
-          <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.032)" />
-          {/* Bottom fold shadow — slightly darker (front-facing) */}
-          <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.052)" />
-          {/* Hairline fold lines — barely perceptible, just like real paper */}
-          <line x1="0"   y1="0"   x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-          <line x1="520" y1="0"   x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-          <line x1="0"   y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)"  strokeWidth="0.6" />
-          <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)"  strokeWidth="0.6" />
-        </svg>
-
-        {/* Sliding invitation card — emerges from envelope after the flap rips up */}
-        {isOpening && (
-          <div
-            className="invitation-sliding"
-            style={{
-              position: "absolute",
-              bottom: "4%",
-              left: "8%",
-              right: "8%",
-              zIndex: 4,
-            }}
-          >
-            <div
-              style={{
-                padding: "1.5rem 1.4rem",
-                textAlign: "center",
-                background: "#FAF8F2",
-                border: "1px solid rgba(184,154,106,0.22)",
-                boxShadow: "0 10px 36px rgba(0,0,0,0.28)",
-              }}
-            >
-              <p className="kicker mb-1">Becoming Bradley</p>
-              <p
-                className="font-display italic"
-                style={{ fontSize: "1.5rem", color: "hsl(var(--burg))", fontWeight: 300 }}
-              >
-                McKenna &amp; Jordan
-              </p>
-              <p
-                className="font-body"
-                style={{ fontSize: "0.72rem", color: "hsl(var(--stone))", letterSpacing: "0.14em", marginTop: "0.25rem" }}
-              >
-                May 22, 2027 · Lucca, Italy
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Envelope flap (with seal attached) — rips upward when opened */}
+        {/* Top kicker — fades in first */}
         <div
-          className={isOpening ? "flap-rip" : ""}
+          className="text-center"
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "56.1%", // 185 / 330 = fold point
-            background: "linear-gradient(178deg, #F7F2EA 0%, #EDE6D8 100%)",
-            clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
-            transformOrigin: "top center",
-            zIndex: 10,
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(-8px)",
+            transition: "opacity 1.6s ease 0.2s, transform 1.6s ease 0.2s",
           }}
         >
-          {/* Wax seal — sits on the flap and rides with it as it rips up */}
-          <div
+          <EditableText
+            id="landing-kicker"
+            tag="p"
+            className="kicker"
             style={{
-              position: "absolute",
-              left: "50%",
-              top: "62%",
-              transform: "translate(-50%, -50%)",
-              width: 72,
-              height: 72,
-              borderRadius: "50%",
-              background:
-                "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
-              boxShadow:
-                "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
-              border: "1.5px solid rgba(184,154,106,0.48)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backfaceVisibility: "hidden",
+              color: "rgba(232,210,170,0.78)",
+              fontSize: "0.72rem",
+              letterSpacing: "0.55em",
+            }}
+            defaultContent="Lucca, Italy · May MMXXVII"
+          />
+        </div>
+
+        {/* Hairline gold rule */}
+        <div
+          className="my-8"
+          style={{
+            width: mounted ? "8rem" : "0",
+            height: 1,
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(232,210,170,0.6) 50%, transparent 100%)",
+            transition: "width 2s ease 0.6s",
+          }}
+        />
+
+        {/* Names — the hero */}
+        <div
+          className="text-center"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 2s ease 0.9s, transform 2s ease 0.9s",
+          }}
+        >
+          <EditableText
+            id="landing-bride-first"
+            tag="p"
+            className="font-script"
+            style={{
+              fontSize: "clamp(4rem, 11vw, 7.5rem)",
+              color: "hsl(42 45% 92%)",
+              lineHeight: 0.95,
+              textShadow: "0 4px 24px rgba(0,0,0,0.4)",
+            }}
+            defaultContent="McKenna"
+          />
+          <p
+            className="font-display italic"
+            style={{
+              fontSize: "clamp(1.2rem, 2.4vw, 1.6rem)",
+              color: "rgba(232,210,170,0.7)",
+              margin: "0.6rem 0",
+              letterSpacing: "0.1em",
             }}
           >
-            <span
-              className="font-script"
-              style={{
-                fontSize: 36,
-                color: "hsl(var(--gold-light))",
-                lineHeight: 1,
-                textShadow: "0 1px 4px rgba(0,0,0,0.35)",
-              }}
-            >
-              B
-            </span>
-          </div>
+            and
+          </p>
+          <EditableText
+            id="landing-groom-first"
+            tag="p"
+            className="font-script"
+            style={{
+              fontSize: "clamp(4rem, 11vw, 7.5rem)",
+              color: "hsl(42 45% 92%)",
+              lineHeight: 0.95,
+              textShadow: "0 4px 24px rgba(0,0,0,0.4)",
+            }}
+            defaultContent="Jordan"
+          />
+        </div>
+
+        {/* Hairline gold rule */}
+        <div
+          className="mt-10 mb-6"
+          style={{
+            width: mounted ? "4rem" : "0",
+            height: 1,
+            background: "rgba(232,210,170,0.55)",
+            transition: "width 2s ease 1.4s",
+          }}
+        />
+
+        {/* Subtle prompt */}
+        <div
+          className="text-center"
+          style={{
+            opacity: mounted ? 1 : 0,
+            transition: "opacity 2s ease 1.8s",
+          }}
+        >
+          <EditableText
+            id="landing-prompt"
+            tag="p"
+            className="font-display italic"
+            style={{
+              color: "rgba(250,248,242,0.72)",
+              fontSize: "1.15rem",
+              marginBottom: "1.75rem",
+              letterSpacing: "0.02em",
+            }}
+            defaultContent="You are cordially invited"
+          />
+
+          <button
+            onClick={() => setStage("opening")}
+            className="kicker group relative inline-flex items-center gap-3 px-10 py-4 transition-all duration-500"
+            style={{
+              color: "hsl(42 45% 88%)",
+              fontSize: "0.74rem",
+              letterSpacing: "0.5em",
+              border: "1px solid rgba(232,210,170,0.5)",
+              background: "rgba(20,8,12,0.25)",
+              backdropFilter: "blur(2px)",
+            }}
+            onMouseEnter={e => {
+              const b = e.currentTarget as HTMLButtonElement;
+              b.style.background = "rgba(232,210,170,0.92)";
+              b.style.color = "hsl(350 72% 15%)";
+              b.style.borderColor = "rgba(232,210,170,0.92)";
+              b.style.letterSpacing = "0.55em";
+            }}
+            onMouseLeave={e => {
+              const b = e.currentTarget as HTMLButtonElement;
+              b.style.background = "rgba(20,8,12,0.25)";
+              b.style.color = "hsl(42 45% 88%)";
+              b.style.borderColor = "rgba(232,210,170,0.5)";
+              b.style.letterSpacing = "0.5em";
+            }}
+          >
+            Open Invitation
+          </button>
         </div>
       </div>
 
-      {/* Prompt below envelope */}
-      <div
-        className="mt-12 text-center transition-all duration-700"
-        style={{
-          opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(10px)" : "none",
-          pointerEvents: isOpening ? "none" : "auto",
-        }}
-      >
-        <EditableText
-          id="envelope-invite-prompt"
-          tag="p"
-          className="font-body italic mb-5"
-          style={{ color: "rgba(250,248,242,0.45)", fontSize: "1.15rem" }}
-          defaultContent="You have been cordially invited"
-        />
-        <button
-          onClick={() => setStage("opening")}
-          className="kicker transition-all"
-          style={{ color: "rgba(184,154,106,0.85)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
-          onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,1)")}
-          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.85)")}
+      {/* The Envelope — appears when opening, drifts up out of frame */}
+      {isOpening && (
+        <div
+          className="absolute inset-0 z-20 flex items-center justify-center px-6"
+          style={{ animation: "envelopeRise 0.6s ease forwards" }}
         >
-          Click to Open
-        </button>
-      </div>
+          <div
+            style={{
+              width: "min(520px, calc(100vw - 48px))",
+              aspectRatio: "520 / 330",
+              position: "relative",
+              boxShadow:
+                "0 2px 8px rgba(0,0,0,0.4), 0 16px 48px rgba(0,0,0,0.7), 0 50px 90px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,170,110,0.18)",
+            }}
+          >
+            <svg
+              viewBox="0 0 520 330"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
+            >
+              <defs>
+                <linearGradient id="envBody" x1="0.2" y1="0" x2="0.8" y2="1">
+                  <stop offset="0%" stopColor="#FDFBF6" />
+                  <stop offset="55%" stopColor="#FAF8F2" />
+                  <stop offset="100%" stopColor="#F3EDE3" />
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="520" height="330" fill="url(#envBody)" />
+              <polygon points="0,0 260,185 0,330" fill="rgba(0,0,0,0.032)" />
+              <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.032)" />
+              <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.052)" />
+              <line x1="0" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
+              <line x1="520" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
+              <line x1="0" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
+              <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
+            </svg>
+
+            {/* Sliding invitation card */}
+            <div
+              className="invitation-sliding"
+              style={{
+                position: "absolute",
+                bottom: "4%",
+                left: "8%",
+                right: "8%",
+                zIndex: 4,
+              }}
+            >
+              <div
+                style={{
+                  padding: "1.5rem 1.4rem",
+                  textAlign: "center",
+                  background: "#FAF8F2",
+                  border: "1px solid rgba(184,154,106,0.22)",
+                  boxShadow: "0 10px 36px rgba(0,0,0,0.28)",
+                }}
+              >
+                <p className="kicker mb-1">Becoming Bradley</p>
+                <p
+                  className="font-display italic"
+                  style={{ fontSize: "1.5rem", color: "hsl(var(--burg))", fontWeight: 300 }}
+                >
+                  McKenna &amp; Jordan
+                </p>
+                <p
+                  className="font-body"
+                  style={{
+                    fontSize: "0.72rem",
+                    color: "hsl(var(--stone))",
+                    letterSpacing: "0.14em",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  May 22, 2027 · Lucca, Italy
+                </p>
+              </div>
+            </div>
+
+            {/* Envelope flap with seal — seal sits at the bottom point */}
+            <div
+              className="flap-rip"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "56.1%",
+                background: "linear-gradient(178deg, #F7F2EA 0%, #EDE6D8 100%)",
+                clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
+                transformOrigin: "top center",
+                zIndex: 10,
+              }}
+            >
+              {/* Seal centered on the bottom V-point of the flap */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  bottom: "-36px",
+                  transform: "translateX(-50%)",
+                  width: 72,
+                  height: 72,
+                  borderRadius: "50%",
+                  background:
+                    "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+                  boxShadow:
+                    "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
+                  border: "1.5px solid rgba(184,154,106,0.48)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <span
+                  className="font-script"
+                  style={{
+                    fontSize: 36,
+                    color: "hsl(var(--gold-light))",
+                    lineHeight: 1,
+                    textShadow: "0 1px 4px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  B
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
