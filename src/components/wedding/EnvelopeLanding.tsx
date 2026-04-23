@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 
-type Stage = "idle" | "pressing" | "opening" | "risen" | "invitation" | "exit";
+type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
 // Background used for both stages — deep burgundy radial spotlight
 const BG = `radial-gradient(ellipse at 50% 42%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
@@ -12,17 +12,13 @@ export default function EnvelopeLanding() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (stage === "pressing") {
-      // brief seal-press before the wax cracks and flap peels
-      const t = setTimeout(() => setStage("opening"), 320);
-      return () => clearTimeout(t);
-    }
     if (stage === "opening") {
-      const t = setTimeout(() => setStage("risen"), 2100);
+      // flap finishes ripping up, then card slides into view
+      const t = setTimeout(() => setStage("risen"), 1900);
       return () => clearTimeout(t);
     }
     if (stage === "risen") {
-      const t = setTimeout(() => setStage("invitation"), 700);
+      const t = setTimeout(() => setStage("invitation"), 900);
       return () => clearTimeout(t);
     }
   }, [stage]);
@@ -32,9 +28,7 @@ export default function EnvelopeLanding() {
     setTimeout(() => navigate("/our-story"), 750);
   };
 
-  const isPressing = stage === "pressing";
   const isOpening = stage === "opening" || stage === "risen";
-  const sealBroken = isOpening; // seal halves animate after pressing
 
   // ── Invitation Card ──────────────────────────────────────────────
   if (stage === "invitation" || stage === "exit") {
@@ -223,9 +217,9 @@ export default function EnvelopeLanding() {
       <div
         className="text-center mb-12 transition-all duration-700"
         style={{
-          opacity: isOpening || isPressing ? 0 : 1,
-          transform: isOpening || isPressing ? "translateY(-10px)" : "none",
-          pointerEvents: isOpening || isPressing ? "none" : "auto",
+          opacity: isOpening ? 0 : 1,
+          transform: isOpening ? "translateY(-10px)" : "none",
+          pointerEvents: isOpening ? "none" : "auto",
         }}
       >
         <EditableText
@@ -250,10 +244,11 @@ export default function EnvelopeLanding() {
           width: "min(520px, calc(100vw - 48px))",
           aspectRatio: "520 / 330",
           position: "relative",
-          cursor: "default",
+          cursor: stage === "idle" ? "pointer" : "default",
           boxShadow:
             "0 2px 8px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.6), 0 50px 90px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,170,110,0.12)",
         }}
+        onClick={() => stage === "idle" && setStage("opening")}
       >
         {/* SVG envelope body — crisp geometry, no CSS border tricks */}
         <svg
@@ -283,31 +278,31 @@ export default function EnvelopeLanding() {
           <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)"  strokeWidth="0.6" />
         </svg>
 
-        {/* Rising card — visible during opening animation */}
+        {/* Sliding invitation card — emerges from envelope after the flap rips up */}
         {isOpening && (
           <div
-            className="card-rising"
+            className="invitation-sliding"
             style={{
               position: "absolute",
-              bottom: "8%",
-              left: "9%",
-              right: "9%",
-              zIndex: 5,
+              bottom: "4%",
+              left: "8%",
+              right: "8%",
+              zIndex: 4,
             }}
           >
             <div
               style={{
-                padding: "1.35rem 1.25rem",
+                padding: "1.5rem 1.4rem",
                 textAlign: "center",
                 background: "#FAF8F2",
                 border: "1px solid rgba(184,154,106,0.22)",
-                boxShadow: "0 8px 30px rgba(0,0,0,0.18)",
+                boxShadow: "0 10px 36px rgba(0,0,0,0.28)",
               }}
             >
               <p className="kicker mb-1">Becoming Bradley</p>
               <p
                 className="font-display italic"
-                style={{ fontSize: "1.4rem", color: "hsl(var(--burg))", fontWeight: 300 }}
+                style={{ fontSize: "1.5rem", color: "hsl(var(--burg))", fontWeight: 300 }}
               >
                 McKenna &amp; Jordan
               </p>
@@ -321,9 +316,9 @@ export default function EnvelopeLanding() {
           </div>
         )}
 
-        {/* Envelope flap — clip-path triangle, crisp edges, animated open */}
+        {/* Envelope flap (with seal attached) — rips upward when opened */}
         <div
-          className={isOpening ? "flap-peeling" : ""}
+          className={isOpening ? "flap-rip" : ""}
           style={{
             position: "absolute",
             top: 0,
@@ -333,117 +328,52 @@ export default function EnvelopeLanding() {
             background: "linear-gradient(178deg, #F7F2EA 0%, #EDE6D8 100%)",
             clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
             transformOrigin: "top center",
-            zIndex: isOpening ? 2 : 10,
-          }}
-        />
-
-        {/* Wax seal — clickable; splits into two halves that fall away */}
-        <button
-          type="button"
-          aria-label="Break the seal and open the invitation"
-          onClick={() => stage === "idle" && setStage("pressing")}
-          disabled={stage !== "idle"}
-          style={{
-            position: "absolute",
-            top: "calc(60% - 38px)",
-            left: "calc(50% - 38px)",
-            width: 76,
-            height: 76,
-            padding: 0,
-            background: "transparent",
-            border: "none",
-            cursor: stage === "idle" ? "pointer" : "default",
-            zIndex: 25,
+            zIndex: 10,
           }}
         >
-          {/* Left half */}
+          {/* Wax seal — sits on the flap and rides with it as it rips up */}
           <div
-            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-left" : ""}`}
             style={{
               position: "absolute",
-              inset: 0,
-              width: "50%",
-              height: "100%",
-              borderTopLeftRadius: "100% 100%",
-              borderBottomLeftRadius: "100% 100%",
-              background:
-                "radial-gradient(circle at 75% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
-              boxShadow:
-                "inset -2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
-              borderLeft: "1.5px solid rgba(184,154,106,0.48)",
-              borderTop: "1.5px solid rgba(184,154,106,0.48)",
-              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
-              transformOrigin: "right center",
-            }}
-          />
-          {/* Right half */}
-          <div
-            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-right" : ""}`}
-            style={{
-              position: "absolute",
-              top: 0,
               left: "50%",
-              width: "50%",
-              height: "100%",
-              borderTopRightRadius: "100% 100%",
-              borderBottomRightRadius: "100% 100%",
+              top: "62%",
+              transform: "translate(-50%, -50%)",
+              width: 72,
+              height: 72,
+              borderRadius: "50%",
               background:
-                "radial-gradient(circle at 25% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+                "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
               boxShadow:
-                "inset 2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
-              borderRight: "1.5px solid rgba(184,154,106,0.48)",
-              borderTop: "1.5px solid rgba(184,154,106,0.48)",
-              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
-              transformOrigin: "left center",
+                "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
+              border: "1.5px solid rgba(184,154,106,0.48)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backfaceVisibility: "hidden",
             }}
-          />
-          {/* Crack line down the middle (only visible during break) */}
-          {(isPressing || sealBroken) && (
-            <div
-              style={{
-                position: "absolute",
-                top: "8%",
-                left: "calc(50% - 0.5px)",
-                width: 1,
-                height: "84%",
-                background:
-                  "linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.7) 70%, transparent)",
-                zIndex: 2,
-                pointerEvents: "none",
-              }}
-            />
-          )}
-          {/* Monogram B — hidden once seal breaks */}
-          {!sealBroken && (
+          >
             <span
-              className={`font-script ${isPressing ? "seal-pressing" : ""}`}
+              className="font-script"
               style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 38,
+                fontSize: 36,
                 color: "hsl(var(--gold-light))",
                 lineHeight: 1,
-                textShadow: "0 1px 4px rgba(0,0,0,0.4)",
-                pointerEvents: "none",
-                zIndex: 3,
+                textShadow: "0 1px 4px rgba(0,0,0,0.35)",
               }}
             >
               B
             </span>
-          )}
-        </button>
+          </div>
+        </div>
       </div>
 
       {/* Prompt below envelope */}
       <div
         className="mt-12 text-center transition-all duration-700"
         style={{
-          opacity: isOpening || isPressing ? 0 : 1,
-          transform: isOpening || isPressing ? "translateY(10px)" : "none",
-          pointerEvents: isOpening || isPressing ? "none" : "auto",
+          opacity: isOpening ? 0 : 1,
+          transform: isOpening ? "translateY(10px)" : "none",
+          pointerEvents: isOpening ? "none" : "auto",
         }}
       >
         <EditableText
@@ -454,13 +384,13 @@ export default function EnvelopeLanding() {
           defaultContent="You have been cordially invited"
         />
         <button
-          onClick={() => setStage("pressing")}
+          onClick={() => setStage("opening")}
           className="kicker transition-all"
           style={{ color: "rgba(184,154,106,0.85)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,1)")}
           onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.85)")}
         >
-          Break the Seal
+          Click to Open
         </button>
       </div>
     </div>
