@@ -323,7 +323,7 @@ export default function EnvelopeLanding() {
 
         {/* Envelope flap — clip-path triangle, crisp edges, animated open */}
         <div
-          className={isOpening ? "flap-opening" : ""}
+          className={isOpening ? "flap-peeling" : ""}
           style={{
             position: "absolute",
             top: 0,
@@ -337,64 +337,130 @@ export default function EnvelopeLanding() {
           }}
         />
 
-        {/* Wax seal — sits on envelope body below fold line */}
-        <div
+        {/* Wax seal — clickable; splits into two halves that fall away */}
+        <button
+          type="button"
+          aria-label="Break the seal and open the invitation"
+          onClick={() => stage === "idle" && setStage("pressing")}
+          disabled={stage !== "idle"}
           style={{
             position: "absolute",
-            top: "calc(60% - 34px)",
-            left: "calc(50% - 34px)",
-            width: 68,
-            height: 68,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle at 38% 32%, hsl(350,50%,32%) 0%, hsl(350,70%,18%) 50%, hsl(350,72%,13%) 100%)",
-            boxShadow:
-              "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
-            border: "1.5px solid rgba(184,154,106,0.48)",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            top: "calc(60% - 38px)",
+            left: "calc(50% - 38px)",
+            width: 76,
+            height: 76,
+            padding: 0,
+            background: "transparent",
+            border: "none",
+            cursor: stage === "idle" ? "pointer" : "default",
+            zIndex: 25,
           }}
         >
-          <span
-            className="font-script"
+          {/* Left half */}
+          <div
+            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-left" : ""}`}
             style={{
-              fontSize: 34,
-              color: "hsl(var(--gold-light))",
-              lineHeight: 1,
-              textShadow: "0 1px 4px rgba(0,0,0,0.35)",
+              position: "absolute",
+              inset: 0,
+              width: "50%",
+              height: "100%",
+              borderTopLeftRadius: "100% 100%",
+              borderBottomLeftRadius: "100% 100%",
+              background:
+                "radial-gradient(circle at 75% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+              boxShadow:
+                "inset -2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
+              borderLeft: "1.5px solid rgba(184,154,106,0.48)",
+              borderTop: "1.5px solid rgba(184,154,106,0.48)",
+              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
+              transformOrigin: "right center",
             }}
-          >
-            B
-          </span>
-        </div>
+          />
+          {/* Right half */}
+          <div
+            className={`${isPressing ? "seal-pressing" : ""} ${sealBroken ? "seal-half-right" : ""}`}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "50%",
+              width: "50%",
+              height: "100%",
+              borderTopRightRadius: "100% 100%",
+              borderBottomRightRadius: "100% 100%",
+              background:
+                "radial-gradient(circle at 25% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+              boxShadow:
+                "inset 2px 0 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 14px rgba(0,0,0,0.35)",
+              borderRight: "1.5px solid rgba(184,154,106,0.48)",
+              borderTop: "1.5px solid rgba(184,154,106,0.48)",
+              borderBottom: "1.5px solid rgba(184,154,106,0.48)",
+              transformOrigin: "left center",
+            }}
+          />
+          {/* Crack line down the middle (only visible during break) */}
+          {(isPressing || sealBroken) && (
+            <div
+              style={{
+                position: "absolute",
+                top: "8%",
+                left: "calc(50% - 0.5px)",
+                width: 1,
+                height: "84%",
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.7) 70%, transparent)",
+                zIndex: 2,
+                pointerEvents: "none",
+              }}
+            />
+          )}
+          {/* Monogram B — hidden once seal breaks */}
+          {!sealBroken && (
+            <span
+              className={`font-script ${isPressing ? "seal-pressing" : ""}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 38,
+                color: "hsl(var(--gold-light))",
+                lineHeight: 1,
+                textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                pointerEvents: "none",
+                zIndex: 3,
+              }}
+            >
+              B
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Prompt below envelope */}
       <div
         className="mt-12 text-center transition-all duration-700"
         style={{
-          opacity: isOpening ? 0 : 1,
-          transform: isOpening ? "translateY(10px)" : "none",
-          pointerEvents: isOpening ? "none" : "auto",
+          opacity: isOpening || isPressing ? 0 : 1,
+          transform: isOpening || isPressing ? "translateY(10px)" : "none",
+          pointerEvents: isOpening || isPressing ? "none" : "auto",
         }}
       >
         <EditableText
           id="envelope-invite-prompt"
           tag="p"
           className="font-body italic mb-5"
-          style={{ color: "rgba(250,248,242,0.32)", fontSize: "0.875rem" }}
+          style={{ color: "rgba(250,248,242,0.45)", fontSize: "1.15rem" }}
           defaultContent="You have been cordially invited"
         />
         <button
-          onClick={() => setStage("opening")}
+          onClick={() => setStage("pressing")}
           className="kicker transition-all"
-          style={{ color: "rgba(184,154,106,0.72)" }}
+          style={{ color: "rgba(184,154,106,0.85)", fontSize: "0.78rem", letterSpacing: "0.42em" }}
           onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,1)")}
-          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.72)")}
+          onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(184,154,106,0.85)")}
         >
-          Open Invitation
+          Break the Seal
         </button>
       </div>
     </div>
