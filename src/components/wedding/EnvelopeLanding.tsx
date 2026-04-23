@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import villaPhoto from "@/assets/villa-grabau-photo.png";
-import tuscanDawn from "@/assets/tuscan-dawn.jpg";
+import villaMotion from "@/assets/villa-grabau-motion.mp4.asset.json";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
 
@@ -208,15 +208,17 @@ export default function EnvelopeLanding() {
   // ── Cinematic Tuscan Landing ─────────────────────────────────────
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Layer 1: Hero photograph with slow Ken Burns drift */}
-      <div
-        className="absolute inset-0"
+      {/* Layer 1: Cinematic looping video of Villa Grabau */}
+      <video
+        src={villaMotion.url}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
         style={{
-          backgroundImage: `url(${tuscanDawn})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 60%",
-          transform: mounted ? "scale(1.08) translateY(-1%)" : "scale(1.18) translateY(0)",
-          transition: "transform 18s ease-out",
+          transform: mounted ? "scale(1.04)" : "scale(1.12)",
+          transition: "transform 14s ease-out",
         }}
       />
 
