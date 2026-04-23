@@ -36,7 +36,7 @@ export default function EnvelopeLanding() {
     return (
       <div
         className="fixed inset-0 overflow-y-auto z-50"
-        style={{ background: BG }}
+        style={{ background: "hsl(42 35% 97%)" }}
       >
         <div className="min-h-full flex items-start md:items-center justify-center py-10 px-4">
           <div
