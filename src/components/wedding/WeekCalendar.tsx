@@ -203,7 +203,7 @@ export default function WeekCalendar() {
           height: CALENDAR_H,
           zIndex: 45,
           display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(6, 1fr)",
           boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
         }}
       >
