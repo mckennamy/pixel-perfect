@@ -70,6 +70,7 @@ export default function EnvelopeLanding() {
                   letterSpacing: "0.01em",
                 }}
                 defaultContent="Together with their families"
+                
               />
 
               <EditableText
