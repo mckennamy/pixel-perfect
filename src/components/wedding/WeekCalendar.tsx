@@ -325,7 +325,7 @@ export default function WeekCalendar() {
                     ← Prev
                   </button>
                 )}
-                {selDay.date < 25 && (
+                {selDay.date < 24 && (
                   <button
                     onClick={() => setSelected(selDay.date + 1)}
                     style={{ fontFamily: "Cinzel, serif", fontSize: "0.48rem", letterSpacing: "0.2em", color: selStyle.text, background: "transparent", border: "none", cursor: "pointer", opacity: 0.5 }}
