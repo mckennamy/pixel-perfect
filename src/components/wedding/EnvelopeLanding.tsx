@@ -79,7 +79,7 @@ export default function EnvelopeLanding() {
                 className="font-body"
                 style={{
                   fontSize: "1.05rem",
-                  color: "hsl(var(--ink-mid))",
+                  color: "hsl(var(--burg))",
                   marginBottom: "1.5rem",
                   letterSpacing: "0.01em",
                 }}
@@ -94,7 +94,7 @@ export default function EnvelopeLanding() {
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
                   lineHeight: 1.1,
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                 }}
                 defaultContent="McKenna Danielle Myers"
               />
@@ -102,7 +102,7 @@ export default function EnvelopeLanding() {
                 className="font-script"
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2rem)",
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                   margin: "0.25rem 0",
                   lineHeight: 1.1,
                 }}
@@ -117,7 +117,7 @@ export default function EnvelopeLanding() {
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
                   lineHeight: 1.1,
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                   marginBottom: "2rem",
                 }}
                 defaultContent="Jordan Christopher Bradley"
@@ -127,14 +127,14 @@ export default function EnvelopeLanding() {
                 id="invite-request-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6 }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6 }}
                 defaultContent="request the pleasure of your company"
               />
               <EditableText
                 id="invite-request-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6, marginBottom: "2rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6, marginBottom: "2rem" }}
                 defaultContent="at their wedding celebration"
               />
 
@@ -143,44 +143,29 @@ export default function EnvelopeLanding() {
                 id="invite-on"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", marginBottom: "0.75rem" }}
                 defaultContent="on"
               />
               <EditableText
                 id="invite-date-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5 }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5 }}
                 defaultContent="Saturday, the twenty-second of May"
               />
               <EditableText
                 id="invite-date-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5, marginBottom: "1.25rem" }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "1.25rem" }}
                 defaultContent="two thousand twenty-seven"
               />
               <EditableText
                 id="invite-time"
                 tag="p"
                 className="font-body italic"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "2rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "2.5rem" }}
                 defaultContent="at four o'clock in the afternoon"
-              />
-
-              <EditableText
-                id="invite-at"
-                tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
-                defaultContent="at"
-              />
-              <EditableText
-                id="invite-venue"
-                tag="p"
-                className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", marginBottom: "2.5rem" }}
-                defaultContent="Villa Grabau in Lucca, Italy"
               />
 
               <button
