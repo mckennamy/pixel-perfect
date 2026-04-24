@@ -34,11 +34,11 @@ const details: Record<number, DayDetail> = {
   19: {
     heading: "Arrive in Lucca",
     description:
-      "Welcome to Tuscany. Check in begins at 3:00 PM — come find us when you arrive, settle in, and let the week begin.",
+      "Benvenuti in Toscana. The cypress-lined drive opens onto Villa Grabau and the week begins. Check-in opens at 3:00 PM — come find us, pour something cold, and let Lucca slow you down.",
     activities: [
-      { title: "Breakfast", note: "On your own — travel day" },
-      { title: "Lunch",     note: "On your own en route — check in opens at 3:00 PM" },
-      { title: "Dinner",    note: "On your own · aperitivo at Piazza dell'Anfiteatro, then Osteria Da Rosolo or Giglio in Lucca" },
+      { title: "Mattina · Morning",     note: "On your own — a travel day, however far you've come" },
+      { title: "Pomeriggio · Afternoon", note: "Arrivals from 3:00 PM — settle into your room, wander the gardens, drift toward the pool" },
+      { title: "Sera · Evening",         note: "Aperitivo in the Piazza dell'Anfiteatro, then dinner at Osteria Da Rosolo or Giglio in the heart of Lucca" },
     ],
   },
   20: {
@@ -46,11 +46,11 @@ const details: Record<number, DayDetail> = {
     time: "6:00 PM · L'Arancera",
     attire: "Cocktail attire",
     description:
-      "Spend the day exploring Lucca, heading into the countryside, or relaxing on the property. In the evening we gather as a group for the first time at our welcome party at L'Arancera.",
+      "A long, golden Tuscan day — yours to spend slowly. Wander the medieval walls of Lucca, lose an afternoon in the hills, or do nothing at all by the pool. As the light softens, we gather for the first time at L'Arancera to raise a glass to the week ahead.",
     activities: [
-      { title: "Breakfast", note: "Served at L'Arancera · 90-minute buffet with sweet and savoury options · plant-based milk available" },
-      { title: "Lunch",     note: "On your own · relax at the property, try a massage, a wine tasting, or a cooking class — see the Excursions page" },
-      { title: "Dinner",    note: "Welcome Party at L'Arancera · guests arrive 6:00 PM · food service from 6:30 PM · sunset 8:40 PM · ends 9:00–9:30 PM" },
+      { title: "Mattina · Morning",     note: "Breakfast at L'Arancera · a 90-minute buffet of sweet and savoury, espresso flowing, plant-based milks on hand" },
+      { title: "Pomeriggio · Afternoon", note: "Lunch on your own · linger at the villa, slip into a massage, a wine tasting, or a cooking class — see the Excursions page" },
+      { title: "Sera · Evening",         note: "Welcome Party at L'Arancera · arrivals 6:00 PM · food from 6:30 · sunset at 8:40 · the night winds down by 9:30" },
     ],
   },
   21: {
@@ -58,11 +58,11 @@ const details: Record<number, DayDetail> = {
     time: "Rehearsal dinner — invitation only",
     attire: "",
     description:
-      "Today is yours. Explore Pisa, the Tuscan coast, the surrounding hills, or simply relax by one of our two pools at Villa Grabau or L'Arancera. Guests invited to the rehearsal dinner will find full details on their private invitation page.",
+      "An unhurried day, entirely yours. Lean into Pisa, drift down to the Tuscan coast, chase a vineyard in the hills — or claim a lounger at one of our two pools at Villa Grabau and L'Arancera and stay put. Rehearsal dinner guests will find their evening on a private invitation page.",
     activities: [
-      { title: "Breakfast", note: "On your own" },
-      { title: "Lunch",     note: "On your own · explore Pisa, the coast, or stay by the pool" },
-      { title: "Dinner",    note: "On your own · rehearsal dinner guests — see your private invitation page" },
+      { title: "Mattina · Morning",     note: "On your own · a slow start, a cappuccino in town, the day stretches ahead" },
+      { title: "Pomeriggio · Afternoon", note: "On your own · Pisa, the coast, a hillside winery, or pool-side at the villa" },
+      { title: "Sera · Evening",         note: "On your own · rehearsal dinner guests, see your private invitation page" },
     ],
   },
   22: {
@@ -70,31 +70,31 @@ const details: Record<number, DayDetail> = {
     time: "Ceremony at 4:00 PM · Villa Grabau",
     attire: "Garden Party Formal",
     description:
-      "The day we have been looking forward to. We gather for the ceremony at 4:00 PM, followed by reception and dancing late into the Tuscan evening.",
+      "Il giorno. The one we've been holding our breath for. We meet beneath the cypresses at 4:00 PM for the ceremony, then candlelight, long tables, Tuscan wine, and dancing until the villa runs out of night.",
     activities: [
-      { title: "Breakfast", note: "On your own" },
-      { title: "Lunch",     note: "Provided for all guests at the property before the ceremony — details to come" },
-      { title: "Dinner",    note: "Reception dinner at Villa Grabau · cocktails, dinner, and dancing into the night" },
+      { title: "Mattina · Morning",     note: "On your own · rest, a swim, a quiet espresso before the day begins" },
+      { title: "Pomeriggio · Afternoon", note: "Lunch provided for all guests at the property · gather, get ready, then to the gardens for a 4:00 PM ceremony" },
+      { title: "Sera · Evening",         note: "Cocktails, dinner under the stars, and dancing into the Tuscan night at Villa Grabau" },
     ],
   },
   23: {
     heading: "Brunch & Departures",
     description:
-      "Some of you head off to your next adventure today; for those staying, it's the last night — spend the afternoon exploring or join us at L'Arancera for a relaxed pool party.",
+      "A soft landing after the wedding. Some of you slip away to the next chapter today; for those staying on, it's a last, lingering Tuscan day — wander somewhere new, or pad over to L'Arancera for a barefoot pool party in the sun.",
     activities: [
-      { title: "Brunch",  note: "Late brunch served at L'Arancera for all guests — same beloved buffet as the welcome breakfast" },
-      { title: "Lunch",   note: "On your own · pool party at L'Arancera, or wander Lucca, Florence, or the coast" },
-      { title: "Dinner",  note: "On your own for those staying — a quiet last night in Tuscany" },
+      { title: "Mattina · Morning",     note: "Late brunch at L'Arancera for all guests — the same beloved buffet as our welcome breakfast" },
+      { title: "Pomeriggio · Afternoon", note: "On your own · pool party at L'Arancera, or one last wander through Lucca, Florence, or the coast" },
+      { title: "Sera · Evening",         note: "On your own for those staying · a quiet, golden last night in Tuscany" },
     ],
   },
   24: {
     heading: "Arrivederci",
     description:
-      "Departure day for all. Thank you, from the bottom of our hearts, for making the journey to share this week with us — we hope it's a trip you'll never forget. If you're extending your time in Italy, we have a few favourite next stops to recommend.",
+      "Arrivederci, not addio. Departure day for all — thank you, from the bottom of our hearts, for crossing the world to share this week with us. We hope it's a trip you carry forever. If you're staying on in Italy, here are a few favourite next chapters.",
     activities: [
-      { title: "Florence",           note: "An easy 1.5 hours east — Uffizi, Duomo, Ponte Vecchio, perfect for a few extra days" },
-      { title: "Cinque Terre",       note: "1.5 hours northwest — five cliffside villages and the most beautiful coastline in Italy" },
-      { title: "Rome or the Amalfi Coast", note: "A few hours south by train — the perfect grand finale to your Italian trip" },
+      { title: "Firenze · Florence",     note: "An easy 1.5 hours east · the Uffizi, the Duomo, Ponte Vecchio at golden hour — worth a few extra days" },
+      { title: "Cinque Terre",            note: "1.5 hours northwest · five cliffside villages tumbling into the sea, the most beautiful coastline in Italy" },
+      { title: "Roma · Costiera Amalfitana", note: "A few hours south by train · Rome's eternal streets or the Amalfi Coast — the grand finale to your Italian summer" },
     ],
   },
   25: {
