@@ -11,7 +11,7 @@ const navItems = [
   { href: "/reservations",  label: "Reservations",    desc: "Secure your place with us" },
 ];
 
-const BG = `radial-gradient(ellipse at 50% 60%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
+const BG = `radial-gradient(ellipse at 50% 60%, hsl(350,45%,22%) 0%, hsl(350,50%,15%) 45%, hsl(350,55%,10%) 100%)`;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -66,9 +66,9 @@ export default function Navbar() {
               color: "hsl(var(--burg))",
             }}
           >
-            Becoming
+            B
           </span>
-          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "hsl(var(--burg))", opacity: 0.7 }} />
+          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "hsl(var(--gold))", opacity: 0.8 }} />
           <span
             style={{
               fontFamily: "Cinzel, serif",
@@ -79,7 +79,7 @@ export default function Navbar() {
               color: "hsl(var(--burg))",
             }}
           >
-            Bradley
+            B
           </span>
         </Link>
 
@@ -138,7 +138,7 @@ export default function Navbar() {
           overflow: "hidden",
         }}
       >
-        {/* Giant ghost script watermark — two-line "Becoming Bradley" */}
+        {/* Giant ghost script watermark — "That's Amore" */}
         <div
           aria-hidden
           style={{
@@ -154,27 +154,27 @@ export default function Navbar() {
           <span
             style={{
               fontFamily: "Great Vibes, cursive",
-              fontSize: "clamp(5rem, 22vw, 17rem)",
-              color: "rgba(184,154,106,0.048)",
+              fontSize: "clamp(4rem, 18vw, 14rem)",
+              color: "rgba(184,154,106,0.055)",
               display: "block",
               whiteSpace: "nowrap",
-              lineHeight: 1.05,
+              lineHeight: 1.1,
             }}
           >
-            Becoming
+            That's Amore
           </span>
           <span
             style={{
-              fontFamily: "Great Vibes, cursive",
-              fontSize: "clamp(5rem, 22vw, 17rem)",
-              color: "rgba(184,154,106,0.048)",
+              fontFamily: "Cinzel, serif",
+              fontSize: "clamp(0.6rem, 1.5vw, 0.85rem)",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(184,154,106,0.12)",
               display: "block",
-              whiteSpace: "nowrap",
-              lineHeight: 1.05,
-              marginTop: "-0.1em",
+              marginTop: "0.5rem",
             }}
           >
-            Bradley
+            Tuscany &nbsp;·&nbsp; May 2027
           </span>
         </div>
 
@@ -226,7 +226,7 @@ export default function Navbar() {
                     letterSpacing: "0.35em",
                     textTransform: "uppercase",
                     color: isActive || isHovered
-                      ? "rgba(138,158,20,0.7)"
+                      ? "hsl(var(--gold-light))"
                       : "rgba(250,248,242,0.2)",
                     width: "2rem",
                     flexShrink: 0,
@@ -245,9 +245,9 @@ export default function Navbar() {
                     fontSize: "clamp(1.7rem, 4.5vw, 3rem)",
                     lineHeight: 1.05,
                     color: isActive
-                      ? "hsl(var(--chart-mid))"
+                      ? "hsl(var(--gold-light))"
                       : isHovered
-                      ? "hsl(var(--chart-mid))"
+                      ? "hsl(var(--gold-light))"
                       : "rgba(250,248,242,0.9)",
                     transition: "color 0.2s",
                   }}
@@ -296,7 +296,7 @@ export default function Navbar() {
               color: "rgba(250,248,242,0.18)",
             }}
           >
-            Becoming Bradley &nbsp;·&nbsp; May 22, 2027 &nbsp;·&nbsp; Villa Grabau, Lucca
+            Villa Grabau, Lucca &nbsp;·&nbsp; May 22, 2027
           </p>
         </div>
       </div>
