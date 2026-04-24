@@ -83,6 +83,7 @@ export default function EnvelopeLanding() {
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: "hsl(var(--burg))",
+                  textTransform: "none",
                 }}
                 defaultContent="McKenna Danielle Myers"
               />
@@ -107,6 +108,7 @@ export default function EnvelopeLanding() {
                   lineHeight: 1.1,
                   color: "hsl(var(--burg))",
                   marginBottom: "2rem",
+                  textTransform: "none",
                 }}
                 defaultContent="Jordan Christopher Bradley"
               />
