@@ -193,6 +193,7 @@ export default function PhotoPlaceholder({
               max={100}
               value={posY}
               onChange={handlePosChange}
+              {...({ orient: "vertical" } as Record<string, string>)}
               style={{
                 writingMode: "vertical-lr" as never,
                 WebkitAppearance: "slider-vertical" as never,
@@ -200,7 +201,6 @@ export default function PhotoPlaceholder({
                 height: "100%",
                 accentColor: "hsl(var(--gold))",
               }}
-              orient="vertical"
             />
             <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↓</span>
           </div>
