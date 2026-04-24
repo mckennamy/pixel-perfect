@@ -7,7 +7,6 @@ const days = [
   { num: 22, weekday: "Friday", tag: "The Wedding", desc: "The day we say I do — in the most beautiful city in the world.", type: "wedding", flourish: true },
   { num: 23, weekday: "Saturday", tag: "Wedding Events", desc: "The final day of festivities — savor every last moment in Tuscany.", type: "event" },
   { num: 24, weekday: "Sunday", tag: "✦ Depart Home", desc: "An early departure option for those who need to return. We'll miss you already.", type: "travel-out" },
-  { num: 25, weekday: "Monday", tag: "✦ Depart Home", desc: "Linger one more day — one last espresso, one last passeggiata along the walls.", type: "travel-out" },
 ];
 
 const typeStyles: Record<string, { bg: string; numColor: string; weekdayColor: string; tagColor: string; descColor: string }> = {
@@ -21,7 +20,7 @@ const legend = [
   { label: "Arrival day", className: "bg-burg-tint border border-burg-light" },
   { label: "Wedding events", className: "bg-gold-pale border border-gold" },
   { label: "Wedding day", className: "bg-burg border border-burg-mid" },
-  { label: "Departure days", className: "bg-chart-pale border border-chart-light" },
+  { label: "Departure day", className: "bg-chart-pale border border-chart-light" },
 ];
 
 const CalendarSection = () => {
