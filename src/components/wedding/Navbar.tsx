@@ -224,6 +224,7 @@ export default function Navbar() {
           </p>
         </div>
       </div>
+      </div>
     </>
   );
 }
