@@ -311,7 +311,7 @@ export default function EnvelopeLanding() {
               lineHeight: 0.95,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
-            defaultContent="McKenna"
+            defaultContent="McKenna Danielle Myers"
           />
           <p
             className="font-display italic"
@@ -334,7 +334,7 @@ export default function EnvelopeLanding() {
               lineHeight: 0.95,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
-            defaultContent="Jordan"
+            defaultContent="Jordan Christopher Bradley"
           />
         </div>
 
