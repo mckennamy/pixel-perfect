@@ -28,7 +28,6 @@ const days: DayInfo[] = [
   { date: 22, day: "Sat", event: "Ceremony · 4 PM",  type: "wedding" },
   { date: 23, day: "Sun", event: "Free Day",         type: "free"    },
   { date: 24, day: "Mon", event: "Depart",           type: "travel"  },
-  { date: 25, day: "Tue", event: "Depart",           type: "travel"  },
 ];
 
 const details: Record<number, DayDetail> = {
@@ -204,7 +203,7 @@ export default function WeekCalendar() {
           height: CALENDAR_H,
           zIndex: 45,
           display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
+          gridTemplateColumns: "repeat(6, 1fr)",
           boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
         }}
       >
@@ -326,7 +325,7 @@ export default function WeekCalendar() {
                     ← Prev
                   </button>
                 )}
-                {selDay.date < 25 && (
+                {selDay.date < 24 && (
                   <button
                     onClick={() => setSelected(selDay.date + 1)}
                     style={{ fontFamily: "Cinzel, serif", fontSize: "0.48rem", letterSpacing: "0.2em", color: selStyle.text, background: "transparent", border: "none", cursor: "pointer", opacity: 0.5 }}
