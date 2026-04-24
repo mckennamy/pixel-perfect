@@ -138,7 +138,7 @@ export default function Navbar() {
           overflow: "hidden",
         }}
       >
-        {/* Giant ghost script watermark — two-line "Becoming Bradley" */}
+        {/* Giant ghost script watermark — "That's Amore" */}
         <div
           aria-hidden
           style={{
@@ -154,27 +154,27 @@ export default function Navbar() {
           <span
             style={{
               fontFamily: "Great Vibes, cursive",
-              fontSize: "clamp(5rem, 22vw, 17rem)",
-              color: "rgba(184,154,106,0.048)",
+              fontSize: "clamp(4rem, 18vw, 14rem)",
+              color: "rgba(184,154,106,0.055)",
               display: "block",
               whiteSpace: "nowrap",
-              lineHeight: 1.05,
+              lineHeight: 1.1,
             }}
           >
-            Becoming
+            That's Amore
           </span>
           <span
             style={{
-              fontFamily: "Great Vibes, cursive",
-              fontSize: "clamp(5rem, 22vw, 17rem)",
-              color: "rgba(184,154,106,0.048)",
+              fontFamily: "Cinzel, serif",
+              fontSize: "clamp(0.6rem, 1.5vw, 0.85rem)",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(184,154,106,0.12)",
               display: "block",
-              whiteSpace: "nowrap",
-              lineHeight: 1.05,
-              marginTop: "-0.1em",
+              marginTop: "0.5rem",
             }}
           >
-            Bradley
+            Tuscany &nbsp;·&nbsp; May 2027
           </span>
         </div>
 
@@ -296,7 +296,7 @@ export default function Navbar() {
               color: "rgba(250,248,242,0.18)",
             }}
           >
-            Becoming Bradley &nbsp;·&nbsp; May 22, 2027 &nbsp;·&nbsp; Villa Grabau, Lucca
+            Villa Grabau, Lucca &nbsp;·&nbsp; May 22, 2027
           </p>
         </div>
       </div>
