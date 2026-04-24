@@ -39,8 +39,8 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 2.5rem",
-          background: "hsl(68, 40%, 93%)",   /* chartreuse-pale — Friday's free-day colour */
-          borderBottom: "1px solid hsl(68, 28%, 82%)",
+          background: "hsl(42 35% 97%)",   /* warm cream — high contrast for burgundy logo */
+          borderBottom: "1px solid hsl(36 25% 82%)",
         }}
       >
         {/* Logo — burgundy on chartreuse-pale */}
@@ -59,20 +59,22 @@ export default function Navbar() {
           <span
             style={{
               fontFamily: "Cinzel, serif",
-              fontSize: "0.56rem",
-              letterSpacing: "0.42em",
+              fontSize: "0.7rem",
+              letterSpacing: "0.36em",
+              fontWeight: 500,
               textTransform: "uppercase",
               color: "hsl(var(--burg))",
             }}
           >
             Becoming
           </span>
-          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "hsl(var(--burg-mid))", opacity: 0.4 }} />
+          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "hsl(var(--burg))", opacity: 0.7 }} />
           <span
             style={{
               fontFamily: "Cinzel, serif",
-              fontSize: "0.56rem",
-              letterSpacing: "0.42em",
+              fontSize: "0.7rem",
+              letterSpacing: "0.36em",
+              fontWeight: 500,
               textTransform: "uppercase",
               color: "hsl(var(--burg))",
             }}
