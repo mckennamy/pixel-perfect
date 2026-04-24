@@ -132,6 +132,19 @@ export default function PhotoPlaceholder({
     }
   };
 
+  const setZoomValue = (v: number) => {
+    const clamped = Math.max(100, Math.min(300, v));
+    setZoom(clamped);
+    if (zoomKey) {
+      localStorage.setItem(zoomKey, String(clamped));
+      saveEdit(zoomKey, String(clamped));
+    }
+  };
+
+  const handleZoomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setZoomValue(Number(e.target.value));
+  };
+
   const activeSrc = src || staticSrc;
   const isEditable = !!id;
 
