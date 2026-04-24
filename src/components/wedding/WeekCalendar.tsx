@@ -37,8 +37,8 @@ const details: Record<number, DayDetail> = {
       "Welcome to Tuscany. Today is yours — settle into your villa, breathe the warm evening air, and let the anticipation build. The ancient walled city of Lucca is steps away, perfect for an evening stroll and your first Italian dinner.",
     activities: [
       { title: "Check in",          note: "Villas available from 3:00 PM · come find us when you arrive" },
-      { title: "Walk the walls",    note: "Sunset on the medieval ramparts is an unmissable first evening in Lucca" },
-      { title: "Piazza Anfiteatro", note: "The old Roman amphitheatre — now a perfect piazza for aperitivo" },
+      { title: "Piazza Anfiteatro",  note: "The old Roman amphitheatre — perfect for an aperitivo as the evening begins" },
+      { title: "Dinner in Lucca",     note: "We recommend Osteria Da Rosolo or Giglio — both within the walls, both unforgettable" },
     ],
   },
   20: {
