@@ -60,19 +60,6 @@ export default function EnvelopeLanding() {
                 textAlign: "center",
               }}
             >
-              <img
-                src={villaPhoto}
-                alt="Villa Grabau, Lucca, Italy"
-                style={{
-                  display: "block",
-                  width: "calc(100% + 1rem)",
-                  marginLeft: "-0.5rem",
-                  marginRight: "-0.5rem",
-                  marginBottom: "2rem",
-                  height: "auto",
-                }}
-              />
-
               <EditableText
                 id="invite-together"
                 tag="p"
