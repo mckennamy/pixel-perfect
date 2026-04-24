@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
-import villaPhoto from "@/assets/villa-grabau-photo.png";
 import villaMotion from "@/assets/villa-grabau-motion.mp4.asset.json";
 
 type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
@@ -60,26 +59,13 @@ export default function EnvelopeLanding() {
                 textAlign: "center",
               }}
             >
-              <img
-                src={villaPhoto}
-                alt="Villa Grabau, Lucca, Italy"
-                style={{
-                  display: "block",
-                  width: "calc(100% + 1rem)",
-                  marginLeft: "-0.5rem",
-                  marginRight: "-0.5rem",
-                  marginBottom: "2rem",
-                  height: "auto",
-                }}
-              />
-
               <EditableText
                 id="invite-together"
                 tag="p"
                 className="font-body"
                 style={{
                   fontSize: "1.05rem",
-                  color: "hsl(var(--ink-mid))",
+                  color: "hsl(var(--burg))",
                   marginBottom: "1.5rem",
                   letterSpacing: "0.01em",
                 }}
@@ -94,7 +80,7 @@ export default function EnvelopeLanding() {
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
                   lineHeight: 1.1,
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                 }}
                 defaultContent="McKenna Danielle Myers"
               />
@@ -102,7 +88,7 @@ export default function EnvelopeLanding() {
                 className="font-script"
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2rem)",
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                   margin: "0.25rem 0",
                   lineHeight: 1.1,
                 }}
@@ -117,7 +103,7 @@ export default function EnvelopeLanding() {
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
                   lineHeight: 1.1,
-                  color: "hsl(var(--moss))",
+                  color: "hsl(var(--burg))",
                   marginBottom: "2rem",
                 }}
                 defaultContent="Jordan Christopher Bradley"
@@ -127,14 +113,14 @@ export default function EnvelopeLanding() {
                 id="invite-request-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6 }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6 }}
                 defaultContent="request the pleasure of your company"
               />
               <EditableText
                 id="invite-request-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.6, marginBottom: "2rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6, marginBottom: "2rem" }}
                 defaultContent="at their wedding celebration"
               />
 
@@ -143,44 +129,29 @@ export default function EnvelopeLanding() {
                 id="invite-on"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", marginBottom: "0.75rem" }}
                 defaultContent="on"
               />
               <EditableText
                 id="invite-date-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5 }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5 }}
                 defaultContent="Saturday, the twenty-second of May"
               />
               <EditableText
                 id="invite-date-line2"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", lineHeight: 1.5, marginBottom: "1.25rem" }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "1.25rem" }}
                 defaultContent="two thousand twenty-seven"
               />
               <EditableText
                 id="invite-time"
                 tag="p"
                 className="font-body italic"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", lineHeight: 1.5, marginBottom: "2rem" }}
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "2.5rem" }}
                 defaultContent="at four o'clock in the afternoon"
-              />
-
-              <EditableText
-                id="invite-at"
-                tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--ink-mid))", marginBottom: "0.75rem" }}
-                defaultContent="at"
-              />
-              <EditableText
-                id="invite-venue"
-                tag="p"
-                className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--ink))", marginBottom: "2.5rem" }}
-                defaultContent="Villa Grabau in Lucca, Italy"
               />
 
               <button
@@ -311,7 +282,7 @@ export default function EnvelopeLanding() {
               lineHeight: 0.95,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
-            defaultContent="McKenna"
+            defaultContent="McKenna Danielle Myers"
           />
           <p
             className="font-display italic"
@@ -334,7 +305,7 @@ export default function EnvelopeLanding() {
               lineHeight: 0.95,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
-            defaultContent="Jordan"
+            defaultContent="Jordan Christopher Bradley"
           />
         </div>
 
@@ -423,19 +394,19 @@ export default function EnvelopeLanding() {
             >
               <defs>
                 <linearGradient id="envBody" x1="0.2" y1="0" x2="0.8" y2="1">
-                  <stop offset="0%" stopColor="#FDFBF6" />
-                  <stop offset="55%" stopColor="#FAF8F2" />
-                  <stop offset="100%" stopColor="#F3EDE3" />
+                  <stop offset="0%" stopColor="#A8B560" />
+                  <stop offset="55%" stopColor="#8E9C44" />
+                  <stop offset="100%" stopColor="#6F7C32" />
                 </linearGradient>
               </defs>
               <rect x="0" y="0" width="520" height="330" fill="url(#envBody)" />
-              <polygon points="0,0 260,185 0,330" fill="rgba(0,0,0,0.032)" />
-              <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.032)" />
-              <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.052)" />
-              <line x1="0" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-              <line x1="520" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-              <line x1="0" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
-              <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
+              <polygon points="0,0 260,185 0,330" fill="rgba(0,0,0,0.10)" />
+              <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.10)" />
+              <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.16)" />
+              <line x1="0" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" />
+              <line x1="520" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" />
+              <line x1="0" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.22)" strokeWidth="0.6" />
+              <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.22)" strokeWidth="0.6" />
             </svg>
 
             {/* Sliding invitation card */}
@@ -488,7 +459,7 @@ export default function EnvelopeLanding() {
                 left: 0,
                 right: 0,
                 height: "56.1%",
-                background: "linear-gradient(178deg, #F7F2EA 0%, #EDE6D8 100%)",
+                background: "linear-gradient(178deg, #B0BD66 0%, #7A8838 100%)",
                 clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
                 transformOrigin: "top center",
                 zIndex: 10,
