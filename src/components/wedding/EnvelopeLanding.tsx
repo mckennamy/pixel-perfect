@@ -277,9 +277,9 @@ export default function EnvelopeLanding() {
             tag="p"
             className="font-script"
             style={{
-              fontSize: "clamp(4rem, 11vw, 7.5rem)",
+              fontSize: "clamp(2.4rem, 6vw, 4.25rem)",
               color: "hsl(42 45% 92%)",
-              lineHeight: 0.95,
+              lineHeight: 1.05,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
             defaultContent="McKenna Danielle Myers"
@@ -287,9 +287,9 @@ export default function EnvelopeLanding() {
           <p
             className="font-display italic"
             style={{
-              fontSize: "clamp(1.2rem, 2.4vw, 1.6rem)",
+              fontSize: "clamp(1rem, 1.8vw, 1.35rem)",
               color: "rgba(232,210,170,0.7)",
-              margin: "0.6rem 0",
+              margin: "0.35rem 0",
               letterSpacing: "0.1em",
             }}
           >
@@ -300,9 +300,9 @@ export default function EnvelopeLanding() {
             tag="p"
             className="font-script"
             style={{
-              fontSize: "clamp(4rem, 11vw, 7.5rem)",
+              fontSize: "clamp(2.4rem, 6vw, 4.25rem)",
               color: "hsl(42 45% 92%)",
-              lineHeight: 0.95,
+              lineHeight: 1.05,
               textShadow: "0 4px 24px rgba(0,0,0,0.4)",
             }}
             defaultContent="Jordan Christopher Bradley"
