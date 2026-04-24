@@ -236,10 +236,11 @@ export default function WeekCalendar() {
               <span
                 style={{
                   fontFamily: "Cinzel, serif",
-                  fontSize: "0.4rem",
-                  letterSpacing: "0.3em",
+                  fontSize: "0.5rem",
+                  letterSpacing: "0.28em",
+                  fontWeight: 500,
                   textTransform: "uppercase",
-                  opacity: 0.6,
+                  opacity: 0.95,
                 }}
               >
                 {d.day}
@@ -248,7 +249,7 @@ export default function WeekCalendar() {
                 style={{
                   fontFamily: "Cormorant Garamond, Georgia, serif",
                   fontStyle: "italic",
-                  fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
+                  fontSize: "clamp(0.95rem, 2vw, 1.25rem)",
                   fontWeight: 300,
                   lineHeight: 1,
                 }}
@@ -258,12 +259,13 @@ export default function WeekCalendar() {
               <span
                 style={{
                   fontFamily: "Cinzel, serif",
-                  fontSize: "clamp(0.3rem, 0.65vw, 0.42rem)",
-                  letterSpacing: "0.12em",
+                  fontSize: "clamp(0.42rem, 0.85vw, 0.56rem)",
+                  letterSpacing: "0.14em",
+                  fontWeight: 500,
                   textTransform: "uppercase",
                   textAlign: "center",
                   lineHeight: 1.2,
-                  opacity: 0.75,
+                  opacity: 1,
                 }}
               >
                 {d.event}
