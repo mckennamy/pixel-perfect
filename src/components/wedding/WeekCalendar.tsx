@@ -34,35 +34,35 @@ const details: Record<number, DayDetail> = {
   19: {
     heading: "Arrive in Lucca",
     description:
-      "Welcome to Tuscany. Today is yours — settle into your villa, breathe the warm evening air, and let the anticipation build. The ancient walled city of Lucca is steps away, perfect for an evening stroll and your first Italian dinner.",
+      "Welcome to Tuscany. Check in begins at 3:00 PM — come find us when you arrive. Dinner is on your own this evening; wander into Lucca and let the week begin.",
     activities: [
-      { title: "Check in",          note: "Villas available from 3:00 PM · come find us when you arrive" },
-      { title: "Piazza Anfiteatro",  note: "The old Roman amphitheatre — perfect for an aperitivo as the evening begins" },
-      { title: "Dinner in Lucca",     note: "We recommend Osteria Da Rosolo or Giglio — both within the walls, both unforgettable" },
+      { title: "Check in",            note: "From 3:00 PM · come find us when you arrive" },
+      { title: "Aperitivo",           note: "Piazza dell'Anfiteatro — the old Roman amphitheatre, perfect for a pre-dinner drink" },
+      { title: "Dinner on your own",  note: "We recommend Osteria Da Rosolo or Giglio — both within the city walls" },
     ],
   },
   20: {
     heading: "Welcome Party",
-    time: "7:00 PM · L'Arancera",
+    time: "6:00 PM · L'Arancera",
     attire: "Cocktail attire",
     description:
-      "This evening we gather for the first time as a group — cocktails, laughter, and the Tuscan night. Join us at L'Arancera for a welcome party that sets the tone for the week ahead. Please don't be late.",
+      "Breakfast is served at L'Arancera to start the day. Lunch is on your own — explore Lucca, head into the countryside, or stay on the property. In the evening we gather as a group for the first time at our welcome party at L'Arancera.",
     activities: [
-      { title: "Free daytime",   note: "A perfect morning for Lucca's markets or a day trip to Pisa" },
-      { title: "Welcome Party",  note: "7:00 PM at L'Arancera · cocktail attire · we can't wait to see you" },
-      { title: "Torre Guinigi",  note: "Climb the medieval tower with oak trees growing from the top — breathtaking views" },
+      { title: "Breakfast",       note: "Served at L'Arancera · 90-minute buffet with sweet and savoury options · plant-based milk available" },
+      { title: "Lunch & daytime", note: "On your own · relax at the property, try a massage, a wine tasting, or a cooking class — details on the Excursions page" },
+      { title: "Welcome Party",   note: "Guests arrive 6:00 PM · food service from 6:30 PM · sunset 8:40 PM · evening ends 9:00–9:30 PM" },
     ],
   },
   21: {
-    heading: "Rehearsal Dinner",
-    time: "7:30 PM · Invitation Only",
-    attire: "Smart casual",
+    heading: "Free Day",
+    time: "Rehearsal dinner — invitation only",
+    attire: "",
     description:
-      "The rehearsal dinner is for invited guests only — separate details will be shared with those attending. For all other guests, today is a free day to explore Tuscany at your leisure. Lucca and the surrounding countryside have endless things to offer.",
+      "Today is yours. All meals are on your own — explore Pisa, the Tuscan coast, the surrounding hills, or simply relax by one of our two pools at Villa Grabau or L'Arancera. Guests invited to the rehearsal dinner will receive a light lunch and dinner that evening; full details on your private invitation page.",
     activities: [
-      { title: "Day trip to Pisa",    note: "Just 30 minutes away — the Leaning Tower and the stunning Piazza dei Miracoli" },
-      { title: "Lucca cycling",       note: "Rent bikes and ride the tree-lined ramparts atop the ancient city walls" },
-      { title: "Terme di Saturnia",   note: "Natural hot springs, about 1.5 hours south — a perfect day of relaxation" },
+      { title: "Pisa & the coast",   note: "Climb the Leaning Tower or drive 45 minutes to the seaside towns of Forte dei Marmi or Viareggio" },
+      { title: "Relax at the villa", note: "Two pools across Villa Grabau and L'Arancera — bring a book and stay all day" },
+      { title: "Rehearsal guests",   note: "Light lunch and dinner provided — see your private invitation page for the full timeline" },
     ],
   },
   22: {
@@ -70,31 +70,31 @@ const details: Record<number, DayDetail> = {
     time: "Ceremony at 4:00 PM · Villa Grabau",
     attire: "Garden Party Formal",
     description:
-      "The day we have been looking forward to. Please arrive by 3:45 PM to be seated before the ceremony begins. Dinner and dancing follow late into the Tuscan evening — dress as though the setting deserves it.",
+      "The day we have been looking forward to. Breakfast is on your own; lunch is provided for everyone before we gather for the ceremony at 4:00 PM. Reception, dinner, and dancing follow late into the Tuscan evening.",
     activities: [
-      { title: "Arrive by 3:45 PM",  note: "Guests seated from 3:30 PM · ceremony begins at 4:00 PM sharp" },
-      { title: "Cocktail hour",      note: "Garden Terrace · 6:15 PM" },
-      { title: "Dinner & Dancing",   note: "Grand Hall · from 7:30 PM · last dance at midnight" },
+      { title: "Lunch for all",      note: "Provided at the property before the ceremony — details to come" },
+      { title: "Ceremony · 4:00 PM", note: "Villa Grabau · please be seated by 3:45 PM" },
+      { title: "Reception & dinner", note: "Cocktails, dinner, and dancing into the Tuscan night" },
     ],
   },
   23: {
-    heading: "Free Day",
+    heading: "Brunch & Departures",
     description:
-      "A beautiful, unscheduled day in Tuscany. Explore wherever the morning takes you — whether that means sleeping in at the villa, heading to Cinque Terre, or wandering the streets of Florence.",
+      "A late brunch is served at L'Arancera for everyone — same beloved buffet as breakfast earlier in the week. Some of you head off to your next adventure today; for those staying, lunch and dinner are on your own. It's the last night — spend the afternoon exploring or join us at L'Arancera for a relaxed pool party.",
     activities: [
-      { title: "Florence",      note: "1.5 hours east — the Uffizi, the Duomo, the Ponte Vecchio, world-class food" },
-      { title: "Cinque Terre",  note: "1.5 hours northwest — five cliffside villages and the most beautiful coastline in Italy" },
-      { title: "Lucca markets", note: "The city's antique market fills Piazza Anfiteatro on the third weekend of each month" },
+      { title: "Late brunch",        note: "Served at L'Arancera for all guests — same buffet menu as the welcome breakfast" },
+      { title: "Pool party",         note: "Relaxed afternoon hangout at L'Arancera — come and go as you like" },
+      { title: "Afternoon escape",   note: "Wander Lucca, drive to Florence or Pisa, or chase the sunset on the coast" },
     ],
   },
   24: {
-    heading: "Depart or Linger",
+    heading: "Arrivederci",
     description:
-      "Some of you head home today; others may choose to stay a little longer. If this is your last morning, take a slow breakfast at the villa and savour every last moment of Tuscany.",
+      "Departure day for all. Thank you, from the bottom of our hearts, for making the journey to share this week with us — we hope it's a trip you'll never forget. If you're extending your time in Italy, we have a few favourite next stops to recommend.",
     activities: [
-      { title: "Last Lucca morning",  note: "Pastries and espresso in the city before heading to the airport" },
-      { title: "Pisa Airport",        note: "PSA is 45 minutes from the villa · allow extra time" },
-      { title: "Extend your trip",    note: "Florence and the Amalfi Coast are perfect next stops — ask us for tips" },
+      { title: "Florence",           note: "An easy 1.5 hours east — Uffizi, Duomo, Ponte Vecchio, perfect for a few extra days" },
+      { title: "Cinque Terre",       note: "1.5 hours northwest — five cliffside villages and the most beautiful coastline in Italy" },
+      { title: "Rome or the Amalfi Coast", note: "A few hours south by train — the perfect grand finale to your Italian trip" },
     ],
   },
   25: {
