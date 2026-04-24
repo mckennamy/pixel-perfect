@@ -488,7 +488,7 @@ export default function EnvelopeLanding() {
                 left: 0,
                 right: 0,
                 height: "56.1%",
-                background: "linear-gradient(178deg, #F7F2EA 0%, #EDE6D8 100%)",
+                background: "linear-gradient(178deg, #B0BD66 0%, #7A8838 100%)",
                 clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
                 transformOrigin: "top center",
                 zIndex: 10,
