@@ -34,11 +34,11 @@ const details: Record<number, DayDetail> = {
   19: {
     heading: "Arrive in Lucca",
     description:
-      "Welcome to Tuscany. Check in begins at 3:00 PM — come find us when you arrive. Dinner is on your own this evening; wander into Lucca and let the week begin.",
+      "Welcome to Tuscany. Check in begins at 3:00 PM — come find us when you arrive, settle in, and let the week begin.",
     activities: [
-      { title: "Check in",            note: "From 3:00 PM · come find us when you arrive" },
-      { title: "Aperitivo",           note: "Piazza dell'Anfiteatro — the old Roman amphitheatre, perfect for a pre-dinner drink" },
-      { title: "Dinner on your own",  note: "We recommend Osteria Da Rosolo or Giglio — both within the city walls" },
+      { title: "Breakfast", note: "On your own — travel day" },
+      { title: "Lunch",     note: "On your own en route — check in opens at 3:00 PM" },
+      { title: "Dinner",    note: "On your own · aperitivo at Piazza dell'Anfiteatro, then Osteria Da Rosolo or Giglio in Lucca" },
     ],
   },
   20: {
@@ -46,11 +46,11 @@ const details: Record<number, DayDetail> = {
     time: "6:00 PM · L'Arancera",
     attire: "Cocktail attire",
     description:
-      "Breakfast is served at L'Arancera to start the day. Lunch is on your own — explore Lucca, head into the countryside, or stay on the property. In the evening we gather as a group for the first time at our welcome party at L'Arancera.",
+      "Spend the day exploring Lucca, heading into the countryside, or relaxing on the property. In the evening we gather as a group for the first time at our welcome party at L'Arancera.",
     activities: [
-      { title: "Breakfast",       note: "Served at L'Arancera · 90-minute buffet with sweet and savoury options · plant-based milk available" },
-      { title: "Lunch & daytime", note: "On your own · relax at the property, try a massage, a wine tasting, or a cooking class — details on the Excursions page" },
-      { title: "Welcome Party",   note: "Guests arrive 6:00 PM · food service from 6:30 PM · sunset 8:40 PM · evening ends 9:00–9:30 PM" },
+      { title: "Breakfast", note: "Served at L'Arancera · 90-minute buffet with sweet and savoury options · plant-based milk available" },
+      { title: "Lunch",     note: "On your own · relax at the property, try a massage, a wine tasting, or a cooking class — see the Excursions page" },
+      { title: "Dinner",    note: "Welcome Party at L'Arancera · guests arrive 6:00 PM · food service from 6:30 PM · sunset 8:40 PM · ends 9:00–9:30 PM" },
     ],
   },
   21: {
@@ -58,11 +58,11 @@ const details: Record<number, DayDetail> = {
     time: "Rehearsal dinner — invitation only",
     attire: "",
     description:
-      "Today is yours. All meals are on your own — explore Pisa, the Tuscan coast, the surrounding hills, or simply relax by one of our two pools at Villa Grabau or L'Arancera. Guests invited to the rehearsal dinner will receive a light lunch and dinner that evening; full details on your private invitation page.",
+      "Today is yours. Explore Pisa, the Tuscan coast, the surrounding hills, or simply relax by one of our two pools at Villa Grabau or L'Arancera. Guests invited to the rehearsal dinner will find full details on their private invitation page.",
     activities: [
-      { title: "Pisa & the coast",   note: "Climb the Leaning Tower or drive 45 minutes to the seaside towns of Forte dei Marmi or Viareggio" },
-      { title: "Relax at the villa", note: "Two pools across Villa Grabau and L'Arancera — bring a book and stay all day" },
-      { title: "Rehearsal guests",   note: "Light lunch and dinner provided — see your private invitation page for the full timeline" },
+      { title: "Breakfast", note: "On your own" },
+      { title: "Lunch",     note: "On your own · explore Pisa, the coast, or stay by the pool" },
+      { title: "Dinner",    note: "On your own · rehearsal dinner guests — see your private invitation page" },
     ],
   },
   22: {
@@ -70,21 +70,21 @@ const details: Record<number, DayDetail> = {
     time: "Ceremony at 4:00 PM · Villa Grabau",
     attire: "Garden Party Formal",
     description:
-      "The day we have been looking forward to. Breakfast is on your own; lunch is provided for everyone before we gather for the ceremony at 4:00 PM. Reception, dinner, and dancing follow late into the Tuscan evening.",
+      "The day we have been looking forward to. We gather for the ceremony at 4:00 PM, followed by reception and dancing late into the Tuscan evening.",
     activities: [
-      { title: "Lunch for all",      note: "Provided at the property before the ceremony — details to come" },
-      { title: "Ceremony · 4:00 PM", note: "Villa Grabau · please be seated by 3:45 PM" },
-      { title: "Reception & dinner", note: "Cocktails, dinner, and dancing into the Tuscan night" },
+      { title: "Breakfast", note: "On your own" },
+      { title: "Lunch",     note: "Provided for all guests at the property before the ceremony — details to come" },
+      { title: "Dinner",    note: "Reception dinner at Villa Grabau · cocktails, dinner, and dancing into the night" },
     ],
   },
   23: {
     heading: "Brunch & Departures",
     description:
-      "A late brunch is served at L'Arancera for everyone — same beloved buffet as breakfast earlier in the week. Some of you head off to your next adventure today; for those staying, lunch and dinner are on your own. It's the last night — spend the afternoon exploring or join us at L'Arancera for a relaxed pool party.",
+      "Some of you head off to your next adventure today; for those staying, it's the last night — spend the afternoon exploring or join us at L'Arancera for a relaxed pool party.",
     activities: [
-      { title: "Late brunch",        note: "Served at L'Arancera for all guests — same buffet menu as the welcome breakfast" },
-      { title: "Pool party",         note: "Relaxed afternoon hangout at L'Arancera — come and go as you like" },
-      { title: "Afternoon escape",   note: "Wander Lucca, drive to Florence or Pisa, or chase the sunset on the coast" },
+      { title: "Brunch",  note: "Late brunch served at L'Arancera for all guests — same beloved buffet as the welcome breakfast" },
+      { title: "Lunch",   note: "On your own · pool party at L'Arancera, or wander Lucca, Florence, or the coast" },
+      { title: "Dinner",  note: "On your own for those staying — a quiet last night in Tuscany" },
     ],
   },
   24: {
