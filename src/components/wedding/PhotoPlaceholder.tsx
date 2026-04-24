@@ -86,6 +86,21 @@ export default function PhotoPlaceholder({
     });
   }, [posKey]);
 
+  useEffect(() => {
+    if (!zoomKey) return;
+    const cached = localStorage.getItem(zoomKey);
+    if (cached) {
+      const n = Number(cached);
+      if (!Number.isNaN(n)) setZoom(n);
+    }
+    loadEdit(zoomKey).then((saved) => {
+      if (saved) {
+        const n = Number(saved);
+        if (!Number.isNaN(n)) setZoom(n);
+      }
+    });
+  }, [zoomKey]);
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
