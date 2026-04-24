@@ -28,7 +28,6 @@ const days: DayInfo[] = [
   { date: 22, day: "Sat", event: "Ceremony · 4 PM",  type: "wedding" },
   { date: 23, day: "Sun", event: "Free Day",         type: "free"    },
   { date: 24, day: "Mon", event: "Depart",           type: "travel"  },
-  { date: 25, day: "Tue", event: "Depart",           type: "travel"  },
 ];
 
 const details: Record<number, DayDetail> = {
