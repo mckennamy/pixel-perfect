@@ -206,42 +206,105 @@ export default function PhotoPlaceholder({
           </button>
         )}
         {isEditable && adjusting && activeSrc && (
-          <div
-            data-adjust-control
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: "absolute",
-              right: 12,
-              top: 56,
-              bottom: 12,
-              zIndex: 30,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 8,
-              background: "rgba(0,0,0,0.55)",
-              padding: "12px 8px",
-              borderRadius: 4,
-            }}
-          >
-            <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↑</span>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={posY}
-              onChange={handlePosChange}
-              {...({ orient: "vertical" } as Record<string, string>)}
+          <>
+            {/* Vertical position slider — right edge */}
+            <div
+              data-adjust-control
+              onClick={(e) => e.stopPropagation()}
               style={{
-                writingMode: "vertical-lr" as never,
-                WebkitAppearance: "slider-vertical" as never,
-                width: 8,
-                height: "100%",
-                accentColor: "hsl(var(--gold))",
+                position: "absolute",
+                right: 12,
+                top: 56,
+                bottom: 12,
+                zIndex: 30,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 8,
+                background: "rgba(0,0,0,0.55)",
+                padding: "12px 8px",
+                borderRadius: 4,
               }}
-            />
-            <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↓</span>
-          </div>
+            >
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↑</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={posY}
+                onChange={handlePosChange}
+                {...({ orient: "vertical" } as Record<string, string>)}
+                style={{
+                  writingMode: "vertical-lr" as never,
+                  WebkitAppearance: "slider-vertical" as never,
+                  width: 8,
+                  height: "100%",
+                  accentColor: "hsl(var(--gold))",
+                }}
+              />
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↓</span>
+            </div>
+
+            {/* Zoom slider — bottom edge */}
+            <div
+              data-adjust-control
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: "absolute",
+                left: 12,
+                right: 60,
+                bottom: 12,
+                zIndex: 30,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                background: "rgba(0,0,0,0.55)",
+                padding: "8px 12px",
+                borderRadius: 4,
+              }}
+            >
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setZoomValue(zoom - 10); }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(250,248,242,0.35)",
+                  color: "rgba(250,248,242,0.95)",
+                  width: 24, height: 24, borderRadius: 3,
+                  cursor: "pointer", fontFamily: "Cinzel, serif", fontSize: "0.8rem", lineHeight: 1,
+                }}
+                aria-label="Zoom out"
+              >
+                −
+              </button>
+              <input
+                type="range"
+                min={100}
+                max={300}
+                step={5}
+                value={zoom}
+                onChange={handleZoomChange}
+                style={{ flex: 1, accentColor: "hsl(var(--gold))" }}
+              />
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setZoomValue(zoom + 10); }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(250,248,242,0.35)",
+                  color: "rgba(250,248,242,0.95)",
+                  width: 24, height: 24, borderRadius: 3,
+                  cursor: "pointer", fontFamily: "Cinzel, serif", fontSize: "0.8rem", lineHeight: 1,
+                }}
+                aria-label="Zoom in"
+              >
+                +
+              </button>
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em", minWidth: 32, textAlign: "right" }}>
+                {zoom}%
+              </span>
+            </div>
+          </>
         )}
         {isEditable && (hovering || loading) && !adjusting && (
           <div
