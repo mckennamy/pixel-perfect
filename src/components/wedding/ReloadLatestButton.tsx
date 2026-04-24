@@ -9,9 +9,20 @@ export default function ReloadLatestButton() {
 
   if (EXCLUDED.has(pathname)) return null;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (busy) return;
     setBusy(true);
+
+    // If the user is mid-edit, blur the active element so EditableText flushes
+    // its onBlur save() to the database before we clear local cache and reload.
+    const active = document.activeElement as HTMLElement | null;
+    if (active && (active.isContentEditable || active.tagName === "INPUT" || active.tagName === "TEXTAREA")) {
+      active.blur();
+    }
+
+    // Give async saves a moment to upsert to the database before reloading.
+    await new Promise((r) => setTimeout(r, 600));
+
     try {
       // Clear all editable-text caches (text + font size overrides)
       const toRemove: string[] = [];
