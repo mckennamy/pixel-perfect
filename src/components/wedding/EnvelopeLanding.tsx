@@ -423,19 +423,19 @@ export default function EnvelopeLanding() {
             >
               <defs>
                 <linearGradient id="envBody" x1="0.2" y1="0" x2="0.8" y2="1">
-                  <stop offset="0%" stopColor="#FDFBF6" />
-                  <stop offset="55%" stopColor="#FAF8F2" />
-                  <stop offset="100%" stopColor="#F3EDE3" />
+                  <stop offset="0%" stopColor="#A8B560" />
+                  <stop offset="55%" stopColor="#8E9C44" />
+                  <stop offset="100%" stopColor="#6F7C32" />
                 </linearGradient>
               </defs>
               <rect x="0" y="0" width="520" height="330" fill="url(#envBody)" />
-              <polygon points="0,0 260,185 0,330" fill="rgba(0,0,0,0.032)" />
-              <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.032)" />
-              <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.052)" />
-              <line x1="0" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-              <line x1="520" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.065)" strokeWidth="0.6" />
-              <line x1="0" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
-              <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.09)" strokeWidth="0.6" />
+              <polygon points="0,0 260,185 0,330" fill="rgba(0,0,0,0.10)" />
+              <polygon points="520,0 260,185 520,330" fill="rgba(0,0,0,0.10)" />
+              <polygon points="0,330 520,330 260,185" fill="rgba(0,0,0,0.16)" />
+              <line x1="0" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" />
+              <line x1="520" y1="0" x2="260" y2="185" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" />
+              <line x1="0" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.22)" strokeWidth="0.6" />
+              <line x1="520" y1="330" x2="260" y2="185" stroke="rgba(0,0,0,0.22)" strokeWidth="0.6" />
             </svg>
 
             {/* Sliding invitation card */}
