@@ -91,12 +91,20 @@ export default function Navbar() {
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
           transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-          overflow: "auto",
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+      <div
+        style={{
+          minHeight: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           padding: "6rem 1.5rem 4rem",
+          boxSizing: "border-box",
         }}
       >
         {/* Eyebrow */}
@@ -215,6 +223,7 @@ export default function Navbar() {
             Villa Grabau &nbsp;·&nbsp; Lucca &nbsp;·&nbsp; May 22, 2027
           </p>
         </div>
+      </div>
       </div>
     </>
   );
