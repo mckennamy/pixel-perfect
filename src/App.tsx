@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/wedding/Navbar";
 import ScrollToTop from "@/components/wedding/ScrollToTop";
 import WeekCalendar from "@/components/wedding/WeekCalendar";
+import ReloadLatestButton from "@/components/wedding/ReloadLatestButton";
 import Landing from "./pages/Landing";
 import OurStory from "./pages/OurStory";
 import Accommodations from "./pages/Accommodations";
@@ -30,6 +31,7 @@ const App = () => (
         <ScrollToTop />
         <Navbar />
         <WeekCalendar />
+        <ReloadLatestButton />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/our-story" element={<OurStory />} />
