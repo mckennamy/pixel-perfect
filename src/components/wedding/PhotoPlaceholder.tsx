@@ -56,9 +56,11 @@ export default function PhotoPlaceholder({
   const [loading, setLoading] = useState(false);
   const [adjusting, setAdjusting] = useState(false);
   const [posY, setPosY] = useState<number>(50); // 0 = top, 100 = bottom
+  const [zoom, setZoom] = useState<number>(100); // 100 = fit, >100 = zoomed in
   const fileRef = useRef<HTMLInputElement>(null);
   const storageKey = id ? `bb_photo_${id}` : null;
   const posKey = id ? `bb_photo_pos_${id}` : null;
+  const zoomKey = id ? `bb_photo_zoom_${id}` : null;
 
   useEffect(() => {
     if (!storageKey) return;
@@ -83,6 +85,21 @@ export default function PhotoPlaceholder({
       }
     });
   }, [posKey]);
+
+  useEffect(() => {
+    if (!zoomKey) return;
+    const cached = localStorage.getItem(zoomKey);
+    if (cached) {
+      const n = Number(cached);
+      if (!Number.isNaN(n)) setZoom(n);
+    }
+    loadEdit(zoomKey).then((saved) => {
+      if (saved) {
+        const n = Number(saved);
+        if (!Number.isNaN(n)) setZoom(n);
+      }
+    });
+  }, [zoomKey]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -115,6 +132,19 @@ export default function PhotoPlaceholder({
     }
   };
 
+  const setZoomValue = (v: number) => {
+    const clamped = Math.max(100, Math.min(300, v));
+    setZoom(clamped);
+    if (zoomKey) {
+      localStorage.setItem(zoomKey, String(clamped));
+      saveEdit(zoomKey, String(clamped));
+    }
+  };
+
+  const handleZoomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setZoomValue(Number(e.target.value));
+  };
+
   const activeSrc = src || staticSrc;
   const isEditable = !!id;
 
@@ -136,7 +166,15 @@ export default function PhotoPlaceholder({
           <img
             src={activeSrc}
             alt={alt}
-            style={{ objectFit: "cover", objectPosition: `center ${posY}%`, width: "100%", height: "100%" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: `center ${posY}%`,
+              width: "100%",
+              height: "100%",
+              transform: `scale(${zoom / 100})`,
+              transformOrigin: `center ${posY}%`,
+              transition: "transform 0.15s ease-out",
+            }}
           />
         )}
         {isEditable && activeSrc && (hovering || adjusting) && !loading && (
@@ -168,42 +206,105 @@ export default function PhotoPlaceholder({
           </button>
         )}
         {isEditable && adjusting && activeSrc && (
-          <div
-            data-adjust-control
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: "absolute",
-              right: 12,
-              top: 56,
-              bottom: 12,
-              zIndex: 30,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 8,
-              background: "rgba(0,0,0,0.55)",
-              padding: "12px 8px",
-              borderRadius: 4,
-            }}
-          >
-            <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↑</span>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={posY}
-              onChange={handlePosChange}
-              {...({ orient: "vertical" } as Record<string, string>)}
+          <>
+            {/* Vertical position slider — right edge */}
+            <div
+              data-adjust-control
+              onClick={(e) => e.stopPropagation()}
               style={{
-                writingMode: "vertical-lr" as never,
-                WebkitAppearance: "slider-vertical" as never,
-                width: 8,
-                height: "100%",
-                accentColor: "hsl(var(--gold))",
+                position: "absolute",
+                right: 12,
+                top: 56,
+                bottom: 12,
+                zIndex: 30,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 8,
+                background: "rgba(0,0,0,0.55)",
+                padding: "12px 8px",
+                borderRadius: 4,
               }}
-            />
-            <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↓</span>
-          </div>
+            >
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↑</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={posY}
+                onChange={handlePosChange}
+                {...({ orient: "vertical" } as Record<string, string>)}
+                style={{
+                  writingMode: "vertical-lr" as never,
+                  WebkitAppearance: "slider-vertical" as never,
+                  width: 8,
+                  height: "100%",
+                  accentColor: "hsl(var(--gold))",
+                }}
+              />
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em" }}>↓</span>
+            </div>
+
+            {/* Zoom slider — bottom edge */}
+            <div
+              data-adjust-control
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: "absolute",
+                left: 12,
+                right: 60,
+                bottom: 12,
+                zIndex: 30,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                background: "rgba(0,0,0,0.55)",
+                padding: "8px 12px",
+                borderRadius: 4,
+              }}
+            >
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setZoomValue(zoom - 10); }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(250,248,242,0.35)",
+                  color: "rgba(250,248,242,0.95)",
+                  width: 24, height: 24, borderRadius: 3,
+                  cursor: "pointer", fontFamily: "Cinzel, serif", fontSize: "0.8rem", lineHeight: 1,
+                }}
+                aria-label="Zoom out"
+              >
+                −
+              </button>
+              <input
+                type="range"
+                min={100}
+                max={300}
+                step={5}
+                value={zoom}
+                onChange={handleZoomChange}
+                style={{ flex: 1, accentColor: "hsl(var(--gold))" }}
+              />
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setZoomValue(zoom + 10); }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(250,248,242,0.35)",
+                  color: "rgba(250,248,242,0.95)",
+                  width: 24, height: 24, borderRadius: 3,
+                  cursor: "pointer", fontFamily: "Cinzel, serif", fontSize: "0.8rem", lineHeight: 1,
+                }}
+                aria-label="Zoom in"
+              >
+                +
+              </button>
+              <span style={{ color: "rgba(250,248,242,0.85)", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em", minWidth: 32, textAlign: "right" }}>
+                {zoom}%
+              </span>
+            </div>
+          </>
         )}
         {isEditable && (hovering || loading) && !adjusting && (
           <div
