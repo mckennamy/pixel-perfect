@@ -57,6 +57,7 @@ export default function EnvelopeLanding() {
                   "0 8px 32px rgba(0,0,0,0.12), 0 40px 100px rgba(0,0,0,0.18), 0 0 0 1px rgba(184,154,106,0.08)",
                 padding: "1.75rem 2.25rem 3rem",
                 textAlign: "center",
+                textTransform: "lowercase",
               }}
             >
               <EditableText
@@ -70,6 +71,7 @@ export default function EnvelopeLanding() {
                   letterSpacing: "0.01em",
                 }}
                 defaultContent="Together with their families"
+                
               />
 
               <EditableText
