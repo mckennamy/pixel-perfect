@@ -166,7 +166,15 @@ export default function PhotoPlaceholder({
           <img
             src={activeSrc}
             alt={alt}
-            style={{ objectFit: "cover", objectPosition: `center ${posY}%`, width: "100%", height: "100%" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: `center ${posY}%`,
+              width: "100%",
+              height: "100%",
+              transform: `scale(${zoom / 100})`,
+              transformOrigin: `center ${posY}%`,
+              transition: "transform 0.15s ease-out",
+            }}
           />
         )}
         {isEditable && activeSrc && (hovering || adjusting) && !loading && (
