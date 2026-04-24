@@ -20,7 +20,7 @@ const legend = [
   { label: "Arrival day", className: "bg-burg-tint border border-burg-light" },
   { label: "Wedding events", className: "bg-gold-pale border border-gold" },
   { label: "Wedding day", className: "bg-burg border border-burg-mid" },
-  { label: "Departure days", className: "bg-chart-pale border border-chart-light" },
+  { label: "Departure day", className: "bg-chart-pale border border-chart-light" },
 ];
 
 const CalendarSection = () => {
