@@ -226,7 +226,7 @@ export default function Navbar() {
                     letterSpacing: "0.35em",
                     textTransform: "uppercase",
                     color: isActive || isHovered
-                      ? "rgba(138,158,20,0.7)"
+                      ? "hsl(var(--gold-light))"
                       : "rgba(250,248,242,0.2)",
                     width: "2rem",
                     flexShrink: 0,
@@ -245,9 +245,9 @@ export default function Navbar() {
                     fontSize: "clamp(1.7rem, 4.5vw, 3rem)",
                     lineHeight: 1.05,
                     color: isActive
-                      ? "hsl(var(--chart-mid))"
+                      ? "hsl(var(--gold-light))"
                       : isHovered
-                      ? "hsl(var(--chart-mid))"
+                      ? "hsl(var(--gold-light))"
                       : "rgba(250,248,242,0.9)",
                     transition: "color 0.2s",
                   }}
