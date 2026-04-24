@@ -56,9 +56,11 @@ export default function PhotoPlaceholder({
   const [loading, setLoading] = useState(false);
   const [adjusting, setAdjusting] = useState(false);
   const [posY, setPosY] = useState<number>(50); // 0 = top, 100 = bottom
+  const [zoom, setZoom] = useState<number>(100); // 100 = fit, >100 = zoomed in
   const fileRef = useRef<HTMLInputElement>(null);
   const storageKey = id ? `bb_photo_${id}` : null;
   const posKey = id ? `bb_photo_pos_${id}` : null;
+  const zoomKey = id ? `bb_photo_zoom_${id}` : null;
 
   useEffect(() => {
     if (!storageKey) return;
