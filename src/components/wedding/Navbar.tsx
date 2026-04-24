@@ -11,7 +11,7 @@ const navItems = [
   { href: "/reservations",  label: "Reservations",    desc: "Secure your place with us" },
 ];
 
-const BG = `radial-gradient(ellipse at 50% 60%, hsl(350,65%,19%) 0%, hsl(350,72%,12%) 45%, hsl(350,80%,8%) 100%)`;
+const BG = `radial-gradient(ellipse at 50% 60%, hsl(350,45%,22%) 0%, hsl(350,50%,15%) 45%, hsl(350,55%,10%) 100%)`;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -66,9 +66,9 @@ export default function Navbar() {
               color: "hsl(var(--burg))",
             }}
           >
-            Becoming
+            B
           </span>
-          <div style={{ width: 4, height: 4, borderRadius: "50%", background: "hsl(var(--burg))", opacity: 0.7 }} />
+          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "hsl(var(--gold))", opacity: 0.8 }} />
           <span
             style={{
               fontFamily: "Cinzel, serif",
@@ -79,7 +79,7 @@ export default function Navbar() {
               color: "hsl(var(--burg))",
             }}
           >
-            Bradley
+            B
           </span>
         </Link>
 
