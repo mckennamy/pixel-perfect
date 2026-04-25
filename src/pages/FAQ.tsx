@@ -15,14 +15,14 @@ const faqs = [
     category: "Travel",
     items: [
       { q: "What is the best airport to fly into?", a: "Pisa International Airport (PSA) is the closest — just 30 to 40 minutes from Lucca. Florence Airport (FLR) is also a solid option, approximately 75 minutes away." },
-      { q: "How do I get from the airport to Lucca?", a: "We recommend pre-booking a private transfer directly to Villa Grabau or your accommodation. Welcome Pickups and MyDriver are both excellent. The train from Pisa to Lucca is also cheap and scenic (€3.60, about 30 minutes) but you will need a taxi from Lucca station." },
+      { q: "How do I get from the airport to Lucca?", a: 'We recommend pre-booking a private transfer directly to Villa Grabau or your accommodation. <a href="https://www.welcomepickups.com/pisa/airport-to-lucca/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Welcome Pickups</a> and <a href="https://www.mydriver.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">MyDriver</a> are both excellent. The train from <a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Trenitalia</a> is also cheap and scenic (€3.60, about 30 minutes) but you will need a taxi from Lucca station.' },
       { q: "When should I arrive and depart?", a: "We recommend arriving by May 19 or 20 to settle in and join the Welcome Party on the evening of May 20. Departure is May 24 or 25. The full week is May 19 through 25." },
     ],
   },
   {
     category: "Accommodations",
     items: [
-      { q: "Where should I stay?", a: "A limited number of on-site rooms are available at Villa Grabau and La Rancera — indicate your preference on the reservation form. We also recommend boutique hotels within Lucca's walled city, or agriturismo properties in the surrounding countryside." },
+      { q: "Where should I stay?", a: 'A limited number of on-site rooms are available at <a href="https://www.villagrabau.it/en/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Villa Grabau</a> and <a href="https://www.aranceravillagrabau.it/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">La Rancera</a> — indicate your preference on the reservation form. We also recommend boutique hotels within Lucca\'s walled city, or agriturismo properties in the surrounding countryside.' },
       { q: "Can I stay on-site?", a: "Yes. Both Villa Grabau and La Rancera offer on-site accommodation. A daily linen and towel change service is available for an additional charge." },
     ],
   },
