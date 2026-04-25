@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   role: "user" | "assistant";
@@ -42,13 +43,18 @@ export default function AIChat({
         content: m.content,
       }));
 
-      const aiUrl =
-        import.meta.env.VITE_AI_FUNCTION_URL ||
-        "https://your-project.supabase.co/functions/v1/wedding-ai";
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      const aiUrl = `${supabaseUrl}/functions/v1/wedding-ai`;
 
       const res = await fetch(aiUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${anonKey}`,
+          apikey: anonKey,
+        },
         body: JSON.stringify({ systemContext, messages: history }),
       });
 
@@ -98,7 +104,7 @@ export default function AIChat({
         {
           role: "assistant",
           content:
-            "I'm not fully set up yet. To activate me, add your VITE_AI_FUNCTION_URL to the project environment. In the meantime, feel free to browse the resources on this page.",
+            "I'm having trouble connecting right now. Please try again in a moment, or browse the resources on this page in the meantime.",
         },
       ]);
     } finally {
