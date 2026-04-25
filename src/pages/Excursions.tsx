@@ -62,7 +62,7 @@ const destinations = [
       "Fresh seafood and limoncello with a view",
       "Boat tours between Riomaggiore, Vernazza, and Monterosso",
     ],
-    tip: "Buy a Cinque Terre card for the train and trails. Start before 9 AM.",
+    tip: 'Buy a <a href="https://card.cinqueterre.eu/en" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Cinque Terre Card</a> for the train and trails. Start before 9 AM.',
   },
   {
     name: "Siena",
