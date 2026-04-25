@@ -1,9 +1,21 @@
 import { useEffect, useRef } from "react";
 
+// Recommendation link styling — bold burgundy with gold underline
+const RecLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-semibold text-burg underline decoration-gold decoration-1 underline-offset-[3px] transition-opacity hover:opacity-70"
+  >
+    {children}
+  </a>
+);
+
 const transports = [
-  { num: "I", name: "Private Taxi", meta: "30 minutes · Door to door", desc: <>The most effortless option after a transatlantic flight. <strong>CoTaPi</strong> is the official airport taxi provider, available around the clock directly outside the Arrivals hall. Your driver will bring you to the city gate nearest your accommodation.</>, cost: "≈ €70" },
-  { num: "II", name: "Pre-Booked Transfer", meta: "30 minutes · Fixed, no surprises", desc: <>For complete peace of mind, pre-book with <strong>Tau Touring</strong> — a beloved local service with consistently glowing reviews from travellers — or <strong>Welcome Pickups</strong>. Your driver meets you in Arrivals by name. Fixed price, no meters, no guesswork.</>, cost: "≈ €70 – 75 fixed", featured: true },
-  { num: "III", name: "Train via Pisa Centrale", meta: "45 – 50 minutes · Scenic", desc: <>A charming, budget-friendly option for light packers. Take the <strong>Pisa Mover monorail</strong> from the airport to Pisa Centrale station (~5 min), then board a <strong>Trenitalia</strong> regional train to Lucca, which runs every hour and takes just 27 minutes.</>, cost: "≈ €4 – 6" },
+  { num: "I", name: "Private Taxi", meta: "30 minutes · Door to door", desc: <>The most effortless option after a transatlantic flight. <RecLink href="https://www.cotapi.it/">CoTaPi</RecLink> is the official airport taxi provider, available around the clock directly outside the Arrivals hall. Your driver will bring you to the city gate nearest your accommodation.</>, cost: "≈ €70" },
+  { num: "II", name: "Pre-Booked Transfer", meta: "30 minutes · Fixed, no surprises", desc: <>For complete peace of mind, pre-book with <RecLink href="https://www.tautouring.com/">Tau Touring</RecLink> — a beloved local service with consistently glowing reviews from travellers — or <RecLink href="https://www.welcomepickups.com/pisa/airport-to-lucca/">Welcome Pickups</RecLink>. Your driver meets you in Arrivals by name. Fixed price, no meters, no guesswork.</>, cost: "≈ €70 – 75 fixed", featured: true },
+  { num: "III", name: "Train via Pisa Centrale", meta: "45 – 50 minutes · Scenic", desc: <>A charming, budget-friendly option for light packers. Take the <RecLink href="https://www.pisa-mover.com/en/">Pisa Mover monorail</RecLink> from the airport to Pisa Centrale station (~5 min), then board a <RecLink href="https://www.trenitalia.com/en.html">Trenitalia</RecLink> regional train to Lucca, which runs every hour and takes just 27 minutes.</>, cost: "≈ €4 – 6" },
 ];
 
 const florenceOptions = [
@@ -82,7 +94,9 @@ const GroundTransport = () => {
           <div className="relative z-10 py-10 px-12 max-w-[760px] mx-auto text-center max-[640px]:py-8 max-[640px]:px-6">
             <p className="font-kicker text-[0.6rem] tracking-[0.24em] uppercase text-gold-light mb-3.5">A Note on Lucca's Ancient Walls</p>
             <p className="font-body text-[1rem] italic leading-[1.85]" style={{ color: 'rgba(248, 243, 236, 0.72)' }}>
-              Lucca's magnificent Renaissance walls have enclosed the city for over 400 years — and private vehicles cannot enter the historic center. Every taxi and transfer service will drop you at the city gate nearest your accommodation. If you pre-book Tau Touring or Welcome Pickups, your driver will know precisely which gate to use. We recommend having your accommodation's full address on hand when you arrive.
+              Lucca's magnificent Renaissance walls have enclosed the city for over 400 years — and private vehicles cannot enter the historic center. Every taxi and transfer service will drop you at the city gate nearest your accommodation. If you pre-book{" "}
+              <a href="https://www.tautouring.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-pale underline decoration-gold decoration-1 underline-offset-[3px] transition-opacity hover:opacity-80">Tau Touring</a> or{" "}
+              <a href="https://www.welcomepickups.com/pisa/airport-to-lucca/" target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-pale underline decoration-gold decoration-1 underline-offset-[3px] transition-opacity hover:opacity-80">Welcome Pickups</a>, your driver will know precisely which gate to use. We recommend having your accommodation's full address on hand when you arrive.
             </p>
           </div>
         </div>

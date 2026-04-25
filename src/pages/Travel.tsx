@@ -48,7 +48,7 @@ const ground = [
     from: "Pisa Airport → Villa Grabau",
     duration: "45 min",
     cost: "€55–80",
-    note: "Welcome Pickups or MyDriver offer door-to-door service to the villa. Book in advance.",
+    note: '<a href="https://www.welcomepickups.com/pisa/airport-to-lucca/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Welcome Pickups</a> or <a href="https://www.mydriver.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">MyDriver</a> offer door-to-door service to the villa. Book in advance.',
     recommended: true,
   },
   {
@@ -64,7 +64,7 @@ const ground = [
     from: "Pisa Centrale → Lucca",
     duration: "30 min",
     cost: "€3.60",
-    note: "Trenitalia runs every 30–60 minutes. You will need a taxi from Lucca station to the villa.",
+    note: '<a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Trenitalia</a> runs every 30–60 minutes. You will need a taxi from Lucca station to the villa.',
     recommended: false,
   },
 ];
