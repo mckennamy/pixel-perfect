@@ -48,7 +48,8 @@ export default function EditableText({
     if (cached !== null) {
       ref.current.innerHTML = cached;
     } else {
-      ref.current.textContent = defaultContent;
+      // Render defaults as HTML so embedded <a>, <strong>, etc. work for recommendations.
+      ref.current.innerHTML = defaultContent;
     }
     const cachedSize = localStorage.getItem(sizeKey);
     if (cachedSize) ref.current.style.fontSize = cachedSize;
