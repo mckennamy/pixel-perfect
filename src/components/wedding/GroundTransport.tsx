@@ -94,7 +94,9 @@ const GroundTransport = () => {
           <div className="relative z-10 py-10 px-12 max-w-[760px] mx-auto text-center max-[640px]:py-8 max-[640px]:px-6">
             <p className="font-kicker text-[0.6rem] tracking-[0.24em] uppercase text-gold-light mb-3.5">A Note on Lucca's Ancient Walls</p>
             <p className="font-body text-[1rem] italic leading-[1.85]" style={{ color: 'rgba(248, 243, 236, 0.72)' }}>
-              Lucca's magnificent Renaissance walls have enclosed the city for over 400 years — and private vehicles cannot enter the historic center. Every taxi and transfer service will drop you at the city gate nearest your accommodation. If you pre-book Tau Touring or Welcome Pickups, your driver will know precisely which gate to use. We recommend having your accommodation's full address on hand when you arrive.
+              Lucca's magnificent Renaissance walls have enclosed the city for over 400 years — and private vehicles cannot enter the historic center. Every taxi and transfer service will drop you at the city gate nearest your accommodation. If you pre-book{" "}
+              <a href="https://www.tautouring.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-pale underline decoration-gold decoration-1 underline-offset-[3px] transition-opacity hover:opacity-80">Tau Touring</a> or{" "}
+              <a href="https://www.welcomepickups.com/pisa/airport-to-lucca/" target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-pale underline decoration-gold decoration-1 underline-offset-[3px] transition-opacity hover:opacity-80">Welcome Pickups</a>, your driver will know precisely which gate to use. We recommend having your accommodation's full address on hand when you arrive.
             </p>
           </div>
         </div>
