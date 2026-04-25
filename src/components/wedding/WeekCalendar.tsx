@@ -38,7 +38,7 @@ const details: Record<number, DayDetail> = {
     activities: [
       { title: "Mattina · Morning",     note: "On your own — a travel day, however far you've come" },
       { title: "Pomeriggio · Afternoon", note: "Arrivals from 3:00 PM — settle into your room, wander the gardens, drift toward the pool" },
-      { title: "Sera · Evening",         note: "Aperitivo in the Piazza dell'Anfiteatro, then dinner at Osteria Da Rosolo or Giglio in the heart of Lucca" },
+      { title: "Sera · Evening",         note: 'Aperitivo in the Piazza dell\'Anfiteatro, then dinner at <a href="https://www.osteriadarosolo.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Osteria Da Rosolo</a> or <a href="https://www.ristorantegiglio.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Ristorante Giglio</a> in the heart of Lucca' },
     ],
   },
   20: {
