@@ -81,7 +81,7 @@ export default function Admin() {
       supabase.from("reservations").select("*").order("submitted_at", { ascending: false }),
     ]);
     if (g.data) setGuests(g.data as Guest[]);
-    if (r.data) setReservations(r.data as Reservation[]);
+    if (r.data) setReservations(r.data as unknown as Reservation[]);
   };
 
   const signIn = async () => {
