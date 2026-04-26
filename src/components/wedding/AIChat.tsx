@@ -14,6 +14,40 @@ interface AIChatProps {
   suggestions?: string[];
 }
 
+// Lightweight bullet renderer: turns lines starting with -, *, or • into list items.
+// Keeps any non-bullet lines as paragraphs. Strips simple **bold** markers.
+function renderBullets(text: string) {
+  const clean = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "$1");
+  const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const blocks: Array<{ type: "p" | "ul"; items: string[] }> = [];
+  for (const line of lines) {
+    const isBullet = /^([-*•]|\d+\.)\s+/.test(line);
+    if (isBullet) {
+      const item = clean(line.replace(/^([-*•]|\d+\.)\s+/, ""));
+      const last = blocks[blocks.length - 1];
+      if (last && last.type === "ul") last.items.push(item);
+      else blocks.push({ type: "ul", items: [item] });
+    } else {
+      blocks.push({ type: "p", items: [clean(line)] });
+    }
+  }
+  return (
+    <>
+      {blocks.map((b, i) =>
+        b.type === "ul" ? (
+          <ul key={i} style={{ margin: i === 0 ? 0 : "0.4rem 0 0", paddingLeft: "1.1rem", listStyle: "disc" }}>
+            {b.items.map((it, j) => (
+              <li key={j} style={{ marginBottom: "0.3rem" }}>{it}</li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} style={{ margin: i === 0 ? 0 : "0.4rem 0 0" }}>{b.items[0]}</p>
+        )
+      )}
+    </>
+  );
+}
+
 export default function AIChat({
   title,
   subtitle,
@@ -24,11 +58,24 @@ export default function AIChat({
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
+  const userScrolledUpRef = useRef(false);
 
+  // Auto-scroll only the inner messages container (never the page).
+  // Respect the user: if they scrolled up to read, don't yank them back down.
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesRef.current;
+    if (!el) return;
+    if (userScrolledUpRef.current) return;
+    el.scrollTop = el.scrollHeight;
   }, [messages, loading]);
+
+  const handleMessagesScroll = () => {
+    const el = messagesRef.current;
+    if (!el) return;
+    const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    userScrolledUpRef.current = distanceFromBottom > 24;
+  };
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
@@ -38,6 +85,9 @@ export default function AIChat({
     setLoading(true);
 
     try {
+      // Reset scroll-lock when user sends a new message
+      userScrolledUpRef.current = false;
+
       const history = [...messages, userMessage].map((m) => ({
         role: m.role,
         content: m.content,
@@ -55,7 +105,12 @@ export default function AIChat({
           Authorization: `Bearer ${anonKey}`,
           apikey: anonKey,
         },
-        body: JSON.stringify({ systemContext, messages: history }),
+        body: JSON.stringify({
+          systemContext:
+            systemContext +
+            "\n\nFormatting rules: Always respond using concise markdown bullet points (one idea per bullet). Keep bullets short. Only use a brief intro sentence when truly necessary. Avoid long paragraphs.",
+          messages: history,
+        }),
       });
 
       if (!res.ok) throw new Error(`Status ${res.status}`);
@@ -178,9 +233,12 @@ export default function AIChat({
 
       {/* Messages */}
       <div
+        ref={messagesRef}
+        onScroll={handleMessagesScroll}
         style={{
           height: 288,
           overflowY: "auto",
+          overscrollBehavior: "contain",
           padding: "1rem",
           display: "flex",
           flexDirection: "column",
@@ -246,7 +304,7 @@ export default function AIChat({
                 lineHeight: 1.6,
               }}
             >
-              {msg.content}
+              {msg.role === "assistant" ? renderBullets(msg.content) : msg.content}
             </div>
           </div>
         ))}
@@ -271,7 +329,6 @@ export default function AIChat({
             </div>
           </div>
         )}
-        <div ref={bottomRef} />
       </div>
 
       {/* Input */}
