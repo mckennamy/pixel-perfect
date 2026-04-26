@@ -124,6 +124,51 @@ export default function Reservations() {
             tag="p"
             className="font-body text-base text-ink-mid leading-relaxed mb-8"
           />
+
+          {/* Venmo payment block */}
+          <div
+            className="text-left mb-10 p-6"
+            style={{
+              background: "hsl(var(--parchment))",
+              border: "1px solid hsl(var(--gold) / 0.4)",
+            }}
+          >
+            <EditableText
+              id="res-thankyou-pay-kicker"
+              tag="p"
+              className="kicker mb-3"
+              defaultContent="Send Your Payment"
+            />
+            <EditableText
+              id="res-thankyou-pay-body"
+              tag="p"
+              className="font-body text-sm italic text-ink-mid leading-relaxed mb-5"
+              defaultContent="Please send your deposit (or full payment) via Venmo. Include your name and 'Lucca Wedding' in the note so we can match your payment to your reservation."
+            />
+            <EditableText
+              id="res-thankyou-venmo-handle"
+              tag="p"
+              className="font-display italic text-burg mb-5"
+              style={{ fontSize: "1.4rem", fontWeight: 300 }}
+              defaultContent="@your-venmo-handle"
+            />
+            <a
+              href="https://venmo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kicker inline-block px-6 py-3 transition-colors"
+              style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
+            >
+              Open Venmo →
+            </a>
+            <EditableText
+              id="res-thankyou-pay-note"
+              tag="p"
+              className="font-body text-xs italic text-stone mt-4 leading-relaxed"
+              defaultContent="Tap the handle above to copy it, then paste it in Venmo. If you prefer Zelle, check, or another method, reply to McKenna directly."
+            />
+          </div>
+
           <EditableText
             id="res-thankyou-date"
             defaultContent="Becoming Bradley · May 22, 2027"
