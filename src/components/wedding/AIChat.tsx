@@ -113,7 +113,24 @@ export default function AIChat({
         }),
       });
 
-      if (!res.ok) throw new Error(`Status ${res.status}`);
+      if (!res.ok) {
+        let friendly = "I'm having trouble connecting right now. Please try again in a moment, or browse the resources on this page in the meantime.";
+        try {
+          const errBody = await res.json();
+          if (res.status === 402) {
+            friendly = "Our AI assistant is temporarily unavailable. Please check back soon — in the meantime, the resources on this page have everything you need.";
+          } else if (res.status === 429) {
+            friendly = "A lot of guests are chatting right now! Please try again in a moment.";
+          } else if (errBody?.error) {
+            console.error("wedding-ai error:", errBody.error);
+          }
+        } catch {
+          // ignore body parse errors
+        }
+        setMessages((prev) => [...prev, { role: "assistant", content: friendly }]);
+        setLoading(false);
+        return;
+      }
 
       const contentType = res.headers.get("content-type") || "";
       let assistantText = "";
