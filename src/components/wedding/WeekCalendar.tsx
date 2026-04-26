@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 
-const CALENDAR_H = 68;
+const CALENDAR_H = 88;
 
 type DayType = "travel" | "event" | "private" | "wedding" | "free";
 
@@ -272,6 +272,31 @@ export default function WeekCalendar() {
             </button>
           );
         })}
+      </div>
+
+      {/* Prompt under calendar */}
+      <div
+        style={{
+          position: "fixed",
+          top: 64 + 68,
+          left: 0,
+          right: 0,
+          height: 20,
+          zIndex: 45,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "hsl(var(--cream))",
+          borderBottom: "1px solid hsl(var(--burg) / 0.08)",
+          fontFamily: "Cinzel, serif",
+          fontSize: "0.5rem",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          color: "hsl(var(--burg-mid))",
+          pointerEvents: "none",
+        }}
+      >
+        Click on each day to view a full itinerary
       </div>
 
       {/* ── Day detail overlay ── */}
