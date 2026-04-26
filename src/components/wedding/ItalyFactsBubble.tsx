@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const funFacts = [
   {
     title: "Linens & Towels",
-    body: "European hotels typically don't provide daily housekeeping, linen changes, or extra towels — they conserve water deeply. Pack accordingly and request service in advance if needed.",
+    body: "European hotels typically don't provide daily housekeeping, linen changes, or extra towels — they conserve water deeply.",
   },
   {
     title: "Power Adapters",
