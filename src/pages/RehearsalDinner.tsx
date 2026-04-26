@@ -1,13 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import EditableText from "@/components/wedding/EditableText";
 
-// Add invited email addresses here — editable directly in Lovable
-const INVITED_EMAILS: string[] = [
-  "example@email.com",
-  "mckennamy@gmail.com",
-  // Add more invited guest emails below
-];
-
 const details = {
   date: "Wednesday, May 21, 2027",
   time: "7:30 PM",
@@ -28,91 +21,67 @@ const agenda = [
 ];
 
 export default function RehearsalDinner() {
-  const [email, setEmail] = useState("");
   const [granted, setGranted] = useState(false);
-  const [error, setError] = useState("");
+  const [checked, setChecked] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const sessionGranted = typeof window !== "undefined" && sessionStorage.getItem("rehearsal_access") === "yes";
+  // Access is granted automatically based on the guest tier set by the
+  // landing-page name search. No email gate — guests should never have to
+  // discover via this page that they aren't invited to the rehearsal.
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem("wedding_guest");
+      if (stored) {
+        const g = JSON.parse(stored);
+        if (g?.tier === "rehearsal") setGranted(true);
+      }
+    } catch {}
+    setChecked(true);
+  }, []);
 
   useEffect(() => {
-    if (!granted && !sessionGranted) return;
+    if (!granted) return;
     const obs = new IntersectionObserver(
       (e) => e.forEach((en) => en.isIntersecting && en.target.classList.add("visible")),
       { threshold: 0.1 }
     );
     ref.current?.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
     return () => obs.disconnect();
-  }, [granted, sessionGranted]);
+  }, [granted]);
 
-  const checkAccess = () => {
-    const normalised = email.trim().toLowerCase();
-    const isInvited =
-      INVITED_EMAILS.map((e) => e.toLowerCase()).includes(normalised) ||
-      normalised.endsWith("@bradley.com");
+  // Loading
+  if (!checked) {
+    return (
+      <div className="page-wrapper flex items-center justify-center min-h-screen">
+        <p className="font-body italic text-stone">Loading…</p>
+      </div>
+    );
+  }
 
-    if (isInvited) {
-      sessionStorage.setItem("rehearsal_access", "yes");
-      setGranted(true);
-      setError("");
-    } else {
-      setError(
-        "This email address isn't on our rehearsal dinner guest list. Please check your invitation or reach out directly."
-      );
-    }
-  };
-
-  // ── Email gate ──
-  if (!granted && !sessionGranted) {
+  // Guest is not on the rehearsal tier — show a graceful 404-style message
+  // (no email gate that could reveal invite status).
+  if (!granted) {
     return (
       <div className="page-wrapper flex items-center justify-center min-h-screen px-6">
-        <div className="w-full max-w-sm">
-          <div className="text-center mb-10">
-            <p className="kicker mb-4">Private Event</p>
-            <h1
-              className="font-display italic text-burg"
-              style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 300 }}
-            >
-              Rehearsal Dinner
-            </h1>
-            <span className="rule mt-6 block" />
-          </div>
-
-          <EditableText
-            id="rehearsal-gate-desc"
-            tag="p"
-            className="font-body text-sm italic text-[hsl(var(--stone))] text-center mb-8"
-            defaultContent="This page is reserved for invited guests. Enter the email address on your invitation to continue."
-          />
-
-          <div className="p-8" style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}>
-            <p className="kicker mb-3">Your Email Address</p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && checkAccess()}
-              placeholder="you@email.com"
-              className="w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-3 mb-3 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]"
-            />
-            {error && (
-              <p className="font-body text-xs text-red-600 mb-4 leading-relaxed">{error}</p>
-            )}
-            <button
-              onClick={checkAccess}
-              className="w-full kicker py-3 transition-colors"
-              style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
-            >
-              View Invitation
-            </button>
-          </div>
-
-          <EditableText
-            id="rehearsal-gate-footer"
-            tag="p"
-            className="font-body text-xs italic text-[hsl(var(--stone))] text-center mt-6"
-            defaultContent="Questions? Reach out to McKenna directly."
-          />
+        <div className="w-full max-w-md text-center">
+          <p className="kicker mb-4">Page Not Found</p>
+          <h1
+            className="font-display italic text-burg mb-6"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+          >
+            We couldn't find that page
+          </h1>
+          <span className="rule mb-6 block" />
+          <p className="font-body text-sm italic text-stone">
+            Please return to the home page to continue exploring our wedding website.
+          </p>
+          <a
+            href="/"
+            className="kicker inline-block mt-8 px-6 py-3"
+            style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
+          >
+            Return Home
+          </a>
         </div>
       </div>
     );
