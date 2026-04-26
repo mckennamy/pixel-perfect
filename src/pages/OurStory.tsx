@@ -11,7 +11,7 @@ const chapters = [
     title: "The Night Everything Changed",
     body: "It started with a glance across a crowded room — the kind of moment you read about in books but never quite believe until it happens to you. McKenna and Jordan met on [Date & Place] and from the very first conversation, something felt undeniably different. Easy. Like coming home somewhere you had never been.",
     photoAspect: "video" as const,
-    photoCaption: "The night we met",
+    photoCaption: "",
   },
   {
     id: "getting-to-know",
@@ -27,7 +27,7 @@ const chapters = [
     title: "He Asked. She Said Yes.",
     body: "On [Proposal Date], surrounded by [describe the setting], Jordan got down on one knee. The ring was perfect. The moment was perfect. McKenna said yes before he even finished the question. We celebrated with [how you celebrated] and called everyone we love.",
     photoAspect: "video" as const,
-    photoCaption: "The proposal",
+    photoCaption: "",
   },
   {
     id: "becoming-bradley",
@@ -35,7 +35,7 @@ const chapters = [
     title: "Becoming Bradley",
     body: "We chose Lucca, Italy because it is the most beautiful, romantic corner of the world we have ever visited — ancient walls, olive groves, and golden light that makes everything feel like a dream. We cannot wait to share it with every person who has loved and cheered for us from the very beginning.",
     photoAspect: "wide" as const,
-    photoCaption: "Lucca, Tuscany",
+    photoCaption: "",
   },
 ];
 
