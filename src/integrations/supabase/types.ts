@@ -97,6 +97,7 @@ export type Database = {
       reservations: {
         Row: {
           accommodation_preference: string
+          amount_paid: number | null
           created_at: string
           email: string
           flight_arrival_date: string | null
@@ -112,6 +113,9 @@ export type Database = {
           linen_frequency: string | null
           linen_service: string | null
           notes: string | null
+          payment_date: string | null
+          payment_method: string | null
+          payment_note: string | null
           payment_option: string
           payment_status: string
           phone: string
@@ -121,6 +125,7 @@ export type Database = {
         }
         Insert: {
           accommodation_preference: string
+          amount_paid?: number | null
           created_at?: string
           email: string
           flight_arrival_date?: string | null
@@ -136,6 +141,9 @@ export type Database = {
           linen_frequency?: string | null
           linen_service?: string | null
           notes?: string | null
+          payment_date?: string | null
+          payment_method?: string | null
+          payment_note?: string | null
           payment_option: string
           payment_status?: string
           phone: string
@@ -145,6 +153,7 @@ export type Database = {
         }
         Update: {
           accommodation_preference?: string
+          amount_paid?: number | null
           created_at?: string
           email?: string
           flight_arrival_date?: string | null
@@ -160,6 +169,9 @@ export type Database = {
           linen_frequency?: string | null
           linen_service?: string | null
           notes?: string | null
+          payment_date?: string | null
+          payment_method?: string | null
+          payment_note?: string | null
           payment_option?: string
           payment_status?: string
           phone?: string
