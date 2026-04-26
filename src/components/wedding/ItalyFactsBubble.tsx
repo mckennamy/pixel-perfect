@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const funFacts = [
   {
@@ -96,11 +96,14 @@ function getDayOfYear(): number {
 export default function ItalyFactsBubble() {
   const [factIndex, setFactIndex] = useState(0);
   const [fading, setFading] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const resumeTimer = useRef<number | null>(null);
 
   const word = italianWords[getDayOfYear() % italianWords.length];
   const fact = funFacts[factIndex];
 
   useEffect(() => {
+    if (paused) return;
     const interval = setInterval(() => {
       setFading(true);
       setTimeout(() => {
@@ -109,7 +112,22 @@ export default function ItalyFactsBubble() {
       }, 400);
     }, 7000);
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
+
+  const goTo = (next: number) => {
+    setFading(true);
+    setTimeout(() => {
+      setFactIndex(((next % funFacts.length) + funFacts.length) % funFacts.length);
+      setFading(false);
+    }, 250);
+    // Pause auto-rotation briefly so user can read
+    setPaused(true);
+    if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
+    resumeTimer.current = window.setTimeout(() => setPaused(false), 15000);
+  };
+
+  const handlePrev = () => goTo(factIndex - 1);
+  const handleNext = () => goTo(factIndex + 1);
 
   return (
     <div className="max-w-2xl mx-auto px-6 mb-12">
@@ -169,23 +187,73 @@ export default function ItalyFactsBubble() {
               </p>
             </div>
 
-            {/* Dots indicator */}
-            <div className="flex gap-1.5 mt-4">
-              {funFacts.slice(0, 8).map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: 4,
-                    height: 4,
-                    borderRadius: "50%",
-                    background:
-                      i === factIndex % 8
-                        ? "hsl(var(--burg))"
-                        : "hsl(var(--gold) / 0.4)",
-                    transition: "background 0.3s",
-                  }}
-                />
-              ))}
+            {/* Controls: prev / dots / next */}
+            <div className="flex items-center gap-3 mt-4">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous fact"
+                style={{
+                  background: "transparent",
+                  border: "1px solid hsl(var(--gold) / 0.5)",
+                  color: "hsl(var(--burg))",
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  fontSize: "0.7rem",
+                  lineHeight: 1,
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--gold) / 0.15)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+              >
+                ‹
+              </button>
+              <div className="flex gap-1.5">
+                {funFacts.map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: 4,
+                      height: 4,
+                      borderRadius: "50%",
+                      background:
+                        i === factIndex
+                          ? "hsl(var(--burg))"
+                          : "hsl(var(--gold) / 0.4)",
+                      transition: "background 0.3s",
+                    }}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next fact"
+                style={{
+                  background: "transparent",
+                  border: "1px solid hsl(var(--gold) / 0.5)",
+                  color: "hsl(var(--burg))",
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  fontSize: "0.7rem",
+                  lineHeight: 1,
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--gold) / 0.15)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.background = "transparent")}
+              >
+                ›
+              </button>
             </div>
           </div>
 
