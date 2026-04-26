@@ -123,23 +123,38 @@ export default function RehearsalDinner() {
     <div className="page-wrapper" ref={ref}>
       {/* Hero */}
       <header className="pt-28 pb-20 text-center px-6">
-        <p className="kicker mb-5">Private Event</p>
-        <h1
+        <EditableText
+          id="rehearsal-hero-kicker"
+          tag="p"
+          className="kicker mb-5"
+          defaultContent="Private Event"
+        />
+        <EditableText
+          id="rehearsal-hero-title"
+          tag="h1"
           className="font-display italic text-burg leading-none mb-8"
           style={{ fontSize: "clamp(3rem, 8vw, 6rem)", fontWeight: 300 }}
-        >
-          Rehearsal Dinner
-        </h1>
+          defaultContent="Rehearsal Dinner"
+        />
         <span className="rule" />
       </header>
 
       {/* Event details */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 pb-20">
         <div className="reveal mb-10">
-          <p className="kicker mb-4">The Evening Before</p>
-          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            Event Details
-          </h2>
+          <EditableText
+            id="rehearsal-details-kicker"
+            tag="p"
+            className="kicker mb-4"
+            defaultContent="The Evening Before"
+          />
+          <EditableText
+            id="rehearsal-details-title"
+            tag="h2"
+            className="font-display italic text-burg"
+            style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            defaultContent="Event Details"
+          />
         </div>
         <div className="space-y-0 reveal">
           {[
@@ -152,14 +167,29 @@ export default function RehearsalDinner() {
             <div key={item.label}>
               <div className="rule-full mb-4" />
               <div className="grid md:grid-cols-3 gap-2 mb-4">
-                <p className="kicker">{item.label}</p>
-                <p className="font-body text-sm text-[hsl(var(--ink-mid))] md:col-span-2">{item.value}</p>
+                <EditableText
+                  id={`rehearsal-details-${item.label.toLowerCase().replace(/\s+/g, '-')}-label`}
+                  tag="p"
+                  className="kicker"
+                  defaultContent={item.label}
+                />
+                <EditableText
+                  id={`rehearsal-details-${item.label.toLowerCase().replace(/\s+/g, '-')}-value`}
+                  tag="p"
+                  className="font-body text-sm text-[hsl(var(--ink-mid))] md:col-span-2"
+                  defaultContent={item.value}
+                />
               </div>
             </div>
           ))}
           <div className="rule-full mb-4" />
           <div className="grid md:grid-cols-3 gap-2 mb-4">
-            <p className="kicker">Note</p>
+            <EditableText
+              id="rehearsal-details-note-label"
+              tag="p"
+              className="kicker"
+              defaultContent="Note"
+            />
             <EditableText
               id="rehearsal-details-notes"
               tag="p"
@@ -175,17 +205,36 @@ export default function RehearsalDinner() {
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-10">
-            <p className="kicker mb-4">May 21, 2027</p>
-            <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              Evening Agenda
-            </h2>
+            <EditableText
+              id="rehearsal-agenda-kicker"
+              tag="p"
+              className="kicker mb-4"
+              defaultContent="May 21, 2027"
+            />
+            <EditableText
+              id="rehearsal-agenda-title"
+              tag="h2"
+              className="font-display italic text-burg"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+              defaultContent="Evening Agenda"
+            />
           </div>
           <div className="space-y-5 reveal">
             {agenda.map((item, i) => (
               <div key={i} className="grid grid-cols-[5rem_1fr] gap-6 items-start">
-                <p className="kicker text-right">{item.time}</p>
+                <EditableText
+                  id={`rehearsal-agenda-${i}-time`}
+                  tag="p"
+                  className="kicker text-right"
+                  defaultContent={item.time}
+                />
                 <div className="border-t border-[hsl(var(--border))] pt-3">
-                  <p className="font-body text-base text-[hsl(var(--ink))]">{item.item}</p>
+                  <EditableText
+                    id={`rehearsal-agenda-${i}-item`}
+                    tag="p"
+                    className="font-body text-base text-[hsl(var(--ink))]"
+                    defaultContent={item.item}
+                  />
                 </div>
               </div>
             ))}
@@ -211,9 +260,13 @@ export default function RehearsalDinner() {
             style={{ color: "rgba(250,248,242,0.6)" }}
             defaultContent="This evening is for the people who have held us, shaped us, and walked beside us to this moment. We cannot wait to share it with you."
           />
-          <p className="kicker" style={{ color: "rgba(250,248,242,0.45)" }}>
-            McKenna &amp; Jordan
-          </p>
+          <EditableText
+            id="rehearsal-closing-signature"
+            tag="p"
+            className="kicker"
+            style={{ color: "rgba(250,248,242,0.45)" }}
+            defaultContent="McKenna & Jordan"
+          />
         </div>
       </section>
     </div>
