@@ -3,6 +3,8 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import EditableText from "@/components/wedding/EditableText";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const guestSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -71,19 +73,29 @@ export default function Reservations() {
   }, []);
 
   const onSubmit = async (data: FormData) => {
-    const reservations = JSON.parse(localStorage.getItem("wedding_reservations") || "[]");
-    const entry = {
-      id: Date.now().toString(),
-      submittedAt: new Date().toISOString(),
-      status: "pending",
-      paid: data.paymentOption === "full_payment" ? "full" : "deposit",
-      ...data,
-    };
-    reservations.push(entry);
-    localStorage.setItem("wedding_reservations", JSON.stringify(reservations));
-    // Increment notification badge for admin
-    const current = parseInt(localStorage.getItem("admin_new_count") || "0", 10);
-    localStorage.setItem("admin_new_count", String(current + 1));
+    const { error } = await supabase.from("reservations").insert({
+      primary_name: data.primaryName,
+      email: data.email,
+      phone: data.phone,
+      guests: data.guests,
+      payment_option: data.paymentOption,
+      accommodation_preference: data.accommodationPreference,
+      linen_service: data.linenService ?? null,
+      linen_frequency: data.linenFrequency ?? null,
+      linen_days: data.linenDays ?? null,
+      flight_arrival_date: data.flightArrivalDate ?? null,
+      flight_arrival_number: data.flightArrivalNumber ?? null,
+      flight_arrival_from: data.flightArrivalFrom ?? null,
+      flight_departure_date: data.flightDepartureDate ?? null,
+      flight_departure_number: data.flightDepartureNumber ?? null,
+      flight_departure_to: data.flightDepartureTo ?? null,
+      notes: data.notes ?? null,
+    });
+    if (error) {
+      toast.error("Could not submit reservation. Please try again or email us directly.");
+      console.error("Reservation submit error:", error);
+      return;
+    }
     setSubmitted(true);
     window.scrollTo(0, 0);
   };
