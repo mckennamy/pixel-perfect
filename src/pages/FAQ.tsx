@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import EditableText from "@/components/wedding/EditableText";
+import ItalyFactsBubble from "@/components/wedding/ItalyFactsBubble";
 
 const faqs = [
   {
@@ -110,6 +111,9 @@ export default function FAQ() {
         />
         <span className="rule" />
       </header>
+
+      {/* Italy Fun Facts + Word of the Day */}
+      <ItalyFactsBubble />
 
       <div className="max-w-2xl mx-auto px-6 md:px-10 pb-24">
         {faqs.map((section, i) => {

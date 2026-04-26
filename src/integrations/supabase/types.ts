@@ -14,6 +14,169 @@ export type Database = {
   }
   public: {
     Tables: {
+      email_log: {
+        Row: {
+          email_type: string
+          error_message: string | null
+          guest_id: string | null
+          id: string
+          invite_tier: string | null
+          recipient_email: string
+          sent_at: string
+          status: string
+        }
+        Insert: {
+          email_type: string
+          error_message?: string | null
+          guest_id?: string | null
+          id?: string
+          invite_tier?: string | null
+          recipient_email: string
+          sent_at?: string
+          status?: string
+        }
+        Update: {
+          email_type?: string
+          error_message?: string | null
+          guest_id?: string | null
+          id?: string
+          invite_tier?: string | null
+          recipient_email?: string
+          sent_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_log_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      guests: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          invite_sent_at: string | null
+          invite_tier: string
+          notes: string | null
+          phone: string | null
+          reservation_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          invite_sent_at?: string | null
+          invite_tier?: string
+          notes?: string | null
+          phone?: string | null
+          reservation_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          invite_sent_at?: string | null
+          invite_tier?: string
+          notes?: string | null
+          phone?: string | null
+          reservation_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reservations: {
+        Row: {
+          accommodation_preference: string
+          created_at: string
+          email: string
+          flight_arrival_date: string | null
+          flight_arrival_from: string | null
+          flight_arrival_number: string | null
+          flight_departure_date: string | null
+          flight_departure_number: string | null
+          flight_departure_to: string | null
+          guest_id: string | null
+          guests: Json
+          id: string
+          linen_days: Json | null
+          linen_frequency: string | null
+          linen_service: string | null
+          notes: string | null
+          payment_option: string
+          payment_status: string
+          phone: string
+          primary_name: string
+          submitted_at: string
+          updated_at: string
+        }
+        Insert: {
+          accommodation_preference: string
+          created_at?: string
+          email: string
+          flight_arrival_date?: string | null
+          flight_arrival_from?: string | null
+          flight_arrival_number?: string | null
+          flight_departure_date?: string | null
+          flight_departure_number?: string | null
+          flight_departure_to?: string | null
+          guest_id?: string | null
+          guests?: Json
+          id?: string
+          linen_days?: Json | null
+          linen_frequency?: string | null
+          linen_service?: string | null
+          notes?: string | null
+          payment_option: string
+          payment_status?: string
+          phone: string
+          primary_name: string
+          submitted_at?: string
+          updated_at?: string
+        }
+        Update: {
+          accommodation_preference?: string
+          created_at?: string
+          email?: string
+          flight_arrival_date?: string | null
+          flight_arrival_from?: string | null
+          flight_arrival_number?: string | null
+          flight_departure_date?: string | null
+          flight_departure_number?: string | null
+          flight_departure_to?: string | null
+          guest_id?: string | null
+          guests?: Json
+          id?: string
+          linen_days?: Json | null
+          linen_frequency?: string | null
+          linen_service?: string | null
+          notes?: string | null
+          payment_option?: string
+          payment_status?: string
+          phone?: string
+          primary_name?: string
+          submitted_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       site_edits: {
         Row: {
           content: string
@@ -32,15 +195,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -167,6 +357,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
