@@ -1,26 +1,43 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const navItems = [
-  { href: "/our-story",      label: "Our Story",      it: "La Nostra Storia" },
-  { href: "/accommodations", label: "Accommodations", it: "Dove Dormire" },
-  { href: "/travel",         label: "Travel",         it: "Il Viaggio" },
-  { href: "/finer-details",  label: "Finer Details",  it: "I Dettagli" },
-  { href: "/excursions",     label: "Excursions",     it: "Le Avventure" },
-  { href: "/faq",            label: "FAQ",            it: "Domande" },
-  { href: "/reservations",   label: "Reservations",   it: "La Conferma" },
+const baseNavItems = [
+  { href: "/our-story",        label: "Our Story",         it: "La Nostra Storia" },
+  { href: "/accommodations",   label: "Accommodations",    it: "Dove Dormire" },
+  { href: "/travel",           label: "Travel",            it: "Il Viaggio" },
+  { href: "/finer-details",    label: "Finer Details",     it: "I Dettagli" },
+  { href: "/excursions",       label: "Excursions",        it: "Le Avventure" },
+  { href: "/faq",              label: "FAQ",               it: "Domande" },
+  { href: "/reservations",     label: "Reservations",      it: "La Conferma" },
 ];
+const rehearsalItem = { href: "/rehearsal-dinner", label: "Rehearsal Dinner", it: "La Cena di Prova" };
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [showRehearsal, setShowRehearsal] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
     document.dispatchEvent(new CustomEvent(open ? "bb:nav:open" : "bb:nav:close"));
   }, [open]);
 
+  useEffect(() => {
+    // Show rehearsal tab only for guests on the rehearsal tier
+    const stored = sessionStorage.getItem("wedding_guest");
+    if (stored) {
+      try {
+        const g = JSON.parse(stored);
+        setShowRehearsal(g?.tier === "rehearsal");
+      } catch { /* ignore */ }
+    }
+  }, [open, pathname]);
+
   if (pathname === "/") return null;
+
+  const navItems = showRehearsal
+    ? [...baseNavItems.slice(0, 6), rehearsalItem, baseNavItems[6]]
+    : baseNavItems;
 
   const close = () => setOpen(false);
 
