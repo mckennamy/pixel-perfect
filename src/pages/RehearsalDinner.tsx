@@ -4,6 +4,7 @@ import EditableText from "@/components/wedding/EditableText";
 // Add invited email addresses here — editable directly in Lovable
 const INVITED_EMAILS: string[] = [
   "example@email.com",
+  "mckennamy@gmail.com",
   // Add more invited guest emails below
 ];
 
