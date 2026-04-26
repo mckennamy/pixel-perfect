@@ -14,6 +14,40 @@ interface AIChatProps {
   suggestions?: string[];
 }
 
+// Lightweight bullet renderer: turns lines starting with -, *, or • into list items.
+// Keeps any non-bullet lines as paragraphs. Strips simple **bold** markers.
+function renderBullets(text: string) {
+  const clean = (s: string) => s.replace(/\*\*(.+?)\*\*/g, "$1");
+  const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  const blocks: Array<{ type: "p" | "ul"; items: string[] }> = [];
+  for (const line of lines) {
+    const isBullet = /^([-*•]|\d+\.)\s+/.test(line);
+    if (isBullet) {
+      const item = clean(line.replace(/^([-*•]|\d+\.)\s+/, ""));
+      const last = blocks[blocks.length - 1];
+      if (last && last.type === "ul") last.items.push(item);
+      else blocks.push({ type: "ul", items: [item] });
+    } else {
+      blocks.push({ type: "p", items: [clean(line)] });
+    }
+  }
+  return (
+    <>
+      {blocks.map((b, i) =>
+        b.type === "ul" ? (
+          <ul key={i} style={{ margin: i === 0 ? 0 : "0.4rem 0 0", paddingLeft: "1.1rem", listStyle: "disc" }}>
+            {b.items.map((it, j) => (
+              <li key={j} style={{ marginBottom: "0.3rem" }}>{it}</li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} style={{ margin: i === 0 ? 0 : "0.4rem 0 0" }}>{b.items[0]}</p>
+        )
+      )}
+    </>
+  );
+}
+
 export default function AIChat({
   title,
   subtitle,
