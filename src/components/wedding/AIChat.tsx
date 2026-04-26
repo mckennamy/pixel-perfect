@@ -199,9 +199,12 @@ export default function AIChat({
 
       {/* Messages */}
       <div
+        ref={messagesRef}
+        onScroll={handleMessagesScroll}
         style={{
           height: 288,
           overflowY: "auto",
+          overscrollBehavior: "contain",
           padding: "1rem",
           display: "flex",
           flexDirection: "column",
@@ -267,7 +270,7 @@ export default function AIChat({
                 lineHeight: 1.6,
               }}
             >
-              {msg.content}
+              {msg.role === "assistant" ? renderBullets(msg.content) : msg.content}
             </div>
           </div>
         ))}
@@ -292,7 +295,6 @@ export default function AIChat({
             </div>
           </div>
         )}
-        <div ref={bottomRef} />
       </div>
 
       {/* Input */}
