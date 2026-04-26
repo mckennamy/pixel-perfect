@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
+import GuestSearchGate from "@/components/wedding/GuestSearchGate";
 import villaMotion from "@/assets/villa-grabau-motion.mp4.asset.json";
 
-type Stage = "idle" | "opening" | "risen" | "invitation" | "exit";
+type Stage = "idle" | "opening" | "risen" | "search" | "invitation" | "exit";
 
 export default function EnvelopeLanding() {
   const [stage, setStage] = useState<Stage>("idle");
   const [mounted, setMounted] = useState(false);
+  const [guest, setGuest] = useState<{ id: string; name: string; tier: string } | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
     return () => clearTimeout(t);
+  }, []);
+
+  // Restore guest unlock from session
+  useEffect(() => {
+    const stored = sessionStorage.getItem("wedding_guest");
+    if (stored) {
+      try { setGuest(JSON.parse(stored)); } catch { /* ignore */ }
+    }
   }, []);
 
   useEffect(() => {
@@ -21,7 +31,11 @@ export default function EnvelopeLanding() {
       return () => clearTimeout(t);
     }
     if (stage === "risen") {
-      const t = setTimeout(() => setStage("invitation"), 900);
+      const t = setTimeout(() => {
+        // If guest already unlocked in session, skip the search gate
+        const existing = sessionStorage.getItem("wedding_guest");
+        setStage(existing ? "invitation" : "search");
+      }, 900);
       return () => clearTimeout(t);
     }
   }, [stage]);
@@ -32,6 +46,18 @@ export default function EnvelopeLanding() {
   };
 
   const isOpening = stage === "opening" || stage === "risen";
+
+  // ── Name Search Gate ────────────────────────────────────────────
+  if (stage === "search") {
+    return (
+      <GuestSearchGate
+        onUnlock={(g) => {
+          setGuest({ id: g.id, name: g.full_name, tier: g.invite_tier });
+          setStage("invitation");
+        }}
+      />
+    );
+  }
 
   // ── Invitation Card ──────────────────────────────────────────────
   if (stage === "invitation" || stage === "exit") {
