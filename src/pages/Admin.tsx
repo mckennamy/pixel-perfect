@@ -27,6 +27,10 @@ interface Reservation {
   payment_status: string;
   submitted_at: string;
   notes: string | null;
+  amount_paid: number | null;
+  payment_date: string | null;
+  payment_method: string | null;
+  payment_note: string | null;
 }
 
 const inputClass =
@@ -40,6 +44,17 @@ export default function Admin() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [showAddGuest, setShowAddGuest] = useState(false);
+  const [guestFilter, setGuestFilter] = useState<
+    "all" | "rsvped" | "not_rsvped" | "rehearsal" | "standard"
+  >("all");
+  const [editingPayment, setEditingPayment] = useState<string | null>(null);
+  const [paymentDraft, setPaymentDraft] = useState<{
+    payment_status: string;
+    amount_paid: string;
+    payment_date: string;
+    payment_method: string;
+    payment_note: string;
+  }>({ payment_status: "unpaid", amount_paid: "", payment_date: "", payment_method: "", payment_note: "" });
   const [newGuest, setNewGuest] = useState({
     full_name: "",
     email: "",
@@ -129,6 +144,7 @@ export default function Admin() {
 
   const sendInvite = async (g: Guest) => {
     if (!g.email) { toast.error("Guest has no email on file"); return; }
+    if (!confirm(`Mark invite as manually sent to ${g.full_name}? (Use this when you've texted/emailed them yourself.)`)) return;
     // For now mark as sent — actual email delivery requires email domain setup
     const { error } = await supabase
       .from("guests")
@@ -142,7 +158,35 @@ export default function Admin() {
       invite_tier: g.invite_tier,
       status: "marked_sent",
     });
-    toast.success(`Marked invite as sent to ${g.full_name}. Email delivery setup is the next step.`);
+    toast.success(`Marked as sent to ${g.full_name}.`);
+    loadAll();
+  };
+
+  const startPaymentEdit = (r: Reservation) => {
+    setEditingPayment(r.id);
+    setPaymentDraft({
+      payment_status: r.payment_status || "unpaid",
+      amount_paid: r.amount_paid ? String(r.amount_paid) : "",
+      payment_date: r.payment_date || "",
+      payment_method: r.payment_method || "",
+      payment_note: r.payment_note || "",
+    });
+  };
+
+  const savePayment = async (id: string) => {
+    const { error } = await supabase
+      .from("reservations")
+      .update({
+        payment_status: paymentDraft.payment_status,
+        amount_paid: paymentDraft.amount_paid ? Number(paymentDraft.amount_paid) : null,
+        payment_date: paymentDraft.payment_date || null,
+        payment_method: paymentDraft.payment_method || null,
+        payment_note: paymentDraft.payment_note || null,
+      })
+      .eq("id", id);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Payment updated");
+    setEditingPayment(null);
     loadAll();
   };
 
@@ -209,6 +253,20 @@ export default function Admin() {
     reservations: reservations.length,
   };
 
+  const filteredGuests = guests.filter((g) => {
+    switch (guestFilter) {
+      case "rsvped":     return !!g.reservation_id;
+      case "not_rsvped": return !g.reservation_id;
+      case "rehearsal":  return g.invite_tier === "rehearsal";
+      case "standard":   return g.invite_tier === "standard";
+      default:           return true;
+    }
+  });
+
+  const totalCollected = reservations
+    .filter((r) => r.amount_paid)
+    .reduce((sum, r) => sum + Number(r.amount_paid), 0);
+
   return (
     <div className="page-wrapper px-6 py-10">
       <div className="max-w-7xl mx-auto">
@@ -267,7 +325,7 @@ export default function Admin() {
           <div>
             <div className="flex justify-between items-center mb-6">
               <p className="font-display italic text-burg text-2xl" style={{ fontWeight: 300 }}>
-                Guest List ({guests.length})
+                Guest List ({filteredGuests.length} of {guests.length})
               </p>
               <button
                 onClick={() => setShowAddGuest(!showAddGuest)}
@@ -276,6 +334,30 @@ export default function Admin() {
               >
                 {showAddGuest ? "Cancel" : "+ Add Guest"}
               </button>
+            </div>
+
+            {/* Filter buttons */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {[
+                { id: "all",        label: "All" },
+                { id: "rsvped",     label: "RSVP'd" },
+                { id: "not_rsvped", label: "Not Yet RSVP'd" },
+                { id: "rehearsal",  label: "Rehearsal Tier" },
+                { id: "standard",   label: "Standard Tier" },
+              ].map((f) => (
+                <button
+                  key={f.id}
+                  onClick={() => setGuestFilter(f.id as typeof guestFilter)}
+                  className="kicker px-4 py-2 transition-colors"
+                  style={{
+                    border: "1px solid hsl(var(--border))",
+                    background: guestFilter === f.id ? "hsl(var(--burg))" : "transparent",
+                    color: guestFilter === f.id ? "hsl(var(--cream))" : "hsl(var(--stone))",
+                  }}
+                >
+                  {f.label}
+                </button>
+              ))}
             </div>
 
             {showAddGuest && (
@@ -305,10 +387,10 @@ export default function Admin() {
                   </tr>
                 </thead>
                 <tbody>
-                  {guests.length === 0 && (
+                  {filteredGuests.length === 0 && (
                     <tr><td colSpan={7} className="text-center py-10 font-body italic text-stone">No guests yet — add your first guest above.</td></tr>
                   )}
-                  {guests.map((g) => (
+                  {filteredGuests.map((g) => (
                     <tr key={g.id} style={{ borderBottom: "1px solid hsl(var(--border))" }}>
                       <td className="font-body text-sm px-4 py-3 text-ink">{g.full_name}</td>
                       <td className="font-body text-xs px-4 py-3 text-stone">{g.email || "—"}</td>
@@ -361,9 +443,17 @@ export default function Admin() {
 
         {tab === "reservations" && (
           <div>
-            <p className="font-display italic text-burg text-2xl mb-6" style={{ fontWeight: 300 }}>
-              Reservations ({reservations.length})
-            </p>
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+              <p className="font-display italic text-burg text-2xl" style={{ fontWeight: 300 }}>
+                Reservations ({reservations.length})
+              </p>
+              <div className="text-right">
+                <p className="kicker mb-1">Total Collected</p>
+                <p className="font-display italic text-burg" style={{ fontSize: "1.6rem", fontWeight: 300 }}>
+                  ${totalCollected.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </p>
+              </div>
+            </div>
             <div className="space-y-3">
               {reservations.length === 0 && (
                 <p className="font-body italic text-stone text-center py-10">No reservations submitted yet.</p>
@@ -386,6 +476,105 @@ export default function Admin() {
                   <p className="font-body text-xs text-stone mt-1">
                     Submitted {new Date(r.submitted_at).toLocaleDateString()}
                   </p>
+
+                  {/* Payment summary */}
+                  {(r.amount_paid || r.payment_date || r.payment_note) && editingPayment !== r.id && (
+                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      <div className="grid sm:grid-cols-3 gap-2 text-xs font-body">
+                        {r.amount_paid != null && (
+                          <div>
+                            <span className="kicker block mb-1">Amount Paid</span>
+                            <span className="text-ink">${Number(r.amount_paid).toFixed(2)}</span>
+                          </div>
+                        )}
+                        {r.payment_date && (
+                          <div>
+                            <span className="kicker block mb-1">Date</span>
+                            <span className="text-ink">{new Date(r.payment_date).toLocaleDateString()}</span>
+                          </div>
+                        )}
+                        {r.payment_method && (
+                          <div>
+                            <span className="kicker block mb-1">Method</span>
+                            <span className="text-ink">{r.payment_method}</span>
+                          </div>
+                        )}
+                      </div>
+                      {r.payment_note && (
+                        <p className="font-body text-xs italic text-stone mt-2">{r.payment_note}</p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Edit payment form */}
+                  {editingPayment === r.id ? (
+                    <div className="mt-4 p-4" style={{ background: "hsl(var(--parchment))", border: "1px solid hsl(var(--border))" }}>
+                      <p className="kicker mb-3">Update Payment</p>
+                      <div className="grid sm:grid-cols-2 gap-3 mb-3">
+                        <select
+                          className={inputClass}
+                          value={paymentDraft.payment_status}
+                          onChange={(e) => setPaymentDraft({ ...paymentDraft, payment_status: e.target.value })}
+                        >
+                          <option value="unpaid">Unpaid</option>
+                          <option value="deposit_paid">Deposit Paid</option>
+                          <option value="fully_paid">Fully Paid</option>
+                        </select>
+                        <input
+                          className={inputClass}
+                          type="number"
+                          step="0.01"
+                          placeholder="Amount paid (USD)"
+                          value={paymentDraft.amount_paid}
+                          onChange={(e) => setPaymentDraft({ ...paymentDraft, amount_paid: e.target.value })}
+                        />
+                        <input
+                          className={inputClass}
+                          type="date"
+                          value={paymentDraft.payment_date}
+                          onChange={(e) => setPaymentDraft({ ...paymentDraft, payment_date: e.target.value })}
+                        />
+                        <input
+                          className={inputClass}
+                          type="text"
+                          placeholder="Method (Venmo, Zelle, Check…)"
+                          value={paymentDraft.payment_method}
+                          onChange={(e) => setPaymentDraft({ ...paymentDraft, payment_method: e.target.value })}
+                        />
+                      </div>
+                      <textarea
+                        className={inputClass}
+                        rows={2}
+                        placeholder="Note (e.g. 'Venmo @mckenna-myers, $500 deposit')"
+                        value={paymentDraft.payment_note}
+                        onChange={(e) => setPaymentDraft({ ...paymentDraft, payment_note: e.target.value })}
+                      />
+                      <div className="flex gap-2 mt-3">
+                        <button
+                          onClick={() => savePayment(r.id)}
+                          className="kicker px-4 py-2"
+                          style={{ background: "hsl(var(--moss))", color: "hsl(var(--cream))" }}
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => setEditingPayment(null)}
+                          className="kicker px-4 py-2"
+                          style={{ border: "1px solid hsl(var(--border))", color: "hsl(var(--stone))" }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => startPaymentEdit(r)}
+                      className="kicker mt-3 px-3 py-1.5"
+                      style={{ border: "1px solid hsl(var(--burg))", color: "hsl(var(--burg))" }}
+                    >
+                      {r.amount_paid || r.payment_date ? "Edit Payment" : "+ Log Payment"}
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
