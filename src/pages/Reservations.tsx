@@ -145,22 +145,41 @@ export default function Reservations() {
               className="font-body text-sm italic text-ink-mid leading-relaxed mb-5"
               defaultContent="Please send your deposit (or full payment) via Venmo. Include your name and 'Lucca Wedding' in the note so we can match your payment to your reservation."
             />
-            <EditableText
-              id="res-thankyou-venmo-handle"
-              tag="p"
-              className="font-display italic text-burg mb-5"
-              style={{ fontSize: "1.4rem", fontWeight: 300 }}
-              defaultContent="@your-venmo-handle"
-            />
-            <a
-              href="https://venmo.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="kicker inline-block px-6 py-3 transition-colors"
-              style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
-            >
-              Open Venmo →
-            </a>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-4">
+              <div
+                className="shrink-0 p-3"
+                style={{ background: "hsl(var(--cream))", border: "1px solid hsl(var(--gold) / 0.4)" }}
+              >
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwww.venmo.com%2Fu%2Fbecomingbradley"
+                  alt="Venmo QR code for @becomingbradley"
+                  width={180}
+                  height={180}
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-1">
+                <EditableText
+                  id="res-thankyou-venmo-handle"
+                  tag="p"
+                  className="font-display italic text-burg mb-4"
+                  style={{ fontSize: "1.4rem", fontWeight: 300 }}
+                  defaultContent="@becomingbradley"
+                />
+                <a
+                  href="https://www.venmo.com/u/becomingbradley"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="kicker inline-block px-6 py-3 transition-colors"
+                  style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
+                >
+                  Pay with Venmo →
+                </a>
+                <p className="font-body text-xs italic text-stone mt-3 leading-relaxed">
+                  Scan the QR with your phone camera, or tap the button on mobile to open the Venmo app.
+                </p>
+              </div>
+            </div>
             <EditableText
               id="res-thankyou-pay-note"
               tag="p"
