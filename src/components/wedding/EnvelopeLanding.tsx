@@ -166,7 +166,7 @@ export default function EnvelopeLanding() {
                 id="invite-date-line1"
                 tag="p"
                 className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5 }}
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, textTransform: "none" }}
                 defaultContent="Saturday, the twenty-second of May"
               />
               <EditableText
