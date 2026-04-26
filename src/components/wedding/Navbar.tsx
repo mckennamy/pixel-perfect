@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const baseNavItems = [
   { href: "/our-story",        label: "Our Story",         it: "La Nostra Storia" },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [showRehearsal, setShowRehearsal] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -33,11 +35,35 @@ export default function Navbar() {
     }
   }, [open, pathname]);
 
+  // Show "Admin" link only when signed in as the wedding organizer
+  useEffect(() => {
+    const checkAdmin = async (userId: string) => {
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+      setIsAdmin(!!data);
+    };
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session?.user) checkAdmin(session.user.id);
+      else setIsAdmin(false);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
   if (pathname === "/") return null;
 
-  const navItems = showRehearsal
+  const adminItem = { href: "/admin", label: "Admin", it: "Pannello Privato" };
+  let navItems = showRehearsal
     ? [...baseNavItems.slice(0, 6), rehearsalItem, baseNavItems[6]]
     : baseNavItems;
+  if (isAdmin) navItems = [...navItems, adminItem];
 
   const close = () => setOpen(false);
 
