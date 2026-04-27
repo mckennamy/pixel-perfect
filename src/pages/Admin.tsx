@@ -48,6 +48,7 @@ export default function Admin() {
     "all" | "rsvped" | "not_rsvped" | "rehearsal" | "standard"
   >("all");
   const [editingPayment, setEditingPayment] = useState<string | null>(null);
+  const [reservationFilter, setReservationFilter] = useState<"all" | "balance_due" | "fully_paid">("all");
   const [paymentDraft, setPaymentDraft] = useState<{
     payment_status: string;
     amount_paid: string;
