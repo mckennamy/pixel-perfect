@@ -7,63 +7,83 @@
 @layer base {
   :root {
     /* ── Core palette ── */
-    --burg:       350 72% 15%;   /* deep near-black burgundy */
-    --burg-mid:   350 52% 28%;
-    --burg-light: 350 38% 55%;
-    --burg-pale:  350 30% 95%;
+    /* Deep burgundy (primary) */
+    --burg:       348 65% 18%;   /* deep wine burgundy */
+    --burg-mid:   348 48% 30%;
+    --burg-light: 348 34% 55%;
+    --burg-pale:  348 28% 94%;
 
-    --moss:       138 24% 13%;   /* deep near-black moss */
-    --moss-mid:   138 18% 24%;
-    --moss-light: 138 14% 40%;
+    /* Plum (re-using "moss" token name for the dark accent slot) */
+    --plum:       300 32% 22%;   /* rich plum */
+    --plum-mid:   300 26% 34%;
+    --plum-light: 300 20% 52%;
 
-    --chart:      68 55% 33%;    /* muted sophisticated chartreuse */
-    --chart-mid:  68 48% 48%;
-    --chart-pale: 68 40% 93%;
+    /* Moss green (deep near-black moss) */
+    --moss:       135 28% 14%;
+    --moss-mid:   135 22% 26%;
+    --moss-light: 135 16% 42%;
 
-    --gold:       36 32% 60%;
-    --gold-light: 36 38% 72%;
-    --gold-pale:  36 45% 94%;
+    /* Olive green */
+    --olive:      75 28% 28%;
+    --olive-mid:  75 24% 40%;
+    --olive-light:75 20% 58%;
 
-    --stone:      25 8% 46%;
-    --stone-light:25 6% 68%;
+    /* Chartreuse green (sophisticated, muted) */
+    --chart:      68 55% 36%;
+    --chart-mid:  68 50% 50%;
+    --chart-pale: 68 42% 93%;
+
+    /* Silver (replaces gold accent token) */
+    --gold:       220 8% 68%;    /* silver */
+    --gold-light: 220 6% 82%;
+    --gold-pale:  220 10% 94%;
+
+    --silver:       220 8% 68%;
+    --silver-light: 220 6% 82%;
+    --silver-pale:  220 10% 94%;
+
+    --stone:      30 6% 46%;
+    --stone-light:30 5% 70%;
 
     --ink:        10 5% 11%;
     --ink-mid:    10 5% 30%;
 
-    --cream:      42 35% 97%;
-    --parchment:  38 28% 93%;
+    /* Ivory vintage cream — warmer, slightly aged */
+    --cream:      40 42% 94%;
+    --parchment:  38 32% 89%;
+    --ivory:      40 45% 95%;
     --white:      0 0% 100%;
 
     /* ── Semantic ── */
-    --background:          42 35% 97%;
+    --background:          40 42% 94%;
     --foreground:          10 5% 11%;
-    --card:                0 0% 100%;
+    --card:                40 45% 96%;
     --card-foreground:     10 5% 11%;
-    --popover:             0 0% 100%;
+    --popover:             40 45% 96%;
     --popover-foreground:  10 5% 11%;
-    --primary:             350 72% 15%;
-    --primary-foreground:  42 35% 97%;
-    --secondary:           42 28% 93%;
+    --primary:             348 65% 18%;
+    --primary-foreground:  40 45% 95%;
+    --secondary:           40 32% 90%;
     --secondary-foreground:10 5% 11%;
-    --muted:               25 8% 90%;
-    --muted-foreground:    25 8% 46%;
-    --accent:              68 55% 33%;
+    --muted:               40 18% 88%;
+    --muted-foreground:    30 6% 46%;
+    --accent:              68 55% 36%;
     --accent-foreground:   10 5% 11%;
     --destructive:         0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border:              25 8% 88%;
-    --input:               25 8% 88%;
-    --ring:                350 72% 15%;
+    --border:              40 18% 84%;
+    --input:               40 18% 84%;
+    --ring:                348 65% 18%;
     --radius:              0rem;
 
-    --sidebar-background:  138 24% 13%;
-    --sidebar-foreground:  42 35% 90%;
-    --sidebar-primary:     350 72% 15%;
-    --sidebar-primary-foreground: 42 35% 97%;
-    --sidebar-accent:      138 18% 20%;
-    --sidebar-accent-foreground: 42 35% 90%;
-    --sidebar-border:      138 14% 20%;
-    --sidebar-ring:        68 55% 33%;
+    --sidebar-background:  135 28% 14%;
+    --sidebar-foreground:  40 35% 90%;
+    --sidebar-primary:     348 65% 18%;
+    --sidebar-primary-foreground: 40 45% 95%;
+    --sidebar-accent:      135 22% 22%;
+    --sidebar-accent-foreground: 40 35% 90%;
+    --sidebar-border:      135 16% 22%;
+    --sidebar-ring:        68 55% 36%;
   }
 }
 
