@@ -32,10 +32,20 @@ export default {
           light:  "hsl(var(--burg-light))",
           pale:   "hsl(var(--burg-pale))",
         },
+        plum: {
+          DEFAULT: "hsl(var(--plum))",
+          mid:    "hsl(var(--plum-mid))",
+          light:  "hsl(var(--plum-light))",
+        },
         moss: {
           DEFAULT: "hsl(var(--moss))",
           mid:    "hsl(var(--moss-mid))",
           light:  "hsl(var(--moss-light))",
+        },
+        olive: {
+          DEFAULT: "hsl(var(--olive))",
+          mid:    "hsl(var(--olive-mid))",
+          light:  "hsl(var(--olive-light))",
         },
         chart: {
           DEFAULT: "hsl(var(--chart))",
@@ -47,6 +57,11 @@ export default {
           light:  "hsl(var(--gold-light))",
           pale:   "hsl(var(--gold-pale))",
         },
+        silver: {
+          DEFAULT: "hsl(var(--silver))",
+          light:  "hsl(var(--silver-light))",
+          pale:   "hsl(var(--silver-pale))",
+        },
         stone: {
           DEFAULT: "hsl(var(--stone))",
           light:  "hsl(var(--stone-light))",
@@ -57,6 +72,7 @@ export default {
         },
         cream:     "hsl(var(--cream))",
         parchment: "hsl(var(--parchment))",
+        ivory:     "hsl(var(--ivory))",
         sidebar: {
           DEFAULT:              "hsl(var(--sidebar-background))",
           foreground:           "hsl(var(--sidebar-foreground))",
