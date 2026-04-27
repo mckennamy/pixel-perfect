@@ -347,7 +347,7 @@ export default function Reservations() {
           <div className="space-y-3 mb-6">
             {[
               { value: "on_site_villa_grabau", label: "On-Site — Villa Grabau", sub: "Stay at the wedding venue itself" },
-              { value: "on_site_la_rancera",   label: "On-Site — La Rancera",   sub: "Charming Tuscan farmhouse adjacent to the bridal party" },
+              { value: "on_site_la_rancera",   label: "On-Site — L'Arancera",   sub: "Reserved exclusively for the bridal party, groom's party, and their designated plus ones" },
               { value: "off_site",             label: "Off-Site",               sub: "I will arrange my own accommodation" },
             ].map((opt) => (
               <label
@@ -372,6 +372,10 @@ export default function Reservations() {
           {errors.accommodationPreference && (
             <p className={errorClass}>{errors.accommodationPreference.message}</p>
           )}
+
+          <p className="font-body text-xs italic text-[hsl(var(--stone))] mt-3">
+            Note: L'Arancera is reserved exclusively for the bridal party, groom's party, and their designated plus ones. All other guests, please select Villa Grabau or Off-Site.
+          </p>
 
           {(accommodationPref === "on_site_villa_grabau" || accommodationPref === "on_site_la_rancera") && (
             <div className="mt-6 p-5" style={{ border: "1px solid hsl(var(--border))" }}>
