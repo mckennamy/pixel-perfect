@@ -11,12 +11,6 @@ const weddingColors = [
   { name: "Silver",         hex: "#C0C4CA", textColor: "rgba(20,20,25,0.7)",     note: "Ornamental details throughout"     },
 ];
 
-const flowers = [
-  { name: "Anthuriums",   note: "Bold, sculptural blooms in deep burgundy and oxblood" },
-  { name: "Calla Lilies", note: "Elegant and architectural in ivory and cream" },
-  { name: "Moss",         note: "Lush texture throughout every arrangement and tablescape" },
-];
-
 const weddingTimeline = [
   { time: "4:00 PM",  event: "Guests Arrive",            location: "Villa Grabau Gardens" },
   { time: "4:30 PM",  event: "Cocktail Hour Begins",      location: "Garden Terrace"       },
