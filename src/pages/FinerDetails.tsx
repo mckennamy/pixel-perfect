@@ -3,13 +3,12 @@ import EditableText from "@/components/wedding/EditableText";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 
 const weddingColors = [
-  { name: "Plum",           hex: "#4A2A4A", textColor: "rgba(245,240,232,0.85)", note: "Romantic and velvety"              },
-  { name: "Deep Burgundy",  hex: "#4A1520", textColor: "rgba(245,240,232,0.85)", note: "Primary — our richest tone"        },
-  { name: "Olive Green",    hex: "#5C5C28", textColor: "rgba(245,240,232,0.85)", note: "Earthy and timeless"               },
-  { name: "Moss Green",     hex: "#1F2E22", textColor: "rgba(245,240,232,0.85)", note: "Deep and verdant"                  },
-  { name: "Chartreuse",     hex: "#8FA226", textColor: "rgba(10,14,10,0.7)",     note: "Sparingly as an accent"            },
-  { name: "Ivory Cream",    hex: "#F2EAD6", textColor: "rgba(60,40,30,0.6)",     note: "Vintage linens and stationery"     },
-  { name: "Silver",         hex: "#B8BCC2", textColor: "rgba(20,20,25,0.65)",    note: "Ornamental details throughout"     },
+  { name: "Burgundy",       hex: "#6B1A2B", textColor: "rgba(245,240,232,0.9)",  note: "Primary — our richest tone"        },
+  { name: "Olive Green",    hex: "#6B7A2E", textColor: "rgba(245,240,232,0.9)",  note: "Earthy and timeless"               },
+  { name: "Moss Green",     hex: "#3A4A2A", textColor: "rgba(245,240,232,0.9)",  note: "Deep and verdant"                  },
+  { name: "Chartreuse",     hex: "#B5C73D", textColor: "rgba(10,14,10,0.75)",    note: "Sparingly as an accent"            },
+  { name: "Ivory Cream",    hex: "#F2EAD6", textColor: "rgba(60,40,30,0.65)",    note: "Vintage linens and stationery"     },
+  { name: "Silver",         hex: "#C0C4CA", textColor: "rgba(20,20,25,0.7)",     note: "Ornamental details throughout"     },
 ];
 
 const flowers = [
