@@ -59,54 +59,7 @@ export default function FinerDetails() {
         <PhotoPlaceholder id="finer-details-hero" aspect="wide" caption="Villa Grabau" />
       </div>
 
-      {/* Dress Code */}
-      <section className="max-w-3xl mx-auto px-6 md:px-10 mb-24">
-        <div className="reveal mb-10">
-          <EditableText id="finer-dresscode-kicker" tag="p" className="kicker mb-4" defaultContent="What to Wear" />
-          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            <EditableText id="finer-dresscode-h2" tag="span" defaultContent="Dress Code" />
-          </h2>
-        </div>
-
-        <div className="space-y-6 reveal">
-          <div className="rule-full" />
-          <div className="grid md:grid-cols-3 gap-1">
-            <EditableText id="finer-occasion-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="The Occasion" />
-            <div className="md:col-span-2">
-              <EditableText id="finer-occasion-heading" tag="p" className="font-display italic text-burg text-2xl mb-2" defaultContent="Garden Party Formal" />
-              <EditableText
-                id="dress-occasion-body"
-                tag="p"
-                className="font-body text-sm text-ink-mid leading-relaxed"
-                defaultContent="Elevated and romantic. We are celebrating in one of the most beautiful places on earth — dress as though the setting deserves it."
-              />
-            </div>
-          </div>
-          <div className="rule-full" />
-          <div className="grid md:grid-cols-3 gap-1">
-            <EditableText id="finer-her-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Her" />
-            <EditableText
-              id="dress-her"
-              tag="p"
-              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
-              defaultContent="Floor-length gowns, elegant midi dresses, or dressy jumpsuits. Rich jewel tones, earth tones, and neutrals are all beautiful. Please avoid white and ivory, which are reserved for the bride."
-            />
-          </div>
-          <div className="rule-full" />
-          <div className="grid md:grid-cols-3 gap-1">
-            <EditableText id="finer-him-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Him" />
-            <EditableText
-              id="dress-him"
-              tag="p"
-              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
-              defaultContent="Suits or sport coats with dress trousers. A tie is encouraged but not required. Given the warm Italian May evenings, linen is entirely welcome."
-            />
-          </div>
-          <div className="rule-full" />
-        </div>
-      </section>
-
-      {/* ── Colour palette — elevated swatch card ── */}
+      {/* ── Colour palette — moved up, right under hero ── */}
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-3xl mx-auto">
           <div className="reveal mb-14">
@@ -117,7 +70,6 @@ export default function FinerDetails() {
             <EditableText id="finer-palette-encourage" tag="p" className="font-body text-sm italic text-stone mt-2" defaultContent="We'd love to see you incorporate these into your look." />
           </div>
 
-          {/* Swatch strips — flush, tall, designer-card aesthetic */}
           <div className="reveal overflow-hidden" style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.12), 0 1px 0 rgba(0,0,0,0.06)" }}>
             <div style={{ display: "flex", height: "clamp(220px, 30vw, 320px)" }}>
               {weddingColors.map((c, i) => (
@@ -135,7 +87,6 @@ export default function FinerDetails() {
                     borderRight: i < weddingColors.length - 1 ? "1px solid rgba(0,0,0,0.08)" : "none",
                   }}
                 >
-                  {/* subtle inner vignette on each swatch */}
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.18) 100%)", pointerEvents: "none" }} />
                   <div style={{ position: "relative", zIndex: 1 }}>
                     <EditableText
@@ -187,28 +138,64 @@ export default function FinerDetails() {
         </div>
       </section>
 
-      {/* Florals */}
+      {/* Dress Code Inspiration — photo */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-10">
-          <EditableText id="finer-florals-kicker" tag="p" className="kicker mb-4" defaultContent="Our Flowers" />
+          <EditableText id="finer-inspo-kicker" tag="p" className="kicker mb-4" defaultContent="A Visual Guide" />
           <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-            <EditableText id="finer-florals-h2" tag="span" defaultContent="Floral Design" />
+            <EditableText id="finer-inspo-h2" tag="span" defaultContent="Dress Code Inspiration" />
+          </h2>
+          <EditableText id="finer-inspo-sub" tag="p" className="font-body text-sm italic text-stone mt-2" defaultContent="A little inspiration for your garden party formal look." />
+        </div>
+        <div className="reveal">
+          <PhotoPlaceholder id="finer-details-dress-inspo" aspect="wide" caption="Dress code inspiration" />
+        </div>
+      </section>
+
+      {/* Dress Code */}
+      <section className="max-w-3xl mx-auto px-6 md:px-10 mb-24">
+        <div className="reveal mb-10">
+          <EditableText id="finer-dresscode-kicker" tag="p" className="kicker mb-4" defaultContent="What to Wear" />
+          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+            <EditableText id="finer-dresscode-h2" tag="span" defaultContent="Dress Code" />
           </h2>
         </div>
+
         <div className="space-y-6 reveal">
-          {flowers.map((f, i) => (
-            <div key={i}>
-              <div className="rule-full mb-4" />
-              <div className="grid md:grid-cols-3 gap-1">
-                <EditableText id={`finer-flower-${i}-name`} tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent={f.name} />
-                <EditableText id={`finer-flower-${i}-note`} tag="p" className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2" defaultContent={f.note} />
-              </div>
-            </div>
-          ))}
           <div className="rule-full" />
-        </div>
-        <div className="mt-12 reveal">
-          <PhotoPlaceholder id="finer-details-florals" aspect="video" caption="Floral design inspiration" />
+          <div className="grid md:grid-cols-3 gap-1">
+            <EditableText id="finer-occasion-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="The Occasion" />
+            <div className="md:col-span-2">
+              <EditableText id="finer-occasion-heading" tag="p" className="font-display italic text-burg text-2xl mb-2" defaultContent="Garden Party Formal" />
+              <EditableText
+                id="dress-occasion-body"
+                tag="p"
+                className="font-body text-sm text-ink-mid leading-relaxed"
+                defaultContent="Elevated and romantic. We are celebrating in one of the most beautiful places on earth — dress as though the setting deserves it."
+              />
+            </div>
+          </div>
+          <div className="rule-full" />
+          <div className="grid md:grid-cols-3 gap-1">
+            <EditableText id="finer-her-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Her" />
+            <EditableText
+              id="dress-her"
+              tag="p"
+              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
+              defaultContent="Floor-length gowns, elegant midi dresses, or dressy jumpsuits. Rich jewel tones, earth tones, and neutrals are all beautiful. Please avoid white and ivory, which are reserved for the bride."
+            />
+          </div>
+          <div className="rule-full" />
+          <div className="grid md:grid-cols-3 gap-1">
+            <EditableText id="finer-him-kicker" tag="p" className="kicker text-stone pb-2 md:pb-0" defaultContent="For Him" />
+            <EditableText
+              id="dress-him"
+              tag="p"
+              className="font-body text-sm text-ink-mid leading-relaxed md:col-span-2"
+              defaultContent="Suits or sport coats with dress trousers. A tie is encouraged but not required. Given the warm Italian May evenings, linen is entirely welcome."
+            />
+          </div>
+          <div className="rule-full" />
         </div>
       </section>
 
