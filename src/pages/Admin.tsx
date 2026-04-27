@@ -465,7 +465,7 @@ export default function Admin() {
           <div>
             <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
               <p className="font-display italic text-burg text-2xl" style={{ fontWeight: 300 }}>
-                Reservations ({reservations.length})
+                Reservations ({filteredReservations.length} of {reservations.length})
               </p>
               <div className="text-right">
                 <p className="kicker mb-1">Total Collected</p>
@@ -474,21 +474,85 @@ export default function Admin() {
                 </p>
               </div>
             </div>
+
+            {/* Balance-due summary */}
+            <div
+              className="p-5 mb-6"
+              style={{
+                background: balanceDueReservations.length > 0 ? "hsl(var(--gold-pale))" : "hsl(var(--parchment))",
+                borderLeft: `2px solid ${balanceDueReservations.length > 0 ? "hsl(var(--burg))" : "hsl(var(--moss))"}`,
+              }}
+            >
+              <div className="flex flex-wrap justify-between items-center gap-3">
+                <div>
+                  <p className="kicker mb-1">Final Balances Due</p>
+                  <p className="font-body text-sm text-ink-mid">
+                    {balanceDueReservations.length === 0 ? (
+                      <span className="italic">All deposit-plan reservations are paid in full. 🎉</span>
+                    ) : (
+                      <>
+                        <span className="font-display italic text-burg" style={{ fontSize: "1.4rem", fontWeight: 300 }}>
+                          {balanceDueReservations.length}
+                        </span>{" "}
+                        reservation{balanceDueReservations.length !== 1 ? "s" : ""} on the 50% deposit plan still owe their final balance.
+                      </>
+                    )}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="kicker mb-1">Final Payment Due</p>
+                  <p className="font-body text-sm text-ink">Feb 21, 2027</p>
+                  <p className="font-body text-xs italic text-stone">
+                    {daysUntilDue > 0 ? `${daysUntilDue} days away` : daysUntilDue === 0 ? "Due today" : `${Math.abs(daysUntilDue)} days overdue`}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter buttons */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {[
+                { id: "all",          label: "All Reservations" },
+                { id: "balance_due",  label: `Balance Due (${balanceDueReservations.length})` },
+                { id: "fully_paid",   label: "Fully Paid" },
+              ].map((f) => (
+                <button
+                  key={f.id}
+                  onClick={() => setReservationFilter(f.id as typeof reservationFilter)}
+                  className="kicker px-4 py-2 transition-colors"
+                  style={{
+                    border: "1px solid hsl(var(--border))",
+                    background: reservationFilter === f.id ? "hsl(var(--burg))" : "transparent",
+                    color: reservationFilter === f.id ? "hsl(var(--cream))" : "hsl(var(--stone))",
+                  }}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
             <div className="space-y-3">
-              {reservations.length === 0 && (
+              {filteredReservations.length === 0 && (
                 <p className="font-body italic text-stone text-center py-10">No reservations submitted yet.</p>
               )}
-              {reservations.map((r) => (
+              {filteredReservations.map((r) => (
                 <div key={r.id} className="p-5" style={{ background: "hsl(var(--cream))", border: "1px solid hsl(var(--border))" }}>
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <p className="font-display italic text-burg text-xl" style={{ fontWeight: 300 }}>{r.primary_name}</p>
                       <p className="font-body text-xs text-stone">{r.email} · {r.phone}</p>
                     </div>
-                    <span className="kicker px-2 py-1" style={{
-                      background: r.payment_status === "fully_paid" ? "#16a34a" : r.payment_status === "deposit_paid" ? "hsl(var(--chart-mid))" : "#dc2626",
-                      color: "white", fontSize: "0.5rem",
-                    }}>{r.payment_status.replace(/_/g, " ")}</span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="kicker px-2 py-1" style={{
+                        background: r.payment_status === "fully_paid" ? "#16a34a" : r.payment_status === "deposit_paid" ? "hsl(var(--chart-mid))" : "#dc2626",
+                        color: "white", fontSize: "0.5rem",
+                      }}>{r.payment_status.replace(/_/g, " ")}</span>
+                      {r.payment_option === "deposit_50" && r.payment_status !== "fully_paid" && (
+                        <span className="kicker px-2 py-1" style={{
+                          background: "hsl(var(--burg))", color: "hsl(var(--cream))", fontSize: "0.5rem",
+                        }}>Balance Due</span>
+                      )}
+                    </div>
                   </div>
                   <p className="font-body text-sm text-ink-mid">
                     {r.guests.length} guest{r.guests.length !== 1 ? "s" : ""} · {r.accommodation_preference.replace(/_/g, " ")} · {r.payment_option.replace(/_/g, " ")}
