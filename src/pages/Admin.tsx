@@ -268,6 +268,25 @@ export default function Admin() {
     .filter((r) => r.amount_paid)
     .reduce((sum, r) => sum + Number(r.amount_paid), 0);
 
+  // Final-balance deadline: 90 days before May 22, 2027 = Feb 21, 2027
+  const FINAL_DUE_DATE = new Date("2027-02-21T00:00:00");
+  const daysUntilDue = Math.ceil((FINAL_DUE_DATE.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+  // Reservations on the 50% deposit plan that haven't been marked fully paid
+  const balanceDueReservations = reservations.filter(
+    (r) => r.payment_option === "deposit_50" && r.payment_status !== "fully_paid",
+  );
+
+  const filteredReservations = reservations.filter((r) => {
+    if (reservationFilter === "balance_due") {
+      return r.payment_option === "deposit_50" && r.payment_status !== "fully_paid";
+    }
+    if (reservationFilter === "fully_paid") {
+      return r.payment_status === "fully_paid";
+    }
+    return true;
+  });
+
   return (
     <div className="page-wrapper px-6 py-10">
       <div className="max-w-7xl mx-auto">
