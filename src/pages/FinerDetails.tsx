@@ -147,8 +147,13 @@ export default function FinerDetails() {
           </h2>
           <EditableText id="finer-inspo-sub" tag="p" className="font-body text-sm italic text-stone mt-2" defaultContent="A little inspiration for your garden party formal look." />
         </div>
-        <div className="reveal">
-          <PhotoPlaceholder id="finer-details-dress-inspo" aspect="wide" caption="Dress code inspiration" />
+        <div className="reveal grid md:grid-cols-2 gap-6">
+          <div>
+            <PhotoPlaceholder id="finer-details-dress-inspo-her" aspect="portrait" caption="For Her" />
+          </div>
+          <div>
+            <PhotoPlaceholder id="finer-details-dress-inspo-him" aspect="portrait" caption="For Him" />
+          </div>
         </div>
       </section>
 
