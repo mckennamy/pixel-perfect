@@ -280,7 +280,7 @@ export default function Reservations() {
                     )}
                   </div>
                   <div>
-                    <p className="kicker mb-2">Dietary Restrictions</p>
+                    <p className="kicker mb-2">Dietary Restrictions / Allergies</p>
                     <div className={inputWrap}>
                       <input {...register(`guests.${i}.dietaryRestrictions`)} placeholder="Vegetarian, gluten-free, nut allergy…" className={inputClass} />
                     </div>
