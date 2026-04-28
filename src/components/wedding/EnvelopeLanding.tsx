@@ -100,21 +100,25 @@ export default function EnvelopeLanding() {
             }}
           >
             {/* Wax seal monogram floating above the card */}
-            <img
-              src={waxSealB}
-              alt="Wax seal monogram B"
-              width={84}
-              height={84}
-              loading="lazy"
-              className="seal-pulse absolute left-1/2 -translate-x-1/2 z-10"
-              style={{
-                top: "-42px",
-                width: 84,
-                height: 84,
-                filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.35))",
-                pointerEvents: "none",
-              }}
-            />
+            <div
+              className="absolute left-1/2 -translate-x-1/2 z-10"
+              style={{ top: "-42px", width: 84, height: 84, pointerEvents: "none" }}
+            >
+              <img
+                src={waxSealB}
+                alt="Wax seal monogram B"
+                width={84}
+                height={84}
+                loading="lazy"
+                className="seal-pulse block"
+                style={{
+                  width: 84,
+                  height: 84,
+                  marginLeft: -2,
+                  filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.35))",
+                }}
+              />
+            </div>
 
             <div
               className="relative overflow-hidden"
@@ -592,7 +596,7 @@ export default function EnvelopeLanding() {
                   position: "absolute",
                   left: "50%",
                   bottom: "-44px",
-                  transform: "translateX(-50%)",
+                  transform: "translateX(calc(-50% - 2px))",
                   width: 88,
                   height: 88,
                   filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.4))",
