@@ -36,7 +36,8 @@ Deno.serve(async (req) => {
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemContext },
-          ...messages,
+          // Cap history to the last 10 turns to keep per-request cost flat
+          ...messages.slice(-10),
         ],
         stream: true,
       }),
