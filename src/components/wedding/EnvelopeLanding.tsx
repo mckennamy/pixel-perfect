@@ -123,8 +123,12 @@ export default function EnvelopeLanding() {
                   color: "hsl(var(--gold-light))",
                   lineHeight: 1,
                   textShadow: "0 1px 4px rgba(0,0,0,0.4)",
-                  display: "block",
-                  transform: "translate(1px, 2px)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  height: "100%",
+                  textAlign: "center",
                 }}
               >
                 B
