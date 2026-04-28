@@ -55,6 +55,42 @@ export type Database = {
           },
         ]
       }
+      guest_questions: {
+        Row: {
+          admin_notes: string | null
+          answered: boolean
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          answered?: boolean
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          answered?: boolean
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       guests: {
         Row: {
           created_at: string
