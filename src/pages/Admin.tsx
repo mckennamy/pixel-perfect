@@ -33,6 +33,17 @@ interface Reservation {
   payment_note: string | null;
 }
 
+interface GuestQuestion {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  question: string;
+  answered: boolean;
+  admin_notes: string | null;
+  created_at: string;
+}
+
 const inputClass =
   "w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-2.5 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
 
@@ -40,9 +51,11 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"guests" | "reservations">("guests");
+  const [tab, setTab] = useState<"guests" | "reservations" | "questions">("guests");
   const [guests, setGuests] = useState<Guest[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [questions, setQuestions] = useState<GuestQuestion[]>([]);
+  const [questionFilter, setQuestionFilter] = useState<"all" | "open" | "answered">("open");
   const [showAddGuest, setShowAddGuest] = useState(false);
   const [guestFilter, setGuestFilter] = useState<
     "all" | "rsvped" | "not_rsvped" | "rehearsal" | "standard"
@@ -92,12 +105,14 @@ export default function Admin() {
   };
 
   const loadAll = async () => {
-    const [g, r] = await Promise.all([
+    const [g, r, q] = await Promise.all([
       supabase.from("guests").select("*").order("full_name"),
       supabase.from("reservations").select("*").order("submitted_at", { ascending: false }),
+      supabase.from("guest_questions").select("*").order("created_at", { ascending: false }),
     ]);
     if (g.data) setGuests(g.data as Guest[]);
     if (r.data) setReservations(r.data as unknown as Reservation[]);
+    if (q.data) setQuestions(q.data as GuestQuestion[]);
   };
 
   const signIn = async () => {
@@ -188,6 +203,23 @@ export default function Admin() {
     if (error) { toast.error(error.message); return; }
     toast.success("Payment updated");
     setEditingPayment(null);
+    loadAll();
+  };
+
+  const toggleQuestionAnswered = async (q: GuestQuestion) => {
+    const { error } = await supabase
+      .from("guest_questions")
+      .update({ answered: !q.answered })
+      .eq("id", q.id);
+    if (error) { toast.error(error.message); return; }
+    loadAll();
+  };
+
+  const deleteQuestion = async (id: string) => {
+    if (!confirm("Delete this question?")) return;
+    const { error } = await supabase.from("guest_questions").delete().eq("id", id);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Question deleted");
     loadAll();
   };
 
