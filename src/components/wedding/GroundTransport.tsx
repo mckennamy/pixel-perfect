@@ -16,6 +16,7 @@ const transports = [
   { num: "I", name: "Private Taxi", meta: "30 minutes · Door to door", desc: <>The most effortless option after a transatlantic flight. <RecLink href="https://www.cotapi.it/">CoTaPi</RecLink> is the official airport taxi provider, available around the clock directly outside the Arrivals hall. Your driver will bring you to the city gate nearest your accommodation.</>, cost: "≈ €70" },
   { num: "II", name: "Pre-Booked Transfer", meta: "30 minutes · Fixed, no surprises", desc: <>For complete peace of mind, pre-book with <RecLink href="https://www.tautouring.com/">Tau Touring</RecLink> — a beloved local service with consistently glowing reviews from travellers — or <RecLink href="https://www.welcomepickups.com/pisa/airport-to-lucca/">Welcome Pickups</RecLink>. Your driver meets you in Arrivals by name. Fixed price, no meters, no guesswork.</>, cost: "≈ €70 – 75 fixed", featured: true },
   { num: "III", name: "Train via Pisa Centrale", meta: "45 – 50 minutes · Scenic", desc: <>A charming, budget-friendly option for light packers. Take the <RecLink href="https://www.pisa-mover.com/en/">Pisa Mover monorail</RecLink> from the airport to Pisa Centrale station (~5 min), then board a <RecLink href="https://www.trenitalia.com/en.html">Trenitalia</RecLink> regional train to Lucca, which runs every hour and takes just 27 minutes.</>, cost: "≈ €4 – 6" },
+  { num: "IV", name: "Rental Car", meta: "30 minutes · Freedom to roam", desc: <>Recommended if you plan to explore beyond Lucca — Cinque Terre, Chianti wine country, Siena, or coastal Tuscany. All major agencies operate at Pisa Airport: <RecLink href="https://www.hertz.com/">Hertz</RecLink>, <RecLink href="https://www.avis.com/">Avis</RecLink>, <RecLink href="https://www.europcar.com/">Europcar</RecLink>, and <RecLink href="https://www.sixt.com/">Sixt</RecLink>. Remember: cars cannot enter Lucca's walls — park outside and walk in.</>, cost: "≈ €40 – 80 / day" },
 ];
 
 const florenceOptions = [
@@ -48,7 +49,7 @@ const GroundTransport = () => {
         </div>
 
         {/* Transport cards */}
-        <div className="grid grid-cols-3 gap-6 mb-16 max-[780px]:grid-cols-1">
+        <div className="grid grid-cols-2 gap-6 mb-16 max-[780px]:grid-cols-1">
           {transports.map((t) => (
             <div key={t.num} className={`fade-up bg-cream border p-10 pt-10 pb-8 relative transition-all duration-300 hover:shadow-[0_12px_48px_rgba(28,20,16,0.08)] hover:-translate-y-[3px] ${t.featured ? 'border-gold' : 'border-parchment-d'}`}>
               {t.featured && (
