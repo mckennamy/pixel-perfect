@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { loadEdit, saveEdit, removeEdit } from "@/lib/siteEdits";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface EditableTextProps {
   id: string;
@@ -36,6 +37,7 @@ export default function EditableText({
   const ref = useRef<HTMLElement>(null);
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
+  const isAdmin = useIsAdmin();
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -120,7 +122,7 @@ export default function EditableText({
 
   const Tag = tag as any;
 
-  const toolbar = focused && createPortal(
+  const toolbar = isAdmin && focused && createPortal(
     <div
       style={{
         position: "fixed",
@@ -179,13 +181,14 @@ export default function EditableText({
       {toolbar}
       <Tag
         ref={ref}
-        contentEditable
+        contentEditable={isAdmin}
         suppressContentEditableWarning
         className={`editable-text ${className}`}
         style={style}
-        onFocus={() => { setFocused(true); reposition(); }}
-        onBlur={() => { setFocused(false); save(); }}
+        onFocus={() => { if (!isAdmin) return; setFocused(true); reposition(); }}
+        onBlur={() => { if (!isAdmin) return; setFocused(false); save(); }}
         onKeyDown={(e: any) => {
+          if (!isAdmin) { e.preventDefault(); return; }
           if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
             e.preventDefault();
             (e.currentTarget as HTMLElement).blur();
