@@ -338,6 +338,41 @@ export default function Reservations() {
             ))}
           </div>
           {errors.paymentOption && <p className={errorClass}>{errors.paymentOption.message}</p>}
+
+          {/* Venmo info */}
+          <div
+            className="mt-6 p-6 flex flex-col sm:flex-row items-center gap-6"
+            style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}
+          >
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fwww.venmo.com%2Fu%2Fbecomingbradley"
+              alt="Venmo QR code for @becomingbradley"
+              width={120}
+              height={120}
+              className="flex-shrink-0"
+              style={{ background: "white", padding: 6 }}
+            />
+            <div className="text-center sm:text-left">
+              <EditableText
+                id="res-payment-venmo-kicker"
+                defaultContent="Send Payment via Venmo"
+                tag="p"
+                className="kicker mb-2"
+              />
+              <a
+                href="https://www.venmo.com/u/becomingbradley"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display italic text-burg text-2xl block mb-2"
+                style={{ textDecoration: "underline", textDecorationColor: "hsl(var(--gold))", textUnderlineOffset: 4 }}
+              >
+                @becomingbradley
+              </a>
+              <p className="font-body text-xs italic text-[hsl(var(--stone))]">
+                Scan the QR or tap the handle. Please include your name and "Lucca Wedding" in the note.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* ── 04: Accommodation ── */}

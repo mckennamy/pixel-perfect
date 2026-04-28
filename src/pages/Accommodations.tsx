@@ -272,6 +272,28 @@ export default function Accommodations() {
                   style={{ color: "rgba(250,248,242,0.4)" }}
                   defaultContent="A 50% deposit secures your place; the remaining balance is due February 22, 2027."
                 />
+                <div className="mt-5 pt-5 flex items-center gap-4" style={{ borderTop: "1px solid rgba(250,248,242,0.1)" }}>
+                  <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Fwww.venmo.com%2Fu%2Fbecomingbradley"
+                    alt="Venmo QR code for @becomingbradley"
+                    width={96}
+                    height={96}
+                    className="flex-shrink-0"
+                    style={{ background: "white", padding: 4 }}
+                  />
+                  <div>
+                    <p className="kicker mb-1" style={{ color: "hsl(var(--gold-light) / 0.7)" }}>Venmo</p>
+                    <a
+                      href="https://www.venmo.com/u/becomingbradley"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-display italic text-xl"
+                      style={{ color: "hsl(var(--gold-light))", textDecoration: "underline", textDecorationColor: "hsl(var(--gold))", textUnderlineOffset: 4 }}
+                    >
+                      @becomingbradley
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* Linen service */}
