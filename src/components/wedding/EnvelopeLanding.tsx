@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import GuestSearchGate from "@/components/wedding/GuestSearchGate";
 import villaMotion from "@/assets/villa-grabau-motion.mp4.asset.json";
+import waxSealB from "@/assets/wax-seal-b.png";
 
 type Stage = "idle" | "opening" | "risen" | "search" | "invitation" | "exit";
 
@@ -99,41 +100,21 @@ export default function EnvelopeLanding() {
             }}
           >
             {/* Wax seal monogram floating above the card */}
-            <div
+            <img
+              src={waxSealB}
+              alt="Wax seal monogram B"
+              width={84}
+              height={84}
+              loading="lazy"
               className="seal-pulse absolute left-1/2 -translate-x-1/2 z-10"
               style={{
-                top: "-34px",
-                width: 68,
-                height: 68,
-                borderRadius: "50%",
-                background:
-                  "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
-                boxShadow:
-                  "0 4px 12px rgba(0,0,0,0.35), 0 12px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                border: "1.5px solid rgba(184,154,106,0.55)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                top: "-42px",
+                width: 84,
+                height: 84,
+                filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.35))",
+                pointerEvents: "none",
               }}
-            >
-              <span
-                className="font-script"
-                style={{
-                  fontSize: 32,
-                  color: "hsl(var(--gold-light))",
-                  lineHeight: 1,
-                  textShadow: "0 1px 4px rgba(0,0,0,0.4)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  height: "100%",
-                  textAlign: "center",
-                }}
-              >
-                B
-              </span>
-            </div>
+            />
 
             <div
               className="relative overflow-hidden"
@@ -601,38 +582,24 @@ export default function EnvelopeLanding() {
               }}
             >
               {/* Seal centered on the bottom V-point of the flap */}
-              <div
+              <img
+                src={waxSealB}
+                alt="Wax seal monogram B"
+                width={88}
+                height={88}
+                loading="lazy"
                 style={{
                   position: "absolute",
                   left: "50%",
-                  bottom: "-36px",
+                  bottom: "-44px",
                   transform: "translateX(-50%)",
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
-                  boxShadow:
-                    "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                  border: "1.5px solid rgba(184,154,106,0.48)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  width: 88,
+                  height: 88,
+                  filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.4))",
                   backfaceVisibility: "hidden",
+                  pointerEvents: "none",
                 }}
-              >
-                <span
-                  className="font-script"
-                  style={{
-                    fontSize: 36,
-                    color: "hsl(var(--gold-light))",
-                    lineHeight: 1,
-                    textShadow: "0 1px 4px rgba(0,0,0,0.35)",
-                  }}
-                >
-                  B
-                </span>
-              </div>
+              />
             </div>
           </div>
         </div>
