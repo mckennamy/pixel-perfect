@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import EditableText from "@/components/wedding/EditableText";
 import ItalyFactsBubble from "@/components/wedding/ItalyFactsBubble";
 
@@ -135,28 +138,143 @@ export default function FAQ() {
           );
         })}
 
-        {/* Contact */}
+        {/* Ask a Question */}
         <div className="reveal mt-8 pt-10" style={{ borderTop: "1px solid hsl(var(--border))" }}>
-          <EditableText
-            id="faq-contact-kicker"
-            defaultContent="Still Have Questions?"
-            tag="p"
-            className="kicker mb-4"
-          />
-          <EditableText
-            id="faq-contact-tagline"
-            tag="p"
-            className="font-display italic text-burg text-2xl mb-4"
-            defaultContent="We are always happy to help."
-          />
-          <a
-            href="mailto:hello@becomingbradley.com"
-            className="font-body text-sm text-burg border-b border-burg/40 hover:border-burg transition-colors pb-0.5"
-          >
-            hello@becomingbradley.com
-          </a>
+          <AskQuestionForm />
         </div>
       </div>
+    </div>
+  );
+}
+
+const questionSchema = z.object({
+  name: z.string().trim().min(2, "Please enter your name").max(100),
+  email: z.string().trim().email("Invalid email").max(255).optional().or(z.literal("")),
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
+  question: z.string().trim().min(4, "Please write your question").max(2000),
+});
+
+function AskQuestionForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [question, setQuestion] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const inputClass =
+    "w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-2.5 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsed = questionSchema.safeParse({ name, email, phone, question });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+      return;
+    }
+    if (!parsed.data.email && !parsed.data.phone) {
+      toast.error("Please provide an email or phone so we can reply");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("guest_questions").insert({
+      name: parsed.data.name,
+      email: parsed.data.email || null,
+      phone: parsed.data.phone || null,
+      question: parsed.data.question,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+      return;
+    }
+    setSubmitted(true);
+    setName(""); setEmail(""); setPhone(""); setQuestion("");
+  };
+
+  if (submitted) {
+    return (
+      <div>
+        <p className="kicker mb-4">Question Received</p>
+        <p className="font-display italic text-burg text-2xl mb-3">Thank you — we'll be in touch soon.</p>
+        <p className="font-body text-sm text-ink-mid mb-6">
+          We typically respond within 24–48 hours. Have another question?{" "}
+          <button
+            onClick={() => setSubmitted(false)}
+            className="text-burg border-b border-burg/40 hover:border-burg transition-colors pb-0.5"
+          >
+            Ask another
+          </button>
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <EditableText
+        id="faq-contact-kicker"
+        defaultContent="Still Have Questions?"
+        tag="p"
+        className="kicker mb-4"
+      />
+      <EditableText
+        id="faq-contact-tagline"
+        tag="p"
+        className="font-display italic text-burg text-2xl mb-3"
+        defaultContent="Ask us anything."
+      />
+      <p className="font-body text-sm italic text-ink-mid mb-6">
+        Send us your question below and we'll get back to you within 24–48 hours.
+      </p>
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input
+          className={inputClass}
+          placeholder="Your name *"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          maxLength={100}
+          required
+        />
+        <div className="grid sm:grid-cols-2 gap-3">
+          <input
+            className={inputClass}
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            maxLength={255}
+          />
+          <input
+            className={inputClass}
+            placeholder="Phone"
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            maxLength={40}
+          />
+        </div>
+        <p className="font-body text-xs italic text-stone -mt-1">
+          Provide at least one — whichever you'd prefer we use to reply.
+        </p>
+        <textarea
+          className={inputClass}
+          placeholder="Your question *"
+          rows={4}
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          maxLength={2000}
+          required
+        />
+        <button
+          type="submit"
+          disabled={submitting}
+          className="kicker px-6 py-3 transition-colors disabled:opacity-60"
+          style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))" }}
+        >
+          {submitting ? "Sending…" : "Send Question"}
+        </button>
+      </form>
     </div>
   );
 }
