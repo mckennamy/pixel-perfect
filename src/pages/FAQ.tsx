@@ -24,13 +24,6 @@ const faqs = [
     ],
   },
   {
-    category: "Accommodations",
-    items: [
-      { q: "Where should I stay?", a: 'A limited number of on-site rooms are available at <a href="https://www.villagrabau.it/en/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Villa Grabau</a> and <a href="https://www.aranceravillagrabau.it/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">La Rancera</a> — indicate your preference on the reservation form. We also recommend boutique hotels within Lucca\'s walled city, or agriturismo properties in the surrounding countryside.' },
-      { q: "Can I stay on-site?", a: "Yes. Both Villa Grabau and La Rancera offer on-site accommodation. A daily linen and towel change service is available for an additional charge." },
-    ],
-  },
-  {
     category: "Reservations",
     items: [
       { q: "How do I officially RSVP?", a: "Please complete the Reservations form on this website. We ask for your party's details, accommodation preference, and flight information. An RSVP alone is not a reservation — you will need to complete the form and submit your deposit." },
