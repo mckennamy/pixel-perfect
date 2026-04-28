@@ -269,7 +269,7 @@ export default function Reservations() {
                     </button>
                   )}
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-4">
                   <div>
                     <p className="kicker mb-2">Full Name</p>
                     <div className={inputWrap}>
