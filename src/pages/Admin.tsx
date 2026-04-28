@@ -357,7 +357,9 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-2 mb-8">
-          {(["guests", "reservations"] as const).map((t) => (
+          {(["guests", "reservations", "questions"] as const).map((t) => {
+            const openCount = t === "questions" ? questions.filter((q) => !q.answered).length : 0;
+            return (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -368,9 +370,10 @@ export default function Admin() {
                 color: tab === t ? "hsl(var(--cream))" : "hsl(var(--stone))",
               }}
             >
-              {t}
+              {t}{t === "questions" && openCount > 0 ? ` (${openCount})` : ""}
             </button>
-          ))}
+            );
+          })}
         </div>
 
         {tab === "guests" && (
