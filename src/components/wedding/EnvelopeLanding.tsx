@@ -582,38 +582,24 @@ export default function EnvelopeLanding() {
               }}
             >
               {/* Seal centered on the bottom V-point of the flap */}
-              <div
+              <img
+                src={waxSealB}
+                alt="Wax seal monogram B"
+                width={88}
+                height={88}
+                loading="lazy"
                 style={{
                   position: "absolute",
                   left: "50%",
-                  bottom: "-36px",
+                  bottom: "-44px",
                   transform: "translateX(-50%)",
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
-                  boxShadow:
-                    "0 2px 6px rgba(0,0,0,0.45), 0 6px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.18)",
-                  border: "1.5px solid rgba(184,154,106,0.48)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  width: 88,
+                  height: 88,
+                  filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.4))",
                   backfaceVisibility: "hidden",
+                  pointerEvents: "none",
                 }}
-              >
-                <span
-                  className="font-script"
-                  style={{
-                    fontSize: 36,
-                    color: "hsl(var(--gold-light))",
-                    lineHeight: 1,
-                    textShadow: "0 1px 4px rgba(0,0,0,0.35)",
-                  }}
-                >
-                  B
-                </span>
-              </div>
+              />
             </div>
           </div>
         </div>
