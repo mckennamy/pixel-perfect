@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { loadEdit, saveEdit } from "@/lib/siteEdits";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface PhotoPlaceholderProps {
   id?: string;
@@ -58,6 +59,7 @@ export default function PhotoPlaceholder({
   const [posY, setPosY] = useState<number>(50); // 0 = top, 100 = bottom
   const [zoom, setZoom] = useState<number>(100); // 100 = fit, >100 = zoomed in
   const fileRef = useRef<HTMLInputElement>(null);
+  const isAdmin = useIsAdmin();
   const storageKey = id ? `bb_photo_${id}` : null;
   const posKey = id ? `bb_photo_pos_${id}` : null;
   const zoomKey = id ? `bb_photo_zoom_${id}` : null;
@@ -146,7 +148,7 @@ export default function PhotoPlaceholder({
   };
 
   const activeSrc = src || staticSrc;
-  const isEditable = !!id;
+  const isEditable = !!id && isAdmin;
 
   return (
     <figure className="w-full">

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface VideoPlaceholderProps {
   id: string;
@@ -27,6 +28,7 @@ export default function VideoPlaceholder({ id, caption }: VideoPlaceholderProps)
   const [urlInput, setUrlInput] = useState("");
   const [dragOver, setDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const isAdmin = useIsAdmin();
   const key = `bb_video_${id}`;
 
   // Load persisted URL (YouTube / Vimeo only — blob URLs can't be persisted)
@@ -106,6 +108,7 @@ export default function VideoPlaceholder({ id, caption }: VideoPlaceholderProps)
           )}
         </div>
         {/* Controls overlay */}
+        {isAdmin && (
         <div style={{ position: "absolute", top: "0.75rem", right: "0.75rem", display: "flex", gap: "0.4rem", zIndex: 2 }}>
           <button
             onClick={() => setEditing(true)}
@@ -142,6 +145,7 @@ export default function VideoPlaceholder({ id, caption }: VideoPlaceholderProps)
             Remove
           </button>
         </div>
+        )}
         {caption && (
           <p
             style={{
@@ -162,6 +166,8 @@ export default function VideoPlaceholder({ id, caption }: VideoPlaceholderProps)
 
   // ── URL input mode ──
   if (editing || source === null) {
+    // Hide the "add a video" placeholder entirely from non-admins.
+    if (!isAdmin) return null;
     return (
       <div>
         <div

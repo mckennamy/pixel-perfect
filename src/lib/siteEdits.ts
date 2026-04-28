@@ -1,5 +1,22 @@
 import { supabase } from "@/integrations/supabase/client";
 
+/** Cheap admin check used to short-circuit write attempts from non-admins. */
+async function currentUserIsAdmin(): Promise<boolean> {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) return false;
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", session.user.id)
+      .eq("role", "admin")
+      .maybeSingle();
+    return !!data;
+  } catch {
+    return false;
+  }
+}
+
 /** Load a saved edit from the database, falling back to localStorage for migration. */
 export async function loadEdit(id: string): Promise<string | null> {
   try {
@@ -11,17 +28,15 @@ export async function loadEdit(id: string): Promise<string | null> {
     if (data?.content) return data.content;
   } catch {}
 
-  // Fallback: check localStorage (migrates old edits)
-  const local = localStorage.getItem(id);
-  if (local) {
-    // Migrate to DB
-    saveEdit(id, local).catch(() => {});
-  }
-  return local;
+  // Fallback: check localStorage cache for previously-loaded values.
+  return localStorage.getItem(id);
 }
 
 /** Save an edit to the database (upsert). Also keeps localStorage as a fast cache. */
 export async function saveEdit(id: string, content: string): Promise<void> {
+  // Only admins can persist edits. Skip entirely for everyone else.
+  if (!(await currentUserIsAdmin())) return;
+
   try {
     localStorage.setItem(id, content);
   } catch {}
@@ -38,6 +53,7 @@ export async function saveEdit(id: string, content: string): Promise<void> {
 
 /** Remove an edit. */
 export async function removeEdit(id: string): Promise<void> {
+  if (!(await currentUserIsAdmin())) return;
   try { localStorage.removeItem(id); } catch {}
   try {
     await supabase.from("site_edits").delete().eq("id", id);
