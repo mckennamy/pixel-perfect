@@ -64,37 +64,117 @@ export default function EnvelopeLanding() {
     return (
       <div
         className="fixed inset-0 overflow-y-auto z-50"
-        style={{ background: "hsl(42 35% 97%)" }}
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 30%, hsl(42 45% 98%) 0%, hsl(42 35% 94%) 55%, hsl(38 30% 88%) 100%)",
+        }}
       >
+        {/* Soft golden halo behind the card */}
+        <div
+          className="invite-halo pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 600px 500px at 50% 38%, rgba(184,154,106,0.22) 0%, rgba(184,154,106,0.06) 45%, transparent 75%)",
+          }}
+        />
+        {/* Subtle film grain for texture */}
+        <div
+          className="pointer-events-none absolute inset-0 mix-blend-overlay"
+          style={{
+            opacity: 0.08,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "256px",
+          }}
+        />
+
         <div className="min-h-full flex items-start md:items-center justify-center py-10 px-4">
           <div
-            className="invitation-entering w-full"
+            className="invitation-grand w-full relative"
             style={{
               maxWidth: 480,
               opacity: stage === "exit" ? 0 : 1,
-              transition: "opacity 0.7s ease",
+              transition: "opacity 0.7s ease, transform 0.7s ease",
+              transform: stage === "exit" ? "translateY(-12px) scale(0.98)" : undefined,
             }}
           >
+            {/* Wax seal monogram floating above the card */}
             <div
+              className="seal-pulse absolute left-1/2 -translate-x-1/2 z-10"
+              style={{
+                top: "-34px",
+                width: 68,
+                height: 68,
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle at 38% 32%, hsl(350,52%,34%) 0%, hsl(350,72%,19%) 55%, hsl(350,74%,13%) 100%)",
+                boxShadow:
+                  "0 4px 12px rgba(0,0,0,0.35), 0 12px 28px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.18)",
+                border: "1.5px solid rgba(184,154,106,0.55)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <span
+                className="font-script"
+                style={{
+                  fontSize: 32,
+                  color: "hsl(var(--gold-light))",
+                  lineHeight: 1,
+                  textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+                }}
+              >
+                B
+              </span>
+            </div>
+
+            <div
+              className="relative overflow-hidden"
               style={{
                 background: "#FAF8F2",
                 border: "1px solid rgba(184,154,106,0.28)",
                 boxShadow:
                   "0 8px 32px rgba(0,0,0,0.12), 0 40px 100px rgba(0,0,0,0.18), 0 0 0 1px rgba(184,154,106,0.08)",
-                padding: "1.75rem 2.25rem 3rem",
+                padding: "2.75rem 2.25rem 3rem",
                 textAlign: "center",
                 textTransform: "lowercase",
               }}
             >
+              {/* Gold shimmer wipe across the card on entry */}
+              <div
+                className="gold-shimmer pointer-events-none absolute inset-y-0"
+                style={{
+                  left: 0,
+                  width: "45%",
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(232,210,170,0.55) 50%, transparent 100%)",
+                  mixBlendMode: "soft-light",
+                  zIndex: 5,
+                }}
+              />
+
+              {/* Top hairline rule */}
+              <div
+                className="rule-draw mx-auto mb-6"
+                style={{
+                  width: "5rem",
+                  height: 1,
+                  background:
+                    "linear-gradient(90deg, transparent, hsl(var(--gold)) 50%, transparent)",
+                }}
+              />
+
               <EditableText
                 id="invite-together"
                 tag="p"
-                className="font-body"
+                className="font-body invite-line"
                 style={{
                   fontSize: "1.05rem",
                   color: "hsl(var(--burg))",
                   marginBottom: "1.5rem",
                   letterSpacing: "0.01em",
+                  animationDelay: "0.5s",
                 }}
                 defaultContent="Together with their families"
                 
@@ -103,23 +183,25 @@ export default function EnvelopeLanding() {
               <EditableText
                 id="invite-bride"
                 tag="p"
-                className="font-script"
+                className="font-script invite-line"
                 style={{
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
                   lineHeight: 1.1,
                   color: "hsl(var(--burg))",
                   textTransform: "none",
+                  animationDelay: "0.7s",
                 }}
                 defaultContent="McKenna Danielle Myers"
               />
               <p
-                className="font-script"
+                className="font-script invite-line"
                 style={{
                   fontSize: "clamp(1.6rem, 6vw, 2rem)",
                   color: "hsl(var(--burg))",
                   margin: "0.25rem 0",
                   lineHeight: 1.1,
+                  animationDelay: "0.85s",
                 }}
               >
                 &amp;
@@ -127,7 +209,7 @@ export default function EnvelopeLanding() {
               <EditableText
                 id="invite-groom"
                 tag="p"
-                className="font-script"
+                className="font-script invite-line"
                 style={{
                   fontSize: "clamp(2.2rem, 8vw, 2.9rem)",
                   fontWeight: 400,
@@ -135,22 +217,35 @@ export default function EnvelopeLanding() {
                   color: "hsl(var(--burg))",
                   marginBottom: "2rem",
                   textTransform: "none",
+                  animationDelay: "1s",
                 }}
                 defaultContent="Jordan Christopher Bradley"
+              />
+
+              {/* Mid hairline rule */}
+              <div
+                className="rule-draw mx-auto mb-6"
+                style={{
+                  width: "3.5rem",
+                  height: 1,
+                  background:
+                    "linear-gradient(90deg, transparent, hsl(var(--gold)) 50%, transparent)",
+                  animationDelay: "1.1s",
+                }}
               />
 
               <EditableText
                 id="invite-request-line1"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6 }}
+                className="font-body invite-line"
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6, animationDelay: "1.25s" }}
                 defaultContent="request the pleasure of your company"
               />
               <EditableText
                 id="invite-request-line2"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6, marginBottom: "2rem" }}
+                className="font-body invite-line"
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.6, marginBottom: "2rem", animationDelay: "1.4s" }}
                 defaultContent="at their wedding celebration"
               />
 
@@ -158,36 +253,40 @@ export default function EnvelopeLanding() {
               <EditableText
                 id="invite-on"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1rem", color: "hsl(var(--burg))", marginBottom: "0.75rem" }}
+                className="font-body invite-line"
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", marginBottom: "0.75rem", animationDelay: "1.55s" }}
                 defaultContent="on"
               />
               <EditableText
                 id="invite-date-line1"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, textTransform: "none" }}
+                className="font-body invite-line"
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, textTransform: "none", animationDelay: "1.7s" }}
                 defaultContent="Saturday, the twenty-second of May"
               />
               <EditableText
                 id="invite-date-line2"
                 tag="p"
-                className="font-body"
-                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "1.25rem" }}
+                className="font-body invite-line"
+                style={{ fontSize: "1.05rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "1.25rem", animationDelay: "1.85s" }}
                 defaultContent="two thousand twenty-seven"
               />
               <EditableText
                 id="invite-time"
                 tag="p"
-                className="font-body italic"
-                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "2.5rem" }}
+                className="font-body italic invite-line"
+                style={{ fontSize: "1rem", color: "hsl(var(--burg))", lineHeight: 1.5, marginBottom: "2.5rem", animationDelay: "2s" }}
                 defaultContent="at four o'clock in the afternoon"
               />
 
               <button
                 onClick={handleEnter}
-                className="kicker inline-block px-12 py-3 transition-all duration-300"
-                style={{ border: "1px solid hsl(var(--burg))", color: "hsl(var(--burg))" }}
+                className="kicker invite-line inline-block px-12 py-3 transition-all duration-300 relative"
+                style={{
+                  border: "1px solid hsl(var(--burg))",
+                  color: "hsl(var(--burg))",
+                  animationDelay: "2.2s",
+                }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--burg))";
                   (e.currentTarget as HTMLButtonElement).style.color = "#FAF8F2";
