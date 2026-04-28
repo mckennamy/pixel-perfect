@@ -36,7 +36,7 @@ const destinations = [
     name: "Florence",
     distance: "75 minutes by car, 1.5 hours by train",
     highlights: [
-      '<a href="https://www.uffizi.it/en/uffizi-gallery" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Uffizi Gallery</a> — Botticelli, da Vinci, Michelangelo',
+      '<a href="https://www.uffizi.it/en/the-uffizi" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Uffizi Gallery</a> — Botticelli, da Vinci, Michelangelo',
       '<a href="https://www.galleriaaccademiafirenze.it/en/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Accademia Gallery</a> — Michelangelo\'s David',
       "Ponte Vecchio and the Oltrarno neighbourhood",
       "Piazzale Michelangelo at golden hour",
