@@ -33,6 +33,17 @@ interface Reservation {
   payment_note: string | null;
 }
 
+interface GuestQuestion {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  question: string;
+  answered: boolean;
+  admin_notes: string | null;
+  created_at: string;
+}
+
 const inputClass =
   "w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-2.5 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
 
@@ -40,9 +51,11 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"guests" | "reservations">("guests");
+  const [tab, setTab] = useState<"guests" | "reservations" | "questions">("guests");
   const [guests, setGuests] = useState<Guest[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [questions, setQuestions] = useState<GuestQuestion[]>([]);
+  const [questionFilter, setQuestionFilter] = useState<"all" | "open" | "answered">("open");
   const [showAddGuest, setShowAddGuest] = useState(false);
   const [guestFilter, setGuestFilter] = useState<
     "all" | "rsvped" | "not_rsvped" | "rehearsal" | "standard"
@@ -92,12 +105,14 @@ export default function Admin() {
   };
 
   const loadAll = async () => {
-    const [g, r] = await Promise.all([
+    const [g, r, q] = await Promise.all([
       supabase.from("guests").select("*").order("full_name"),
       supabase.from("reservations").select("*").order("submitted_at", { ascending: false }),
+      supabase.from("guest_questions").select("*").order("created_at", { ascending: false }),
     ]);
     if (g.data) setGuests(g.data as Guest[]);
     if (r.data) setReservations(r.data as unknown as Reservation[]);
+    if (q.data) setQuestions(q.data as GuestQuestion[]);
   };
 
   const signIn = async () => {
@@ -188,6 +203,23 @@ export default function Admin() {
     if (error) { toast.error(error.message); return; }
     toast.success("Payment updated");
     setEditingPayment(null);
+    loadAll();
+  };
+
+  const toggleQuestionAnswered = async (q: GuestQuestion) => {
+    const { error } = await supabase
+      .from("guest_questions")
+      .update({ answered: !q.answered })
+      .eq("id", q.id);
+    if (error) { toast.error(error.message); return; }
+    loadAll();
+  };
+
+  const deleteQuestion = async (id: string) => {
+    if (!confirm("Delete this question?")) return;
+    const { error } = await supabase.from("guest_questions").delete().eq("id", id);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Question deleted");
     loadAll();
   };
 
@@ -325,7 +357,9 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-2 mb-8">
-          {(["guests", "reservations"] as const).map((t) => (
+          {(["guests", "reservations", "questions"] as const).map((t) => {
+            const openCount = t === "questions" ? questions.filter((q) => !q.answered).length : 0;
+            return (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -336,9 +370,10 @@ export default function Admin() {
                 color: tab === t ? "hsl(var(--cream))" : "hsl(var(--stone))",
               }}
             >
-              {t}
+              {t}{t === "questions" && openCount > 0 ? ` (${openCount})` : ""}
             </button>
-          ))}
+            );
+          })}
         </div>
 
         {tab === "guests" && (
@@ -661,6 +696,91 @@ export default function Admin() {
                   )}
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {tab === "questions" && (
+          <div>
+            <div className="flex justify-between items-center mb-6 flex-wrap gap-3">
+              <p className="font-display italic text-burg text-2xl" style={{ fontWeight: 300 }}>
+                Guest Questions ({questions.filter((q) => questionFilter === "all" || (questionFilter === "open" ? !q.answered : q.answered)).length})
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-6">
+              {[
+                { id: "open",     label: `Open (${questions.filter((q) => !q.answered).length})` },
+                { id: "answered", label: `Answered (${questions.filter((q) => q.answered).length})` },
+                { id: "all",      label: "All" },
+              ].map((f) => (
+                <button
+                  key={f.id}
+                  onClick={() => setQuestionFilter(f.id as typeof questionFilter)}
+                  className="kicker px-4 py-2 transition-colors"
+                  style={{
+                    border: "1px solid hsl(var(--border))",
+                    background: questionFilter === f.id ? "hsl(var(--burg))" : "transparent",
+                    color: questionFilter === f.id ? "hsl(var(--cream))" : "hsl(var(--stone))",
+                  }}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              {questions.filter((q) => questionFilter === "all" || (questionFilter === "open" ? !q.answered : q.answered)).length === 0 && (
+                <p className="font-body italic text-stone text-center py-10">
+                  No questions {questionFilter === "open" ? "waiting for a reply" : questionFilter === "answered" ? "marked answered" : "yet"}.
+                </p>
+              )}
+              {questions
+                .filter((q) => questionFilter === "all" || (questionFilter === "open" ? !q.answered : q.answered))
+                .map((q) => (
+                  <div key={q.id} className="p-5" style={{ background: "hsl(var(--cream))", border: "1px solid hsl(var(--border))" }}>
+                    <div className="flex justify-between items-start mb-3 flex-wrap gap-2">
+                      <div>
+                        <p className="font-display italic text-burg text-xl" style={{ fontWeight: 300 }}>{q.name}</p>
+                        <p className="font-body text-xs text-stone">
+                          {q.email && <a href={`mailto:${q.email}`} className="hover:text-burg">{q.email}</a>}
+                          {q.email && q.phone && " · "}
+                          {q.phone && <a href={`tel:${q.phone}`} className="hover:text-burg">{q.phone}</a>}
+                        </p>
+                        <p className="font-body text-xs text-stone mt-1">
+                          Submitted {new Date(q.created_at).toLocaleString()}
+                        </p>
+                      </div>
+                      <span className="kicker px-2 py-1" style={{
+                        background: q.answered ? "#16a34a" : "hsl(var(--burg))",
+                        color: "white", fontSize: "0.5rem",
+                      }}>{q.answered ? "Answered" : "Open"}</span>
+                    </div>
+                    <p className="font-body text-sm text-ink whitespace-pre-wrap leading-relaxed py-3" style={{ borderTop: "1px dashed hsl(var(--border))", borderBottom: "1px dashed hsl(var(--border))" }}>
+                      {q.question}
+                    </p>
+                    <div className="flex gap-2 mt-3 flex-wrap">
+                      <button
+                        onClick={() => toggleQuestionAnswered(q)}
+                        className="kicker px-4 py-2"
+                        style={{
+                          background: q.answered ? "transparent" : "hsl(var(--moss))",
+                          color: q.answered ? "hsl(var(--stone))" : "hsl(var(--cream))",
+                          border: q.answered ? "1px solid hsl(var(--border))" : "none",
+                        }}
+                      >
+                        {q.answered ? "Reopen" : "Mark Answered"}
+                      </button>
+                      <button
+                        onClick={() => deleteQuestion(q.id)}
+                        className="kicker px-4 py-2"
+                        style={{ border: "1px solid hsl(var(--border))", color: "hsl(var(--stone))" }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         )}
