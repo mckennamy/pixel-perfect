@@ -9,7 +9,7 @@ const villas = [
     name: "La Casa di Annadora",
     beds: 4,
     baths: 2,
-    guests: 9,
+    guests: 8,
     sqm: 100,
     pool: "Private pool",
     tag: "Garden Villa",
