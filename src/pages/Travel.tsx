@@ -3,16 +3,6 @@ import AIChat from "@/components/wedding/AIChat";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 import EditableText from "@/components/wedding/EditableText";
 
-const calendarDays = [
-  { date: "19", day: "Mon", desc: "Arrive in Lucca",           type: "travel" },
-  { date: "20", day: "Tue", desc: "Welcome Party",             type: "event" },
-  { date: "21", day: "Wed", desc: "Free Day",                  type: "free" },
-  { date: "22", day: "Thu", desc: "Wedding Day",               type: "wedding" },
-  { date: "23", day: "Fri", desc: "Free Day",                  type: "free" },
-  { date: "24", day: "Sat", desc: "Depart / Free",             type: "travel" },
-  { date: "25", day: "Sun", desc: "Depart",                    type: "travel" },
-];
-
 const flights = [
   {
     from: "Indianapolis · IND",
@@ -98,50 +88,6 @@ export default function Travel() {
       <div className="px-6 md:px-16 mb-24 reveal">
         <PhotoPlaceholder id="travel-hero" aspect="wide" caption="Lucca, Tuscany" />
       </div>
-
-      {/* Calendar */}
-      <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="reveal mb-10">
-            <p className="kicker mb-4">May 2027</p>
-            <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
-              The Week at a Glance
-            </h2>
-          </div>
-          <div className="grid grid-cols-7 gap-2 reveal">
-            {calendarDays.map((d) => (
-              <div
-                key={d.date}
-                className="text-center py-4 px-2"
-                style={{
-                  background: d.type === "wedding" ? "hsl(var(--burg))"
-                    : d.type === "event"   ? "hsl(var(--moss))"
-                    : d.type === "free"    ? "hsl(var(--chart-pale))"
-                    : "hsl(var(--border))",
-                  color: d.type === "wedding" || d.type === "event" ? "hsl(var(--cream))" : "hsl(var(--ink))",
-                }}
-              >
-                <p className="kicker opacity-60 mb-1" style={{ fontSize: "0.48rem" }}>{d.day}</p>
-                <p className="font-display text-2xl italic" style={{ fontWeight: 300 }}>{d.date}</p>
-                <p className="font-body leading-tight mt-1" style={{ fontSize: "0.65rem", opacity: 0.75 }}>{d.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-5 mt-6 reveal">
-            {[
-              { bg: "hsl(var(--border))",     label: "Travel Days" },
-              { bg: "hsl(var(--moss))",        label: "Welcome Party" },
-              { bg: "hsl(var(--chart-pale))",  label: "Free Days" },
-              { bg: "hsl(var(--burg))",        label: "Wedding Day" },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center gap-2">
-                <div className="w-3 h-3" style={{ background: item.bg }} />
-                <span className="font-body text-xs text-stone">{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Flights */}
       <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
