@@ -271,7 +271,7 @@ export default function Reservations() {
             {fields.map((field, i) => (
               <div key={field.id} style={{ background: "hsl(var(--parchment))", border: "1px solid hsl(var(--border))" }} className="p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <p className="kicker">{i === 0 ? "Guest 1 (You)" : `Guest ${i + 1}`}</p>
+                  <p className="kicker">Guest {i + 1}</p>
                   {i > 0 && (
                     <button
                       type="button"
