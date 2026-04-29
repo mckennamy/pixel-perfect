@@ -328,28 +328,29 @@ export default function WeekCalendar() {
                 borderBottom: `1px solid ${selStyle.accent}22`,
               }}
             >
-              {selDay.date > 19 ? (
+              <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
                 <button
-                  onClick={() => setSelected(selDay.date - 1)}
+                  onClick={() => setSelected(null)}
                   style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
                 >
-                  ← Prev
+                  ✕ Exit
                 </button>
-              ) : <span />}
+                {selDay.date > 19 && (
+                  <button
+                    onClick={() => setSelected(selDay.date - 1)}
+                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
+                  >
+                    ← Prev
+                  </button>
+                )}
+              </div>
               <div style={{ display: "flex", gap: "1.5rem" }}>
-                {selDay.date < 24 ? (
+                {selDay.date < 24 && (
                   <button
                     onClick={() => setSelected(selDay.date + 1)}
                     style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
                   >
                     Next →
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setSelected(null)}
-                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
-                  >
-                    Exit ✕
                   </button>
                 )}
               </div>
