@@ -172,6 +172,22 @@ export default function Travel() {
               </div>
             ))}
             <div className="rule-full" />
+            <div
+              className="mt-8 py-4 px-5"
+              style={{
+                background: "hsl(var(--gold-pale) / 0.5)",
+                borderLeft: "2px solid hsl(var(--gold))",
+              }}
+            >
+              <p className="kicker mb-2" style={{ color: "hsl(var(--burg))" }}>
+                ✦ A Local Tip
+              </p>
+              <p className="font-body text-sm italic text-ink-mid leading-relaxed">
+                Strike up small talk with your drivers and tour guides whenever you can — they're locals,
+                and a little friendliness almost always unlocks the best restaurants, hidden viewpoints,
+                and recommendations you won't find in any guidebook.
+              </p>
+            </div>
           </div>
         </div>
       </section>

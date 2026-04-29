@@ -49,6 +49,10 @@ const funFacts = [
     title: "Driving in Italy",
     body: "If renting a car, you legally need an International Driving Permit (IDP) from AAA — easy to get for $20 before you leave. Italian ZTL zones (limited traffic areas) are fined automatically by camera.",
   },
+  {
+    title: "Chat With the Locals",
+    body: "Strike up small talk with your drivers, tour guides, and shopkeepers when you can — Italians love sharing their city. A little friendliness almost always unlocks the best off-the-menu restaurants, hidden viewpoints, and local recommendations you won't find online.",
+  },
 ];
 
 // Italian word of the day — keyed by day of year so it's stable across visits
