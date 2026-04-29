@@ -303,9 +303,16 @@ export default function EnvelopeLanding() {
       <video
         src={villaMotion.url}
         autoPlay
-        loop
         muted
         playsInline
+        onEnded={(e) => {
+          const v = e.currentTarget;
+          // Freeze on the final frame instead of looping back
+          v.pause();
+          if (Number.isFinite(v.duration)) {
+            v.currentTime = Math.max(0, v.duration - 0.05);
+          }
+        }}
         className="absolute inset-0 w-full h-full object-cover"
         style={{
           transform: mounted ? "scale(1.04)" : "scale(1.12)",
