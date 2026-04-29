@@ -61,26 +61,8 @@ export default function OurStory() {
 
   return (
     <div className="page-wrapper" ref={ref}>
-      {/* Hero */}
-      <header className="pt-28 pb-20 text-center px-6">
-        <EditableText
-          id="story-hero-kicker"
-          defaultContent="McKenna & Jordan"
-          tag="p"
-          className="kicker mb-5"
-        />
-        <EditableText
-          id="story-hero-h1"
-          defaultContent="Our Story"
-          tag="h1"
-          className="font-display italic text-burg leading-none mb-8"
-          style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
-        />
-        <span className="rule" />
-      </header>
-
       {/* Living page notice */}
-      <div className="max-w-2xl mx-auto px-6 md:px-10 mb-16 reveal">
+      <div className="max-w-2xl mx-auto px-6 md:px-10 pt-28 reveal">
         <div
           className="rounded-md p-6 md:p-7 text-center"
           style={{
@@ -105,6 +87,24 @@ export default function OurStory() {
           />
         </div>
       </div>
+
+      {/* Hero */}
+      <header className="pt-12 pb-20 text-center px-6">
+        <EditableText
+          id="story-hero-kicker"
+          defaultContent="McKenna & Jordan"
+          tag="p"
+          className="kicker mb-5"
+        />
+        <EditableText
+          id="story-hero-h1"
+          defaultContent="Our Story"
+          tag="h1"
+          className="font-display italic text-burg leading-none mb-8"
+          style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)", fontWeight: 300 }}
+        />
+        <span className="rule" />
+      </header>
 
       {/* Chapters */}
       <div className="max-w-3xl mx-auto px-6 md:px-10">
