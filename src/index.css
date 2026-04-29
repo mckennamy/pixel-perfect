@@ -34,13 +34,13 @@
     --chart-pale: 68 42% 93%;
 
     /* Silver (replaces gold accent token) */
-    --gold:       220 8% 68%;    /* silver */
+    --gold:       0 0% 70%;    /* silver */
     --gold-light: 220 6% 82%;
     --gold-pale:  220 10% 94%;
 
-    --silver:       220 8% 68%;
-    --silver-light: 220 6% 82%;
-    --silver-pale:  220 10% 94%;
+    --silver:       0 0% 70%;
+    --silver-light: 0 0% 84%;
+    --silver-pale:  0 0% 94%;
 
     --stone:      30 6% 46%;
     --stone-light:30 5% 70%;
