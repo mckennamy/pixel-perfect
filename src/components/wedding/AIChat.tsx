@@ -346,6 +346,43 @@ export default function AIChat({
             </div>
           </div>
         )}
+
+        {/* Re-show suggestion chips after the latest assistant reply */}
+        {!loading &&
+          messages.length > 0 &&
+          messages[messages.length - 1].role === "assistant" &&
+          suggestions.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "flex-start", paddingTop: "0.25rem" }}>
+              {suggestions.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => sendMessage(s)}
+                  style={{
+                    fontFamily: "Cinzel, serif",
+                    fontSize: "0.5rem",
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    border: "1px solid hsl(var(--burg) / 0.3)",
+                    color: "hsl(var(--burg))",
+                    padding: "0.4rem 0.8rem",
+                    background: "transparent",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLButtonElement).style.background = "hsl(var(--burg))";
+                    (e.currentTarget as HTMLButtonElement).style.color = "hsl(var(--cream))";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                    (e.currentTarget as HTMLButtonElement).style.color = "hsl(var(--burg))";
+                  }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
       </div>
 
       {/* Input */}
