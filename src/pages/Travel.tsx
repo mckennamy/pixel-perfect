@@ -237,6 +237,77 @@ export default function Travel() {
           ))}
         </div>
       </section>
+
+      {/* Travel documents */}
+      <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
+        <div className="reveal mb-10">
+          <p className="kicker mb-4">Before You Go</p>
+          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+            Travel Documents
+          </h2>
+          <EditableText
+            id="travel-docs-desc"
+            tag="p"
+            className="font-body text-sm italic text-stone mt-3"
+            defaultContent="A few essentials to take care of well before your trip — AAA can help with all of these."
+          />
+        </div>
+        <div className="grid md:grid-cols-3 gap-5 reveal">
+          {[
+            {
+              id: "passport",
+              title: "Passport",
+              body: "U.S. travelers need a passport valid for at least 6 months beyond your return date. If you don't have one — or yours is expiring — apply or renew now; processing can take 6–10 weeks. AAA offers passport photos and renewal assistance.",
+              link: { label: "AAA Passport Services →", url: "https://www.aaa.com/passport" },
+            },
+            {
+              id: "real-id",
+              title: "REAL ID",
+              body: "REAL ID is required for all U.S. domestic flights — including your trip to the airport on the way to Italy. Check your driver's license for a star in the upper corner; if it's missing, schedule a BMV/DMV visit. AAA can guide you through the documents you'll need.",
+              link: { label: "About REAL ID →", url: "https://www.aaa.com/AAA/common/AAR/files/Real-ID-Brochure.pdf" },
+            },
+            {
+              id: "drivers-license",
+              title: "International Driving Permit",
+              body: "If you plan to rent a car in Italy, you are legally required to carry an International Driving Permit alongside your U.S. driver's license. AAA issues IDPs same-day at most branches for around $20 — bring two passport photos and your license.",
+              link: { label: "Get an IDP from AAA →", url: "https://www.aaa.com/vacation/idpf.html" },
+            },
+          ].map((d) => (
+            <div
+              key={d.id}
+              className="p-6 flex flex-col"
+              style={{
+                background: "hsl(var(--parchment))",
+                border: "1px solid hsl(var(--burg) / 0.2)",
+                borderRadius: "4px",
+              }}
+            >
+              <p className="kicker mb-3" style={{ color: "hsl(var(--burg))" }}>{d.title}</p>
+              <EditableText
+                id={`travel-doc-${d.id}-body`}
+                tag="p"
+                className="font-body text-sm italic text-ink-mid leading-relaxed mb-5 flex-1"
+                defaultContent={d.body}
+              />
+              <a
+                href={d.link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="kicker"
+                style={{
+                  color: "hsl(var(--burg))",
+                  fontWeight: 700,
+                  textDecoration: "underline",
+                  textDecorationColor: "hsl(var(--gold))",
+                  textUnderlineOffset: "4px",
+                }}
+              >
+                {d.link.label}
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
