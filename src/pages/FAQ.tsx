@@ -111,6 +111,33 @@ export default function FAQ() {
       {/* Italy Fun Facts + Word of the Day */}
       <ItalyFactsBubble />
 
+      {/* Central hub notice */}
+      <div className="max-w-2xl mx-auto px-6 md:px-10 mt-4 mb-12 reveal">
+        <div
+          className="rounded-md p-6 md:p-7 text-center"
+          style={{
+            background: "hsl(var(--parchment))",
+            border: "1px solid hsl(var(--burg) / 0.25)",
+            boxShadow: "0 4px 24px rgba(28,20,16,0.06)",
+          }}
+        >
+          <EditableText
+            id="faq-hub-kicker"
+            defaultContent="A Living Page"
+            tag="p"
+            className="kicker mb-3"
+            style={{ color: "hsl(var(--burg))" }}
+          />
+          <EditableText
+            id="faq-hub-note"
+            defaultContent="Menus, finer details, and other surprises are subject to be added as the planning process continues — this website is your central hub, so check back often."
+            tag="p"
+            className="font-body italic text-ink-light"
+            style={{ fontSize: "0.95rem", lineHeight: 1.7 }}
+          />
+        </div>
+      </div>
+
       <div className="max-w-2xl mx-auto px-6 md:px-10 pb-24">
         {faqs.map((section, i) => {
           const slug = section.category.toLowerCase().replace(/\s+/g, "-");
