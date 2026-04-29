@@ -1,8 +1,18 @@
 import { useEffect, useRef } from "react";
 
-const days = [
+type Day = {
+  num: number;
+  weekday: string;
+  tag: string;
+  desc: string;
+  type: string;
+  flourish?: boolean;
+  link?: { href: string; label: string };
+};
+
+const days: Day[] = [
   { num: 19, weekday: "Tuesday", tag: "✦ Arrival Day", desc: "Book flights landing in Pisa on May 19. Settle into Lucca, rest, and begin to fall in love with Tuscany.", type: "travel-in" },
-  { num: 20, weekday: "Wednesday", tag: "Wedding Events", desc: "Celebrations begin. Details and schedule shared separately with guests.", type: "event" },
+  { num: 20, weekday: "Wednesday", tag: "Wedding Events", desc: "Celebrations begin. Details and schedule shared separately with guests.", type: "event", link: { href: "https://www.bucadisantantonio.com/en/", label: "Buca di Sant'Antonio →" } },
   { num: 21, weekday: "Thursday", tag: "Wedding Events", desc: "More celebrations to come. We cannot wait to share these moments with you.", type: "event" },
   { num: 22, weekday: "Friday", tag: "The Wedding", desc: "The day we say I do — in the most beautiful city in the world.", type: "wedding", flourish: true },
   { num: 23, weekday: "Saturday", tag: "Wedding Events", desc: "The final day of festivities — savor every last moment in Tuscany.", type: "event" },
@@ -70,6 +80,16 @@ const CalendarSection = () => {
                 <div className={`font-kicker text-[0.55rem] tracking-[0.18em] uppercase mb-3 ${s.weekdayColor}`}>{day.weekday}</div>
                 <div className={`font-kicker text-[0.58rem] tracking-[0.1em] uppercase mb-2.5 font-medium ${s.tagColor}`}>{day.tag}</div>
                 <div className={`font-body text-[0.82rem] italic leading-[1.55] ${s.descColor}`}>{day.desc}</div>
+                {day.link && (
+                  <a
+                    href={day.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-3 inline-block font-kicker text-[0.6rem] tracking-[0.14em] uppercase font-medium underline underline-offset-4 decoration-dotted hover:opacity-70 transition-opacity ${s.tagColor}`}
+                  >
+                    {day.link.label}
+                  </a>
+                )}
               </div>
             );
           })}
