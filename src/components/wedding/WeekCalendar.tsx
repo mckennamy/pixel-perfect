@@ -328,30 +328,15 @@ export default function WeekCalendar() {
                 borderBottom: `1px solid ${selStyle.accent}22`,
               }}
             >
-              <button
-                onClick={() => setSelected(null)}
-                style={{
-                  fontFamily: "Cinzel, serif",
-                  fontSize: "0.52rem",
-                  letterSpacing: "0.35em",
-                  textTransform: "uppercase",
-                  color: selStyle.accent,
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                ← Back
-              </button>
+              {selDay.date > 19 ? (
+                <button
+                  onClick={() => setSelected(selDay.date - 1)}
+                  style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: `1.5px solid ${selStyle.accent}`, borderRadius: 2, padding: "8px 14px", cursor: "pointer", opacity: 0.95 }}
+                >
+                  ← Prev
+                </button>
+              ) : <span />}
               <div style={{ display: "flex", gap: "1.5rem" }}>
-                {selDay.date > 19 && (
-                  <button
-                    onClick={() => setSelected(selDay.date - 1)}
-                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: `1.5px solid ${selStyle.accent}`, borderRadius: 2, padding: "8px 14px", cursor: "pointer", opacity: 0.95 }}
-                  >
-                    ← Prev
-                  </button>
-                )}
                 {selDay.date < 24 ? (
                   <button
                     onClick={() => setSelected(selDay.date + 1)}
