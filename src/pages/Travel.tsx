@@ -5,29 +5,29 @@ import EditableText from "@/components/wedding/EditableText";
 
 const flights = [
   {
-    from: "Indianapolis · IND",
-    to: "Pisa · PSA",
-    via: "Amsterdam (AMS)",
+    from: "Indianapolis International (IND)",
+    to: "Pisa International (PSA)",
+    via: "Amsterdam Schiphol (AMS)",
     airlines: "KLM / Delta",
     duration: "14–17 hours",
     price: "$900 – $1,400 round trip",
-    tip: "KLM via Amsterdam offers the most reliable connection to Pisa. Aim for a 2+ hour layover in AMS.",
+    tip: "KLM via Amsterdam Schiphol (AMS) offers the most reliable connection to Pisa. Aim for a 2+ hour layover in AMS.",
     steps: [
-      { leg: "IND → AMS", note: "9–10 hrs · KLM or Delta" },
-      { leg: "AMS → PSA", note: "2 hrs · KLM" },
+      { leg: "Indianapolis (IND) → Amsterdam (AMS)", note: "9–10 hrs · KLM or Delta" },
+      { leg: "Amsterdam (AMS) → Pisa (PSA)", note: "2 hrs · KLM" },
     ],
   },
   {
-    from: "Chicago · ORD",
-    to: "Pisa · PSA or Florence · FLR",
-    via: "Paris CDG or Amsterdam AMS",
+    from: "Chicago O'Hare (ORD)",
+    to: "Pisa International (PSA) or Florence Peretola (FLR)",
+    via: "Paris Charles de Gaulle (CDG) or Amsterdam Schiphol (AMS)",
     airlines: "Air France / KLM / United",
     duration: "13–16 hours",
     price: "$850 – $1,300 round trip",
-    tip: "Air France via CDG is excellent value. Florence (FLR) works well if Pisa flights are limited.",
+    tip: "Air France via Paris Charles de Gaulle (CDG) is excellent value. Florence Peretola (FLR) works well if Pisa flights are limited.",
     steps: [
-      { leg: "ORD → CDG", note: "8–9 hrs · Air France" },
-      { leg: "CDG → PSA", note: "2 hrs · Air France" },
+      { leg: "Chicago (ORD) → Paris (CDG)", note: "8–9 hrs · Air France" },
+      { leg: "Paris (CDG) → Pisa (PSA)", note: "2 hrs · Air France" },
     ],
   },
 ];
@@ -35,7 +35,7 @@ const flights = [
 const ground = [
   {
     title: "Pre-Booked Transfer",
-    from: "Pisa Airport → Villa Grabau",
+    from: "Pisa International (PSA) → Villa Grabau",
     duration: "45 min",
     cost: "€55–80",
     note: '<a href="https://www.welcomepickups.com/pisa/airport-to-lucca/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Welcome Pickups</a> or <a href="https://www.mydriver.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">MyDriver</a> offer door-to-door service to the villa. Book in advance.',
@@ -43,7 +43,7 @@ const ground = [
   },
   {
     title: "Private Taxi",
-    from: "Pisa Airport → Lucca",
+    from: "Pisa International (PSA) → Lucca",
     duration: "30–40 min",
     cost: "€40–60",
     note: "Book in advance via your accommodation. Uber is not widely available in this area.",
