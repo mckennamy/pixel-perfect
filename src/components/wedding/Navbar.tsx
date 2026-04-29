@@ -114,15 +114,15 @@ export default function Navbar() {
             alignItems: "center",
             justifyContent: "center",
             gap: 7,
-            background: "transparent",
-            border: `1px solid ${open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.3)"}`,
+            background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.08)",
+            border: `1.5px solid hsl(var(--burg))`,
             cursor: "pointer",
             flexShrink: 0,
-            transition: "border-color 0.35s",
+            transition: "background 0.35s, border-color 0.35s",
           }}
         >
-          <span style={{ display: "block", width: 14, height: 1, background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.65)", transform: open ? "translateY(4px) rotate(45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
-          <span style={{ display: "block", width: 14, height: 1, background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.65)", transform: open ? "translateY(-4px) rotate(-45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
+          <span style={{ display: "block", width: 16, height: 2, background: open ? "hsl(42 35% 97%)" : "hsl(var(--burg))", transform: open ? "translateY(4.5px) rotate(45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
+          <span style={{ display: "block", width: 16, height: 2, background: open ? "hsl(42 35% 97%)" : "hsl(var(--burg))", transform: open ? "translateY(-4.5px) rotate(-45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
         </button>
       </nav>
 
