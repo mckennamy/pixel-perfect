@@ -279,6 +279,14 @@ export default function Reservations() {
                     </button>
                   )}
                 </div>
+                {i === 0 && (
+                  <p
+                    className="font-body italic mb-4"
+                    style={{ fontSize: "0.85rem", color: "hsl(var(--stone))", lineHeight: 1.5 }}
+                  >
+                    Please only fill out this section if your invitation designated a guest, or if you are reserving for additional family members.
+                  </p>
+                )}
                 <div className="space-y-4">
                   <div>
                     <p className="kicker mb-2">Full Name</p>
