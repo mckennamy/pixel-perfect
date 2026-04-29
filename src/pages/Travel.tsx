@@ -228,9 +228,9 @@ export default function Travel() {
           ].map((l) => (
             <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
               className="kicker px-5 py-2.5 transition-all"
-              style={{ border: "1px solid rgba(250,248,242,0.2)", color: "rgba(250,248,242,0.6)" }}
+              style={{ border: "1px solid rgba(250,248,242,0.45)", color: "hsl(var(--cream))", fontWeight: 700 }}
               onMouseEnter={e => (e.currentTarget.style.color = "hsl(var(--chart-mid))")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(250,248,242,0.6)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "hsl(var(--cream))")}
             >
               {l.label}
             </a>
