@@ -247,6 +247,19 @@ export default function Reservations() {
               </div>
               {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
             </div>
+            <div className="sm:col-span-2">
+              <p className="kicker mb-2">Dietary Restrictions / Allergies</p>
+              <div className={inputWrap}>
+                <input
+                  {...register(`guests.0.dietaryRestrictions`)}
+                  placeholder="Vegetarian, gluten-free, nut allergy… (leave blank if none)"
+                  className={inputClass}
+                />
+              </div>
+              <p className="font-body text-xs italic text-[hsl(var(--stone))] mt-2">
+                You won't need to repeat this below — we'll use it for your meal.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -258,7 +271,7 @@ export default function Reservations() {
             {fields.map((field, i) => (
               <div key={field.id} style={{ background: "hsl(var(--parchment))", border: "1px solid hsl(var(--border))" }} className="p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <p className="kicker">Guest {i + 1}</p>
+                  <p className="kicker">{i === 0 ? "Guest 1 (You)" : `Guest ${i + 1}`}</p>
                   {i > 0 && (
                     <button
                       type="button"
@@ -279,12 +292,14 @@ export default function Reservations() {
                       <p className={errorClass}>{errors.guests[i]?.fullName?.message}</p>
                     )}
                   </div>
-                  <div>
-                    <p className="kicker mb-2">Dietary Restrictions / Allergies</p>
-                    <div className={inputWrap}>
-                      <input {...register(`guests.${i}.dietaryRestrictions`)} placeholder="Vegetarian, gluten-free, nut allergy…" className={inputClass} />
+                  {i !== 0 && (
+                    <div>
+                      <p className="kicker mb-2">Dietary Restrictions / Allergies</p>
+                      <div className={inputWrap}>
+                        <input {...register(`guests.${i}.dietaryRestrictions`)} placeholder="Vegetarian, gluten-free, nut allergy…" className={inputClass} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
