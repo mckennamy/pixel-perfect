@@ -107,22 +107,27 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
           style={{
-            width: 40,
-            height: 40,
+            height: 38,
+            padding: "0 14px",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: 7,
-            background: open ? "hsl(var(--burg))" : "hsl(var(--burg) / 0.08)",
+            gap: 8,
+            background: open ? "hsl(var(--burg))" : "transparent",
+            color: open ? "hsl(42 35% 97%)" : "hsl(var(--burg))",
             border: `1.5px solid hsl(var(--burg))`,
+            borderRadius: 2,
+            fontFamily: "Cinzel, serif",
+            fontSize: "0.62rem",
+            letterSpacing: "0.32em",
+            textTransform: "uppercase",
+            fontWeight: 600,
             cursor: "pointer",
             flexShrink: 0,
-            transition: "background 0.35s, border-color 0.35s",
+            transition: "background 0.35s, color 0.35s",
           }}
         >
-          <span style={{ display: "block", width: 16, height: 2, background: open ? "hsl(42 35% 97%)" : "hsl(var(--burg))", transform: open ? "translateY(4.5px) rotate(45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
-          <span style={{ display: "block", width: 16, height: 2, background: open ? "hsl(42 35% 97%)" : "hsl(var(--burg))", transform: open ? "translateY(-4.5px) rotate(-45deg)" : "none", transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }} />
+          <span style={{ display: "inline-block", paddingLeft: 2 }}>{open ? "Close" : "Menu"}</span>
         </button>
       </nav>
 
