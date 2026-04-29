@@ -331,7 +331,7 @@ export default function WeekCalendar() {
               {selDay.date > 19 ? (
                 <button
                   onClick={() => setSelected(selDay.date - 1)}
-                  style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: `1.5px solid ${selStyle.accent}`, borderRadius: 2, padding: "8px 14px", cursor: "pointer", opacity: 0.95 }}
+                  style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
                 >
                   ← Prev
                 </button>
@@ -340,14 +340,14 @@ export default function WeekCalendar() {
                 {selDay.date < 24 ? (
                   <button
                     onClick={() => setSelected(selDay.date + 1)}
-                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: `1.5px solid ${selStyle.accent}`, borderRadius: 2, padding: "8px 14px", cursor: "pointer", opacity: 0.95 }}
+                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
                   >
                     Next →
                   </button>
                 ) : (
                   <button
                     onClick={() => setSelected(null)}
-                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: selStyle.accent, border: `1.5px solid ${selStyle.accent}`, borderRadius: 2, padding: "8px 16px", cursor: "pointer" }}
+                    style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: selStyle.text, background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
                   >
                     Exit ✕
                   </button>
