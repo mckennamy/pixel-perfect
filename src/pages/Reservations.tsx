@@ -328,12 +328,12 @@ export default function Reservations() {
               {
                 value: "deposit_50",
                 label: "Option 1 — 50% Deposit Now",
-                sub: "Remaining 50% due by February 22, 2027 (90 days before the wedding)",
+                sub: "$230 USD per guest. Remaining 50% ($230 USD per guest) due by February 22, 2027 (90 days before the wedding).",
               },
               {
                 value: "full_payment",
                 label: "Option 2 — Pay in Full",
-                sub: "One complete payment. No further balance due.",
+                sub: "$460 USD per guest. One complete payment — no further balance due.",
               },
             ].map((opt) => (
               <label
