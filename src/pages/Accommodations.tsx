@@ -14,7 +14,7 @@ const villas = [
     pool: "Private pool",
     tag: "Garden Villa",
     description: "An intimate and beautifully appointed villa with a private pool tucked into Villa Grabau's lush gardens. La Casa di Annadora is filled with an eclectic collection of Indian and Chinese antiques, creating a warmly curated atmosphere unlike any hotel.",
-    features: ["4 bedrooms · 2 bathrooms", "Private pool", "Up to 9 guests", "100 m²", "Eclectic antique furnishings", "Full villa buyout"],
+    features: ["4 bedrooms · 2 bathrooms", "Private pool", "Up to 8 guests", "100 m²", "Eclectic antique furnishings", "Full villa buyout"],
     aspect: "video" as const,
   },
   {
