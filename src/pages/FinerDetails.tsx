@@ -18,9 +18,7 @@ const weddingTimeline = [
   { time: "6:15 PM",  event: "Champagne & Passed Bites", location: "Terrace"              },
   { time: "7:30 PM",  event: "Dinner",                    location: "Grand Hall"           },
   { time: "9:00 PM",  event: "First Dance & Toasts",      location: "Grand Hall"           },
-  { time: "9:30 PM",  event: "Dancing",                   location: "Grand Hall"           },
-  { time: "12:00 AM", event: "Last Dance",                location: "Grand Hall"           },
-  { time: "12:30 AM", event: "Late Bites & Send-Off",     location: "Courtyard"            },
+  { time: "1:00 AM",  event: "Music Ends",                location: "Grand Hall"           },
 ];
 
 const weekEvents = [
