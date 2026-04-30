@@ -1,0 +1,2 @@
+DELETE FROM public.site_edits
+WHERE id LIKE 'bb_fs_cal-%';
