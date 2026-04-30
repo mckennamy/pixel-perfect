@@ -269,6 +269,78 @@ export default function Excursions() {
 
       {/* Cuisine */}
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
+        <div className="max-w-4xl mx-auto mb-20">
+          <div className="reveal mb-10">
+            <EditableText
+              id="excursions-aranciera-kicker"
+              defaultContent="At the Villa · L'Aranciera"
+              tag="p"
+              className="kicker mb-4"
+            />
+            <EditableText
+              id="excursions-aranciera-h2"
+              defaultContent="On-Property Experiences"
+              tag="h2"
+              className="font-display italic text-burg"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            />
+            <EditableText
+              id="excursions-aranciera-desc"
+              tag="p"
+              className="font-body text-sm italic text-stone mt-3"
+              defaultContent="Curated experiences offered through L'Aranciera, right here at Villa Grabau. Pricing reflects current-year rates and may shift slightly for 2027 — consider these a guide. Reach out to the bride or groom if you'd like to coordinate a group booking."
+            />
+          </div>
+          <div className="space-y-0 reveal">
+            {[
+              {
+                name: "Massages",
+                detail: "On-site massages in the tranquillity of the villa grounds.",
+                price: "Currently €100 per hour. 2027 pricing not yet confirmed.",
+              },
+              {
+                name: "Wine Tasting",
+                detail: "Group tasting with a sommelier — choose a Lucca, Tuscany, or Italy-wide flight.",
+                price: "Group of 40+ guests: €1,400–€1,600 total, depending on the package selected.",
+              },
+              {
+                name: "Cooking Classes",
+                detail: "Hands-on Tuscan cooking class with a local chef.",
+                price: "Currently €95 per person, for groups of 8 or more.",
+              },
+            ].map((a, i) => (
+              <div key={i}>
+                <div className="rule-full mb-6" />
+                <div className="grid md:grid-cols-3 gap-6 mb-6">
+                  <div>
+                    <EditableText
+                      id={`excursions-aranciera-${i}-name`}
+                      defaultContent={a.name}
+                      tag="p"
+                      className="font-display italic text-burg text-2xl mb-1"
+                      style={{ fontWeight: 300 }}
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <EditableText
+                      id={`excursions-aranciera-${i}-detail`}
+                      defaultContent={a.detail}
+                      tag="p"
+                      className="font-body text-sm text-ink-mid leading-relaxed mb-2"
+                    />
+                    <EditableText
+                      id={`excursions-aranciera-${i}-price`}
+                      defaultContent={a.price}
+                      tag="p"
+                      className="font-body text-xs italic text-stone leading-relaxed"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="rule-full" />
+          </div>
+        </div>
         <div className="max-w-4xl mx-auto">
           <div className="reveal mb-10">
             <EditableText
