@@ -7,7 +7,6 @@ const weddingColors = [
   { name: "Olive Green",    hex: "#6B7A2E", textColor: "rgba(245,240,232,0.9)",  note: "Earthy and timeless"               },
   { name: "Moss Green",     hex: "#3A4A2A", textColor: "rgba(245,240,232,0.9)",  note: "Deep and verdant"                  },
   { name: "Chartreuse",     hex: "#B5C73D", textColor: "rgba(10,14,10,0.75)",    note: "Sparingly as an accent"            },
-  { name: "Ivory Cream",    hex: "#F2EAD6", textColor: "rgba(60,40,30,0.65)",    note: "Vintage linens and stationery"     },
   { name: "Silver",         hex: "#C0C4CA", textColor: "rgba(20,20,25,0.7)",     note: "Ornamental details throughout"     },
 ];
 
