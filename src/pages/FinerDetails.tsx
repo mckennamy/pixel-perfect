@@ -154,6 +154,30 @@ export default function FinerDetails() {
         </div>
       </section>
 
+      {/* Cocktail Attire Inspiration — photo */}
+      <section className="max-w-3xl mx-auto px-6 md:px-10 pb-20">
+        <div className="reveal mb-10">
+          <EditableText id="finer-cocktail-inspo-kicker" tag="p" className="kicker mb-4" defaultContent="For The Welcome Party" />
+          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+            <EditableText id="finer-cocktail-inspo-h2" tag="span" defaultContent="Cocktail Attire Inspiration" />
+          </h2>
+          <EditableText
+            id="finer-cocktail-inspo-sub"
+            tag="p"
+            className="font-body text-sm italic text-stone mt-2"
+            defaultContent="A polished step above casual — think a knee or midi-length dress, jumpsuit, or a tailored suit or blazer with trousers. Italian summer evenings: light fabrics, easy elegance."
+          />
+        </div>
+        <div className="reveal grid md:grid-cols-2 gap-6">
+          <div>
+            <PhotoPlaceholder id="finer-details-cocktail-inspo-her" aspect="portrait" caption="For Her · Cocktail" />
+          </div>
+          <div>
+            <PhotoPlaceholder id="finer-details-cocktail-inspo-him" aspect="portrait" caption="For Him · Cocktail" />
+          </div>
+        </div>
+      </section>
+
       {/* Dress Code */}
       <section className="max-w-3xl mx-auto px-6 md:px-10 mb-24">
         <div className="reveal mb-10">
