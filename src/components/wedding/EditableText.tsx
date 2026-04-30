@@ -11,8 +11,6 @@ interface EditableTextProps {
   style?: React.CSSProperties;
 }
 
-type EditableTag = NonNullable<EditableTextProps["tag"]>;
-
 const HEADING_TAGS = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 const btnStyle: React.CSSProperties = {
@@ -36,7 +34,7 @@ export default function EditableText({
   className = "",
   style,
 }: EditableTextProps) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
   const isAdmin = useIsAdmin();
@@ -136,7 +134,7 @@ export default function EditableText({
     removeEdit(sizeKey);
   };
 
-  const Tag = tag as EditableTag;
+  const Tag: React.ElementType = tag;
 
   const toolbar = isAdmin && focused && createPortal(
     <div
