@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { loadEdit, saveEdit, removeEdit } from "@/lib/siteEdits";
+import { loadEdit, saveEdit, removeEdit, subscribeToEdit } from "@/lib/siteEdits";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface EditableTextProps {
@@ -67,7 +67,21 @@ export default function EditableText({
         ref.current.style.fontSize = savedSize;
       }
     });
-  }, [textKey, sizeKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const unsubscribeText = subscribeToEdit(textKey, (content) => {
+      if (!ref.current || document.activeElement === ref.current) return;
+      ref.current.innerHTML = content ?? defaultContent;
+    });
+    const unsubscribeSize = subscribeToEdit(sizeKey, (savedSize) => {
+      if (!ref.current) return;
+      ref.current.style.fontSize = savedSize ?? "";
+    });
+
+    return () => {
+      unsubscribeText();
+      unsubscribeSize();
+    };
+  }, [textKey, sizeKey, defaultContent]);
 
   // ── Keep toolbar aligned on scroll / resize ──
   const reposition = useCallback(() => {
