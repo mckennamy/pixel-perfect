@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { loadEdit, saveEdit, removeEdit } from "@/lib/siteEdits";
+import { loadEdit, saveEdit, removeEdit, subscribeToEdit } from "@/lib/siteEdits";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 interface EditableTextProps {
@@ -34,13 +34,16 @@ export default function EditableText({
   className = "",
   style,
 }: EditableTextProps) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
   const isAdmin = useIsAdmin();
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const setEditableRef = useCallback((node: HTMLElement | null) => {
+    ref.current = node;
+  }, []);
 
   // ── Restore content + font size ──
   useLayoutEffect(() => {
@@ -67,7 +70,21 @@ export default function EditableText({
         ref.current.style.fontSize = savedSize;
       }
     });
-  }, [textKey, sizeKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const unsubscribeText = subscribeToEdit(textKey, (content) => {
+      if (!ref.current || document.activeElement === ref.current) return;
+      ref.current.innerHTML = content ?? defaultContent;
+    });
+    const unsubscribeSize = subscribeToEdit(sizeKey, (savedSize) => {
+      if (!ref.current) return;
+      ref.current.style.fontSize = savedSize ?? "";
+    });
+
+    return () => {
+      unsubscribeText();
+      unsubscribeSize();
+    };
+  }, [textKey, sizeKey, defaultContent]);
 
   // ── Keep toolbar aligned on scroll / resize ──
   const reposition = useCallback(() => {
@@ -120,7 +137,7 @@ export default function EditableText({
     removeEdit(sizeKey);
   };
 
-  const Tag = tag as any;
+  const Tag: React.ElementType = tag;
 
   const toolbar = isAdmin && focused && createPortal(
     <div
@@ -180,14 +197,14 @@ export default function EditableText({
     <>
       {toolbar}
       <Tag
-        ref={ref}
+        ref={setEditableRef}
         contentEditable={isAdmin}
         suppressContentEditableWarning
         className={`editable-text ${className}`}
         style={style}
         onFocus={() => { if (!isAdmin) return; setFocused(true); reposition(); }}
         onBlur={() => { if (!isAdmin) return; setFocused(false); save(); }}
-        onKeyDown={(e: any) => {
+        onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
           if (!isAdmin) { e.preventDefault(); return; }
           if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
             e.preventDefault();
