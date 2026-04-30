@@ -483,6 +483,7 @@ export default function WeekCalendar() {
                       id={`cal-${selDay.date}-act-${i}-title`}
                       tag="p"
                       defaultContent={a.title}
+                      allowFontResize={false}
                       style={{
                         fontFamily: "Cinzel, serif",
                         fontSize: "0.5rem",
@@ -496,6 +497,7 @@ export default function WeekCalendar() {
                       id={`cal-${selDay.date}-act-${i}-note`}
                       tag="p"
                       defaultContent={a.note}
+                      allowFontResize={false}
                       style={{
                         fontFamily: "EB Garamond, serif",
                         fontStyle: "italic",
