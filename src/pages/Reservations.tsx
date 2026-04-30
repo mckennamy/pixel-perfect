@@ -349,7 +349,7 @@ export default function Reservations() {
                   style={{ accentColor: "hsl(var(--burg))" }}
                 />
                 <div>
-                  <p className="font-body text-sm text-[hsl(var(--ink))]">{opt.label}</p>
+                  <p className="font-body text-sm font-bold text-[hsl(var(--ink))]">{opt.label}</p>
                   <p className="font-body text-xs italic text-[hsl(var(--stone))]">{opt.sub}</p>
                 </div>
               </label>
