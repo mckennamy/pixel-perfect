@@ -57,7 +57,9 @@ function ensureLiveSync() {
         try {
           if (content === null) localStorage.removeItem(id);
           else localStorage.setItem(id, content);
-        } catch {}
+        } catch {
+          // Ignore local cache failures.
+        }
         notifyEdit(id, content);
       }
     )
@@ -118,13 +120,19 @@ export async function loadEdit(id: string): Promise<string | null> {
       .maybeSingle();
     if (!error) {
       if (data?.content) {
-        try { localStorage.setItem(id, data.content); } catch {}
+        try { localStorage.setItem(id, data.content); } catch {
+          // Ignore local cache failures.
+        }
         return data.content;
       }
-      try { localStorage.removeItem(id); } catch {}
+      try { localStorage.removeItem(id); } catch {
+        // Ignore local cache failures.
+      }
       return null;
     }
-  } catch {}
+  } catch {
+    // Fall back to local cache when the cloud request fails.
+  }
 
   // Offline fallback only: use localStorage if the cloud request fails.
   return localStorage.getItem(id);
@@ -138,7 +146,9 @@ export async function saveEdit(id: string, content: string): Promise<void> {
   try {
     localStorage.setItem(id, content);
     notifyEdit(id, content);
-  } catch {}
+  } catch {
+    notifyEdit(id, content);
+  }
 
   try {
     await supabase.from("site_edits").upsert(
@@ -156,8 +166,12 @@ export async function removeEdit(id: string): Promise<void> {
   try {
     localStorage.removeItem(id);
     notifyEdit(id, null);
-  } catch {}
+  } catch {
+    notifyEdit(id, null);
+  }
   try {
     await supabase.from("site_edits").delete().eq("id", id);
-  } catch {}
+  } catch {
+    // Ignore remove failures; the local view has already been cleared.
+  }
 }
