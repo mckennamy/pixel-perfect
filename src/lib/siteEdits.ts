@@ -1,5 +1,90 @@
 import { supabase } from "@/integrations/supabase/client";
 
+const SITE_EDIT_EVENT = "bb-site-edit-change";
+type EditCallback = (content: string | null) => void;
+const listeners = new Map<string, Set<EditCallback>>();
+let syncChannel: ReturnType<typeof supabase.channel> | null = null;
+let pollTimer: number | null = null;
+let pollInFlight = false;
+
+function notifyEdit(id: string, content: string | null) {
+  listeners.get(id)?.forEach((callback) => callback(content));
+  window.dispatchEvent(new CustomEvent(SITE_EDIT_EVENT, { detail: { id, content } }));
+}
+
+async function pollWatchedEdits() {
+  const ids = Array.from(listeners.keys());
+  if (!ids.length || pollInFlight) return;
+  pollInFlight = true;
+  try {
+    const { data, error } = await supabase
+      .from("site_edits")
+      .select("id, content")
+      .in("id", ids);
+    if (error) return;
+
+    const edits = new Map((data ?? []).map((row) => [row.id, row.content]));
+    ids.forEach((id) => {
+      const content = edits.get(id) ?? null;
+      try {
+        if (content === null) localStorage.removeItem(id);
+        else localStorage.setItem(id, content);
+      } catch {}
+      listeners.get(id)?.forEach((callback) => callback(content));
+    });
+  } finally {
+    pollInFlight = false;
+  }
+}
+
+function ensureLiveSync() {
+  if (syncChannel) return;
+
+  syncChannel = supabase
+    .channel("site-edits-live-sync")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "site_edits" },
+      (payload) => {
+        const row = payload.eventType === "DELETE" ? payload.old : payload.new;
+        const id = typeof row?.id === "string" ? row.id : null;
+        if (!id || !listeners.has(id)) return;
+        const content = payload.eventType === "DELETE" ? null : ((payload.new as { content?: string }).content ?? null);
+        try {
+          if (content === null) localStorage.removeItem(id);
+          else localStorage.setItem(id, content);
+        } catch {}
+        notifyEdit(id, content);
+      }
+    )
+    .subscribe();
+
+  pollTimer = window.setInterval(pollWatchedEdits, 5000);
+}
+
+export function subscribeToEdit(id: string, callback: EditCallback): () => void {
+  const callbacks = listeners.get(id) ?? new Set<EditCallback>();
+  callbacks.add(callback);
+  listeners.set(id, callbacks);
+  ensureLiveSync();
+
+  const onLocalEdit = (event: Event) => {
+    const detail = (event as CustomEvent<{ id: string; content: string | null }>).detail;
+    if (detail?.id === id) callback(detail.content);
+  };
+  window.addEventListener(SITE_EDIT_EVENT, onLocalEdit);
+
+  return () => {
+    callbacks.delete(callback);
+    window.removeEventListener(SITE_EDIT_EVENT, onLocalEdit);
+    if (callbacks.size === 0) listeners.delete(id);
+    if (listeners.size === 0 && pollTimer !== null) {
+      window.clearInterval(pollTimer);
+      pollTimer = null;
+    }
+  };
+}
+
 /** Cheap admin check used to short-circuit write attempts from non-admins. */
 async function currentUserIsAdmin(): Promise<boolean> {
   try {
@@ -20,15 +105,22 @@ async function currentUserIsAdmin(): Promise<boolean> {
 /** Load a saved edit from the database, falling back to localStorage for migration. */
 export async function loadEdit(id: string): Promise<string | null> {
   try {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("site_edits")
       .select("content")
       .eq("id", id)
       .maybeSingle();
-    if (data?.content) return data.content;
+    if (!error) {
+      if (data?.content) {
+        try { localStorage.setItem(id, data.content); } catch {}
+        return data.content;
+      }
+      try { localStorage.removeItem(id); } catch {}
+      return null;
+    }
   } catch {}
 
-  // Fallback: check localStorage cache for previously-loaded values.
+  // Offline fallback only: use localStorage if the cloud request fails.
   return localStorage.getItem(id);
 }
 
@@ -39,6 +131,7 @@ export async function saveEdit(id: string, content: string): Promise<void> {
 
   try {
     localStorage.setItem(id, content);
+    notifyEdit(id, content);
   } catch {}
 
   try {
@@ -54,7 +147,10 @@ export async function saveEdit(id: string, content: string): Promise<void> {
 /** Remove an edit. */
 export async function removeEdit(id: string): Promise<void> {
   if (!(await currentUserIsAdmin())) return;
-  try { localStorage.removeItem(id); } catch {}
+  try {
+    localStorage.removeItem(id);
+    notifyEdit(id, null);
+  } catch {}
   try {
     await supabase.from("site_edits").delete().eq("id", id);
   } catch {}
