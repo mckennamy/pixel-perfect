@@ -9,6 +9,7 @@ const baseNavItems = [
   { href: "/finer-details",    label: "Finer Details",     it: "I Dettagli" },
   { href: "/excursions",       label: "Excursions",        it: "Le Avventure" },
   { href: "/faq",              label: "FAQ",               it: "Domande" },
+  { href: "/registry",         label: "Registry",          it: "Il Regalo" },
   { href: "/reservations",     label: "Reservations",      it: "La Conferma" },
 ];
 const rehearsalItem = { href: "/rehearsal-dinner", label: "Rehearsal Dinner", it: "La Cena di Prova" };
@@ -62,8 +63,9 @@ export default function Navbar() {
   if (pathname === "/") return null;
 
   const adminItem = { href: "/admin", label: "Admin", it: "Pannello Privato" };
+  // Insert Rehearsal Dinner just before Reservations (last item) when applicable
   let navItems = showRehearsal
-    ? [...baseNavItems.slice(0, 6), rehearsalItem, baseNavItems[6]]
+    ? [...baseNavItems.slice(0, baseNavItems.length - 1), rehearsalItem, baseNavItems[baseNavItems.length - 1]]
     : baseNavItems;
   if (isAdmin) navItems = [...navItems, adminItem];
 
