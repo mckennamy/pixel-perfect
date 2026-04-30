@@ -11,6 +11,8 @@ interface EditableTextProps {
   style?: React.CSSProperties;
 }
 
+type EditableTag = NonNullable<EditableTextProps["tag"]>;
+
 const HEADING_TAGS = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
 
 const btnStyle: React.CSSProperties = {
@@ -134,7 +136,7 @@ export default function EditableText({
     removeEdit(sizeKey);
   };
 
-  const Tag = tag as any;
+  const Tag = tag as EditableTag;
 
   const toolbar = isAdmin && focused && createPortal(
     <div
@@ -201,7 +203,7 @@ export default function EditableText({
         style={style}
         onFocus={() => { if (!isAdmin) return; setFocused(true); reposition(); }}
         onBlur={() => { if (!isAdmin) return; setFocused(false); save(); }}
-        onKeyDown={(e: any) => {
+        onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
           if (!isAdmin) { e.preventDefault(); return; }
           if (e.key === "Enter" && HEADING_TAGS.has(tag)) {
             e.preventDefault();
