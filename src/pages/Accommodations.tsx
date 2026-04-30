@@ -231,7 +231,7 @@ export default function Accommodations() {
               <EditableText id="accom-rate-subtext" tag="p" className="font-body text-xs italic mb-6" style={{ color: "rgba(250,248,242,0.45)" }} defaultContent="€385 per guest · all-inclusive accommodation for the week" />
               <div className="space-y-3">
                 {[
-                  "Arrival Tuesday, May 19",
+                  "Arrival Wednesday, May 19",
                   "Departure Saturday, May 24 or Sunday, May 25",
                   "Covers 5–6 nights on the estate",
                   "All villas — shared with your party",
