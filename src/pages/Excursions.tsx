@@ -267,6 +267,80 @@ export default function Excursions() {
         </div>
       </section>
 
+      {/* Cuisine */}
+      <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="reveal mb-10">
+            <EditableText
+              id="excursions-cuisine-kicker"
+              defaultContent="A Tavola"
+              tag="p"
+              className="kicker mb-4"
+            />
+            <EditableText
+              id="excursions-cuisine-h2"
+              defaultContent="Cuisine · Local Favourites"
+              tag="h2"
+              className="font-display italic text-burg"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}
+            />
+            <EditableText
+              id="excursions-cuisine-desc"
+              tag="p"
+              className="font-body text-sm italic text-stone mt-3"
+              defaultContent="Lucca's best dining — a hand-picked list of where we'd send family. All within a short drive of Villa Grabau. Reserve ahead, especially on weekends."
+            />
+          </div>
+          <div className="space-y-0 reveal">
+            {restaurants.map((r, i) => (
+              <div key={i}>
+                <div className="rule-full mb-6" />
+                <div className="grid md:grid-cols-3 gap-6 mb-6">
+                  <div>
+                    <EditableText
+                      id={`excursions-rest-${i}-name`}
+                      defaultContent={r.name}
+                      tag="p"
+                      className="font-display italic text-burg text-2xl mb-1"
+                      style={{ fontWeight: 300 }}
+                    />
+                    <EditableText
+                      id={`excursions-rest-${i}-distance`}
+                      defaultContent={r.distance}
+                      tag="p"
+                      className="font-body text-xs text-stone"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <EditableText
+                      id={`excursions-rest-${i}-note`}
+                      defaultContent={r.note}
+                      tag="p"
+                      className="font-body text-sm text-ink-mid leading-relaxed mb-2"
+                    />
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="kicker"
+                      style={{
+                        color: "hsl(var(--burg))",
+                        textDecoration: "underline",
+                        textDecorationColor: "hsl(var(--gold))",
+                        textUnderlineOffset: "3px",
+                      }}
+                    >
+                      {r.linkLabel} →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="rule-full" />
+          </div>
+        </div>
+      </section>
+
       {/* AI planner */}
       <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--parchment))" }}>
         <div className="max-w-2xl mx-auto">
