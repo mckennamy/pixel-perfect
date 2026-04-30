@@ -196,6 +196,14 @@ export default function Admin() {
     loadAll();
   };
 
+  const deleteFlight = async (id: string) => {
+    if (!confirm("Delete this flight submission?")) return;
+    const { error } = await supabase.from("flight_submissions").delete().eq("id", id);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Flight submission deleted");
+    loadAll();
+  };
+
   const startPaymentEdit = (r: Reservation) => {
     setEditingPayment(r.id);
     setPaymentDraft({
