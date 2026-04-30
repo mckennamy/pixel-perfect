@@ -55,6 +55,57 @@ export type Database = {
           },
         ]
       }
+      flight_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          flight_arrival_date: string | null
+          flight_arrival_from: string | null
+          flight_arrival_number: string | null
+          flight_departure_date: string | null
+          flight_departure_number: string | null
+          flight_departure_to: string | null
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string | null
+          submitted_at: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          flight_arrival_date?: string | null
+          flight_arrival_from?: string | null
+          flight_arrival_number?: string | null
+          flight_departure_date?: string | null
+          flight_departure_number?: string | null
+          flight_departure_to?: string | null
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          submitted_at?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          flight_arrival_date?: string | null
+          flight_arrival_from?: string | null
+          flight_arrival_number?: string | null
+          flight_departure_date?: string | null
+          flight_departure_number?: string | null
+          flight_departure_to?: string | null
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          submitted_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       guest_questions: {
         Row: {
           admin_notes: string | null
