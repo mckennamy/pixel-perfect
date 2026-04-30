@@ -14,6 +14,7 @@ import FinerDetails from "./pages/FinerDetails";
 import FAQ from "./pages/FAQ";
 import Excursions from "./pages/Excursions";
 import Reservations from "./pages/Reservations";
+import Registry from "./pages/Registry";
 import Admin from "./pages/Admin";
 import RehearsalDinner from "./pages/RehearsalDinner";
 import NotFound from "./pages/NotFound";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/excursions" element={<Excursions />} />
           <Route path="/reservations" element={<Reservations />} />
+          <Route path="/registry" element={<Registry />} />
           <Route path="/rehearsal-dinner" element={<RehearsalDinner />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
