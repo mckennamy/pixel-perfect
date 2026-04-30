@@ -44,6 +44,21 @@ interface GuestQuestion {
   created_at: string;
 }
 
+interface FlightSubmission {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string | null;
+  flight_arrival_date: string | null;
+  flight_arrival_number: string | null;
+  flight_arrival_from: string | null;
+  flight_departure_date: string | null;
+  flight_departure_number: string | null;
+  flight_departure_to: string | null;
+  notes: string | null;
+  submitted_at: string;
+}
+
 const inputClass =
   "w-full font-body text-sm bg-white border border-[hsl(var(--border))] px-3 py-2.5 focus:outline-none focus:border-[hsl(var(--burg-mid))] placeholder:text-[hsl(var(--stone-light))] text-[hsl(var(--ink))]";
 
@@ -51,10 +66,11 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [tab, setTab] = useState<"guests" | "reservations" | "questions">("guests");
+  const [tab, setTab] = useState<"guests" | "reservations" | "questions" | "flights">("guests");
   const [guests, setGuests] = useState<Guest[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [questions, setQuestions] = useState<GuestQuestion[]>([]);
+  const [flights, setFlights] = useState<FlightSubmission[]>([]);
   const [questionFilter, setQuestionFilter] = useState<"all" | "open" | "answered">("open");
   const [showAddGuest, setShowAddGuest] = useState(false);
   const [guestFilter, setGuestFilter] = useState<
@@ -105,14 +121,16 @@ export default function Admin() {
   };
 
   const loadAll = async () => {
-    const [g, r, q] = await Promise.all([
+    const [g, r, q, f] = await Promise.all([
       supabase.from("guests").select("*").order("full_name"),
       supabase.from("reservations").select("*").order("submitted_at", { ascending: false }),
       supabase.from("guest_questions").select("*").order("created_at", { ascending: false }),
+      supabase.from("flight_submissions").select("*").order("submitted_at", { ascending: false }),
     ]);
     if (g.data) setGuests(g.data as Guest[]);
     if (r.data) setReservations(r.data as unknown as Reservation[]);
     if (q.data) setQuestions(q.data as GuestQuestion[]);
+    if (f.data) setFlights(f.data as FlightSubmission[]);
   };
 
   const signIn = async () => {
@@ -357,7 +375,7 @@ export default function Admin() {
 
         {/* Tabs */}
         <div className="flex gap-2 mb-8">
-          {(["guests", "reservations", "questions"] as const).map((t) => {
+          {(["guests", "reservations", "questions", "flights"] as const).map((t) => {
             const openCount = t === "questions" ? questions.filter((q) => !q.answered).length : 0;
             return (
             <button
