@@ -9,7 +9,9 @@ let pollInFlight = false;
 
 function notifyEdit(id: string, content: string | null) {
   listeners.get(id)?.forEach((callback) => callback(content));
-  window.dispatchEvent(new CustomEvent(SITE_EDIT_EVENT, { detail: { id, content } }));
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent(SITE_EDIT_EVENT, { detail: { id, content } }));
+  }
 }
 
 async function pollWatchedEdits() {
@@ -29,7 +31,9 @@ async function pollWatchedEdits() {
       try {
         if (content === null) localStorage.removeItem(id);
         else localStorage.setItem(id, content);
-      } catch {}
+      } catch {
+        // Ignore local cache failures.
+      }
       listeners.get(id)?.forEach((callback) => callback(content));
     });
   } finally {
@@ -59,7 +63,9 @@ function ensureLiveSync() {
     )
     .subscribe();
 
-  pollTimer = window.setInterval(pollWatchedEdits, 5000);
+  if (typeof window !== "undefined") {
+    pollTimer = window.setInterval(pollWatchedEdits, 5000);
+  }
 }
 
 export function subscribeToEdit(id: string, callback: EditCallback): () => void {
