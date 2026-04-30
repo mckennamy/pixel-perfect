@@ -290,6 +290,12 @@ export default function Excursions() {
               className="font-body text-sm italic text-stone mt-3"
               defaultContent="Curated experiences offered through L'Aranciera, right here at Villa Grabau. Pricing reflects current-year rates and may shift slightly for 2027 — consider these a guide. Reach out to the bride or groom if you'd like to coordinate a group booking."
             />
+            <EditableText
+              id="excursions-aranciera-contact-note"
+              tag="p"
+              className="font-body text-sm text-ink-mid mt-3"
+              defaultContent="If any guest or group is interested in booking one of these activities, please contact L'Aranciera directly via their <a href='https://www.aranceravillagrabau.it/en/contacts/' target='_blank' rel='noopener noreferrer' style='text-decoration: underline;'>contact page</a> to arrange it."
+            />
           </div>
           <div className="space-y-0 reveal">
             {[
