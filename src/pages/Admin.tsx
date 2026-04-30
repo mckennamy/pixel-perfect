@@ -810,6 +810,74 @@ export default function Admin() {
             </div>
           </div>
         )}
+
+        {tab === "flights" && (
+          <div>
+            <div className="flex justify-between items-center mb-6 flex-wrap gap-3">
+              <p className="font-display italic text-burg text-2xl" style={{ fontWeight: 300 }}>
+                Flight Submissions ({flights.length})
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {flights.length === 0 && (
+                <p className="font-body italic text-stone text-center py-10">
+                  No flight details submitted yet.
+                </p>
+              )}
+              {flights.map((f) => (
+                <div key={f.id} className="p-5" style={{ background: "hsl(var(--cream))", border: "1px solid hsl(var(--border))" }}>
+                  <div className="flex justify-between items-start mb-3 flex-wrap gap-2">
+                    <div>
+                      <p className="font-display italic text-burg text-xl" style={{ fontWeight: 300 }}>{f.full_name}</p>
+                      <p className="font-body text-xs text-stone">
+                        <a href={`mailto:${f.email}`} className="hover:text-burg">{f.email}</a>
+                        {f.phone && <> · <a href={`tel:${f.phone}`} className="hover:text-burg">{f.phone}</a></>}
+                      </p>
+                      <p className="font-body text-xs text-stone mt-1">
+                        Submitted {new Date(f.submitted_at).toLocaleString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => deleteFlight(f.id)}
+                      className="kicker px-4 py-2"
+                      style={{ border: "1px solid hsl(var(--border))", color: "hsl(var(--stone))" }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4 py-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                    <div>
+                      <p className="kicker mb-2">Arrival</p>
+                      <p className="font-body text-sm text-ink">
+                        {f.flight_arrival_date || "—"}
+                        {f.flight_arrival_number && <> · {f.flight_arrival_number}</>}
+                      </p>
+                      {f.flight_arrival_from && (
+                        <p className="font-body text-xs text-stone">From {f.flight_arrival_from}</p>
+                      )}
+                    </div>
+                    <div>
+                      <p className="kicker mb-2">Departure</p>
+                      <p className="font-body text-sm text-ink">
+                        {f.flight_departure_date || "—"}
+                        {f.flight_departure_number && <> · {f.flight_departure_number}</>}
+                      </p>
+                      {f.flight_departure_to && (
+                        <p className="font-body text-xs text-stone">To {f.flight_departure_to}</p>
+                      )}
+                    </div>
+                  </div>
+                  {f.notes && (
+                    <p className="font-body text-sm text-ink-mid italic whitespace-pre-wrap pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      {f.notes}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
