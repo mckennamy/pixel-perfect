@@ -61,13 +61,21 @@ export default function EditableText({
 
     // Load from cloud (async)
     loadEdit(textKey).then((saved) => {
-      if (saved !== null && ref.current) {
+      if (!ref.current) return;
+      if (saved !== null) {
         ref.current.innerHTML = saved;
+      } else if (cached !== null) {
+        // DB has no saved value but we showed a stale cached one — restore default.
+        ref.current.innerHTML = defaultContent;
       }
     });
     loadEdit(sizeKey).then((savedSize) => {
-      if (savedSize && ref.current) {
+      if (!ref.current) return;
+      if (savedSize) {
         ref.current.style.fontSize = savedSize;
+      } else {
+        // DB has no saved size — clear any stale cached inline size.
+        ref.current.style.fontSize = "";
       }
     });
 
