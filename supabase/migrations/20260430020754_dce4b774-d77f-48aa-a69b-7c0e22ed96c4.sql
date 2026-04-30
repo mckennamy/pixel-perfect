@@ -1,0 +1,3 @@
+UPDATE public.site_edits
+SET content = 'Dinner on your own&nbsp;<span style="color: rgb(29, 27, 27);">·</span>&nbsp;Rated the best restaurant in Lucca by locals, we encourage checking out <a href="https://www.bucadisantantonio.com/en/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Buca di Sant''Antonio</a>'
+WHERE id = 'bb_text_cal-19-act-2-note';
