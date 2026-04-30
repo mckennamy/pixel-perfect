@@ -1,0 +1,4 @@
+UPDATE public.site_edits
+SET content = 'Our stunning wedding venue — a historic 16th-century Lucchese villa surrounded by formal Italian gardens, ancient olive groves, and sweeping Tuscan views. Villa Grabau has been the backdrop of love stories for centuries. Villa Grabau is open to tourists and visitors on the weekends, so if guests feel inclined they are welcome to walk through on Friday or Sunday. For our wedding day, we have exclusive use of the Villa grounds and reception space, but not the inside of the Villa itself. The entirety of the grounds and garden areas can be explored at any point during your stay — please kindly note that Villa Grabau may be hosting other events on their grounds during our stay.',
+    updated_at = now()
+WHERE id = 'bb_text_villa-grabau-desc';
