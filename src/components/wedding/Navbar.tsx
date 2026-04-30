@@ -10,6 +10,7 @@ const baseNavItems = [
   { href: "/excursions",       label: "Excursions",        it: "Le Avventure" },
   { href: "/faq",              label: "FAQ",               it: "Domande" },
   { href: "/registry",         label: "Registry",          it: "Il Regalo" },
+  { href: "/flights",          label: "Flight Details",    it: "I Voli" },
   { href: "/reservations",     label: "Reservations",      it: "La Conferma" },
 ];
 const rehearsalItem = { href: "/rehearsal-dinner", label: "Rehearsal Dinner", it: "La Cena di Prova" };
