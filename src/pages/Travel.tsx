@@ -57,6 +57,14 @@ const ground = [
     note: '<a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Trenitalia</a> runs every 30–60 minutes. You will need a taxi from Lucca station to the villa.',
     recommended: false,
   },
+  {
+    title: "Rental Car",
+    from: "Pisa (PSA) or Florence (FLR) → Villa Grabau",
+    duration: "45–90 min",
+    cost: "€40–90 / day",
+    note: 'Recommended if you plan to drive to vineyards, the coast, or Florence later in the week. Rentals are easy to arrange in the airport arrivals hall (<a href="https://www.hertz.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Hertz</a>, <a href="https://www.avis.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Avis</a>, <a href="https://www.europcar.com/" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">Europcar</a>) — book ahead for better rates. <em>Important:</em> Italy legally requires U.S. drivers to carry an International Driving Permit alongside your license. Get one same-day at any AAA branch (~$20, two passport photos required) — start at <a href="https://www.aaa.com/vacation/idpf.html" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">AAA International Driving Permit</a>.',
+    recommended: false,
+  },
 ];
 
 export default function Travel() {
