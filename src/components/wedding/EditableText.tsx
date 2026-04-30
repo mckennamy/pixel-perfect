@@ -40,6 +40,7 @@ export default function EditableText({
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
   const isAdmin = useIsAdmin();
+  const defaultFontSize = typeof style?.fontSize === "number" ? `${style.fontSize}px` : style?.fontSize ?? "";
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -76,8 +77,8 @@ export default function EditableText({
       if (allowFontResize && savedSize) {
         ref.current.style.fontSize = savedSize;
       } else {
-        // DB has no saved size — clear any stale cached inline size.
-        ref.current.style.fontSize = "";
+        // Restore the component's original size instead of falling back to inherited text size.
+        ref.current.style.fontSize = defaultFontSize;
       }
     });
 
@@ -87,14 +88,14 @@ export default function EditableText({
     });
     const unsubscribeSize = subscribeToEdit(sizeKey, (savedSize) => {
       if (!ref.current) return;
-      ref.current.style.fontSize = allowFontResize ? (savedSize ?? "") : "";
+      ref.current.style.fontSize = allowFontResize && savedSize ? savedSize : defaultFontSize;
     });
 
     return () => {
       unsubscribeText();
       unsubscribeSize();
     };
-  }, [textKey, sizeKey, defaultContent, allowFontResize]);
+  }, [textKey, sizeKey, defaultContent, allowFontResize, defaultFontSize]);
 
   // ── Keep toolbar aligned on scroll / resize ──
   const reposition = useCallback(() => {
