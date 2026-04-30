@@ -41,6 +41,9 @@ export default function EditableText({
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
+  const setEditableRef = useCallback((node: HTMLElement | null) => {
+    ref.current = node;
+  }, []);
 
   // ── Restore content + font size ──
   useLayoutEffect(() => {
@@ -194,7 +197,7 @@ export default function EditableText({
     <>
       {toolbar}
       <Tag
-        ref={ref}
+        ref={setEditableRef}
         contentEditable={isAdmin}
         suppressContentEditableWarning
         className={`editable-text ${className}`}
