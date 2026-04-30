@@ -76,6 +76,54 @@ const destinations = [
   },
 ];
 
+const linkStyle =
+  'font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;';
+
+const restaurants = [
+  {
+    name: "Buca di Sant'Antonio",
+    distance: "10 min from the villa · central Lucca",
+    note: "An institution since 1782 — copper pans on the walls, hand-rolled tordelli lucchesi, and what locals consider the best traditional Tuscan kitchen in town.",
+    url: "https://www.bucadisantantonio.com/en/",
+    linkLabel: "Website & menu",
+  },
+  {
+    name: "L'Angolo Tondo",
+    distance: "10 min from the villa · Piazza dell'Anfiteatro",
+    note: "A bold little trattoria right on the Roman amphitheatre piazza — short, seasonal menu, beautiful natural wines, perfect for a long evening outside.",
+    url: "https://www.langolotondo.com/en",
+    linkLabel: "Website & menu",
+  },
+  {
+    name: "Osteria Da Rosolo",
+    distance: "12 min from the villa · just outside the walls",
+    note: "A neighbourhood favourite for handmade pasta, grilled meats, and a warm, no-fuss Tuscan welcome.",
+    url: "https://www.osteriadarosolo.com/",
+    linkLabel: "Website",
+  },
+  {
+    name: "Ristorante Giglio",
+    distance: "10 min from the villa · Piazza del Giglio",
+    note: "Refined, modern Tuscan cooking from three young chefs in a frescoed dining room beside the opera house — a beautiful special-occasion dinner.",
+    url: "https://www.ristorantegiglio.com/",
+    linkLabel: "Website & menu",
+  },
+  {
+    name: "Trattoria da Leo",
+    distance: "10 min from the villa · central Lucca",
+    note: "The classic Lucchese trattoria — paper tablecloths, hearty tordelli and farro soup, laughter spilling onto the alley. Cash-friendly, no reservations: get there early.",
+    url: "https://www.trattoriadaleo.it/",
+    linkLabel: "Website",
+  },
+  {
+    name: "Gelateria Veneta",
+    distance: "10 min from the villa · central Lucca",
+    note: "Open since 1927 and still the gelato Lucchesi queue for — pistachio, fig, and seasonal fruit churned daily. The perfect end to any night.",
+    url: "https://www.gelateriaveneta.net/",
+    linkLabel: "Website",
+  },
+];
+
 export default function Excursions() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
