@@ -85,7 +85,7 @@ const details: Record<number, DayDetail> = {
     activities: [
       { title: "Mattina · Morning",     note: "Late brunch at L'Arancera for all guests — the same beloved buffet as our welcome breakfast" },
       { title: "Pomeriggio · Afternoon", note: "On your own · pool party at L'Arancera, or one last wander through Lucca, Florence, or the coast" },
-      { title: "Sera · Evening",         note: "On your own for those staying · a quiet, golden last night in Tuscany" },
+      { title: "Sera · Evening",         note: 'On your own for those staying · a quiet, golden last night in Tuscany — perhaps dinner at <a href="https://www.langolotondo.com/en" target="_blank" rel="noopener noreferrer" style="font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;">L\'Angolo Tondo</a> in Piazza dell\'Anfiteatro' },
     ],
   },
   24: {
