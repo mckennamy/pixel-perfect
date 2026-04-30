@@ -9,6 +9,7 @@ interface EditableTextProps {
   tag?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div";
   className?: string;
   style?: React.CSSProperties;
+  allowFontResize?: boolean;
 }
 
 const HEADING_TAGS = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
@@ -33,11 +34,13 @@ export default function EditableText({
   tag = "span",
   className = "",
   style,
+  allowFontResize = true,
 }: EditableTextProps) {
   const ref = useRef<HTMLElement | null>(null);
   const textKey = `bb_text_${id}`;
   const sizeKey = `bb_fs_${id}`;
   const isAdmin = useIsAdmin();
+  const defaultFontSize = typeof style?.fontSize === "number" ? `${style.fontSize}px` : style?.fontSize ?? "";
 
   const [focused, setFocused] = useState(false);
   const [tbPos, setTbPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -56,7 +59,7 @@ export default function EditableText({
       // Render defaults as HTML so embedded <a>, <strong>, etc. work for recommendations.
       ref.current.innerHTML = defaultContent;
     }
-    const cachedSize = localStorage.getItem(sizeKey);
+    const cachedSize = allowFontResize ? localStorage.getItem(sizeKey) : null;
     if (cachedSize) ref.current.style.fontSize = cachedSize;
 
     // Load from cloud (async)
@@ -71,11 +74,11 @@ export default function EditableText({
     });
     loadEdit(sizeKey).then((savedSize) => {
       if (!ref.current) return;
-      if (savedSize) {
+      if (allowFontResize && savedSize) {
         ref.current.style.fontSize = savedSize;
       } else {
-        // DB has no saved size — clear any stale cached inline size.
-        ref.current.style.fontSize = "";
+        // Restore the component's original size instead of falling back to inherited text size.
+        ref.current.style.fontSize = defaultFontSize;
       }
     });
 
@@ -85,14 +88,14 @@ export default function EditableText({
     });
     const unsubscribeSize = subscribeToEdit(sizeKey, (savedSize) => {
       if (!ref.current) return;
-      ref.current.style.fontSize = savedSize ?? "";
+      ref.current.style.fontSize = allowFontResize && savedSize ? savedSize : defaultFontSize;
     });
 
     return () => {
       unsubscribeText();
       unsubscribeSize();
     };
-  }, [textKey, sizeKey, defaultContent]);
+  }, [textKey, sizeKey, defaultContent, allowFontResize, defaultFontSize]);
 
   // ── Keep toolbar aligned on scroll / resize ──
   const reposition = useCallback(() => {
@@ -166,6 +169,7 @@ export default function EditableText({
       }}
       onMouseDown={e => e.preventDefault()}
     >
+      {allowFontResize && <>
       <button style={btnStyle} title="Smaller text"
         onMouseDown={e => resizeFont(e, -2)}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
@@ -182,6 +186,7 @@ export default function EditableText({
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >↺</button>
       <div style={{ width: 1, height: 16, background: "rgba(255,255,255,0.15)", margin: "0 2px" }} />
+      </>}
       <button style={{ ...btnStyle, fontFamily: "Georgia, serif", fontWeight: 700 }} title="Bold"
         onMouseDown={e => exec(e, "bold")}
         onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.1)")}
