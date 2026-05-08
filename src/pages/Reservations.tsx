@@ -323,6 +323,12 @@ export default function Reservations() {
         <div className="reveal mb-14">
           <EditableText id="res-section-03" defaultContent="03 — Payment" tag="p" className="kicker mb-2" />
           <div className="rule-full mb-8" />
+          <EditableText
+            id="res-payment-deadlines"
+            tag="p"
+            className="font-body text-sm mb-6 text-[hsl(var(--ink))]"
+            defaultContent="<strong>Reservation deadlines:</strong> If you are staying <strong>on-site</strong> (Villa Grabau or L'Arancera), your reservation and deposit are due by <strong>November 22, 2026</strong>. If you are arranging your own <strong>off-site</strong> accommodation, please notify McKenna and Bradley as soon as possible and submit this reservation by <strong>August 22, 2026</strong>."
+          />
           <div className="space-y-3">
             {[
               {

@@ -29,7 +29,8 @@ const faqs = [
     category: "Reservations",
     items: [
       { q: "How do I officially RSVP?", a: "Please complete the Reservations form on this website. We ask for your party's details, accommodation preference, and flight information. An RSVP alone is not a reservation — you will need to complete the form and submit your deposit." },
-      { q: "What are the payment options?", a: "Option 1: A 50% deposit now, with the remaining balance due 90 days before the wedding (February 22, 2027). Option 2: Full payment now." },
+      { q: "When are reservations and deposits due?", a: "If you are staying ON-SITE (Villa Grabau or L'Arancera), your reservation and deposit are due by November 22, 2026. If you are arranging your own OFF-SITE accommodation, please let McKenna and Bradley know as soon as possible and submit your reservation through this website by August 22, 2026 so we can finalize on-site headcount." },
+      { q: "What are the payment options?", a: "Option 1: A 50% deposit now, with the remaining balance due 90 days before the wedding (February 22, 2027). Option 2: Full payment now. On-site guests: reservation and deposit due November 22, 2026. Off-site guests: reservation due August 22, 2026 (and please notify the bride and groom ASAP)." },
       { q: "What if I need to cancel?", a: "Please contact us directly as soon as possible. Refund policies depend on timing." },
     ],
   },
