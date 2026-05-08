@@ -270,7 +270,7 @@ export default function Accommodations() {
                   tag="p"
                   className="font-body text-xs italic"
                   style={{ color: "rgba(250,248,242,0.4)" }}
-                  defaultContent="A 50% deposit secures your place; the remaining balance is due February 22, 2027."
+                  defaultContent="A 50% deposit secures your place; the remaining balance is due February 22, 2027. On-site guests: reservation and deposit due by November 22, 2026. Off-site guests: please notify McKenna and Bradley ASAP and submit your reservation through this website by August 22, 2026."
                 />
                 <div className="mt-5 pt-5 flex items-center gap-4" style={{ borderTop: "1px solid rgba(250,248,242,0.1)" }}>
                   <img
