@@ -22,9 +22,6 @@ const schema = z.object({
   accommodationPreference: z.enum(["on_site_villa_grabau", "on_site_la_rancera", "off_site"], {
     errorMap: () => ({ message: "Please select an accommodation preference" }),
   }),
-  linenService: z.enum(["yes", "no"]).optional(),
-  linenFrequency: z.enum(["every_day", "select_days"]).optional(),
-  linenDays: z.array(z.string()).optional(),
   flightArrivalDate: z.string().optional(),
   flightArrivalNumber: z.string().optional(),
   flightArrivalFrom: z.string().optional(),
@@ -60,8 +57,6 @@ export default function Reservations() {
 
   const { fields, append, remove } = useFieldArray({ control, name: "guests" });
   const accommodationPref = watch("accommodationPreference");
-  const linenService = watch("linenService");
-  const linenFrequency = watch("linenFrequency");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -80,9 +75,6 @@ export default function Reservations() {
       guests: data.guests,
       payment_option: data.paymentOption,
       accommodation_preference: data.accommodationPreference,
-      linen_service: data.linenService ?? null,
-      linen_frequency: data.linenFrequency ?? null,
-      linen_days: data.linenDays ?? null,
       flight_arrival_date: data.flightArrivalDate ?? null,
       flight_arrival_number: data.flightArrivalNumber ?? null,
       flight_arrival_from: data.flightArrivalFrom ?? null,
@@ -436,73 +428,6 @@ export default function Reservations() {
             Note: L'Arancera is reserved exclusively for the bridal party, groom's party, and their designated plus ones. All other guests, please select Villa Grabau or Off-Site.
           </p>
 
-          {(accommodationPref === "on_site_villa_grabau" || accommodationPref === "on_site_la_rancera") && (
-            <div className="mt-6 p-5" style={{ border: "1px solid hsl(var(--border))" }}>
-              <p className="kicker mb-1">Linen & Towel Service</p>
-              <p className="font-body text-xs italic text-[hsl(var(--stone))] mb-4">
-                Available for an additional charge — select your preferred frequency
-              </p>
-              <div className="flex gap-6 mb-4">
-                {[
-                  { value: "yes", label: "Yes, please" },
-                  { value: "no",  label: "No, thank you" },
-                ].map((v) => (
-                  <label key={v.value} className="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" value={v.value} {...register("linenService")} style={{ accentColor: "hsl(var(--burg))" }} />
-                    <span className="font-body text-sm text-[hsl(var(--ink))]">{v.label}</span>
-                  </label>
-                ))}
-              </div>
-
-              {linenService === "yes" && (
-                <div className="mt-2 pt-4" style={{ borderTop: "1px solid hsl(var(--border))" }}>
-                  <p className="kicker mb-3">How Often?</p>
-                  <div className="flex gap-6 mb-4">
-                    {[
-                      { value: "every_day",    label: "Every day" },
-                      { value: "select_days",  label: "Select specific days" },
-                    ].map((v) => (
-                      <label key={v.value} className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" value={v.value} {...register("linenFrequency")} style={{ accentColor: "hsl(var(--burg))" }} />
-                        <span className="font-body text-sm text-[hsl(var(--ink))]">{v.label}</span>
-                      </label>
-                    ))}
-                  </div>
-
-                  {linenFrequency === "select_days" && (
-                    <div className="mt-2">
-                      <p className="kicker mb-3" style={{ fontSize: "0.48rem" }}>Select days (May 19–25)</p>
-                      <div className="flex flex-wrap gap-3">
-                        {[
-                          { value: "mon", label: "Mon · 19" },
-                          { value: "tue", label: "Tue · 20" },
-                          { value: "wed", label: "Wed · 21" },
-                          { value: "thu", label: "Thu · 22" },
-                          { value: "fri", label: "Fri · 23" },
-                          { value: "sat", label: "Sat · 24" },
-                          { value: "sun", label: "Sun · 25" },
-                        ].map((d) => (
-                          <label
-                            key={d.value}
-                            className="flex items-center gap-2 cursor-pointer px-3 py-2 transition-colors"
-                            style={{ border: "1px solid hsl(var(--border))", background: "hsl(var(--parchment))" }}
-                          >
-                            <input
-                              type="checkbox"
-                              value={d.value}
-                              {...register("linenDays")}
-                              style={{ accentColor: "hsl(var(--burg))" }}
-                            />
-                            <span className="kicker" style={{ fontSize: "0.5rem" }}>{d.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* ── 05: Flights ── */}
