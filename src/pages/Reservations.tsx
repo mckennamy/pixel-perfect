@@ -22,9 +22,6 @@ const schema = z.object({
   accommodationPreference: z.enum(["on_site_villa_grabau", "on_site_la_rancera", "off_site"], {
     errorMap: () => ({ message: "Please select an accommodation preference" }),
   }),
-  linenService: z.enum(["yes", "no"]).optional(),
-  linenFrequency: z.enum(["every_day", "select_days"]).optional(),
-  linenDays: z.array(z.string()).optional(),
   flightArrivalDate: z.string().optional(),
   flightArrivalNumber: z.string().optional(),
   flightArrivalFrom: z.string().optional(),
