@@ -645,21 +645,6 @@ export default function Admin() {
                     </div>
                   )}
 
-                  {/* Linen service (on-site only) */}
-                  {r.linen_service && (
-                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
-                      <span className="kicker block mb-1">Linen Service</span>
-                      <p className="font-body text-sm text-ink">
-                        {r.linen_service === "yes" ? "Yes" : "No"}
-                        {r.linen_service === "yes" && r.linen_frequency && (
-                          <> · {r.linen_frequency.replace(/_/g, " ")}</>
-                        )}
-                        {r.linen_days && r.linen_days.length > 0 && (
-                          <> · {r.linen_days.join(", ")}</>
-                        )}
-                      </p>
-                    </div>
-                  )}
 
                   {/* Flight details */}
                   {(r.flight_arrival_date || r.flight_arrival_number || r.flight_departure_date || r.flight_departure_number) && (
