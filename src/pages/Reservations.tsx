@@ -57,8 +57,6 @@ export default function Reservations() {
 
   const { fields, append, remove } = useFieldArray({ control, name: "guests" });
   const accommodationPref = watch("accommodationPreference");
-  const linenService = watch("linenService");
-  const linenFrequency = watch("linenFrequency");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
