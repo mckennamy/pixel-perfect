@@ -631,6 +631,75 @@ export default function Admin() {
                     Submitted {new Date(r.submitted_at).toLocaleDateString()}
                   </p>
 
+                  {/* Full guest list with dietary restrictions */}
+                  {r.guests && r.guests.length > 0 && (
+                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      <span className="kicker block mb-2">Guests ({r.guests.length})</span>
+                      <ul className="space-y-1.5">
+                        {r.guests.map((g, idx) => (
+                          <li key={idx} className="font-body text-sm text-ink">
+                            <span className="font-medium">{g.fullName || "—"}</span>
+                            {g.dietaryRestrictions && (
+                              <span className="text-stone italic"> · Dietary: {g.dietaryRestrictions}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Linen service (on-site only) */}
+                  {r.linen_service && (
+                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      <span className="kicker block mb-1">Linen Service</span>
+                      <p className="font-body text-sm text-ink">
+                        {r.linen_service === "yes" ? "Yes" : "No"}
+                        {r.linen_service === "yes" && r.linen_frequency && (
+                          <> · {r.linen_frequency.replace(/_/g, " ")}</>
+                        )}
+                        {r.linen_days && r.linen_days.length > 0 && (
+                          <> · {r.linen_days.join(", ")}</>
+                        )}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Flight details */}
+                  {(r.flight_arrival_date || r.flight_arrival_number || r.flight_departure_date || r.flight_departure_number) && (
+                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        <div>
+                          <span className="kicker block mb-1">Arrival</span>
+                          <p className="font-body text-sm text-ink">
+                            {r.flight_arrival_date || "—"}
+                            {r.flight_arrival_number && <> · {r.flight_arrival_number}</>}
+                          </p>
+                          {r.flight_arrival_from && (
+                            <p className="font-body text-xs text-stone">From {r.flight_arrival_from}</p>
+                          )}
+                        </div>
+                        <div>
+                          <span className="kicker block mb-1">Departure</span>
+                          <p className="font-body text-sm text-ink">
+                            {r.flight_departure_date || "—"}
+                            {r.flight_departure_number && <> · {r.flight_departure_number}</>}
+                          </p>
+                          {r.flight_departure_to && (
+                            <p className="font-body text-xs text-stone">To {r.flight_departure_to}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Guest notes */}
+                  {r.notes && (
+                    <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
+                      <span className="kicker block mb-1">Notes from Guest</span>
+                      <p className="font-body text-sm text-ink-mid italic whitespace-pre-wrap">{r.notes}</p>
+                    </div>
+                  )}
+
                   {/* Payment summary */}
                   {(r.amount_paid || r.payment_date || r.payment_note) && editingPayment !== r.id && (
                     <div className="mt-3 pt-3" style={{ borderTop: "1px dashed hsl(var(--border))" }}>
