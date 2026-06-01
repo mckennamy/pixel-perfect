@@ -31,9 +31,6 @@ interface Reservation {
   payment_date: string | null;
   payment_method: string | null;
   payment_note: string | null;
-  linen_service: string | null;
-  linen_frequency: string | null;
-  linen_days: string[] | null;
   flight_arrival_date: string | null;
   flight_arrival_number: string | null;
   flight_arrival_from: string | null;
