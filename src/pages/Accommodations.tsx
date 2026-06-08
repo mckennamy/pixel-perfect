@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
+import PhotoCarousel from "@/components/wedding/PhotoCarousel";
+import pinoniDeck from "@/assets/pinoni-deck.png.asset.json";
+import pinoniExterior from "@/assets/pinoni-exterior.png.asset.json";
+import pinoniPool from "@/assets/pinoni-pool.png.asset.json";
 
 const villas = [
   {
