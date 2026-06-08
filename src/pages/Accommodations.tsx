@@ -61,6 +61,20 @@ const villas = [
     features: ["12 bedrooms · 12 en-suite bathrooms", "Infinity saltwater pool & jacuzzi", "Up to 32 guests", "436 m²", "5 interconnected apartments", "Exclusively bridal & groom parties"],
     aspect: "video" as const,
   },
+  {
+    id: "pinoni",
+    name: "Villa Pinoni Cottage",
+    beds: 0,
+    baths: 0,
+    guests: 18,
+    sqm: 0,
+    pool: "Private pool",
+    tag: "Off-Site · Walking Distance",
+    offsite: true,
+    description: "Our newly added off-site option — a beautifully restored Tuscan farmhouse with sweeping valley views, a private pool, and generous outdoor living. Just a 2-minute walk to Villa Grabau and a 6-minute walk to L'Arancera (where the welcome party and brunches will be hosted), so you stay woven into the wedding week without being on the estate itself. Sleeps up to 18 guests.",
+    features: ["Up to 18 guests", "Private pool & panoramic terrace", "2-minute walk to Villa Grabau", "6-minute walk to L'Arancera", "Traditional Tuscan farmhouse", "Off-site — reservation must be communicated by August 22, 2026"],
+    aspect: "video" as const,
+  },
 ];
 
 export default function Accommodations() {
