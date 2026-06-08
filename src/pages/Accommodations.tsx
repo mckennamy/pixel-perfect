@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
+import PhotoCarousel from "@/components/wedding/PhotoCarousel";
+import pinoniDeck from "@/assets/pinoni-deck.png.asset.json";
+import pinoniExterior from "@/assets/pinoni-exterior.png.asset.json";
+import pinoniPool from "@/assets/pinoni-pool.png.asset.json";
 
 const villas = [
   {
@@ -55,6 +59,20 @@ const villas = [
     bridal: true,
     description: "Our most spectacular villa — twelve en-suite bedrooms spread across five interconnected apartments, with 436 square metres of beautifully renovated space. L'Arancera features an infinity saltwater pool, a private jacuzzi, and sweeping grounds. Reserved exclusively for the bridal and groom parties and their designated plus ones.",
     features: ["12 bedrooms · 12 en-suite bathrooms", "Infinity saltwater pool & jacuzzi", "Up to 32 guests", "436 m²", "5 interconnected apartments", "Exclusively bridal & groom parties"],
+    aspect: "video" as const,
+  },
+  {
+    id: "pinoni",
+    name: "Villa Pinoni Cottage",
+    beds: 0,
+    baths: 0,
+    guests: 18,
+    sqm: 0,
+    pool: "Private pool",
+    tag: "Off-Site · Walking Distance",
+    offsite: true,
+    description: "Our newly added off-site option — a beautifully restored Tuscan farmhouse with sweeping valley views, a private pool, and generous outdoor living. Just a 2-minute walk to Villa Grabau and a 6-minute walk to L'Arancera (where the welcome party and brunches will be hosted), so you stay woven into the wedding week without being on the estate itself. Sleeps up to 18 guests.",
+    features: ["Up to 18 guests", "Private pool & panoramic terrace", "2-minute walk to Villa Grabau", "6-minute walk to L'Arancera", "Traditional Tuscan farmhouse", "Off-site — reservation must be communicated by August 22, 2026"],
     aspect: "video" as const,
   },
 ];
@@ -112,8 +130,16 @@ export default function Accommodations() {
               key={v.id}
               className="reveal"
               style={{
-                border: v.bridal ? "1px solid rgba(184,154,106,0.45)" : "1px solid hsl(var(--border))",
-                background: v.bridal ? "hsl(var(--burg-pale))" : "transparent",
+                border: v.bridal
+                  ? "1px solid rgba(184,154,106,0.45)"
+                  : v.offsite
+                    ? "1px solid rgba(94,124,84,0.45)"
+                    : "1px solid hsl(var(--border))",
+                background: v.bridal
+                  ? "hsl(var(--burg-pale))"
+                  : v.offsite
+                    ? "rgba(94,124,84,0.05)"
+                    : "transparent",
               }}
             >
               {/* Tag */}
@@ -137,7 +163,7 @@ export default function Accommodations() {
                     { n: v.beds,   label: "bed"  },
                     { n: v.baths,  label: "bath" },
                     { n: v.guests, label: "guest" },
-                  ].map(({ n, label }) => (
+                  ].filter(({ n }) => n > 0).map(({ n, label }) => (
                     <span
                       key={label}
                       className="kicker"
@@ -152,8 +178,20 @@ export default function Accommodations() {
                 </div>
               </div>
 
-              {/* Photo */}
-              <PhotoPlaceholder id={`villa-${v.id}`} aspect={v.aspect} />
+              {/* Photo carousel */}
+              <PhotoCarousel
+                ids={[`villa-${v.id}`, `villa-${v.id}-2`, `villa-${v.id}-3`]}
+                aspect={v.aspect}
+                defaults={
+                  v.id === "pinoni"
+                    ? {
+                        "villa-pinoni": pinoniDeck.url,
+                        "villa-pinoni-2": pinoniExterior.url,
+                        "villa-pinoni-3": pinoniPool.url,
+                      }
+                    : undefined
+                }
+              />
 
               {/* Content */}
               <div className="p-6">
@@ -168,7 +206,7 @@ export default function Accommodations() {
                   tag="p"
                   className="kicker mb-4"
                   style={{ color: "hsl(var(--stone-light))", fontSize: "0.5rem" }}
-                  defaultContent={`${v.pool} · ${v.sqm} m²`}
+                  defaultContent={v.sqm > 0 ? `${v.pool} · ${v.sqm} m²` : v.pool}
                 />
 
                 <EditableText
@@ -194,6 +232,20 @@ export default function Accommodations() {
                     </li>
                   ))}
                 </ul>
+
+                {v.id === "pinoni" && (
+                  <div className="mt-5 pt-5 flex items-center gap-4" style={{ borderTop: "1px solid hsl(var(--border))" }}>
+                    <a
+                      href="https://www.casalepinoni.it/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="kicker pb-px transition-opacity hover:opacity-50"
+                      style={{ color: "hsl(var(--chart))", borderBottom: "1px solid hsl(var(--chart) / 0.4)" }}
+                    >
+                      Visit Website
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
