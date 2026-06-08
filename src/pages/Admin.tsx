@@ -82,6 +82,7 @@ export default function Admin() {
   const [guestFilter, setGuestFilter] = useState<
     "all" | "rsvped" | "not_rsvped" | "rehearsal" | "standard"
   >("all");
+  const [guestSearch, setGuestSearch] = useState("");
   const [editingPayment, setEditingPayment] = useState<string | null>(null);
   const [reservationFilter, setReservationFilter] = useState<"all" | "balance_due" | "fully_paid">("all");
   const [paymentDraft, setPaymentDraft] = useState<{
@@ -319,6 +320,14 @@ export default function Admin() {
   };
 
   const filteredGuests = guests.filter((g) => {
+    if (guestSearch.trim()) {
+      const q = guestSearch.trim().toLowerCase();
+      const hit =
+        g.full_name.toLowerCase().includes(q) ||
+        (g.email ?? "").toLowerCase().includes(q) ||
+        (g.phone ?? "").toLowerCase().includes(q);
+      if (!hit) return false;
+    }
     switch (guestFilter) {
       case "rsvped":     return !!g.reservation_id;
       case "not_rsvped": return !g.reservation_id;
