@@ -101,7 +101,12 @@ export default function Admin() {
 
   // Auth state listener
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      // Ignore noisy events (token refresh, tab focus) so we don't refetch
+      // and re-render the whole dashboard while the admin is searching/typing.
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "INITIAL_SESSION") {
+        return;
+      }
       setUser(session?.user ? { email: session.user.email } : null);
       if (session?.user) checkAdmin(session.user.id);
       else { setIsAdmin(false); setLoading(false); }
