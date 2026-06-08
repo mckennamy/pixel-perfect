@@ -433,6 +433,22 @@ export default function Admin() {
             </div>
 
             {/* Filter buttons */}
+            <div className="mb-4">
+              <input
+                type="text"
+                value={guestSearch}
+                onChange={(e) => setGuestSearch(e.target.value)}
+                placeholder="Search guests by name, email, or phone…"
+                className={inputClass}
+              />
+              {guestSearch.trim() && (
+                <p className="font-body text-xs italic text-stone mt-2">
+                  {filteredGuests.length === 0
+                    ? `No guests found matching "${guestSearch.trim()}" — they have not been added yet.`
+                    : `${filteredGuests.length} match${filteredGuests.length === 1 ? "" : "es"} for "${guestSearch.trim()}".`}
+                </p>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2 mb-6">
               {[
                 { id: "all",        label: "All" },
