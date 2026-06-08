@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import EditableText from "@/components/wedding/EditableText";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 import PhotoCarousel from "@/components/wedding/PhotoCarousel";
