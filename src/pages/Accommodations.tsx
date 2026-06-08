@@ -79,6 +79,8 @@ const villas = [
 
 export default function Accommodations() {
   const ref = useRef<HTMLDivElement>(null);
+  const { hash } = useLocation();
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       (e) => e.forEach((en) => en.isIntersecting && en.target.classList.add("visible")),
@@ -87,6 +89,15 @@ export default function Accommodations() {
     ref.current?.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (hash === "#pricing") {
+      const el = document.getElementById("pricing");
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    }
+  }, [hash]);
 
   return (
     <div className="page-wrapper" ref={ref}>
@@ -253,7 +264,7 @@ export default function Accommodations() {
       </section>
 
       {/* ── Pricing ── */}
-      <section className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--burg))" }}>
+      <section id="pricing" className="py-20 px-6 md:px-10" style={{ background: "hsl(var(--burg))" }}>
         <div className="max-w-4xl mx-auto">
           <div className="reveal mb-14">
             <span className="rule block mb-10" style={{ background: "hsl(var(--gold) / 0.45)" }} />
