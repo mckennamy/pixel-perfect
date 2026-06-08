@@ -130,8 +130,16 @@ export default function Accommodations() {
               key={v.id}
               className="reveal"
               style={{
-                border: v.bridal ? "1px solid rgba(184,154,106,0.45)" : "1px solid hsl(var(--border))",
-                background: v.bridal ? "hsl(var(--burg-pale))" : "transparent",
+                border: v.bridal
+                  ? "1px solid rgba(184,154,106,0.45)"
+                  : v.offsite
+                    ? "1px solid rgba(94,124,84,0.45)"
+                    : "1px solid hsl(var(--border))",
+                background: v.bridal
+                  ? "hsl(var(--burg-pale))"
+                  : v.offsite
+                    ? "rgba(94,124,84,0.05)"
+                    : "transparent",
               }}
             >
               {/* Tag */}
@@ -155,7 +163,7 @@ export default function Accommodations() {
                     { n: v.beds,   label: "bed"  },
                     { n: v.baths,  label: "bath" },
                     { n: v.guests, label: "guest" },
-                  ].map(({ n, label }) => (
+                  ].filter(({ n }) => n > 0).map(({ n, label }) => (
                     <span
                       key={label}
                       className="kicker"
@@ -170,8 +178,20 @@ export default function Accommodations() {
                 </div>
               </div>
 
-              {/* Photo */}
-              <PhotoPlaceholder id={`villa-${v.id}`} aspect={v.aspect} />
+              {/* Photo carousel */}
+              <PhotoCarousel
+                ids={[`villa-${v.id}`, `villa-${v.id}-2`, `villa-${v.id}-3`]}
+                aspect={v.aspect}
+                defaults={
+                  v.id === "pinoni"
+                    ? {
+                        "villa-pinoni": pinoniDeck.url,
+                        "villa-pinoni-2": pinoniExterior.url,
+                        "villa-pinoni-3": pinoniPool.url,
+                      }
+                    : undefined
+                }
+              />
 
               {/* Content */}
               <div className="p-6">
@@ -186,7 +206,7 @@ export default function Accommodations() {
                   tag="p"
                   className="kicker mb-4"
                   style={{ color: "hsl(var(--stone-light))", fontSize: "0.5rem" }}
-                  defaultContent={`${v.pool} · ${v.sqm} m²`}
+                  defaultContent={v.sqm > 0 ? `${v.pool} · ${v.sqm} m²` : v.pool}
                 />
 
                 <EditableText
@@ -212,6 +232,20 @@ export default function Accommodations() {
                     </li>
                   ))}
                 </ul>
+
+                {v.id === "pinoni" && (
+                  <div className="mt-5 pt-5 flex items-center gap-4" style={{ borderTop: "1px solid hsl(var(--border))" }}>
+                    <a
+                      href="https://www.casalepinoni.it/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="kicker pb-px transition-opacity hover:opacity-50"
+                      style={{ color: "hsl(var(--chart))", borderBottom: "1px solid hsl(var(--chart) / 0.4)" }}
+                    >
+                      Visit Website
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
