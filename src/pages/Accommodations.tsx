@@ -178,20 +178,20 @@ export default function Accommodations() {
                 </div>
               </div>
 
-              {/* Photo carousel */}
-              <PhotoCarousel
-                ids={[`villa-${v.id}`, `villa-${v.id}-2`, `villa-${v.id}-3`]}
-                aspect={v.aspect}
-                defaults={
-                  v.id === "pinoni"
-                    ? {
-                        "villa-pinoni": pinoniDeck.url,
-                        "villa-pinoni-2": pinoniExterior.url,
-                        "villa-pinoni-3": pinoniPool.url,
-                      }
-                    : undefined
-                }
-              />
+              {/* Photo */}
+              {v.id === "pinoni" ? (
+                <PhotoCarousel
+                  ids={[`villa-${v.id}`, `villa-${v.id}-2`, `villa-${v.id}-3`]}
+                  aspect={v.aspect}
+                  defaults={{
+                    "villa-pinoni": pinoniDeck.url,
+                    "villa-pinoni-2": pinoniExterior.url,
+                    "villa-pinoni-3": pinoniPool.url,
+                  }}
+                />
+              ) : (
+                <PhotoPlaceholder id={`villa-${v.id}`} aspect={v.aspect} />
+              )}
 
               {/* Content */}
               <div className="p-6">
