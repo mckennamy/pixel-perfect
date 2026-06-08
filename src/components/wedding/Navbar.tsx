@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 const baseNavItems = [
   { href: "/our-story",        label: "Our Story",         it: "La Nostra Storia" },
   { href: "/accommodations",   label: "Accommodations",    it: "Dove Dormire" },
+  { href: "/accommodations#pricing", label: "Pricing",    it: "I Prezzi" },
   { href: "/travel",           label: "Travel",            it: "Il Viaggio" },
   { href: "/finer-details",    label: "Finer Details",     it: "I Dettagli" },
   { href: "/excursions",       label: "Excursions",        it: "Le Avventure" },
