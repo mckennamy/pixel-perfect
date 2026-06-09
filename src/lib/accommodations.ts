@@ -30,6 +30,8 @@ export interface AccommodationDef {
   rooms: RoomDef[];
   /** Max number of *added* extra beds across the property (e.g. farmhouse = 8) */
   extraBedCap?: number;
+  /** If true, this is a non-sleeping landmark (e.g. the wedding venue) — shown on map only. */
+  venueOnly?: boolean;
 }
 
 const FOLDING = { id: "folding", label: "Folding bed", type: "folding" as ExtraType };
