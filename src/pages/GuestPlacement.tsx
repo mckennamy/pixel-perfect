@@ -186,6 +186,32 @@ export default function GuestPlacement() {
               const { filled, total } = propertyCount(acc);
               const pct = total ? Math.round((filled / total) * 100) : 0;
               const isOpen = openAccId === acc.id;
+              if (acc.venueOnly) {
+                return (
+                  <div
+                    key={acc.id}
+                    style={{
+                      position: "absolute",
+                      top: `${acc.map.top}%`,
+                      left: `${acc.map.left}%`,
+                      transform: "translate(-50%, -50%)",
+                      background: "hsl(var(--gold) / 0.15)",
+                      border: "1.5px dashed hsl(var(--gold))",
+                      padding: "0.6rem 0.85rem",
+                      minWidth: 140,
+                      textAlign: "center",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    <p className="font-display italic" style={{ fontSize: "0.95rem", lineHeight: 1.1, fontWeight: 500, color: "hsl(var(--burg))" }}>
+                      {acc.name}
+                    </p>
+                    <p className="kicker" style={{ fontSize: "0.45rem", marginTop: 4, color: "hsl(var(--burg) / 0.7)" }}>
+                      Wedding Venue
+                    </p>
+                  </div>
+                );
+              }
               return (
                 <button
                   key={acc.id}
