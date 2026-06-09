@@ -91,8 +91,18 @@ export default function GuestPlacement() {
 
   const persist = async (next: PlacementState) => {
     setState(next);
-    try { await saveEdit(STORAGE_ID, JSON.stringify(next)); }
-    catch { toast.error("Could not save placement"); }
+    try {
+      const content = JSON.stringify(next);
+      try { localStorage.setItem(STORAGE_ID, content); } catch { /* ignore */ }
+      const { error } = await supabase.from("site_edits").upsert(
+        { id: STORAGE_ID, content, updated_at: new Date().toISOString() },
+        { onConflict: "id" },
+      );
+      if (error) throw error;
+    } catch (err) {
+      console.error("Failed to save placement:", err);
+      toast.error("Could not save placement");
+    }
   };
 
   // All placed guest ids (for "available" filter)
