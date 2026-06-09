@@ -65,11 +65,12 @@ export default function Navbar() {
   if (pathname === "/") return null;
 
   const adminItem = { href: "/admin", label: "Admin", it: "Pannello Privato" };
+  const placementItem = { href: "/guest-placement", label: "Guest Placement", it: "Sistemazione Ospiti" };
   // Insert Rehearsal Dinner just before Reservations (last item) when applicable
   let navItems = showRehearsal
     ? [...baseNavItems.slice(0, baseNavItems.length - 1), rehearsalItem, baseNavItems[baseNavItems.length - 1]]
     : baseNavItems;
-  if (isAdmin) navItems = [...navItems, adminItem];
+  if (isAdmin) navItems = [...navItems, placementItem, adminItem];
 
   const close = () => setOpen(false);
 
