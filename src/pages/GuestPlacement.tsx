@@ -35,7 +35,7 @@ export default function GuestPlacement() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [state, setState] = useState<PlacementState>(emptyState());
   const [openAccId, setOpenAccId] = useState<string | null>(null);
-  const [pickerFor, setPickerFor] = useState<{ kind: "bed" | "extra"; id: string; roomId?: string } | null>(null);
+  const [pickerFor, setPickerFor] = useState<{ kind: "bed" | "extra"; id: string; roomId?: string; capacity: number; label: string } | null>(null);
   const [guestSearch, setGuestSearch] = useState("");
   const [pickerSearch, setPickerSearch] = useState("");
 
