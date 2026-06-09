@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ACCOMMODATIONS, AccommodationDef, BedSlot, BedType, ExtraType, RoomDef } from "@/lib/accommodations";
 import { loadEdit, saveEdit } from "@/lib/siteEdits";
 import { toast } from "sonner";
+import estateMapAsset from "@/assets/estate-map.jpg.asset.json";
 
 interface Guest { id: string; full_name: string; invite_tier: string; }
 
