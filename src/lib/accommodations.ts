@@ -67,20 +67,12 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     ],
   },
   {
-    id: "villa-marlia",
-    name: "Villa Marlia",
-    subtitle: "Villa Grabau · Main Villa",
-    map: { top: 42, left: 62 },
-    rooms: [
-      { id: "vm-gf-1", name: "Ground · Independent Apt (Double)", note: "Accessible apartment", beds: [{ id: "vm-gf-1-a", label: "Double bed", type: "double" }] },
-      { id: "vm-gf-2", name: "Ground · Independent Apt (Twin)", beds: [{ id: "vm-gf-2-a", label: "Single bed", type: "single" }, { id: "vm-gf-2-b", label: "Single bed", type: "single" }] },
-      { id: "vm-1-1", name: "1st Floor · Double + Ensuite (bathtub)", beds: [{ id: "vm-1-1-a", label: "Double bed", type: "double" }] },
-      { id: "vm-1-2", name: "1st Floor · Twin + Ensuite (shower)", beds: [{ id: "vm-1-2-a", label: "Single bed", type: "single" }, { id: "vm-1-2-b", label: "Single bed", type: "single" }] },
-      { id: "vm-1-3", name: "1st Floor · Twin + Ensuite (bathtub)", beds: [{ id: "vm-1-3-a", label: "Single bed", type: "single" }, { id: "vm-1-3-b", label: "Single bed", type: "single" }] },
-      { id: "vm-1-4", name: "1st Floor · Double w/ Private Terrace", beds: [{ id: "vm-1-4-a", label: "Double bed", type: "double" }] },
-      { id: "vm-1-5", name: "1st Floor · Twin (shared bath)", beds: [{ id: "vm-1-5-a", label: "Single bed", type: "single" }, { id: "vm-1-5-b", label: "Single bed", type: "single" }] },
-      { id: "vm-2-1", name: "2nd Floor · Master Suite", note: "Bathroom with hot tub & shower; dressing room", beds: [{ id: "vm-2-1-a", label: "Double bed", type: "double" }] },
-    ],
+    id: "villa-grabau-venue",
+    name: "Villa Grabau",
+    subtitle: "Wedding Venue · no overnight stays",
+    map: { top: 42, left: 58 },
+    rooms: [],
+    venueOnly: true,
   },
   {
     id: "annadora",
@@ -121,13 +113,20 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
   {
     id: "pinino",
     name: "Villa Pinino",
-    subtitle: "New addition · across from L'Arancera",
+    subtitle: "Across from L'Arancera",
     map: { top: 8, left: 10 },
     rooms: [
-      // Placeholder — update once room layout is provided
-      { id: "pn-1", name: "Bedroom 1 (TBD)", note: "Room layout to be confirmed", beds: [{ id: "pn-1-a", label: "Double bed", type: "double" }] },
-      { id: "pn-2", name: "Bedroom 2 (TBD)", note: "Room layout to be confirmed", beds: [{ id: "pn-2-a", label: "Double bed", type: "double" }] },
-      { id: "pn-3", name: "Bedroom 3 (TBD)", note: "Room layout to be confirmed", beds: [{ id: "pn-3-a", label: "Single bed", type: "single" }, { id: "pn-3-b", label: "Single bed", type: "single" }] },
+      // Ground floor — independent accessible apartment
+      { id: "pn-gf-1", name: "Ground · Independent Apt (Double)", note: "Accessible apartment, not internally connected", beds: [{ id: "pn-gf-1-a", label: "Double bed", type: "double" }] },
+      { id: "pn-gf-2", name: "Ground · Independent Apt (Twin)", beds: [{ id: "pn-gf-2-a", label: "Single bed", type: "single" }, { id: "pn-gf-2-b", label: "Single bed", type: "single" }] },
+      // First floor — 5 bedrooms
+      { id: "pn-1-1", name: "1st Floor · Double + Ensuite (bathtub)", beds: [{ id: "pn-1-1-a", label: "Double bed", type: "double" }] },
+      { id: "pn-1-2", name: "1st Floor · Twin + Ensuite (shower)", beds: [{ id: "pn-1-2-a", label: "Single bed", type: "single" }, { id: "pn-1-2-b", label: "Single bed", type: "single" }] },
+      { id: "pn-1-3", name: "1st Floor · Twin + Ensuite (bathtub)", beds: [{ id: "pn-1-3-a", label: "Single bed", type: "single" }, { id: "pn-1-3-b", label: "Single bed", type: "single" }] },
+      { id: "pn-1-4", name: "1st Floor · Double w/ Private Terrace", beds: [{ id: "pn-1-4-a", label: "Double bed", type: "double" }] },
+      { id: "pn-1-5", name: "1st Floor · Twin (shared bath)", beds: [{ id: "pn-1-5-a", label: "Single bed", type: "single" }, { id: "pn-1-5-b", label: "Single bed", type: "single" }] },
+      // Second floor — master suite
+      { id: "pn-2-1", name: "2nd Floor · Master Suite", note: "Bathroom with hot tub & shower; large dressing room", beds: [{ id: "pn-2-1-a", label: "Double bed", type: "double" }], allowedExtras: [SOFA_SINGLE] },
     ],
   },
 ];
