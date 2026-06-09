@@ -412,6 +412,17 @@ function EstateMap({
   propertyCount: (a: AccommodationDef) => { filled: number; total: number };
   onSelect: (id: string) => void;
 }) {
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [drag, setDrag] = useState<{ x: number; y: number; px: number; py: number } | null>(null);
+
+  const clampZoom = (z: number) => Math.min(4, Math.max(1, z));
+  const setZoomAt = (next: number) => {
+    const z = clampZoom(next);
+    if (z === 1) setPan({ x: 0, y: 0 });
+    setZoom(z);
+  };
+
   return (
     <div
       style={{
@@ -421,8 +432,31 @@ function EstateMap({
         overflow: "hidden",
         aspectRatio: "1414 / 2000",
         width: "100%",
+        cursor: zoom > 1 ? (drag ? "grabbing" : "grab") : "default",
       }}
+      onWheel={(e) => {
+        e.preventDefault();
+        setZoomAt(zoom + (e.deltaY < 0 ? 0.2 : -0.2));
+      }}
+      onMouseDown={(e) => {
+        if (zoom <= 1) return;
+        setDrag({ x: e.clientX, y: e.clientY, px: pan.x, py: pan.y });
+      }}
+      onMouseMove={(e) => {
+        if (!drag) return;
+        setPan({ x: drag.px + (e.clientX - drag.x), y: drag.py + (e.clientY - drag.y) });
+      }}
+      onMouseUp={() => setDrag(null)}
+      onMouseLeave={() => setDrag(null)}
     >
+      <div
+        style={{
+          position: "absolute", inset: 0,
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+          transformOrigin: "center center",
+          transition: drag ? "none" : "transform 0.15s ease-out",
+        }}
+      >
       <img
         src={estateMapAsset.url}
         alt="Villa Grabau Estate map"
@@ -484,6 +518,32 @@ function EstateMap({
           </button>
         );
       })}
+      </div>
+
+      {/* Zoom controls */}
+      <div
+        style={{
+          position: "absolute", bottom: 14, right: 14, zIndex: 5,
+          display: "flex", flexDirection: "column", gap: 4,
+          background: "rgba(250,248,242,0.95)", border: "1px solid hsl(var(--border))",
+        }}
+      >
+        <button
+          onClick={() => setZoomAt(zoom + 0.3)}
+          aria-label="Zoom in"
+          style={{ width: 36, height: 36, background: "transparent", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "hsl(var(--burg))" }}
+        >+</button>
+        <button
+          onClick={() => setZoomAt(zoom - 0.3)}
+          aria-label="Zoom out"
+          style={{ width: 36, height: 36, background: "transparent", border: "none", borderTop: "1px solid hsl(var(--border))", cursor: "pointer", fontSize: "1.2rem", color: "hsl(var(--burg))" }}
+        >−</button>
+        <button
+          onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
+          aria-label="Reset zoom"
+          style={{ width: 36, height: 28, background: "transparent", border: "none", borderTop: "1px solid hsl(var(--border))", cursor: "pointer", fontSize: "0.65rem", color: "hsl(var(--stone))", fontFamily: "Cinzel, serif", letterSpacing: "0.1em" }}
+        >{Math.round(zoom * 100)}%</button>
+      </div>
     </div>
   );
 }
