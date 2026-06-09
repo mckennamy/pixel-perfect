@@ -16,6 +16,9 @@ export default function GuestSearchGate({ onUnlock }: Props) {
   const [results, setResults] = useState<Guest[]>([]);
   const [searching, setSearching] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [pendingAdmin, setPendingAdmin] = useState<Guest | null>(null);
+  const [passcode, setPasscode] = useState("");
+  const [passError, setPassError] = useState(false);
 
   useEffect(() => {
     if (query.trim().length < 2) {
@@ -38,11 +41,30 @@ export default function GuestSearchGate({ onUnlock }: Props) {
   }, [query]);
 
   const handleSelect = (g: Guest) => {
+    if (g.full_name.trim().toLowerCase() === "mckenna myers") {
+      setPendingAdmin(g);
+      setPasscode("");
+      setPassError(false);
+      return;
+    }
     sessionStorage.setItem(
       "wedding_guest",
       JSON.stringify({ id: g.id, name: g.full_name, tier: g.invite_tier })
     );
     onUnlock(g);
+  };
+
+  const submitPasscode = () => {
+    if (!pendingAdmin) return;
+    if (passcode === "4525") {
+      sessionStorage.setItem(
+        "wedding_guest",
+        JSON.stringify({ id: pendingAdmin.id, name: pendingAdmin.full_name, tier: pendingAdmin.invite_tier })
+      );
+      onUnlock(pendingAdmin);
+    } else {
+      setPassError(true);
+    }
   };
 
   return (
@@ -219,6 +241,91 @@ export default function GuestSearchGate({ onUnlock }: Props) {
           </div>
         </div>
       </div>
+      {pendingAdmin && (
+        <div
+          style={{
+            position: "fixed", inset: 0, zIndex: 60,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "1.5rem",
+          }}
+          onClick={() => setPendingAdmin(null)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#FAF8F2",
+              border: "1px solid rgba(184,154,106,0.4)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+              padding: "2rem 1.75rem",
+              maxWidth: 380, width: "100%", textAlign: "center",
+            }}
+          >
+            <p className="kicker mb-3" style={{ color: "hsl(var(--burg) / 0.7)" }}>
+              Private Access
+            </p>
+            <p
+              className="font-script mb-4"
+              style={{ fontSize: "1.6rem", color: "hsl(var(--burg))", lineHeight: 1.1 }}
+            >
+              Enter Passcode
+            </p>
+            <input
+              autoFocus
+              type="password"
+              inputMode="numeric"
+              maxLength={4}
+              value={passcode}
+              onChange={(e) => { setPasscode(e.target.value.replace(/\D/g, "")); setPassError(false); }}
+              onKeyDown={(e) => { if (e.key === "Enter") submitPasscode(); }}
+              placeholder="••••"
+              style={{
+                width: "100%",
+                fontFamily: "EB Garamond, serif",
+                fontSize: "1.5rem",
+                letterSpacing: "0.5em",
+                textAlign: "center",
+                padding: "0.75rem",
+                background: "white",
+                border: `1px solid ${passError ? "hsl(0 60% 45%)" : "hsl(var(--gold) / 0.4)"}`,
+                outline: "none",
+                color: "hsl(var(--ink))",
+              }}
+            />
+            {passError && (
+              <p className="font-body italic text-sm mt-3" style={{ color: "hsl(0 60% 45%)" }}>
+                Incorrect passcode.
+              </p>
+            )}
+            <div style={{ display: "flex", gap: 8, marginTop: "1.25rem" }}>
+              <button
+                onClick={() => setPendingAdmin(null)}
+                className="kicker"
+                style={{
+                  flex: 1, padding: "0.7rem",
+                  background: "transparent",
+                  border: "1px solid hsl(var(--burg) / 0.4)",
+                  color: "hsl(var(--burg))", cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={submitPasscode}
+                className="kicker"
+                style={{
+                  flex: 1, padding: "0.7rem",
+                  background: "hsl(var(--burg))",
+                  border: "1px solid hsl(var(--burg))",
+                  color: "hsl(var(--cream))", cursor: "pointer",
+                }}
+              >
+                Unlock
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
