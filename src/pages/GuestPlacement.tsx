@@ -416,10 +416,10 @@ function EstateMap({
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [drag, setDrag] = useState<{ x: number; y: number; px: number; py: number } | null>(null);
 
-  const clampZoom = (z: number) => Math.min(4, Math.max(1, z));
+  const clampZoom = (z: number) => Math.min(4, Math.max(0.4, z));
   const setZoomAt = (next: number) => {
     const z = clampZoom(next);
-    if (z === 1) setPan({ x: 0, y: 0 });
+    if (z <= 1) setPan({ x: 0, y: 0 });
     setZoom(z);
   };
 
@@ -433,10 +433,6 @@ function EstateMap({
         aspectRatio: "1414 / 2000",
         width: "100%",
         cursor: zoom > 1 ? (drag ? "grabbing" : "grab") : "default",
-      }}
-      onWheel={(e) => {
-        e.preventDefault();
-        setZoomAt(zoom + (e.deltaY < 0 ? 0.2 : -0.2));
       }}
       onMouseDown={(e) => {
         if (zoom <= 1) return;
