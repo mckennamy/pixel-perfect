@@ -18,6 +18,7 @@ import Registry from "./pages/Registry";
 import Flights from "./pages/Flights";
 import Admin from "./pages/Admin";
 import RehearsalDinner from "./pages/RehearsalDinner";
+import GuestPlacement from "./pages/GuestPlacement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/flights" element={<Flights />} />
           <Route path="/rehearsal-dinner" element={<RehearsalDinner />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/guest-placement" element={<GuestPlacement />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
