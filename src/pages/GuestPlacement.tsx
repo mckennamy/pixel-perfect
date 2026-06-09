@@ -416,42 +416,21 @@ function EstateMap({
     <div
       style={{
         position: "relative",
-        background: "linear-gradient(180deg, hsl(95 28% 88%), hsl(80 22% 82%))",
         border: "1px solid hsl(var(--border))",
-        minHeight: 600,
+        background: "hsl(40 32% 92%)",
         overflow: "hidden",
+        aspectRatio: "1414 / 2000",
+        width: "100%",
       }}
     >
-      {/* Decorative grounds — paths, gardens, pool */}
-      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, opacity: 0.55 }}>
-        {/* Main winding driveway from Pinino (top-left) down to L'Arancera (bottom) */}
-        <path d="M 10 12 C 30 30, 30 55, 50 70 S 55 92, 50 95" stroke="hsl(45 30% 70%)" strokeWidth="1.1" fill="none" strokeDasharray="0.6 0.6" />
-        {/* Path to east cluster (Grabau / Annadora / Orazio / Stalletta) */}
-        <path d="M 50 70 C 65 60, 75 50, 88 35" stroke="hsl(45 30% 70%)" strokeWidth="1.1" fill="none" strokeDasharray="0.6 0.6" />
-        {/* Garden patches */}
-        <ellipse cx="35" cy="80" rx="14" ry="5" fill="hsl(95 35% 70%)" opacity="0.4" />
-        <ellipse cx="70" cy="55" rx="10" ry="4" fill="hsl(95 35% 70%)" opacity="0.4" />
-        <ellipse cx="22" cy="40" rx="9" ry="4" fill="hsl(95 35% 70%)" opacity="0.4" />
-        {/* Pool near farmhouse */}
-        <rect x="58" y="83" width="8" height="4" rx="0.5" fill="hsl(195 50% 70%)" opacity="0.85" />
-      </svg>
-
-      {/* Tree dots */}
-      {[
-        [18, 25],[28, 18],[42, 22],[60, 18],[78, 22],[88, 60],[80, 78],[20, 60],[15, 75],[45, 50],
-      ].map(([l, t], i) => (
-        <div key={i} style={{
-          position: "absolute", left: `${l}%`, top: `${t}%`, width: 10, height: 10,
-          borderRadius: "50%", background: "hsl(110 35% 38%)", opacity: 0.45,
-          transform: "translate(-50%, -50%)",
-        }} />
-      ))}
+      <img
+        src={estateMapAsset.url}
+        alt="Villa Grabau Estate map"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", pointerEvents: "none" }}
+      />
 
       <p className="kicker" style={{ position: "absolute", top: 14, left: 18, color: "hsl(var(--burg) / 0.6)" }}>
         Villa Grabau Estate
-      </p>
-      <p className="kicker" style={{ position: "absolute", bottom: 12, right: 16, fontSize: "0.45rem", color: "hsl(var(--stone))", opacity: 0.7 }}>
-        N ↑
       </p>
 
       {accommodations.map((acc) => {
@@ -486,11 +465,11 @@ function EstateMap({
             style={{
               position: "absolute", top: `${acc.map.top}%`, left: `${acc.map.left}%`,
               transform: "translate(-50%, -50%)",
-              background: "#FAF8F2",
-              color: "hsl(var(--burg))",
-              border: "1px solid hsl(var(--burg) / 0.4)",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
-              padding: "0.55rem 0.8rem", minWidth: 130, textAlign: "center",
+              background: "hsl(var(--burg))",
+              color: "hsl(var(--cream))",
+              border: "1.5px solid hsl(var(--gold))",
+              boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+              padding: "0.45rem 0.7rem", minWidth: 120, textAlign: "center",
               cursor: "pointer", transition: "transform 0.15s",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "translate(-50%, -50%) scale(1.04)")}
