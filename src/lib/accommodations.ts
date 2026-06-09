@@ -44,7 +44,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "larancera",
     name: "L'Arancera",
     subtitle: "The Farmhouse",
-    map: { top: 92, left: 50 },
+    map: { top: 94, left: 22 },
     extraBedCap: 8,
     rooms: [
       // Apartment 1
@@ -70,7 +70,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "villa-grabau-venue",
     name: "Villa Grabau",
     subtitle: "Wedding Venue · no overnight stays",
-    map: { top: 42, left: 58 },
+    map: { top: 36, left: 63 },
     rooms: [],
     venueOnly: true,
   },
@@ -78,7 +78,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "annadora",
     name: "Casa di Annadora",
     subtitle: "Villa Grabau",
-    map: { top: 65, left: 80 },
+    map: { top: 57, left: 88 },
     rooms: [
       { id: "an-1", name: "Bedroom 1 (double bed)", beds: [{ id: "an-1-a", label: "Double bed", type: "double" }], allowedExtras: [SOFA_SINGLE] },
       { id: "an-2", name: "Bedroom 2 (twin)", beds: [{ id: "an-2-a", label: "Single bed", type: "single" }, { id: "an-2-b", label: "Single bed", type: "single" }] },
@@ -90,7 +90,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "orazio",
     name: "Casa di Orazio",
     subtitle: "Villa Grabau",
-    map: { top: 22, left: 90 },
+    map: { top: 22, left: 93 },
     rooms: [
       { id: "or-1", name: "Bedroom 1 · Four-poster double", beds: [{ id: "or-1-a", label: "Double bed", type: "double" }] },
       { id: "or-2", name: "Bedroom 2 · Double", beds: [{ id: "or-2-a", label: "Double bed", type: "double" }] },
@@ -103,7 +103,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "stalletta",
     name: "La Stalletta",
     subtitle: "Villa Grabau",
-    map: { top: 38, left: 92 },
+    map: { top: 38, left: 95 },
     rooms: [
       { id: "st-1", name: "Bedroom 1 · Double", beds: [{ id: "st-1-a", label: "Double bed", type: "double" }], allowedExtras: [EXTRA_SINGLE] },
       { id: "st-2", name: "Bedroom 2 · Twin", beds: [{ id: "st-2-a", label: "Single bed", type: "single" }, { id: "st-2-b", label: "Single bed", type: "single" }] },
@@ -114,7 +114,7 @@ export const ACCOMMODATIONS: AccommodationDef[] = [
     id: "pinino",
     name: "Villa Pinino",
     subtitle: "Across from L'Arancera",
-    map: { top: 8, left: 10 },
+    map: { top: 10, left: 12 },
     rooms: [
       // Ground floor — independent accessible apartment
       { id: "pn-gf-1", name: "Ground · Independent Apt (Double)", note: "Accessible apartment, not internally connected", beds: [{ id: "pn-gf-1-a", label: "Double bed", type: "double" }] },
