@@ -40,13 +40,17 @@ export default function GuestSearchGate({ onUnlock }: Props) {
     return () => clearTimeout(handle);
   }, [query]);
 
-  const handleSelect = (g: Guest) => {
+  const handleSelect = async (g: Guest) => {
     if (g.full_name.trim().toLowerCase() === "mckenna myers") {
       setPendingAdmin(g);
       setPasscode("");
       setPassError(false);
       return;
     }
+    // Any non-admin guest must NOT inherit a prior admin Supabase auth session
+    // from this browser. Sign out so EditableText / Admin gating sees them as
+    // a regular guest.
+    try { await supabase.auth.signOut(); } catch { /* ignore */ }
     sessionStorage.setItem(
       "wedding_guest",
       JSON.stringify({ id: g.id, name: g.full_name, tier: g.invite_tier })
