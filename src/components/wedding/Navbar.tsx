@@ -34,10 +34,6 @@ export default function Navbar() {
       try {
         const g = JSON.parse(stored);
         setShowRehearsal(g?.tier === "rehearsal");
-        // Also unlock the Admin tab when the organizer searches her own name
-        if (typeof g?.name === "string" && g.name.trim().toLowerCase() === "mckenna myers") {
-          setIsAdmin(true);
-        }
       } catch { /* ignore */ }
     }
   }, [open, pathname]);
@@ -51,13 +47,15 @@ export default function Navbar() {
         .eq("user_id", userId)
         .eq("role", "admin")
         .maybeSingle();
-      if (data) setIsAdmin(true);
+      setIsAdmin(!!data);
     };
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) checkAdmin(session.user.id);
+      else setIsAdmin(false);
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       if (session?.user) checkAdmin(session.user.id);
+      else setIsAdmin(false);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
