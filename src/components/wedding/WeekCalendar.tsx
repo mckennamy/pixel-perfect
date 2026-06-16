@@ -22,7 +22,7 @@ interface DayDetail {
   activities: { title: string; note: string }[];
 }
 
-const days: DayInfo[] = [
+export const days: DayInfo[] = [
   { date: 19, day: "Wed", event: "Arrive",           type: "travel"  },
   { date: 20, day: "Thu", event: "Welcome Party",    type: "event"   },
   { date: 21, day: "Fri", event: "Rehearsal Dinner", type: "private" },
@@ -31,7 +31,7 @@ const days: DayInfo[] = [
   { date: 24, day: "Mon", event: "Depart",           type: "travel"  },
 ];
 
-const details: Record<number, DayDetail> = {
+export const details: Record<number, DayDetail> = {
   19: {
     heading: "Arrive in Lucca",
     description:
@@ -111,7 +111,7 @@ const details: Record<number, DayDetail> = {
 };
 
 // Colour scheme matching the Travel page calendar
-const typeStyles: Record<DayType, { bg: string; text: string; accent: string; border: string; overlayBg: string }> = {
+export const typeStyles: Record<DayType, { bg: string; text: string; accent: string; border: string; overlayBg: string }> = {
   travel:  {
     bg: "hsl(var(--border))",
     text: "hsl(var(--ink))",
