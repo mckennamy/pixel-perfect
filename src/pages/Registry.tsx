@@ -49,18 +49,21 @@ export default function Registry() {
             id="registry-note-2"
             tag="p"
             className="font-body text-base md:text-lg text-ink-mid leading-relaxed mb-6"
-            defaultContent="For those who feel inclined, Jordan and McKenna will have a registry — and it will live right here, on this page, as soon as it's available."
+            defaultContent="For those who feel inclined, we've created a registry to help make our life together in Italy a little more magical."
           />
 
           <EditableText
             id="registry-note-3"
             tag="p"
             className="font-body text-sm italic text-stone leading-relaxed mb-12"
-            defaultContent="Please check back closer to the date. With love and so much gratitude — Jordan & McKenna."
+            defaultContent="With love and so much gratitude — Jordan & McKenna."
           />
 
-          <div
-            className="inline-flex flex-col items-center gap-3 px-10 py-8"
+          <a
+            href="https://www.zola.com/registry/mckennaandjordan2027/?preview=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex flex-col items-center gap-3 px-10 py-8 transition-colors hover:bg-white/60"
             style={{
               border: "1px solid hsl(var(--gold) / 0.4)",
               background: "hsl(var(--parchment))",
@@ -70,16 +73,18 @@ export default function Registry() {
               className="kicker"
               style={{ color: "hsl(var(--burg) / 0.7)" }}
             >
-              Coming Soon
+              View Our Registry
             </span>
-            <EditableText
-              id="registry-coming-soon"
-              tag="p"
+            <span
               className="font-display italic text-burg"
               style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 300 }}
-              defaultContent="Registry details to follow"
-            />
-          </div>
+            >
+              Zola · McKenna & Jordan
+            </span>
+            <span className="font-body text-xs text-stone uppercase tracking-widest mt-1">
+              Opens in a new tab
+            </span>
+          </a>
 
           <OrnamentDivider />
         </div>
