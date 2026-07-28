@@ -42,7 +42,7 @@ export default function Registry() {
             id="registry-note-1"
             tag="p"
             className="font-body text-base md:text-lg text-ink-mid leading-relaxed mt-10 mb-6"
-            defaultContent="Your presence in Tuscany is, truly, the most generous gift we could ask for. Crossing the world to share this week with us means everything."
+            defaultContent="Your presence in Lucca is, truly, the most generous gift we could ask for. Crossing the world to share this week with us means everything."
           />
 
           <EditableText
