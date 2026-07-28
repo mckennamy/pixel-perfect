@@ -22,6 +22,7 @@ export default function Navbar() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [showRehearsal, setShowRehearsal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isMcKenna, setIsMcKenna] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -35,6 +36,10 @@ export default function Navbar() {
       try {
         const g = JSON.parse(stored);
         setShowRehearsal(g?.tier === "rehearsal");
+        setIsMcKenna(
+          typeof g?.name === "string" &&
+            g.name.trim().toLowerCase() === "mckenna myers"
+        );
       } catch { /* ignore */ }
     }
   }, [open, pathname]);
@@ -69,7 +74,7 @@ export default function Navbar() {
   let navItems = showRehearsal
     ? [...baseNavItems.slice(0, baseNavItems.length - 1), rehearsalItem, baseNavItems[baseNavItems.length - 1]]
     : baseNavItems;
-  if (isAdmin) navItems = [...navItems, placementItem, adminItem];
+  if (isAdmin || isMcKenna) navItems = [...navItems, placementItem, adminItem];
 
   const close = () => setOpen(false);
 
