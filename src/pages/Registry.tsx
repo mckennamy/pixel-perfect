@@ -49,7 +49,7 @@ export default function Registry() {
             id="registry-note-2"
             tag="p"
             className="font-body text-base md:text-lg text-ink-mid leading-relaxed mb-6"
-            defaultContent="For those who feel inclined, we've created a registry to help make our life together in Italy a little more magical."
+            defaultContent="We have included a registry for those who wish to honor this next chapter with us, but please know your well wishes and prayers mean the world to us."
           />
 
           <EditableText
