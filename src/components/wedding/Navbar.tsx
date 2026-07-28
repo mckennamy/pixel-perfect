@@ -40,6 +40,21 @@ export default function Navbar() {
           typeof g?.name === "string" &&
             g.name.trim().toLowerCase() === "mckenna myers"
         );
+        // Refresh tier from DB in case invite_tier changed after the
+        // guest first unlocked the site (sessionStorage would be stale).
+        if (g?.id) {
+          supabase
+            .from("guests")
+            .select("invite_tier, full_name")
+            .eq("id", g.id)
+            .maybeSingle()
+            .then(({ data }) => {
+              if (!data) return;
+              const fresh = { ...g, tier: data.invite_tier, name: data.full_name };
+              sessionStorage.setItem("wedding_guest", JSON.stringify(fresh));
+              setShowRehearsal(data.invite_tier === "rehearsal");
+            });
+        }
       } catch { /* ignore */ }
     }
   }, [open, pathname]);
