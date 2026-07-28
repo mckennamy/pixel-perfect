@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import EditableText from "@/components/wedding/EditableText";
+import { supabase } from "@/integrations/supabase/client";
 
 const details = {
   date: "Wednesday, May 21, 2027",
@@ -34,6 +35,24 @@ export default function RehearsalDinner() {
       if (stored) {
         const g = JSON.parse(stored);
         if (g?.tier === "rehearsal") setGranted(true);
+        // Re-check tier from DB so stale sessionStorage doesn't lock out
+        // guests whose invite_tier was updated after they first unlocked.
+        if (g?.id) {
+          supabase
+            .from("guests")
+            .select("invite_tier")
+            .eq("id", g.id)
+            .maybeSingle()
+            .then(({ data }) => {
+              if (data?.invite_tier === "rehearsal") {
+                const fresh = { ...g, tier: "rehearsal" };
+                sessionStorage.setItem("wedding_guest", JSON.stringify(fresh));
+                setGranted(true);
+              }
+              setChecked(true);
+            });
+          return;
+        }
       }
     } catch {}
     setChecked(true);
