@@ -37,24 +37,22 @@ const CountdownCard = ({
 
   return (
     <div
-      className="px-8 py-9 text-center flex-1"
+      className="px-7 py-8 text-center flex-1"
       style={{
-        border: "1px solid rgba(212, 180, 122, 0.35)",
-        background: "rgba(255, 240, 220, 0.04)",
+        background: "hsl(var(--parchment))",
+        border: "1px solid hsl(var(--burg) / 0.2)",
+        boxShadow: "0 4px 24px rgba(28,20,16,0.06)",
       }}
     >
-      <p
-        className="font-kicker text-[0.62rem] tracking-[0.32em] uppercase mb-2"
-        style={{ color: "rgba(212, 180, 122, 0.85)" }}
-      >
+      <p className="kicker mb-2" style={{ color: "hsl(var(--burg))" }}>
         {label}
       </p>
-      <p className="font-display italic text-[clamp(1.4rem,2.4vw,1.9rem)] mb-6" style={{ color: "#F5E8D0" }}>
+      <p className="font-display italic text-burg text-[clamp(1.3rem,2.2vw,1.75rem)] mb-6" style={{ fontWeight: 300 }}>
         {title}
       </p>
 
       {parts ? (
-        <div className="flex items-start justify-center gap-5 sm:gap-8">
+        <div className="flex items-start justify-center gap-4 sm:gap-7">
           {[
             { value: parts.days, unit: "Days" },
             { value: parts.hours, unit: "Hours" },
@@ -63,19 +61,18 @@ const CountdownCard = ({
           ].map((p) => (
             <div key={p.unit} className="flex flex-col items-center min-w-[2.6rem]">
               <span
-                className="font-display leading-none tabular-nums"
+                className="font-display text-burg leading-none"
                 style={{
-                  fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
+                  fontSize: "clamp(1.9rem, 4vw, 3rem)",
                   fontWeight: 300,
-                  color: "#F5E8D0",
                   fontVariantNumeric: "tabular-nums",
                 }}
               >
                 {String(p.value).padStart(2, "0")}
               </span>
               <span
-                className="font-kicker text-[0.52rem] tracking-[0.26em] uppercase mt-2"
-                style={{ color: "rgba(248, 243, 236, 0.5)" }}
+                className="kicker mt-2"
+                style={{ fontSize: "0.48rem", color: "hsl(var(--stone))" }}
               >
                 {p.unit}
               </span>
@@ -83,12 +80,7 @@ const CountdownCard = ({
           ))}
         </div>
       ) : (
-        <p
-          className="font-body italic text-[1.05rem]"
-          style={{ color: "rgba(248, 243, 236, 0.75)" }}
-        >
-          {expiredMessage}
-        </p>
+        <p className="font-body italic text-[1.05rem] text-ink-mid">{expiredMessage}</p>
       )}
     </div>
   );
@@ -96,27 +88,12 @@ const CountdownCard = ({
 
 const Countdown = () => {
   return (
-    <section
-      className="relative py-20 px-6"
-      style={{
-        background: "linear-gradient(175deg, #2A0A12 0%, #3A0D1A 55%, #4A1522 100%)",
-      }}
-    >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(184,151,90,0.12) 0%, transparent 65%)",
-        }}
-      />
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <p
-          className="font-kicker text-[0.68rem] tracking-[0.3em] uppercase text-center mb-10"
-          style={{ color: "rgba(212, 180, 122, 0.8)" }}
-        >
+    <section className="pt-12 pb-4 px-6 md:px-10">
+      <div className="max-w-4xl mx-auto reveal visible">
+        <p className="kicker text-center mb-8" style={{ color: "hsl(var(--burg))" }}>
           Counting Down
         </p>
-        <div className="flex flex-col md:flex-row gap-5 reveal visible">
+        <div className="flex flex-col md:flex-row gap-5">
           <CountdownCard
             label="Deadline"
             title="Reservations Due"
@@ -130,6 +107,7 @@ const Countdown = () => {
             expiredMessage="It's the wedding day!"
           />
         </div>
+        <div className="rule-full mt-10" />
       </div>
     </section>
   );

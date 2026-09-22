@@ -1,5 +1,4 @@
 import Hero from "@/components/wedding/Hero";
-import Countdown from "@/components/wedding/Countdown";
 import CalendarSection from "@/components/wedding/CalendarSection";
 import OrnamentDivider from "@/components/wedding/OrnamentDivider";
 import FlightsSection from "@/components/wedding/FlightsSection";
@@ -12,7 +11,6 @@ const Index = () => {
     <div className="min-h-screen">
       <div className="noise-overlay" />
       <Hero />
-      <Countdown />
       <CalendarSection />
       <OrnamentDivider />
       <FlightsSection />
