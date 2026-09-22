@@ -7,11 +7,24 @@ const flights = [
   {
     from: "Indianapolis International (IND)",
     to: "Pisa International (PSA)",
+    via: "Dublin (DUB)",
+    airlines: "Aer Lingus",
+    duration: "12–15 hours",
+    price: "$780 – $1,100 round trip",
+    tip: "Best value right now: Aer Lingus flies nonstop from Indianapolis to Dublin, then one short hop on to Pisa. One airline, one ticket, one bag check — and Dublin has U.S. preclearance on the way home, so you land back in Indy as a domestic arrival.",
+    steps: [
+      { leg: "Indianapolis (IND) → Dublin (DUB)", note: "7 hrs nonstop · Aer Lingus (Mon/Wed/Thu/Fri/Sat)" },
+      { leg: "Dublin (DUB) → Pisa (PSA)", note: "2.5 hrs · Aer Lingus" },
+    ],
+  },
+  {
+    from: "Indianapolis International (IND)",
+    to: "Pisa International (PSA)",
     via: "Amsterdam Schiphol (AMS)",
     airlines: "KLM / Delta",
     duration: "14–17 hours",
     price: "$900 – $1,400 round trip",
-    tip: "KLM via Amsterdam Schiphol (AMS) offers the most reliable connection to Pisa. Aim for a 2+ hour layover in AMS.",
+    tip: "A solid alternative if the Dublin flight is full or the dates don't line up. Aim for a 2+ hour layover in Amsterdam.",
     steps: [
       { leg: "Indianapolis (IND) → Amsterdam (AMS)", note: "9–10 hrs · KLM or Delta" },
       { leg: "Amsterdam (AMS) → Pisa (PSA)", note: "2 hrs · KLM" },
@@ -138,6 +151,18 @@ export default function Travel() {
             </div>
           ))}
           <div className="rule-full" />
+          <div
+            className="mt-8 py-4 px-5 reveal"
+            style={{ background: "hsl(var(--gold-pale) / 0.5)", borderLeft: "2px solid hsl(var(--gold))" }}
+          >
+            <p className="kicker mb-2" style={{ color: "hsl(var(--burg))" }}>✦ Watching the Fares</p>
+            <EditableText
+              id="travel-fare-watch"
+              tag="p"
+              className="font-body text-sm italic text-ink-mid leading-relaxed"
+              defaultContent="We are keeping an eye on fares as the wedding gets closer and will update this page whenever a better route appears. Right now the Indianapolis–Dublin nonstop on Aer Lingus is the best value we have found. Set a price alert on <a href=&quot;https://flights.google.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;&quot;>Google Flights</a> for your dates so you are notified the moment prices drop, and check <a href=&quot;https://www.aerlingus.com/en-us/flights-from-indianapolis-to-italy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;&quot;>Aer Lingus</a> directly — their own site often undercuts the booking sites. Fares for May 2027 are open now and are usually lowest 6–10 months out."
+            />
+          </div>
         </div>
       </section>
 
@@ -329,7 +354,7 @@ export default function Travel() {
           <AIChat
             title="Travel Assistant"
             subtitle="Flights, transfers & getting to Lucca"
-            systemContext="You are a helpful wedding travel assistant for McKenna and Jordan's wedding in Lucca, Italy on May 22, 2027. Guests travel primarily from Indianapolis (IND) and Chicago (ORD). Help with flights, layovers, ground transport from Pisa Airport to Lucca (Villa Grabau), train options via Trenitalia, and travel logistics. Be concise and practical. Recommend Welcome Pickups for pre-booked transfers. Wedding week is May 19–25, 2027."
+            systemContext="You are a helpful wedding travel assistant for McKenna and Jordan's wedding in Lucca, Italy on May 22, 2027. Guests travel primarily from Indianapolis (IND) and Chicago (ORD). The best-value route from Indianapolis is the Aer Lingus nonstop IND–Dublin (about 7 hours, operating most days of the week) connecting on to Pisa; Dublin also offers U.S. preclearance on the return. KLM/Delta via Amsterdam is the alternative. Help with flights, layovers, ground transport from Pisa Airport to Lucca (Villa Grabau), train options via Trenitalia, and travel logistics. Without a rental car, guests should call Radio Taxi Lucca at +39 0583 1745 (or use the appTaxi app) to get between Villa Grabau and Lucca's city centre — Uber is not available. Be concise and practical. Recommend Welcome Pickups for pre-booked airport transfers. Wedding week is May 19–25, 2027."
             placeholder="e.g. Best flights from Indianapolis to Pisa?"
             suggestions={["Best flights from Indianapolis?","How do I get from the airport to Lucca?","Fly into Pisa or Florence?","How early should I arrive?"]}
           />
