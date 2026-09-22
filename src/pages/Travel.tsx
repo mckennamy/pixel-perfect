@@ -200,6 +200,117 @@ export default function Travel() {
         </div>
       </section>
 
+      {/* Getting around without a car */}
+      <section className="max-w-4xl mx-auto px-6 md:px-10 py-20">
+        <div className="reveal mb-10">
+          <p className="kicker mb-4">Villa Grabau → Lucca City Centre</p>
+          <h2 className="font-display italic text-burg" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 300 }}>
+            Getting Around Without a Car
+          </h2>
+          <EditableText
+            id="travel-noCar-desc"
+            tag="p"
+            className="font-body text-sm italic text-stone mt-3"
+            defaultContent="Uber and Lyft are not available in Lucca. The locals call a taxi by phone — and it works beautifully. Villa Grabau sits in San Pancrazio, about 5 km (a 10–12 minute drive) from the historic centre inside the walls."
+          />
+        </div>
+
+        <div
+          className="reveal p-7 mb-6"
+          style={{
+            background: "hsl(var(--gold-pale) / 0.5)",
+            borderLeft: "2px solid hsl(var(--gold))",
+            borderRadius: "4px",
+          }}
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <p className="kicker" style={{ color: "hsl(var(--burg))" }}>Radio Taxi Lucca — Our Recommendation</p>
+            <span className="kicker px-2 py-0.5" style={{ background: "hsl(var(--chart))", color: "white", fontSize: "0.48rem" }}>
+              Recommended
+            </span>
+          </div>
+          <EditableText
+            id="travel-noCar-radiotaxi"
+            tag="p"
+            className="font-body text-sm text-ink-mid leading-relaxed mb-4"
+            defaultContent="This is the city's main 24/7 taxi consortium and the easiest way to move between the villa and town. Call, give the address <em>Villa Grabau, Via di Matraia 269, San Pancrazio, Lucca</em>, and a car usually arrives within 10–20 minutes. You can also book ahead for a set pick-up time — worth doing for dinner reservations and late evenings, when cars are in demand."
+          />
+          <div className="flex flex-wrap gap-4 mb-4">
+            <a
+              href="tel:+3905831745"
+              className="kicker px-5 py-2.5"
+              style={{ background: "hsl(var(--burg))", color: "hsl(var(--cream))", fontWeight: 700, borderRadius: "3px" }}
+            >
+              Call +39 0583 1745
+            </a>
+            <a
+              href="https://luccataxi.it/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kicker px-5 py-2.5"
+              style={{ border: "1px solid hsl(var(--burg) / 0.35)", color: "hsl(var(--burg))", fontWeight: 700, borderRadius: "3px" }}
+            >
+              Lucca Taxi Website →
+            </a>
+          </div>
+          <EditableText
+            id="travel-noCar-apptaxi"
+            tag="p"
+            className="font-body text-xs italic text-stone leading-relaxed"
+            defaultContent="If you would rather not phone, download the <strong>appTaxi</strong> app before you leave home — it books the same Lucca fleet from your phone, shows the car on a map, and lets you pay by card. Expect roughly €20–30 each way between the villa and the city walls; fares are metered (€4.30 to start, €9 minimum) and rise slightly at night and on Sundays."
+          />
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-5 reveal">
+          {[
+            {
+              id: "alt-taxi",
+              title: "Back-Up Taxi Numbers",
+              body: "If the main line is busy, try <strong>Taxi Indipendenti · +39 0583 1646464</strong>, <strong>Consorzio Tassisti Lucchesi · +39 0583 333434</strong>, or the ranks at <strong>Piazzale Verdi · +39 0583 581305</strong> and <strong>Piazza Santa Maria · +39 0583 494190</strong>. There is also a wheelchair-accessible vehicle with a lift — request it when you call.",
+            },
+            {
+              id: "alt-bus",
+              title: "Local Bus",
+              body: "Autolinee Toscane runs inexpensive local buses between the villages north of Lucca and Piazzale Verdi, just inside the walls. It is the cheapest option (a couple of euro) but runs infrequently and stops early in the evening — check times the same day at at-bus.it before relying on it.",
+            },
+            {
+              id: "alt-bike",
+              title: "Bicycles & On Foot",
+              body: "Once you are inside the walls, Lucca is entirely walkable, and renting a bike for a few euro an hour is the loveliest way to see it — the tree-lined path along the top of the Renaissance walls circles the whole city. Shops sit right by Porta Santa Maria and Piazzale Verdi.",
+            },
+          ].map((c) => (
+            <div
+              key={c.id}
+              className="p-6"
+              style={{
+                background: "hsl(var(--parchment))",
+                border: "1px solid hsl(var(--burg) / 0.2)",
+                borderRadius: "4px",
+              }}
+            >
+              <p className="kicker mb-3" style={{ color: "hsl(var(--burg))" }}>{c.title}</p>
+              <EditableText
+                id={`travel-noCar-${c.id}`}
+                tag="p"
+                className="font-body text-sm italic text-ink-mid leading-relaxed"
+                defaultContent={c.body}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="reveal mt-6 py-4 px-5"
+          style={{ background: "hsl(var(--chart-pale))", borderLeft: "2px solid hsl(var(--chart))" }}
+        >
+          <p className="font-body text-sm italic text-ink-mid leading-relaxed">
+            A tip from us: save the taxi number in your phone before you fly, and when you find a driver you
+            like, ask for their direct mobile number. Most are happy to be your ride for the week — it is how
+            everyone here does it.
+          </p>
+        </div>
+      </section>
+
       {/* AI assistant */}
       <section className="max-w-2xl mx-auto px-6 md:px-10 py-20">
         <div className="reveal mb-8">
