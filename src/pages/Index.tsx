@@ -12,6 +12,7 @@ const Index = () => {
     <div className="min-h-screen">
       <div className="noise-overlay" />
       <Hero />
+      <Countdown />
       <CalendarSection />
       <OrnamentDivider />
       <FlightsSection />
