@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const RESERVATIONS_DUE = new Date(2026, 10, 22, 23, 59, 59); // Nov 22, 2026 end of day, local
 const WEDDING_DAY = new Date(2027, 4, 22, 0, 0, 0); // May 22, 2027, local
@@ -22,11 +23,13 @@ const CountdownCard = ({
   title,
   target,
   expiredMessage,
+  cta,
 }: {
   label: string;
   title: string;
   target: Date;
   expiredMessage: string;
+  cta?: { to: string; text: string };
 }) => {
   const [parts, setParts] = useState<Parts | null>(() => diffParts(target));
 
