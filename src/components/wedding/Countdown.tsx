@@ -116,6 +116,7 @@ const Countdown = () => {
             title="Reservations Due"
             target={RESERVATIONS_DUE}
             expiredMessage="The reservation window has now closed."
+            cta={{ to: "/reservations", text: "Reserve Your Stay" }}
           />
           <CountdownCard
             label="Celebration"
