@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import AIChat from "@/components/wedding/AIChat";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 import EditableText from "@/components/wedding/EditableText";
+import FareWatch from "@/components/wedding/FareWatch";
 
 const flights = [
   {
