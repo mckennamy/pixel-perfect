@@ -151,6 +151,18 @@ export default function Travel() {
             </div>
           ))}
           <div className="rule-full" />
+          <div
+            className="mt-8 py-4 px-5 reveal"
+            style={{ background: "hsl(var(--gold-pale) / 0.5)", borderLeft: "2px solid hsl(var(--gold))" }}
+          >
+            <p className="kicker mb-2" style={{ color: "hsl(var(--burg))" }}>✦ Watching the Fares</p>
+            <EditableText
+              id="travel-fare-watch"
+              tag="p"
+              className="font-body text-sm italic text-ink-mid leading-relaxed"
+              defaultContent="We are keeping an eye on fares as the wedding gets closer and will update this page whenever a better route appears. Right now the Indianapolis–Dublin nonstop on Aer Lingus is the best value we have found. Set a price alert on <a href=&quot;https://flights.google.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;&quot;>Google Flights</a> for your dates so you are notified the moment prices drop, and check <a href=&quot;https://www.aerlingus.com/en-us/flights-from-indianapolis-to-italy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&quot;font-weight:600;color:hsl(var(--burg));text-decoration:underline;text-decoration-color:hsl(var(--gold));text-underline-offset:3px;&quot;>Aer Lingus</a> directly — their own site often undercuts the booking sites. Fares for May 2027 are open now and are usually lowest 6–10 months out."
+            />
+          </div>
         </div>
       </section>
 
