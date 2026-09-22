@@ -368,6 +368,25 @@ export default function Excursions() {
               className="font-body text-sm italic text-stone mt-3"
               defaultContent="Lucca's best dining — a hand-picked list of where we'd send family. All within a short drive of Villa Grabau. Reserve ahead, especially on weekends."
             />
+            <p className="font-body text-sm text-ink-mid mt-3">
+              Want even more? Browse the{" "}
+              <a
+                href="https://guide.michelin.com/us/en/toscana/lucca/restaurants"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="kicker"
+                style={{
+                  color: "hsl(var(--burg))",
+                  fontWeight: 700,
+                  textDecoration: "underline",
+                  textDecorationColor: "hsl(var(--gold))",
+                  textUnderlineOffset: "3px",
+                }}
+              >
+                MICHELIN Guide's Lucca restaurants
+              </a>{" "}
+              — everything from Bib Gourmand gems to the area's Michelin-starred tables, all within easy reach of the villa.
+            </p>
           </div>
           <div className="space-y-0 reveal">
             {restaurants.map((r, i) => (
