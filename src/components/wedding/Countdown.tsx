@@ -85,6 +85,20 @@ const CountdownCard = ({
       ) : (
         <p className="font-body italic text-[1.05rem] text-ink-mid">{expiredMessage}</p>
       )}
+
+      {cta && (
+        <Link
+          to={cta.to}
+          className="inline-block mt-7 px-6 py-2.5 kicker transition-opacity hover:opacity-80"
+          style={{
+            color: "hsl(var(--parchment))",
+            background: "hsl(var(--burg))",
+            border: "1px solid hsl(var(--burg))",
+          }}
+        >
+          {cta.text}
+        </Link>
+      )}
     </div>
   );
 };
