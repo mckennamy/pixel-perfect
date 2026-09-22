@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const RESERVATIONS_DUE = new Date(2026, 10, 22, 23, 59, 59); // Nov 22, 2026 end of day, local
 const WEDDING_DAY = new Date(2027, 4, 22, 0, 0, 0); // May 22, 2027, local
@@ -22,11 +23,13 @@ const CountdownCard = ({
   title,
   target,
   expiredMessage,
+  cta,
 }: {
   label: string;
   title: string;
   target: Date;
   expiredMessage: string;
+  cta?: { to: string; text: string };
 }) => {
   const [parts, setParts] = useState<Parts | null>(() => diffParts(target));
 
@@ -82,6 +85,20 @@ const CountdownCard = ({
       ) : (
         <p className="font-body italic text-[1.05rem] text-ink-mid">{expiredMessage}</p>
       )}
+
+      {cta && (
+        <Link
+          to={cta.to}
+          className="inline-block mt-7 px-6 py-2.5 kicker transition-opacity hover:opacity-80"
+          style={{
+            color: "hsl(var(--parchment))",
+            background: "hsl(var(--burg))",
+            border: "1px solid hsl(var(--burg))",
+          }}
+        >
+          {cta.text}
+        </Link>
+      )}
     </div>
   );
 };
@@ -99,6 +116,7 @@ const Countdown = () => {
             title="Reservations Due"
             target={RESERVATIONS_DUE}
             expiredMessage="The reservation window has now closed."
+            cta={{ to: "/reservations", text: "Reserve Your Stay" }}
           />
           <CountdownCard
             label="Celebration"
