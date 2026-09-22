@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import Countdown from "@/components/wedding/Countdown";
 import PhotoPlaceholder from "@/components/wedding/PhotoPlaceholder";
 import EditableText from "@/components/wedding/EditableText";
 
@@ -87,6 +88,9 @@ export default function OurStory() {
           />
         </div>
       </div>
+
+      {/* Countdown */}
+      <Countdown />
 
       {/* Hero */}
       <header className="pt-12 pb-20 text-center px-6">
