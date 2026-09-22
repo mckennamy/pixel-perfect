@@ -55,6 +55,45 @@ export type Database = {
           },
         ]
       }
+      fare_watch: {
+        Row: {
+          airline: string | null
+          checked_on: string
+          created_at: string
+          headline: string
+          id: string
+          note: string | null
+          origin: string
+          price_high: number | null
+          price_low: number | null
+          routing: string
+        }
+        Insert: {
+          airline?: string | null
+          checked_on?: string
+          created_at?: string
+          headline: string
+          id?: string
+          note?: string | null
+          origin: string
+          price_high?: number | null
+          price_low?: number | null
+          routing: string
+        }
+        Update: {
+          airline?: string | null
+          checked_on?: string
+          created_at?: string
+          headline?: string
+          id?: string
+          note?: string | null
+          origin?: string
+          price_high?: number | null
+          price_low?: number | null
+          routing?: string
+        }
+        Relationships: []
+      }
       flight_submissions: {
         Row: {
           created_at: string
