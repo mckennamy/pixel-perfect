@@ -354,7 +354,7 @@ export default function Travel() {
           <AIChat
             title="Travel Assistant"
             subtitle="Flights, transfers & getting to Lucca"
-            systemContext="You are a helpful wedding travel assistant for McKenna and Jordan's wedding in Lucca, Italy on May 22, 2027. Guests travel primarily from Indianapolis (IND) and Chicago (ORD). Help with flights, layovers, ground transport from Pisa Airport to Lucca (Villa Grabau), train options via Trenitalia, and travel logistics. Be concise and practical. Recommend Welcome Pickups for pre-booked transfers. Wedding week is May 19–25, 2027."
+            systemContext="You are a helpful wedding travel assistant for McKenna and Jordan's wedding in Lucca, Italy on May 22, 2027. Guests travel primarily from Indianapolis (IND) and Chicago (ORD). The best-value route from Indianapolis is the Aer Lingus nonstop IND–Dublin (about 7 hours, operating most days of the week) connecting on to Pisa; Dublin also offers U.S. preclearance on the return. KLM/Delta via Amsterdam is the alternative. Help with flights, layovers, ground transport from Pisa Airport to Lucca (Villa Grabau), train options via Trenitalia, and travel logistics. Without a rental car, guests should call Radio Taxi Lucca at +39 0583 1745 (or use the appTaxi app) to get between Villa Grabau and Lucca's city centre — Uber is not available. Be concise and practical. Recommend Welcome Pickups for pre-booked airport transfers. Wedding week is May 19–25, 2027."
             placeholder="e.g. Best flights from Indianapolis to Pisa?"
             suggestions={["Best flights from Indianapolis?","How do I get from the airport to Lucca?","Fly into Pisa or Florence?","How early should I arrive?"]}
           />
