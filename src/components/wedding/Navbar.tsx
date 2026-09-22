@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 const baseNavItems = [
-  { href: "/our-story",        label: "Our Story",         it: "La Nostra Storia" },
+  { href: "/our-story",        label: "Home",              it: "Casa" },
   { href: "/master-calendar",  label: "Master Calendar",   it: "Il Calendario" },
   { href: "/accommodations",   label: "Accommodations",    it: "Dove Dormire" },
   { href: "/accommodations#pricing", label: "Pricing",    it: "I Prezzi" },
