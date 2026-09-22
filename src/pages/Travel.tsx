@@ -7,11 +7,24 @@ const flights = [
   {
     from: "Indianapolis International (IND)",
     to: "Pisa International (PSA)",
+    via: "Dublin (DUB)",
+    airlines: "Aer Lingus",
+    duration: "12–15 hours",
+    price: "$780 – $1,100 round trip",
+    tip: "Best value right now: Aer Lingus flies nonstop from Indianapolis to Dublin, then one short hop on to Pisa. One airline, one ticket, one bag check — and Dublin has U.S. preclearance on the way home, so you land back in Indy as a domestic arrival.",
+    steps: [
+      { leg: "Indianapolis (IND) → Dublin (DUB)", note: "7 hrs nonstop · Aer Lingus (Mon/Wed/Thu/Fri/Sat)" },
+      { leg: "Dublin (DUB) → Pisa (PSA)", note: "2.5 hrs · Aer Lingus" },
+    ],
+  },
+  {
+    from: "Indianapolis International (IND)",
+    to: "Pisa International (PSA)",
     via: "Amsterdam Schiphol (AMS)",
     airlines: "KLM / Delta",
     duration: "14–17 hours",
     price: "$900 – $1,400 round trip",
-    tip: "KLM via Amsterdam Schiphol (AMS) offers the most reliable connection to Pisa. Aim for a 2+ hour layover in AMS.",
+    tip: "A solid alternative if the Dublin flight is full or the dates don't line up. Aim for a 2+ hour layover in Amsterdam.",
     steps: [
       { leg: "Indianapolis (IND) → Amsterdam (AMS)", note: "9–10 hrs · KLM or Delta" },
       { leg: "Amsterdam (AMS) → Pisa (PSA)", note: "2 hrs · KLM" },
