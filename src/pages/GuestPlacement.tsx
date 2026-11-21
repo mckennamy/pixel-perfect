@@ -42,7 +42,7 @@ export default function GuestPlacement() {
 
   // Authorize: either guest-mode "mckenna myers" OR admin role
   useEffect(() => {
-    const stored = sessionStorage.getItem("wedding_guest");
+    const stored = localStorage.getItem("wedding_guest");
     let allowed = false;
     if (stored) {
       try { const g = JSON.parse(stored); if (g?.name?.toLowerCase?.() === "mckenna myers") allowed = true; } catch { /* ignore */ }

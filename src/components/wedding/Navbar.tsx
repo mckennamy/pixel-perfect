@@ -31,7 +31,7 @@ export default function Navbar() {
 
   useEffect(() => {
     // Show rehearsal tab only for guests on the rehearsal tier
-    const stored = sessionStorage.getItem("wedding_guest");
+    const stored = localStorage.getItem("wedding_guest");
     if (stored) {
       try {
         const g = JSON.parse(stored);
@@ -41,7 +41,7 @@ export default function Navbar() {
             g.name.trim().toLowerCase() === "mckenna myers"
         );
         // Refresh tier from DB in case invite_tier changed after the
-        // guest first unlocked the site (sessionStorage would be stale).
+        // guest first unlocked the site (localStorage would be stale).
         if (g?.id) {
           supabase
             .from("guests")
@@ -51,7 +51,7 @@ export default function Navbar() {
             .then(({ data }) => {
               if (!data) return;
               const fresh = { ...g, tier: data.invite_tier, name: data.full_name };
-              sessionStorage.setItem("wedding_guest", JSON.stringify(fresh));
+              localStorage.setItem("wedding_guest", JSON.stringify(fresh));
               setShowRehearsal(data.invite_tier === "rehearsal");
             });
         }

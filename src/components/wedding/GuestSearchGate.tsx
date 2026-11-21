@@ -51,7 +51,7 @@ export default function GuestSearchGate({ onUnlock }: Props) {
     // from this browser. Sign out so EditableText / Admin gating sees them as
     // a regular guest.
     try { await supabase.auth.signOut(); } catch { /* ignore */ }
-    sessionStorage.setItem(
+    localStorage.setItem(
       "wedding_guest",
       JSON.stringify({ id: g.id, name: g.full_name, tier: g.invite_tier })
     );
@@ -61,7 +61,7 @@ export default function GuestSearchGate({ onUnlock }: Props) {
   const submitPasscode = () => {
     if (!pendingAdmin) return;
     if (passcode === "4525") {
-      sessionStorage.setItem(
+      localStorage.setItem(
         "wedding_guest",
         JSON.stringify({ id: pendingAdmin.id, name: pendingAdmin.full_name, tier: pendingAdmin.invite_tier })
       );

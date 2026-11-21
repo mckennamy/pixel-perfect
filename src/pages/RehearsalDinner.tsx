@@ -31,11 +31,11 @@ export default function RehearsalDinner() {
   // discover via this page that they aren't invited to the rehearsal.
   useEffect(() => {
     try {
-      const stored = sessionStorage.getItem("wedding_guest");
+      const stored = localStorage.getItem("wedding_guest");
       if (stored) {
         const g = JSON.parse(stored);
         if (g?.tier === "rehearsal") setGranted(true);
-        // Re-check tier from DB so stale sessionStorage doesn't lock out
+        // Re-check tier from DB so stale localStorage doesn't lock out
         // guests whose invite_tier was updated after they first unlocked.
         if (g?.id) {
           supabase
@@ -46,7 +46,7 @@ export default function RehearsalDinner() {
             .then(({ data }) => {
               if (data?.invite_tier === "rehearsal") {
                 const fresh = { ...g, tier: "rehearsal" };
-                sessionStorage.setItem("wedding_guest", JSON.stringify(fresh));
+                localStorage.setItem("wedding_guest", JSON.stringify(fresh));
                 setGranted(true);
               }
               setChecked(true);

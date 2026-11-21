@@ -20,7 +20,7 @@ export default function EnvelopeLanding() {
 
   // Restore guest unlock from session
   useEffect(() => {
-    const stored = sessionStorage.getItem("wedding_guest");
+    const stored = localStorage.getItem("wedding_guest");
     if (stored) {
       try { setGuest(JSON.parse(stored)); } catch { /* ignore */ }
     }
@@ -34,7 +34,7 @@ export default function EnvelopeLanding() {
     if (stage === "risen") {
       const t = setTimeout(() => {
         // If guest already unlocked in session, skip the search gate
-        const existing = sessionStorage.getItem("wedding_guest");
+        const existing = localStorage.getItem("wedding_guest");
         setStage(existing ? "invitation" : "search");
       }, 900);
       return () => clearTimeout(t);
