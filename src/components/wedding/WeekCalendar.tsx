@@ -56,14 +56,14 @@ export const details: Record<number, DayDetail> = {
   },
   21: {
     heading: "Free Day",
-    time: "Rehearsal dinner — invitation only",
+    time: "Rehearsal ceremony 5:30 PM (TBD) · dinner to follow — invitation only",
     attire: "",
     description:
       "An unhurried day, entirely yours. Lean into Pisa, drift down to the Tuscan coast, chase a vineyard in the hills — or claim a lounger at one of our two pools at Villa Grabau and L'Arancera and stay put. Rehearsal dinner guests will find their evening on a private invitation page.",
     activities: [
       { title: "Mattina · Morning",     note: "On your own · a slow start, a cappuccino in town, the day stretches ahead" },
       { title: "Pomeriggio · Afternoon", note: "On your own · Pisa, the coast, a hillside winery, or pool-side at the villa" },
-      { title: "Sera · Evening",         note: "On your own · rehearsal dinner guests, see your private invitation page" },
+      { title: "Sera · Evening",         note: "On your own · rehearsal ceremony 5:30 PM (TBD), dinner to follow · subject to change · see your private invitation page" },
     ],
   },
   22: {

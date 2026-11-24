@@ -21,7 +21,7 @@ const weddingTimeline = [
 
 const weekEvents = [
   { date: "May 20 · Tuesday",    event: "Welcome Party",               time: "7:00 PM",  location: "L'Arancera",    note: "Cocktail attire. An evening to gather and celebrate." },
-  { date: "May 21 · Wednesday",  event: "Rehearsal Dinner",            time: "7:30 PM",  location: "Invitation Only",note: "Invited guests will receive a separate communication." },
+  { date: "May 21 · Wednesday",  event: "Rehearsal Ceremony & Dinner",  time: "5:30 PM (TBD)",  location: "Invitation Only",note: "Rehearsal ceremony at 5:30 PM with dinner to follow — subject to change as we get closer." },
   { date: "May 22 · Thursday",   event: "Wedding Ceremony & Reception",time: "4:00 PM",  location: "Villa Grabau",  note: "Garden Party Formal attire." },
 ];
 

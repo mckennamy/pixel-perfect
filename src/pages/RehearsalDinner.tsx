@@ -4,21 +4,18 @@ import { supabase } from "@/integrations/supabase/client";
 
 const details = {
   date: "Wednesday, May 21, 2027",
-  time: "7:30 PM",
+  time: "5:30 PM (TBD) · dinner to follow",
   venue: "La Rancera",
   address: "Lucca, Tuscany, Italy",
   dressCode: "Smart Casual — relaxed but polished",
   notes:
-    "Dinner will be served family style with traditional Tuscan courses and wine. Plan to arrive by 7:15 PM. The evening will wrap around 10:30 PM.",
+    "Dinner will be served family style with traditional Tuscan courses and wine. The rehearsal ceremony is scheduled for 5:30 PM (TBD) with dinner to follow. Timing is subject to change as we get closer.",
 };
 
 const agenda = [
-  { time: "7:15 PM",  item: "Arrival & Aperitivo" },
-  { time: "7:30 PM",  item: "Rehearsal Dinner Begins" },
-  { time: "8:00 PM",  item: "First Course" },
-  { time: "8:45 PM",  item: "Main Course" },
-  { time: "9:30 PM",  item: "Toasts & Dessert" },
-  { time: "10:30 PM", item: "Evening Closes" },
+  { time: "5:30 PM (TBD)", item: "Rehearsal Ceremony" },
+  { time: "To Follow",     item: "Rehearsal Dinner" },
+  { time: "TBD",           item: "Timing subject to change as we get closer" },
 ];
 
 export default function RehearsalDinner() {
